@@ -71,6 +71,116 @@ static const char *RcsId = "$Id:  $";
 //  ReloadSystemProperties      |  reload_system_properties
 //  SetRefIncoherence           |  set_ref_incoherence
 //================================================================
+//	Attributes managed are:
+//	LiberaModel:	
+//	DDEnabled:	
+//	DDBufferSize:	
+//	DDDecimationFactor:	
+//	DDTriggerOffset:	
+//	DDBufferFreezingEnabled:	
+//	DDBufferFrozen:	
+//	DDTriggerCounter:	
+//	ExternalTriggerEnabled:	
+//	ExternalTriggerDelay:	
+//	SAEnabled:	
+//	VaSA:	
+//	VbSA:	
+//	VcSA:	
+//	VdSA:	
+//	XPosSA:	
+//	ZPosSA:	
+//	SumSA:	
+//	QuadSA:	
+//	CxSA:	
+//	CzSA:	
+//	SAStatNumSamples:	
+//	XMeanPosSA:	
+//	ZMeanPosSA:	
+//	XRMSPosSA:	
+//	ZRMSPosSA:	
+//	XPeakPosSA:	
+//	ZPeakPosSA:	
+//	SumMeanSA:	
+//	ADCEnabled:	
+//	ADCBufferSize:	
+//	PMOffset:	
+//	PMNotified:	
+//	PMNotificationCounter:	
+//	InterlockXNotified:	
+//	InterlockZNotified:	
+//	InterlockAttnNotified:	
+//	InterlockADCPreFilterNotified:	
+//	InterlockADCPostFilterNotified:	
+//	XLow:	
+//	XHigh:	
+//	ZLow:	
+//	ZHigh:	
+//	AutoSwitchingEnabled:	
+//	Switches:	
+//	ExternalSwitching:	
+//	SwitchingDelay:	
+//	OffsetTune:	
+//	CompensateTune:	
+//	DSCMode:	
+//	AGCEnabled:	
+//	Gain:	
+//	HasMAFSupport:	
+//	MAFLength:	
+//	MAFDelay:	
+//	MachineTime:	
+//	TimePhase:	
+//	SystemTime:	
+//	SCPLLStatus:	
+//	MCPLLStatus:	
+//	HWTemperature:	
+//	Fan1Speed:	
+//	Fan2Speed:	
+//	Incoherence:	
+//	RefIncoherence:	
+//	MaxIncoherence:	
+//	MaxIncoherenceDrift:	
+//	UpTime:	
+//	CpuUsage:	
+//	FreeMemory:	
+//	RamFsUsage:	
+//	UseLiberaSAData:	
+//	XPosDD:	
+//	ZPosDD:	
+//	QuadDD:	
+//	SumDD:	
+//	VaDD:	
+//	VbDD:	
+//	VcDD:	
+//	VdDD:	
+//	XPosSAHistory:	
+//	ZPosSAHistory:	
+//	SumSAHistory:	
+//	XPosPM:	
+//	ZPosPM:	
+//	QuadPM:	
+//	SumPM:	
+//	VaPM:	
+//	VbPM:	
+//	VcPM:	
+//	VdPM:	
+//	ADCChannelA:	
+//	ADCChannelB:	
+//	ADCChannelC:	
+//	ADCChannelD:	
+//	IaDD:	
+//	IbDD:	
+//	IcDD:	
+//	IdDD:	
+//	QaDD:	
+//	QbDD:	
+//	QcDD:	
+//	QdDD:	
+//	UserData:	
+//	InterlockConfiguration:	
+//	logs:	
+
+
+
 
 namespace LiberaBrilliancePlus_ns
 {
@@ -128,11 +238,18 @@ LiberaBrilliancePlus::LiberaBrilliancePlus(Tango::DeviceClass *cl, const char *s
 //--------------------------------------------------------
 void LiberaBrilliancePlus::delete_device()
 {
+	DEBUG_STREAM << "LiberaBrilliancePlus::delete_device() " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::delete_device) ENABLED START -----*/
 
 	//	Delete device allocated objects
+    if (m_libera) {
+        m_libera->Disconnect();
+        delete m_libera;
+        m_libera = NULL;
+    }
 
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::delete_device
+    /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::delete_device
+	
 	
 }
 
@@ -146,6 +263,7 @@ void LiberaBrilliancePlus::delete_device()
 void LiberaBrilliancePlus::init_device()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::init_device() create device " << device_name << endl;
+	
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::init_device_before) ENABLED START -----*/
 
@@ -159,7 +277,162 @@ void LiberaBrilliancePlus::init_device()
 	
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::init_device) ENABLED START -----*/
 
+	std::string board("raf6");  // TODO: get raf board name from device properties
+
 	//	Initialize device
+    m_libera = new LiberaClient(this, board);
+
+    // Add scalar values
+    m_libera->AddScalar("", attr_DDDecimationFactor_read);
+    m_libera->AddScalar("", attr_DDTriggerOffset_read);
+    m_libera->AddScalar("", attr_DDBufferFreezingEnabled_read);
+    m_libera->AddScalar("", attr_DDBufferFrozen_read);
+    m_libera->AddScalar("", attr_DDTriggerCounter_read);
+    m_libera->AddScalar("", attr_ExternalTriggerEnabled_read);
+    m_libera->AddScalar("", attr_ExternalTriggerDelay_read);
+
+    m_libera->AddScalar("", attr_CxSA_read);
+    m_libera->AddScalar("", attr_CzSA_read);
+    m_libera->AddScalar("", attr_SAStatNumSamples_read);
+    m_libera->AddScalar("", attr_XMeanPosSA_read);
+    m_libera->AddScalar("", attr_ZMeanPosSA_read);
+    m_libera->AddScalar("", attr_XRMSPosSA_read);
+    m_libera->AddScalar("", attr_ZRMSPosSA_read);
+    m_libera->AddScalar("", attr_XPeakPosSA_read);
+    m_libera->AddScalar("", attr_ZPeakPosSA_read);
+    m_libera->AddScalar("", attr_SumMeanSA_read);
+
+    m_libera->AddScalar("", attr_PMOffset_read);
+    m_libera->AddScalar("", attr_PMNotified_read);
+    m_libera->AddScalar("", attr_PMNotificationCounter_read);
+
+    m_libera->AddScalar("", attr_InterlockXNotified_read);
+    m_libera->AddScalar("", attr_InterlockZNotified_read);
+    m_libera->AddScalar("", attr_InterlockAttnNotified_read);
+    m_libera->AddScalar("", attr_InterlockADCPreFilterNotified_read);
+    m_libera->AddScalar("", attr_InterlockADCPostFilterNotified_read);
+
+    m_libera->AddScalar("", attr_XLow_read);
+    m_libera->AddScalar("", attr_XHigh_read);
+    m_libera->AddScalar("", attr_ZLow_read);
+    m_libera->AddScalar("", attr_ZHigh_read);
+
+    m_libera->AddScalar("", attr_AutoSwitchingEnabled_read);
+    m_libera->AddScalar("", attr_Switches_read);
+    m_libera->AddScalar("", attr_ExternalSwitching_read);
+    m_libera->AddScalar("", attr_SwitchingDelay_read);
+
+    m_libera->AddScalar("", attr_OffsetTune_read);
+    m_libera->AddScalar("", attr_CompensateTune_read);
+
+    m_libera->AddScalar("", attr_DSCMode_read);
+    m_libera->AddScalar("", attr_AGCEnabled_read);
+    m_libera->AddScalar("", attr_Gain_read);
+
+    m_libera->AddScalar("", attr_HasMAFSupport_read);
+    m_libera->AddScalar("", attr_MAFLength_read);
+    m_libera->AddScalar("", attr_MAFDelay_read);
+
+    m_libera->AddScalar("", attr_MachineTime_read);
+    m_libera->AddScalar("tbt.phase_offset", attr_TimePhase_read);
+    m_libera->AddScalar("", attr_SystemTime_read);
+    m_libera->AddScalar("", attr_SCPLLStatus_read);
+    m_libera->AddScalar("", attr_MCPLLStatus_read);
+
+    m_libera->AddScalar("", attr_HWTemperature_read);
+    m_libera->AddScalar("", attr_Fan1Speed_read);
+    m_libera->AddScalar("", attr_Fan2Speed_read);
+
+    m_libera->AddScalar("", attr_Incoherence_read);
+    m_libera->AddScalar("", attr_RefIncoherence_read);
+    m_libera->AddScalar("", attr_MaxIncoherence_read);
+    m_libera->AddScalar("", attr_MaxIncoherenceDrift_read);
+
+    m_libera->AddScalar("", attr_UpTime_read);
+    m_libera->AddScalar("", attr_CpuUsage_read);
+    m_libera->AddScalar("", attr_FreeMemory_read);
+    m_libera->AddScalar("", attr_RamFsUsage_read);
+
+    m_libera->AddScalar("", attr_UseLiberaSAData_read);
+    m_libera->AddScalar("", attr_XPosSAHistory_read);
+    m_libera->AddScalar("", attr_ZPosSAHistory_read);
+    m_libera->AddScalar("", attr_SumSAHistory_read);
+
+    m_libera->AddScalar("", attr_UserData_read);
+    m_libera->AddScalar("", attr_InterlockConfiguration_read);
+
+    m_libera->AddLogsRead(attr_logs_read, 2048);
+
+    // Add signals
+    m_signalDdc  = m_libera->AddSignal<Tango::DevDouble>(
+        "signals.ddc_synthetic",
+        250000,
+        attr_DDEnabled_read,
+        attr_DDBufferSize_read,
+        attr_VaDD_read,
+        attr_VbDD_read,
+        attr_VcDD_read,
+        attr_VdDD_read,
+        attr_SumDD_read,
+        attr_QuadDD_read,
+        attr_XPosDD_read,
+        attr_ZPosDD_read);
+
+    m_signalSA  = m_libera->AddSignal<Tango::DevDouble>(
+        "signals.sa",
+        1,
+        attr_SAEnabled_read,
+        attr_SABufferSize_read_added,
+        attr_VaSA_read,
+        attr_VbSA_read,
+        attr_VcSA_read,
+        attr_VdSA_read,
+        attr_SumSA_read,
+        attr_QuadSA_read,
+        attr_XPosSA_read,
+        attr_ZPosSA_read);
+
+    m_signalPM  = m_libera->AddSignal<Tango::DevDouble>(
+        "postmortem.signals.ddc_synthetic",
+        16384,
+        attr_PMEnabled_read_added,
+        attr_PMBufferSize_read_added,
+        attr_VaPM_read,
+        attr_VbPM_read,
+        attr_VcPM_read,
+        attr_VdPM_read,
+        attr_SumPM_read,
+        attr_QuadPM_read,
+        attr_XPosPM_read,
+        attr_ZPosPM_read);
+
+    m_signalADC  = m_libera->AddSignal<Tango::DevShort>(
+        "signals.adc",
+        250000,
+        attr_ADCEnabled_read,
+        attr_ADCBufferSize_read,
+        attr_ADCChannelA_read,
+        attr_ADCChannelB_read,
+        attr_ADCChannelC_read,
+        attr_ADCChannelD_read);
+
+    m_signalDdcRaw  = m_libera->AddSignal<Tango::DevDouble>(
+        "signals.ddc_raw",
+        250000,
+        attr_DDEnabled_read,
+        attr_DDBufferSize_read,
+        attr_IaDD_read,
+        attr_QaDD_read,
+        attr_IbDD_read,
+        attr_QbDD_read,
+        attr_IcDD_read,
+        attr_QcDD_read,
+        attr_IdDD_read,
+        attr_QdDD_read);
+
+    if (m_libera->Connect()) {
+        set_state(Tango::ON);
+    }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::init_device
 }
@@ -169,7 +442,7 @@ void LiberaBrilliancePlus::init_device()
 //--------------------------------------------------------
 /**
  *	Method      : LiberaBrilliancePlus::get_device_property()
- *	Description : //	Add your own code to initialize
+ *	Description : Read database to initialize property data members.
  */
 //--------------------------------------------------------
 void LiberaBrilliancePlus::get_device_property()
@@ -177,6 +450,7 @@ void LiberaBrilliancePlus::get_device_property()
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::get_device_property_before) ENABLED START -----*/
 
 	//	Initialize property data members
+    DEBUG_STREAM << "LiberaBrilliancePlus::get_device_property() get device properties " << device_name << endl;
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::get_device_property_before
 
@@ -555,6 +829,7 @@ void LiberaBrilliancePlus::get_device_property()
 
 }
 
+
 //--------------------------------------------------------
 /**
  *	Method      : LiberaBrilliancePlus::always_executed_hook()
@@ -564,6 +839,7 @@ void LiberaBrilliancePlus::get_device_property()
 void LiberaBrilliancePlus::always_executed_hook()
 {
 	INFO_STREAM << "LiberaBrilliancePlus::always_executed_hook()  " << device_name << endl;
+	
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::always_executed_hook) ENABLED START -----*/
 
 	//	code always executed before all requests
@@ -573,13 +849,14 @@ void LiberaBrilliancePlus::always_executed_hook()
 
 
 
+
 //--------------------------------------------------------
 /**
  *	Method      : LiberaBrilliancePlus::read_attr_hardware()
  *	Description : Hardware acquisition for attributes.
  */
 //--------------------------------------------------------
-void LiberaBrilliancePlus::read_attr_hardware(vector<long> &attr_list)
+void LiberaBrilliancePlus::read_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_attr_hardware(vector<long> &attr_list) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_attr_hardware) ENABLED START -----*/
@@ -610,6 +887,7 @@ void LiberaBrilliancePlus::read_LiberaModel(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_LiberaModel
 }
+
 //--------------------------------------------------------
 /**
  *	Read DDEnabled attribute
@@ -629,7 +907,7 @@ void LiberaBrilliancePlus::read_DDEnabled(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DDEnabled
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write DDEnabled attribute values to hardware.
@@ -637,7 +915,7 @@ void LiberaBrilliancePlus::read_DDEnabled(Tango::Attribute &attr)
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_DDEnabled(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_DDEnabled(Tango::Attribute &attr) entering... " << endl;
@@ -648,7 +926,7 @@ void LiberaBrilliancePlus::write_DDEnabled(Tango::WAttribute &attr)
 	
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_DDEnabled) ENABLED START -----*/
 
-	
+	w_val ? enable_dd() : disable_dd();
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_DDEnabled
 }
@@ -672,7 +950,7 @@ void LiberaBrilliancePlus::read_DDBufferSize(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DDBufferSize
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write DDBufferSize attribute values to hardware.
@@ -680,7 +958,7 @@ void LiberaBrilliancePlus::read_DDBufferSize(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_DDBufferSize(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_DDBufferSize(Tango::Attribute &attr) entering... " << endl;
@@ -715,7 +993,7 @@ void LiberaBrilliancePlus::read_DDDecimationFactor(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DDDecimationFactor
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write DDDecimationFactor attribute values to hardware.
@@ -723,7 +1001,7 @@ void LiberaBrilliancePlus::read_DDDecimationFactor(Tango::Attribute &attr)
  *	Data type:	Tango::DevUShort
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_DDDecimationFactor(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_DDDecimationFactor(Tango::Attribute &attr) entering... " << endl;
@@ -758,7 +1036,7 @@ void LiberaBrilliancePlus::read_DDTriggerOffset(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DDTriggerOffset
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write DDTriggerOffset attribute values to hardware.
@@ -766,7 +1044,7 @@ void LiberaBrilliancePlus::read_DDTriggerOffset(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_DDTriggerOffset(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_DDTriggerOffset(Tango::Attribute &attr) entering... " << endl;
@@ -801,6 +1079,7 @@ void LiberaBrilliancePlus::read_DDBufferFreezingEnabled(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DDBufferFreezingEnabled
 }
+
 //--------------------------------------------------------
 /**
  *	Read DDBufferFrozen attribute
@@ -820,6 +1099,7 @@ void LiberaBrilliancePlus::read_DDBufferFrozen(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DDBufferFrozen
 }
+
 //--------------------------------------------------------
 /**
  *	Read DDTriggerCounter attribute
@@ -839,6 +1119,7 @@ void LiberaBrilliancePlus::read_DDTriggerCounter(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DDTriggerCounter
 }
+
 //--------------------------------------------------------
 /**
  *	Read ExternalTriggerEnabled attribute
@@ -858,6 +1139,7 @@ void LiberaBrilliancePlus::read_ExternalTriggerEnabled(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ExternalTriggerEnabled
 }
+
 //--------------------------------------------------------
 /**
  *	Read ExternalTriggerDelay attribute
@@ -877,7 +1159,7 @@ void LiberaBrilliancePlus::read_ExternalTriggerDelay(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ExternalTriggerDelay
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write ExternalTriggerDelay attribute values to hardware.
@@ -885,7 +1167,7 @@ void LiberaBrilliancePlus::read_ExternalTriggerDelay(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_ExternalTriggerDelay(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_ExternalTriggerDelay(Tango::Attribute &attr) entering... " << endl;
@@ -920,7 +1202,7 @@ void LiberaBrilliancePlus::read_SAEnabled(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SAEnabled
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write SAEnabled attribute values to hardware.
@@ -928,7 +1210,7 @@ void LiberaBrilliancePlus::read_SAEnabled(Tango::Attribute &attr)
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_SAEnabled(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_SAEnabled(Tango::Attribute &attr) entering... " << endl;
@@ -963,6 +1245,7 @@ void LiberaBrilliancePlus::read_VaSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read VbSA attribute
@@ -982,6 +1265,7 @@ void LiberaBrilliancePlus::read_VbSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read VcSA attribute
@@ -1001,6 +1285,7 @@ void LiberaBrilliancePlus::read_VcSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read VdSA attribute
@@ -1020,6 +1305,7 @@ void LiberaBrilliancePlus::read_VdSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read XPosSA attribute
@@ -1039,6 +1325,7 @@ void LiberaBrilliancePlus::read_XPosSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPosSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZPosSA attribute
@@ -1058,6 +1345,7 @@ void LiberaBrilliancePlus::read_ZPosSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZPosSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read SumSA attribute
@@ -1077,6 +1365,7 @@ void LiberaBrilliancePlus::read_SumSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read QuadSA attribute
@@ -1096,6 +1385,7 @@ void LiberaBrilliancePlus::read_QuadSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QuadSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read CxSA attribute
@@ -1115,6 +1405,7 @@ void LiberaBrilliancePlus::read_CxSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_CxSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read CzSA attribute
@@ -1134,6 +1425,7 @@ void LiberaBrilliancePlus::read_CzSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_CzSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read SAStatNumSamples attribute
@@ -1153,7 +1445,7 @@ void LiberaBrilliancePlus::read_SAStatNumSamples(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SAStatNumSamples
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write SAStatNumSamples attribute values to hardware.
@@ -1161,7 +1453,7 @@ void LiberaBrilliancePlus::read_SAStatNumSamples(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_SAStatNumSamples(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_SAStatNumSamples(Tango::Attribute &attr) entering... " << endl;
@@ -1196,6 +1488,7 @@ void LiberaBrilliancePlus::read_XMeanPosSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XMeanPosSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZMeanPosSA attribute
@@ -1215,6 +1508,7 @@ void LiberaBrilliancePlus::read_ZMeanPosSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZMeanPosSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read XRMSPosSA attribute
@@ -1234,6 +1528,7 @@ void LiberaBrilliancePlus::read_XRMSPosSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XRMSPosSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZRMSPosSA attribute
@@ -1253,6 +1548,7 @@ void LiberaBrilliancePlus::read_ZRMSPosSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZRMSPosSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read XPeakPosSA attribute
@@ -1272,6 +1568,7 @@ void LiberaBrilliancePlus::read_XPeakPosSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPeakPosSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZPeakPosSA attribute
@@ -1291,6 +1588,7 @@ void LiberaBrilliancePlus::read_ZPeakPosSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZPeakPosSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read SumMeanSA attribute
@@ -1310,6 +1608,7 @@ void LiberaBrilliancePlus::read_SumMeanSA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumMeanSA
 }
+
 //--------------------------------------------------------
 /**
  *	Read ADCEnabled attribute
@@ -1329,7 +1628,7 @@ void LiberaBrilliancePlus::read_ADCEnabled(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ADCEnabled
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write ADCEnabled attribute values to hardware.
@@ -1337,7 +1636,7 @@ void LiberaBrilliancePlus::read_ADCEnabled(Tango::Attribute &attr)
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_ADCEnabled(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_ADCEnabled(Tango::Attribute &attr) entering... " << endl;
@@ -1372,7 +1671,7 @@ void LiberaBrilliancePlus::read_ADCBufferSize(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ADCBufferSize
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write ADCBufferSize attribute values to hardware.
@@ -1380,7 +1679,7 @@ void LiberaBrilliancePlus::read_ADCBufferSize(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_ADCBufferSize(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_ADCBufferSize(Tango::Attribute &attr) entering... " << endl;
@@ -1415,7 +1714,7 @@ void LiberaBrilliancePlus::read_PMOffset(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_PMOffset
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write PMOffset attribute values to hardware.
@@ -1423,7 +1722,7 @@ void LiberaBrilliancePlus::read_PMOffset(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_PMOffset(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_PMOffset(Tango::Attribute &attr) entering... " << endl;
@@ -1458,6 +1757,7 @@ void LiberaBrilliancePlus::read_PMNotified(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_PMNotified
 }
+
 //--------------------------------------------------------
 /**
  *	Read PMNotificationCounter attribute
@@ -1477,6 +1777,7 @@ void LiberaBrilliancePlus::read_PMNotificationCounter(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_PMNotificationCounter
 }
+
 //--------------------------------------------------------
 /**
  *	Read InterlockXNotified attribute
@@ -1496,6 +1797,7 @@ void LiberaBrilliancePlus::read_InterlockXNotified(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockXNotified
 }
+
 //--------------------------------------------------------
 /**
  *	Read InterlockZNotified attribute
@@ -1515,6 +1817,7 @@ void LiberaBrilliancePlus::read_InterlockZNotified(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockZNotified
 }
+
 //--------------------------------------------------------
 /**
  *	Read InterlockAttnNotified attribute
@@ -1534,6 +1837,7 @@ void LiberaBrilliancePlus::read_InterlockAttnNotified(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockAttnNotified
 }
+
 //--------------------------------------------------------
 /**
  *	Read InterlockADCPreFilterNotified attribute
@@ -1553,6 +1857,7 @@ void LiberaBrilliancePlus::read_InterlockADCPreFilterNotified(Tango::Attribute &
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockADCPreFilterNotified
 }
+
 //--------------------------------------------------------
 /**
  *	Read InterlockADCPostFilterNotified attribute
@@ -1572,6 +1877,7 @@ void LiberaBrilliancePlus::read_InterlockADCPostFilterNotified(Tango::Attribute 
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockADCPostFilterNotified
 }
+
 //--------------------------------------------------------
 /**
  *	Read XLow attribute
@@ -1591,6 +1897,7 @@ void LiberaBrilliancePlus::read_XLow(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XLow
 }
+
 //--------------------------------------------------------
 /**
  *	Read XHigh attribute
@@ -1610,6 +1917,7 @@ void LiberaBrilliancePlus::read_XHigh(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XHigh
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZLow attribute
@@ -1629,6 +1937,7 @@ void LiberaBrilliancePlus::read_ZLow(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZLow
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZHigh attribute
@@ -1648,6 +1957,7 @@ void LiberaBrilliancePlus::read_ZHigh(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZHigh
 }
+
 //--------------------------------------------------------
 /**
  *	Read AutoSwitchingEnabled attribute
@@ -1667,6 +1977,7 @@ void LiberaBrilliancePlus::read_AutoSwitchingEnabled(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_AutoSwitchingEnabled
 }
+
 //--------------------------------------------------------
 /**
  *	Read Switches attribute
@@ -1686,7 +1997,7 @@ void LiberaBrilliancePlus::read_Switches(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Switches
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write Switches attribute values to hardware.
@@ -1694,7 +2005,7 @@ void LiberaBrilliancePlus::read_Switches(Tango::Attribute &attr)
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_Switches(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_Switches(Tango::Attribute &attr) entering... " << endl;
@@ -1729,7 +2040,7 @@ void LiberaBrilliancePlus::read_ExternalSwitching(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ExternalSwitching
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write ExternalSwitching attribute values to hardware.
@@ -1737,7 +2048,7 @@ void LiberaBrilliancePlus::read_ExternalSwitching(Tango::Attribute &attr)
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_ExternalSwitching(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_ExternalSwitching(Tango::Attribute &attr) entering... " << endl;
@@ -1772,7 +2083,7 @@ void LiberaBrilliancePlus::read_SwitchingDelay(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SwitchingDelay
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write SwitchingDelay attribute values to hardware.
@@ -1780,7 +2091,7 @@ void LiberaBrilliancePlus::read_SwitchingDelay(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_SwitchingDelay(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_SwitchingDelay(Tango::Attribute &attr) entering... " << endl;
@@ -1815,7 +2126,7 @@ void LiberaBrilliancePlus::read_OffsetTune(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_OffsetTune
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write OffsetTune attribute values to hardware.
@@ -1823,7 +2134,7 @@ void LiberaBrilliancePlus::read_OffsetTune(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_OffsetTune(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_OffsetTune(Tango::Attribute &attr) entering... " << endl;
@@ -1858,7 +2169,7 @@ void LiberaBrilliancePlus::read_CompensateTune(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_CompensateTune
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write CompensateTune attribute values to hardware.
@@ -1866,7 +2177,7 @@ void LiberaBrilliancePlus::read_CompensateTune(Tango::Attribute &attr)
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_CompensateTune(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_CompensateTune(Tango::Attribute &attr) entering... " << endl;
@@ -1901,7 +2212,7 @@ void LiberaBrilliancePlus::read_DSCMode(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DSCMode
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write DSCMode attribute values to hardware.
@@ -1909,7 +2220,7 @@ void LiberaBrilliancePlus::read_DSCMode(Tango::Attribute &attr)
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_DSCMode(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_DSCMode(Tango::Attribute &attr) entering... " << endl;
@@ -1944,7 +2255,7 @@ void LiberaBrilliancePlus::read_AGCEnabled(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_AGCEnabled
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write AGCEnabled attribute values to hardware.
@@ -1952,7 +2263,7 @@ void LiberaBrilliancePlus::read_AGCEnabled(Tango::Attribute &attr)
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_AGCEnabled(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_AGCEnabled(Tango::Attribute &attr) entering... " << endl;
@@ -1987,7 +2298,7 @@ void LiberaBrilliancePlus::read_Gain(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Gain
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write Gain attribute values to hardware.
@@ -1995,7 +2306,7 @@ void LiberaBrilliancePlus::read_Gain(Tango::Attribute &attr)
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_Gain(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_Gain(Tango::Attribute &attr) entering... " << endl;
@@ -2030,6 +2341,7 @@ void LiberaBrilliancePlus::read_HasMAFSupport(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_HasMAFSupport
 }
+
 //--------------------------------------------------------
 /**
  *	Read MAFLength attribute
@@ -2049,7 +2361,7 @@ void LiberaBrilliancePlus::read_MAFLength(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MAFLength
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write MAFLength attribute values to hardware.
@@ -2057,7 +2369,7 @@ void LiberaBrilliancePlus::read_MAFLength(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_MAFLength(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MAFLength(Tango::Attribute &attr) entering... " << endl;
@@ -2092,7 +2404,7 @@ void LiberaBrilliancePlus::read_MAFDelay(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MAFDelay
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write MAFDelay attribute values to hardware.
@@ -2100,7 +2412,7 @@ void LiberaBrilliancePlus::read_MAFDelay(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_MAFDelay(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MAFDelay(Tango::Attribute &attr) entering... " << endl;
@@ -2135,7 +2447,7 @@ void LiberaBrilliancePlus::read_MachineTime(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MachineTime
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write MachineTime attribute values to hardware.
@@ -2143,7 +2455,7 @@ void LiberaBrilliancePlus::read_MachineTime(Tango::Attribute &attr)
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_MachineTime(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MachineTime(Tango::Attribute &attr) entering... " << endl;
@@ -2178,7 +2490,7 @@ void LiberaBrilliancePlus::read_TimePhase(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_TimePhase
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write TimePhase attribute values to hardware.
@@ -2186,7 +2498,7 @@ void LiberaBrilliancePlus::read_TimePhase(Tango::Attribute &attr)
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_TimePhase(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_TimePhase(Tango::Attribute &attr) entering... " << endl;
@@ -2197,7 +2509,7 @@ void LiberaBrilliancePlus::write_TimePhase(Tango::WAttribute &attr)
 	
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_TimePhase) ENABLED START -----*/
 
-	
+    m_libera->UpdateScalar(attr_TimePhase_read, w_val);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_TimePhase
 }
@@ -2221,7 +2533,7 @@ void LiberaBrilliancePlus::read_SystemTime(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SystemTime
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write SystemTime attribute values to hardware.
@@ -2229,7 +2541,7 @@ void LiberaBrilliancePlus::read_SystemTime(Tango::Attribute &attr)
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_SystemTime(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_SystemTime(Tango::Attribute &attr) entering... " << endl;
@@ -2264,6 +2576,7 @@ void LiberaBrilliancePlus::read_SCPLLStatus(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SCPLLStatus
 }
+
 //--------------------------------------------------------
 /**
  *	Read MCPLLStatus attribute
@@ -2283,6 +2596,7 @@ void LiberaBrilliancePlus::read_MCPLLStatus(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MCPLLStatus
 }
+
 //--------------------------------------------------------
 /**
  *	Read HWTemperature attribute
@@ -2302,6 +2616,7 @@ void LiberaBrilliancePlus::read_HWTemperature(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_HWTemperature
 }
+
 //--------------------------------------------------------
 /**
  *	Read Fan1Speed attribute
@@ -2321,6 +2636,7 @@ void LiberaBrilliancePlus::read_Fan1Speed(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Fan1Speed
 }
+
 //--------------------------------------------------------
 /**
  *	Read Fan2Speed attribute
@@ -2340,6 +2656,7 @@ void LiberaBrilliancePlus::read_Fan2Speed(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Fan2Speed
 }
+
 //--------------------------------------------------------
 /**
  *	Read Incoherence attribute
@@ -2359,6 +2676,7 @@ void LiberaBrilliancePlus::read_Incoherence(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Incoherence
 }
+
 //--------------------------------------------------------
 /**
  *	Read RefIncoherence attribute
@@ -2378,6 +2696,7 @@ void LiberaBrilliancePlus::read_RefIncoherence(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RefIncoherence
 }
+
 //--------------------------------------------------------
 /**
  *	Read MaxIncoherence attribute
@@ -2397,7 +2716,7 @@ void LiberaBrilliancePlus::read_MaxIncoherence(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MaxIncoherence
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write MaxIncoherence attribute values to hardware.
@@ -2405,7 +2724,7 @@ void LiberaBrilliancePlus::read_MaxIncoherence(Tango::Attribute &attr)
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_MaxIncoherence(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MaxIncoherence(Tango::Attribute &attr) entering... " << endl;
@@ -2440,7 +2759,7 @@ void LiberaBrilliancePlus::read_MaxIncoherenceDrift(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MaxIncoherenceDrift
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write MaxIncoherenceDrift attribute values to hardware.
@@ -2448,7 +2767,7 @@ void LiberaBrilliancePlus::read_MaxIncoherenceDrift(Tango::Attribute &attr)
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_MaxIncoherenceDrift(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MaxIncoherenceDrift(Tango::Attribute &attr) entering... " << endl;
@@ -2483,6 +2802,7 @@ void LiberaBrilliancePlus::read_UpTime(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_UpTime
 }
+
 //--------------------------------------------------------
 /**
  *	Read CpuUsage attribute
@@ -2502,6 +2822,7 @@ void LiberaBrilliancePlus::read_CpuUsage(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_CpuUsage
 }
+
 //--------------------------------------------------------
 /**
  *	Read FreeMemory attribute
@@ -2521,6 +2842,7 @@ void LiberaBrilliancePlus::read_FreeMemory(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_FreeMemory
 }
+
 //--------------------------------------------------------
 /**
  *	Read RamFsUsage attribute
@@ -2540,6 +2862,7 @@ void LiberaBrilliancePlus::read_RamFsUsage(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RamFsUsage
 }
+
 //--------------------------------------------------------
 /**
  *	Read UseLiberaSAData attribute
@@ -2559,7 +2882,7 @@ void LiberaBrilliancePlus::read_UseLiberaSAData(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_UseLiberaSAData
 }
-
+	
 //--------------------------------------------------------
 /**
  *	Write UseLiberaSAData attribute values to hardware.
@@ -2567,7 +2890,7 @@ void LiberaBrilliancePlus::read_UseLiberaSAData(Tango::Attribute &attr)
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar 
  */
-//--------------------------------------------------------
+//--------------------------------------------------------	
 void LiberaBrilliancePlus::write_UseLiberaSAData(Tango::WAttribute &attr)
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::write_UseLiberaSAData(Tango::Attribute &attr) entering... " << endl;
@@ -2602,6 +2925,7 @@ void LiberaBrilliancePlus::read_XPosDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPosDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZPosDD attribute
@@ -2621,6 +2945,7 @@ void LiberaBrilliancePlus::read_ZPosDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZPosDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read QuadDD attribute
@@ -2640,6 +2965,7 @@ void LiberaBrilliancePlus::read_QuadDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QuadDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read SumDD attribute
@@ -2659,6 +2985,7 @@ void LiberaBrilliancePlus::read_SumDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read VaDD attribute
@@ -2678,6 +3005,7 @@ void LiberaBrilliancePlus::read_VaDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read VbDD attribute
@@ -2697,6 +3025,7 @@ void LiberaBrilliancePlus::read_VbDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read VcDD attribute
@@ -2716,6 +3045,7 @@ void LiberaBrilliancePlus::read_VcDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read VdDD attribute
@@ -2735,6 +3065,7 @@ void LiberaBrilliancePlus::read_VdDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read XPosSAHistory attribute
@@ -2754,6 +3085,7 @@ void LiberaBrilliancePlus::read_XPosSAHistory(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPosSAHistory
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZPosSAHistory attribute
@@ -2773,6 +3105,7 @@ void LiberaBrilliancePlus::read_ZPosSAHistory(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZPosSAHistory
 }
+
 //--------------------------------------------------------
 /**
  *	Read SumSAHistory attribute
@@ -2792,6 +3125,7 @@ void LiberaBrilliancePlus::read_SumSAHistory(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumSAHistory
 }
+
 //--------------------------------------------------------
 /**
  *	Read XPosPM attribute
@@ -2811,6 +3145,7 @@ void LiberaBrilliancePlus::read_XPosPM(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPosPM
 }
+
 //--------------------------------------------------------
 /**
  *	Read ZPosPM attribute
@@ -2830,6 +3165,7 @@ void LiberaBrilliancePlus::read_ZPosPM(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ZPosPM
 }
+
 //--------------------------------------------------------
 /**
  *	Read QuadPM attribute
@@ -2849,6 +3185,7 @@ void LiberaBrilliancePlus::read_QuadPM(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QuadPM
 }
+
 //--------------------------------------------------------
 /**
  *	Read SumPM attribute
@@ -2868,6 +3205,7 @@ void LiberaBrilliancePlus::read_SumPM(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumPM
 }
+
 //--------------------------------------------------------
 /**
  *	Read VaPM attribute
@@ -2887,6 +3225,7 @@ void LiberaBrilliancePlus::read_VaPM(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaPM
 }
+
 //--------------------------------------------------------
 /**
  *	Read VbPM attribute
@@ -2906,6 +3245,7 @@ void LiberaBrilliancePlus::read_VbPM(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbPM
 }
+
 //--------------------------------------------------------
 /**
  *	Read VcPM attribute
@@ -2925,6 +3265,7 @@ void LiberaBrilliancePlus::read_VcPM(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcPM
 }
+
 //--------------------------------------------------------
 /**
  *	Read VdPM attribute
@@ -2944,6 +3285,7 @@ void LiberaBrilliancePlus::read_VdPM(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdPM
 }
+
 //--------------------------------------------------------
 /**
  *	Read ADCChannelA attribute
@@ -2963,6 +3305,7 @@ void LiberaBrilliancePlus::read_ADCChannelA(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ADCChannelA
 }
+
 //--------------------------------------------------------
 /**
  *	Read ADCChannelB attribute
@@ -2982,6 +3325,7 @@ void LiberaBrilliancePlus::read_ADCChannelB(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ADCChannelB
 }
+
 //--------------------------------------------------------
 /**
  *	Read ADCChannelC attribute
@@ -3001,6 +3345,7 @@ void LiberaBrilliancePlus::read_ADCChannelC(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ADCChannelC
 }
+
 //--------------------------------------------------------
 /**
  *	Read ADCChannelD attribute
@@ -3020,6 +3365,7 @@ void LiberaBrilliancePlus::read_ADCChannelD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ADCChannelD
 }
+
 //--------------------------------------------------------
 /**
  *	Read IaDD attribute
@@ -3039,6 +3385,7 @@ void LiberaBrilliancePlus::read_IaDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_IaDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read IbDD attribute
@@ -3058,6 +3405,7 @@ void LiberaBrilliancePlus::read_IbDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_IbDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read IcDD attribute
@@ -3077,6 +3425,7 @@ void LiberaBrilliancePlus::read_IcDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_IcDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read IdDD attribute
@@ -3096,6 +3445,7 @@ void LiberaBrilliancePlus::read_IdDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_IdDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read QaDD attribute
@@ -3115,6 +3465,7 @@ void LiberaBrilliancePlus::read_QaDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QaDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read QbDD attribute
@@ -3134,6 +3485,7 @@ void LiberaBrilliancePlus::read_QbDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QbDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read QcDD attribute
@@ -3153,6 +3505,7 @@ void LiberaBrilliancePlus::read_QcDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QcDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read QdDD attribute
@@ -3172,6 +3525,7 @@ void LiberaBrilliancePlus::read_QdDD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QdDD
 }
+
 //--------------------------------------------------------
 /**
  *	Read UserData attribute
@@ -3191,6 +3545,7 @@ void LiberaBrilliancePlus::read_UserData(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_UserData
 }
+
 //--------------------------------------------------------
 /**
  *	Read InterlockConfiguration attribute
@@ -3210,6 +3565,7 @@ void LiberaBrilliancePlus::read_InterlockConfiguration(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockConfiguration
 }
+
 //--------------------------------------------------------
 /**
  *	Read logs attribute
@@ -3230,21 +3586,23 @@ void LiberaBrilliancePlus::read_logs(Tango::Attribute &attr)
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_logs
 }
 
+
+
 //--------------------------------------------------------
 /**
- *	Method      : LiberaBrilliancePlus::LiberaBrilliancePlusClass::add_dynamic_attributes()
- *	Description : Create the dynamic attributes if any
+ *	Method      : LiberaBrilliancePlus::add_dynamic_attributes()
+ *	Description : Create the dynamic attributes if any at server startup
  *	              for specified device.
  */
 //--------------------------------------------------------
 void LiberaBrilliancePlus::add_dynamic_attributes()
 {
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::Class::add_dynamic_attributes) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::add_dynamic_attributes) ENABLED START -----*/
 
 	//	Add your own code to create and add dynamic attributes if any
 
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Class::add_dynamic_attributes
-
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::add_dynamic_attributes()
 }
 
 
@@ -3272,8 +3630,10 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_state
 
-	set_state(argout);               // Give the state to Tango.
-	return DeviceImpl::dev_state();  // Return it after Tango management.
+	set_state(argout);    // Give the state to Tango.
+	if (argout!=Tango::ALARM)
+		DeviceImpl::dev_state();
+	return get_state();  // Return it after Tango management.
 
 }
 
@@ -3398,6 +3758,7 @@ void LiberaBrilliancePlus::enable_dd()
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::enable_dd) ENABLED START -----*/
 
 	//	Add your own code
+	m_libera->Enable(m_signalDdc);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::enable_dd
 
@@ -3418,6 +3779,7 @@ void LiberaBrilliancePlus::disable_dd()
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::disable_dd) ENABLED START -----*/
 
 	//	Add your own code
+    m_libera->Disable(m_signalDdc);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_dd
 
@@ -3438,6 +3800,7 @@ void LiberaBrilliancePlus::enable_sa()
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::enable_sa) ENABLED START -----*/
 
 	//	Add your own code
+    m_libera->Enable(m_signalSA);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::enable_sa
 
@@ -3458,6 +3821,7 @@ void LiberaBrilliancePlus::disable_sa()
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::disable_sa) ENABLED START -----*/
 
 	//	Add your own code
+    m_libera->Disable(m_signalSA);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_sa
 

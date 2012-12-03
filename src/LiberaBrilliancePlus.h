@@ -31,6 +31,8 @@
 
 #include <tango.h>
 
+#include "LiberaClient.h"
+
 /*----- PROTECTED REGION END -----*/
 
 
@@ -56,6 +58,19 @@ class LiberaBrilliancePlus : public Tango::Device_4Impl
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::Data Members) ENABLED START -----*/
 
 	//		Add your own data members
+    LiberaClient *m_libera;
+
+    LiberaSignalBase *m_signalDdc;
+    LiberaSignalBase *m_signalDdcRaw;
+
+    LiberaSignalBase *m_signalSA;
+    Tango::DevLong *attr_SABufferSize_read_added; //declared here for completenes
+
+    LiberaSignalBase *m_signalPM;
+    Tango::DevBoolean *attr_PMEnabled_read_added;
+    Tango::DevLong   *attr_PMBufferSize_read_added;
+
+    LiberaSignalBase *m_signalADC;
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Data Members
 
@@ -145,7 +160,6 @@ public:		//	LiberaIpAddr:	The Libera IP address [no default value]
 	//	Defaults to 500 ms (2Hz).
 	Tango::DevULong	fADataCacheRefreshPeriod;
 	
-
 //	Attribute data members
 public:
 	Tango::DevUShort	*attr_LiberaModel_read;
@@ -1615,136 +1629,137 @@ public:
 
 
 
+
 	/**
 	 *	Method      : LiberaBrilliancePlus::add_dynamic_attributes()
 	 *	Description : Add dynamic attributes if any.
 	 */
-		void add_dynamic_attributes();
+	void add_dynamic_attributes();
 
 //	Command related methods
 public: 
 	/**
 	 *	Command State related methods.
 	 */
-	Tango::DevState dev_state();
+	virtual Tango::DevState dev_state();
 
 	/**
 	 *	Command Status related methods.
 	 */
-	Tango::ConstDevString dev_status();
+	virtual Tango::ConstDevString dev_status();
 
 	/**
 	 *	Command GetParameters related methods.
 	 */
-	Tango::DevVarDoubleStringArray *get_parameters();
+	virtual Tango::DevVarDoubleStringArray *get_parameters();
 	virtual bool is_GetParameters_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command UnfreezeDDBuffer related methods.
 	 */
-	void unfreeze_ddbuffer();
+	virtual void unfreeze_ddbuffer();
 	virtual bool is_UnfreezeDDBuffer_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command EnableDDBufferFreezing related methods.
 	 */
-	void enable_ddbuffer_freezing();
+	virtual void enable_ddbuffer_freezing();
 	virtual bool is_EnableDDBufferFreezing_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command DisableDDBufferFreezing related methods.
 	 */
-	void disable_ddbuffer_freezing();
+	virtual void disable_ddbuffer_freezing();
 	virtual bool is_DisableDDBufferFreezing_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command EnableDD related methods.
 	 */
-	void enable_dd();
+	virtual void enable_dd();
 	virtual bool is_EnableDD_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command DisableDD related methods.
 	 */
-	void disable_dd();
+	virtual void disable_dd();
 	virtual bool is_DisableDD_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command EnableSA related methods.
 	 */
-	void enable_sa();
+	virtual void enable_sa();
 	virtual bool is_EnableSA_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command DisableSA related methods.
 	 */
-	void disable_sa();
+	virtual void disable_sa();
 	virtual bool is_DisableSA_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command ResetPMNotification related methods.
 	 */
-	void reset_pmnotification();
+	virtual void reset_pmnotification();
 	virtual bool is_ResetPMNotification_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command ResetInterlockNotification related methods.
 	 */
-	void reset_interlock_notification();
+	virtual void reset_interlock_notification();
 	virtual bool is_ResetInterlockNotification_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command SetInterlockConfiguration related methods.
 	 */
-	void set_interlock_configuration();
+	virtual void set_interlock_configuration();
 	virtual bool is_SetInterlockConfiguration_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command EnableADC related methods.
 	 */
-	void enable_adc();
+	virtual void enable_adc();
 	virtual bool is_EnableADC_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command DisableADC related methods.
 	 */
-	void disable_adc();
+	virtual void disable_adc();
 	virtual bool is_DisableADC_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command SetTimeOnNextTrigger related methods.
 	 */
-	void set_time_on_next_trigger();
+	virtual void set_time_on_next_trigger();
 	virtual bool is_SetTimeOnNextTrigger_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command ReadFAData related methods.
 	 */
-	Tango::DevVarLongArray *read_fadata(const Tango::DevVarLongArray *argin);
+	virtual Tango::DevVarLongArray *read_fadata(const Tango::DevVarLongArray *argin);
 	virtual bool is_ReadFAData_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command WriteFAData related methods.
 	 */
-	void write_fadata(const Tango::DevVarLongArray *argin);
+	virtual void write_fadata(const Tango::DevVarLongArray *argin);
 	virtual bool is_WriteFAData_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command SaveDSCParameters related methods.
 	 */
-	void save_dscparameters();
+	virtual void save_dscparameters();
 	virtual bool is_SaveDSCParameters_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command ReloadSystemProperties related methods.
 	 */
-	void reload_system_properties();
+	virtual void reload_system_properties();
 	virtual bool is_ReloadSystemProperties_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command SetRefIncoherence related methods.
 	 */
-	void set_ref_incoherence();
+	virtual void set_ref_incoherence();
 	virtual bool is_SetRefIncoherence_allowed(const CORBA::Any &any);
 
 

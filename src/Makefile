@@ -22,7 +22,7 @@
 #=============================================================================
 # MAKE_ENV is the path to find common environment to buil project
 #
-MAKE_ENV = /usr/local/share/pogo/preferences
+MAKE_ENV = /usr/share/pogo/preferences
 
 #=============================================================================
 # PACKAGE_NAME is the name of the library/device/exe you want to build
@@ -66,7 +66,7 @@ OUTPUT_DIR = ./bin/$(BIN_DIR)
 #   - '-I ../include' and '-I .' are automatically appended in all cases
 #
 #
-INC_DIR_USER= -I . 
+INC_DIR_USER= -I . -I /usr/include/libera-2.6
 
 
 #=============================================================================
@@ -74,7 +74,7 @@ INC_DIR_USER= -I .
 #   - for a device server, tango libraries directories are automatically appended
 #   - '-L ../lib' is automatically appended in all cases
 #
-LIB_DIR_USER=
+LIB_DIR_USER= -L /opt/libera/lib
 
 #=============================================================================
 # LFLAGS_USR is the list of user link flags
@@ -88,7 +88,7 @@ LIB_DIR_USER=
 # 'undefined reference' errors
 #
 #LFLAGS_USR+=
-
+LFLAGS_USR+= -lliberamci2.6 -lliberainet2.6 -lliberaistd2.6
 
 #=============================================================================
 # CXXFLAGS_USR lists the compilation flags specific for your library/device/exe
@@ -96,7 +96,7 @@ LIB_DIR_USER=
 #
 # -DACE_HAS_EXCEPTIONS -D__ACE_INLINE__ for ACE
 #
-#CXXFLAGS_USR+= -Wall
+CXXFLAGS_USR+= -Wall -std=c++0x -D_GLIBCXX_USE_NANOSLEEP
 
 
 #=============================================================================
@@ -137,7 +137,10 @@ SVC_OBJS =      \
 
 
 #------------  Object files for additional files  ------------
-ADDITIONAL_OBJS = 
+ADDITIONAL_OBJS = \
+            $(OBJDIR)/LiberaClient.o \
+            $(OBJDIR)/LiberaAttr.o   \
+            $(OBJDIR)/LiberaSignal.o
 
 #=============================================================================
 #	include common targets

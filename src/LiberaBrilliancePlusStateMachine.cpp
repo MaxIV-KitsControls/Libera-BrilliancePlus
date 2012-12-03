@@ -44,7 +44,6 @@ static const char *RcsId = "$Id:  $";
 
 namespace LiberaBrilliancePlus_ns
 {
-
 //=================================================
 //		Attributes Allowed Methods
 //=================================================
@@ -56,7 +55,7 @@ namespace LiberaBrilliancePlus_ns
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_LiberaModel_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_LiberaModel_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 		//	Not any excluded states for LiberaModel attribute in READ access.
 	
@@ -74,7 +73,7 @@ bool LiberaBrilliancePlus::is_LiberaModel_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DDEnabled_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_DDEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -109,7 +108,7 @@ bool LiberaBrilliancePlus::is_DDEnabled_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DDBufferSize_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_DDBufferSize_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -144,7 +143,7 @@ bool LiberaBrilliancePlus::is_DDBufferSize_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DDDecimationFactor_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_DDDecimationFactor_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -179,7 +178,7 @@ bool LiberaBrilliancePlus::is_DDDecimationFactor_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DDTriggerOffset_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_DDTriggerOffset_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -214,7 +213,7 @@ bool LiberaBrilliancePlus::is_DDTriggerOffset_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DDBufferFreezingEnabled_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_DDBufferFreezingEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -237,7 +236,7 @@ bool LiberaBrilliancePlus::is_DDBufferFreezingEnabled_allowed(Tango::AttReqType 
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DDBufferFrozen_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_DDBufferFrozen_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -260,7 +259,7 @@ bool LiberaBrilliancePlus::is_DDBufferFrozen_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DDTriggerCounter_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_DDTriggerCounter_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -283,7 +282,7 @@ bool LiberaBrilliancePlus::is_DDTriggerCounter_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ExternalTriggerEnabled_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ExternalTriggerEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -306,7 +305,7 @@ bool LiberaBrilliancePlus::is_ExternalTriggerEnabled_allowed(Tango::AttReqType t
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ExternalTriggerDelay_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ExternalTriggerDelay_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -341,7 +340,7 @@ bool LiberaBrilliancePlus::is_ExternalTriggerDelay_allowed(Tango::AttReqType typ
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SAEnabled_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SAEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -376,7 +375,7 @@ bool LiberaBrilliancePlus::is_SAEnabled_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VaSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VaSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -399,7 +398,7 @@ bool LiberaBrilliancePlus::is_VaSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VbSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VbSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -422,7 +421,7 @@ bool LiberaBrilliancePlus::is_VbSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VcSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VcSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -445,7 +444,7 @@ bool LiberaBrilliancePlus::is_VcSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VdSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VdSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -468,7 +467,7 @@ bool LiberaBrilliancePlus::is_VdSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XPosSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -491,7 +490,7 @@ bool LiberaBrilliancePlus::is_XPosSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZPosSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -514,7 +513,7 @@ bool LiberaBrilliancePlus::is_ZPosSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SumSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SumSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -537,7 +536,7 @@ bool LiberaBrilliancePlus::is_SumSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_QuadSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_QuadSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -560,7 +559,7 @@ bool LiberaBrilliancePlus::is_QuadSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_CxSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_CxSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -583,7 +582,7 @@ bool LiberaBrilliancePlus::is_CxSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_CzSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_CzSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -606,7 +605,7 @@ bool LiberaBrilliancePlus::is_CzSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SAStatNumSamples_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SAStatNumSamples_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -641,7 +640,7 @@ bool LiberaBrilliancePlus::is_SAStatNumSamples_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XMeanPosSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XMeanPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -664,7 +663,7 @@ bool LiberaBrilliancePlus::is_XMeanPosSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZMeanPosSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZMeanPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -687,7 +686,7 @@ bool LiberaBrilliancePlus::is_ZMeanPosSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XRMSPosSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XRMSPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -710,7 +709,7 @@ bool LiberaBrilliancePlus::is_XRMSPosSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZRMSPosSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZRMSPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -733,7 +732,7 @@ bool LiberaBrilliancePlus::is_ZRMSPosSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XPeakPosSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XPeakPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -756,7 +755,7 @@ bool LiberaBrilliancePlus::is_XPeakPosSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZPeakPosSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZPeakPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -779,7 +778,7 @@ bool LiberaBrilliancePlus::is_ZPeakPosSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SumMeanSA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SumMeanSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -802,7 +801,7 @@ bool LiberaBrilliancePlus::is_SumMeanSA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ADCEnabled_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ADCEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -837,7 +836,7 @@ bool LiberaBrilliancePlus::is_ADCEnabled_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ADCBufferSize_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ADCBufferSize_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -872,7 +871,7 @@ bool LiberaBrilliancePlus::is_ADCBufferSize_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_PMOffset_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_PMOffset_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -907,7 +906,7 @@ bool LiberaBrilliancePlus::is_PMOffset_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_PMNotified_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_PMNotified_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -930,7 +929,7 @@ bool LiberaBrilliancePlus::is_PMNotified_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_PMNotificationCounter_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_PMNotificationCounter_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -953,7 +952,7 @@ bool LiberaBrilliancePlus::is_PMNotificationCounter_allowed(Tango::AttReqType ty
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_InterlockXNotified_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_InterlockXNotified_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -976,7 +975,7 @@ bool LiberaBrilliancePlus::is_InterlockXNotified_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_InterlockZNotified_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_InterlockZNotified_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -999,7 +998,7 @@ bool LiberaBrilliancePlus::is_InterlockZNotified_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_InterlockAttnNotified_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_InterlockAttnNotified_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1022,7 +1021,7 @@ bool LiberaBrilliancePlus::is_InterlockAttnNotified_allowed(Tango::AttReqType ty
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_InterlockADCPreFilterNotified_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_InterlockADCPreFilterNotified_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1045,7 +1044,7 @@ bool LiberaBrilliancePlus::is_InterlockADCPreFilterNotified_allowed(Tango::AttRe
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_InterlockADCPostFilterNotified_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_InterlockADCPostFilterNotified_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1068,7 +1067,7 @@ bool LiberaBrilliancePlus::is_InterlockADCPostFilterNotified_allowed(Tango::AttR
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XLow_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XLow_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1091,7 +1090,7 @@ bool LiberaBrilliancePlus::is_XLow_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XHigh_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XHigh_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1114,7 +1113,7 @@ bool LiberaBrilliancePlus::is_XHigh_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZLow_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZLow_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1137,7 +1136,7 @@ bool LiberaBrilliancePlus::is_ZLow_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZHigh_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZHigh_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1160,7 +1159,7 @@ bool LiberaBrilliancePlus::is_ZHigh_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_AutoSwitchingEnabled_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_AutoSwitchingEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1183,7 +1182,7 @@ bool LiberaBrilliancePlus::is_AutoSwitchingEnabled_allowed(Tango::AttReqType typ
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_Switches_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_Switches_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1218,7 +1217,7 @@ bool LiberaBrilliancePlus::is_Switches_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ExternalSwitching_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ExternalSwitching_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1253,7 +1252,7 @@ bool LiberaBrilliancePlus::is_ExternalSwitching_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SwitchingDelay_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SwitchingDelay_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1288,7 +1287,7 @@ bool LiberaBrilliancePlus::is_SwitchingDelay_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_OffsetTune_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_OffsetTune_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1323,7 +1322,7 @@ bool LiberaBrilliancePlus::is_OffsetTune_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_CompensateTune_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_CompensateTune_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1358,7 +1357,7 @@ bool LiberaBrilliancePlus::is_CompensateTune_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DSCMode_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_DSCMode_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1393,7 +1392,7 @@ bool LiberaBrilliancePlus::is_DSCMode_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_AGCEnabled_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_AGCEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1428,7 +1427,7 @@ bool LiberaBrilliancePlus::is_AGCEnabled_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_Gain_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_Gain_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1463,7 +1462,7 @@ bool LiberaBrilliancePlus::is_Gain_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_HasMAFSupport_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_HasMAFSupport_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1486,7 +1485,7 @@ bool LiberaBrilliancePlus::is_HasMAFSupport_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_MAFLength_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_MAFLength_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1521,7 +1520,7 @@ bool LiberaBrilliancePlus::is_MAFLength_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_MAFDelay_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_MAFDelay_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1556,7 +1555,7 @@ bool LiberaBrilliancePlus::is_MAFDelay_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_MachineTime_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_MachineTime_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1591,7 +1590,7 @@ bool LiberaBrilliancePlus::is_MachineTime_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_TimePhase_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_TimePhase_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1626,7 +1625,7 @@ bool LiberaBrilliancePlus::is_TimePhase_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SystemTime_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SystemTime_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1661,7 +1660,7 @@ bool LiberaBrilliancePlus::is_SystemTime_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SCPLLStatus_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SCPLLStatus_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1684,7 +1683,7 @@ bool LiberaBrilliancePlus::is_SCPLLStatus_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_MCPLLStatus_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_MCPLLStatus_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1707,7 +1706,7 @@ bool LiberaBrilliancePlus::is_MCPLLStatus_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_HWTemperature_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_HWTemperature_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1730,7 +1729,7 @@ bool LiberaBrilliancePlus::is_HWTemperature_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_Fan1Speed_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_Fan1Speed_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1753,7 +1752,7 @@ bool LiberaBrilliancePlus::is_Fan1Speed_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_Fan2Speed_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_Fan2Speed_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1776,7 +1775,7 @@ bool LiberaBrilliancePlus::is_Fan2Speed_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_Incoherence_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_Incoherence_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1799,7 +1798,7 @@ bool LiberaBrilliancePlus::is_Incoherence_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_RefIncoherence_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_RefIncoherence_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1822,7 +1821,7 @@ bool LiberaBrilliancePlus::is_RefIncoherence_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_MaxIncoherence_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_MaxIncoherence_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1857,7 +1856,7 @@ bool LiberaBrilliancePlus::is_MaxIncoherence_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_MaxIncoherenceDrift_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_MaxIncoherenceDrift_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -1892,7 +1891,7 @@ bool LiberaBrilliancePlus::is_MaxIncoherenceDrift_allowed(Tango::AttReqType type
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_UpTime_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_UpTime_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1915,7 +1914,7 @@ bool LiberaBrilliancePlus::is_UpTime_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_CpuUsage_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_CpuUsage_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1938,7 +1937,7 @@ bool LiberaBrilliancePlus::is_CpuUsage_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_FreeMemory_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_FreeMemory_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1961,7 +1960,7 @@ bool LiberaBrilliancePlus::is_FreeMemory_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_RamFsUsage_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_RamFsUsage_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -1984,7 +1983,7 @@ bool LiberaBrilliancePlus::is_RamFsUsage_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_UseLiberaSAData_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_UseLiberaSAData_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	//	Check if access type.
 	if ( type!=Tango::READ_REQ )
@@ -2014,7 +2013,7 @@ bool LiberaBrilliancePlus::is_UseLiberaSAData_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XPosDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XPosDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2037,7 +2036,7 @@ bool LiberaBrilliancePlus::is_XPosDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZPosDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZPosDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2060,7 +2059,7 @@ bool LiberaBrilliancePlus::is_ZPosDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_QuadDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_QuadDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2083,7 +2082,7 @@ bool LiberaBrilliancePlus::is_QuadDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SumDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SumDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2106,7 +2105,7 @@ bool LiberaBrilliancePlus::is_SumDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VaDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2129,7 +2128,7 @@ bool LiberaBrilliancePlus::is_VaDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VbDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2152,7 +2151,7 @@ bool LiberaBrilliancePlus::is_VbDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VcDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2175,7 +2174,7 @@ bool LiberaBrilliancePlus::is_VcDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VdDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VdDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2198,7 +2197,7 @@ bool LiberaBrilliancePlus::is_VdDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XPosSAHistory_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XPosSAHistory_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2221,7 +2220,7 @@ bool LiberaBrilliancePlus::is_XPosSAHistory_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZPosSAHistory_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZPosSAHistory_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2244,7 +2243,7 @@ bool LiberaBrilliancePlus::is_ZPosSAHistory_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SumSAHistory_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SumSAHistory_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2267,7 +2266,7 @@ bool LiberaBrilliancePlus::is_SumSAHistory_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_XPosPM_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_XPosPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2290,7 +2289,7 @@ bool LiberaBrilliancePlus::is_XPosPM_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ZPosPM_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ZPosPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2313,7 +2312,7 @@ bool LiberaBrilliancePlus::is_ZPosPM_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_QuadPM_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_QuadPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2336,7 +2335,7 @@ bool LiberaBrilliancePlus::is_QuadPM_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SumPM_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_SumPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2359,7 +2358,7 @@ bool LiberaBrilliancePlus::is_SumPM_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VaPM_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VaPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2382,7 +2381,7 @@ bool LiberaBrilliancePlus::is_VaPM_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VbPM_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VbPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2405,7 +2404,7 @@ bool LiberaBrilliancePlus::is_VbPM_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VcPM_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VcPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2428,7 +2427,7 @@ bool LiberaBrilliancePlus::is_VcPM_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_VdPM_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_VdPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2451,7 +2450,7 @@ bool LiberaBrilliancePlus::is_VdPM_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ADCChannelA_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ADCChannelA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2474,7 +2473,7 @@ bool LiberaBrilliancePlus::is_ADCChannelA_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ADCChannelB_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ADCChannelB_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2497,7 +2496,7 @@ bool LiberaBrilliancePlus::is_ADCChannelB_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ADCChannelC_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ADCChannelC_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2520,7 +2519,7 @@ bool LiberaBrilliancePlus::is_ADCChannelC_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ADCChannelD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_ADCChannelD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2543,7 +2542,7 @@ bool LiberaBrilliancePlus::is_ADCChannelD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_IaDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_IaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2566,7 +2565,7 @@ bool LiberaBrilliancePlus::is_IaDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_IbDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_IbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2589,7 +2588,7 @@ bool LiberaBrilliancePlus::is_IbDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_IcDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_IcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2612,7 +2611,7 @@ bool LiberaBrilliancePlus::is_IcDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_IdDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_IdDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2635,7 +2634,7 @@ bool LiberaBrilliancePlus::is_IdDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_QaDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_QaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2658,7 +2657,7 @@ bool LiberaBrilliancePlus::is_QaDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_QbDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_QbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2681,7 +2680,7 @@ bool LiberaBrilliancePlus::is_QbDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_QcDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_QcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2704,7 +2703,7 @@ bool LiberaBrilliancePlus::is_QcDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_QdDD_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_QdDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2727,7 +2726,7 @@ bool LiberaBrilliancePlus::is_QdDD_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_UserData_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_UserData_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2750,7 +2749,7 @@ bool LiberaBrilliancePlus::is_UserData_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_InterlockConfiguration_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_InterlockConfiguration_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 	if (	//	Compare device state with not allowed states for READ 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2773,7 +2772,7 @@ bool LiberaBrilliancePlus::is_InterlockConfiguration_allowed(Tango::AttReqType t
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_logs_allowed(Tango::AttReqType type)
+bool LiberaBrilliancePlus::is_logs_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 		//	Not any excluded states for logs attribute in READ access.
 	
@@ -2783,6 +2782,11 @@ bool LiberaBrilliancePlus::is_logs_allowed(Tango::AttReqType type)
 
 	return true;
 }
+
+
+//=================================================
+//	Dynamic Attributes Allowed Methods
+//=================================================
 
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::are_dynamic_attributes_allowed) ENABLED START -----*/
@@ -2804,7 +2808,7 @@ bool LiberaBrilliancePlus::is_logs_allowed(Tango::AttReqType type)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_GetParameters_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_GetParameters_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2827,7 +2831,7 @@ bool LiberaBrilliancePlus::is_GetParameters_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_UnfreezeDDBuffer_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_UnfreezeDDBuffer_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2850,7 +2854,7 @@ bool LiberaBrilliancePlus::is_UnfreezeDDBuffer_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_EnableDDBufferFreezing_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_EnableDDBufferFreezing_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2873,7 +2877,7 @@ bool LiberaBrilliancePlus::is_EnableDDBufferFreezing_allowed(const CORBA::Any &a
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DisableDDBufferFreezing_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_DisableDDBufferFreezing_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2896,7 +2900,7 @@ bool LiberaBrilliancePlus::is_DisableDDBufferFreezing_allowed(const CORBA::Any &
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_EnableDD_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_EnableDD_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2919,7 +2923,7 @@ bool LiberaBrilliancePlus::is_EnableDD_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DisableDD_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_DisableDD_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2942,7 +2946,7 @@ bool LiberaBrilliancePlus::is_DisableDD_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_EnableSA_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_EnableSA_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2965,7 +2969,7 @@ bool LiberaBrilliancePlus::is_EnableSA_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DisableSA_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_DisableSA_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -2988,7 +2992,7 @@ bool LiberaBrilliancePlus::is_DisableSA_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ResetPMNotification_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_ResetPMNotification_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3011,7 +3015,7 @@ bool LiberaBrilliancePlus::is_ResetPMNotification_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ResetInterlockNotification_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_ResetInterlockNotification_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3034,7 +3038,7 @@ bool LiberaBrilliancePlus::is_ResetInterlockNotification_allowed(const CORBA::An
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SetInterlockConfiguration_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_SetInterlockConfiguration_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3057,7 +3061,7 @@ bool LiberaBrilliancePlus::is_SetInterlockConfiguration_allowed(const CORBA::Any
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_EnableADC_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_EnableADC_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3080,7 +3084,7 @@ bool LiberaBrilliancePlus::is_EnableADC_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_DisableADC_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_DisableADC_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3103,7 +3107,7 @@ bool LiberaBrilliancePlus::is_DisableADC_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SetTimeOnNextTrigger_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_SetTimeOnNextTrigger_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3126,7 +3130,7 @@ bool LiberaBrilliancePlus::is_SetTimeOnNextTrigger_allowed(const CORBA::Any &any
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ReadFAData_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_ReadFAData_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3149,7 +3153,7 @@ bool LiberaBrilliancePlus::is_ReadFAData_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_WriteFAData_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_WriteFAData_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3172,7 +3176,7 @@ bool LiberaBrilliancePlus::is_WriteFAData_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SaveDSCParameters_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_SaveDSCParameters_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3195,7 +3199,7 @@ bool LiberaBrilliancePlus::is_SaveDSCParameters_allowed(const CORBA::Any &any)
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_ReloadSystemProperties_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_ReloadSystemProperties_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
@@ -3218,7 +3222,7 @@ bool LiberaBrilliancePlus::is_ReloadSystemProperties_allowed(const CORBA::Any &a
  */
 //--------------------------------------------------------
 
-bool LiberaBrilliancePlus::is_SetRefIncoherence_allowed(const CORBA::Any &any)
+bool LiberaBrilliancePlus::is_SetRefIncoherence_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
 	if (	//	Compare device state with not allowed states for command 
 		get_state() == Tango::UNKNOWN	|| 
