@@ -2,7 +2,7 @@
  * Copyright (c) 2012 Instrumentation Technologies
  * All Rights Reserved.
  *
- * $Id: LiberaAttr.h 18277 2012-12-03 12:02:45Z tomaz.beltram $
+ * $Id: LiberaAttr.h 18372 2012-12-19 13:43:52Z tomaz.beltram $
  */
 
 #ifndef LIBERA_ATTR_H
@@ -12,120 +12,179 @@
 #include <tango.h>
 #pragma GCC diagnostic warning "-Wold-style-cast"
 
+#include "LiberaBrilliancePlus.h"
+
 #include <istd/trace.h>
 #include <mci/mci.h>
 #include <mci/node.h>
 
-/**
- * Type mapping template structure.
- */
-template <typename TangoType>
-struct TangoToLibera;
-
-/**
- * Define supported type mappings with template specializations.
- */
-template<>
-struct TangoToLibera<Tango::DevDouble> {
-    typedef double Type;
-};
-
-template<>
-struct TangoToLibera<Tango::DevLong> {
-    typedef int32_t Type;
-};
-
-template<>
-struct TangoToLibera<Tango::DevUShort> {
-    typedef uint32_t Type;
-};
-
-template<>
-struct TangoToLibera<Tango::DevShort> {
-    typedef int32_t Type;
-};
-
-template<>
-struct TangoToLibera<Tango::DevBoolean> {
-    typedef bool Type;
-};
+class LiberaClient;
 
 /*******************************************************************************
  * Base abstract interface class, with unique access key handle.
  */
 class LiberaAttr {
 public:
-    typedef void * Handle;
-    LiberaAttr(Handle a_handle) : m_handle(a_handle) {}
-    virtual void Read(mci::Node &a_root) = 0;
+    LiberaAttr() : m_client(NULL) {}
     virtual ~LiberaAttr() {};
-    bool IsEqual(Handle a_handle) { return a_handle == m_handle; }
-private:
-    Handle m_handle;
-};
-
-/*******************************************************************************
- * Class for mapping between types, storing values and ireg access.
- * The a_attr reference passed in constructor is used for updating
- * attribute value via Read/Write methods..
- */
-template <typename TangoType>
-class LiberaScalarAttr : public LiberaAttr {
-public:
-    typedef typename TangoToLibera<TangoType>::Type LiberaType;
-    LiberaScalarAttr(const std::string a_path, TangoType *&a_attr)
-      : LiberaAttr(a_attr),
-        m_attr(a_attr),
-        m_path(a_path)
-    {
-        m_attr = new TangoType;
-    }
-    virtual ~LiberaScalarAttr()
-    {
-        delete m_attr;
-    };
-
-    virtual void Read(mci::Node &a_root) {
+    void EnableNotify(LiberaClient *a_client) { m_client = a_client; }
+    void Notify();
+    virtual void Read(mci::Node &a_root) = 0;
+    virtual bool IsEqual(Tango::DevDouble *&) { return false; }
+    virtual bool IsEqual(Tango::DevLong *&) { return false; }
+    virtual bool IsEqual(Tango::DevULong *&) { return false; }
+    virtual bool IsEqual(Tango::DevShort *&) { return false; }
+    virtual bool IsEqual(Tango::DevUShort *&) { return false; }
+    virtual bool IsEqual(Tango::DevBoolean *&) { return false; }
+    /**
+     *  reader and writer functions for specific atribute handling
+     */
+    static Tango::DevDouble NM2MM(mci::Node &a_root, const std::string &a_path) {
         istd_FTRC();
-        //TODO: lock
-        if (m_path.empty()) {
-            m_val = 0;
+        int32_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val/1e6;
+    }
+    static Tango::DevDouble INT2DBL(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        int32_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val;
+    }
+    static void DBL2INT(mci::Node &a_root, const std::string &a_path, const Tango::DevDouble a_val) {
+        istd_FTRC();
+        int32_t val;
+        if (a_val < LONG_MIN) {
+            val = LONG_MIN;
         }
         else {
-            istd_TRC(istd::eTrcDetail, "Read from node: " << m_path);
-            a_root.GetNode(mci::Tokenize(m_path)).Get(m_val);
+            if (a_val > LONG_MAX) {
+                val = LONG_MAX;
+            }
+            else {
+                val = a_val;
+            }
         }
-        *m_attr = m_val;
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
     }
-
-    void Write(mci::Node &a_root, const TangoType a_val) {
-        //TODO: lock
-        m_val = a_val;
-        a_root.GetNode(mci::Tokenize(m_path)).Set(m_val);
-        *m_attr = m_val;
+    static Tango::DevLong ULONG2LONG(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        uint32_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val < LONG_MAX ? val : LONG_MAX;
     }
-
+    static void LONG2ULONG(mci::Node &a_root, const std::string &a_path, const Tango::DevLong a_val) {
+        istd_FTRC();
+        uint32_t val = a_val > 0 ? a_val : 0;
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
+    }
+    static Tango::DevLong ULL2LONG(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        uint64_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val % 2^32;
+    }
+    static Tango::DevShort ULL2SHORT(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        uint64_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val % 2^16;
+    }
+    /**
+     * reader and writer for negated bool value
+     */
+    static Tango::DevBoolean NEGATE(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        bool val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return !val;
+    }
+    static void NEGATE(mci::Node &a_root, const std::string &a_path, const Tango::DevBoolean a_val) {
+        istd_FTRC();
+        bool val(!a_val);
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
+    }
+    /**
+     * conversion for firsts enum 0 => false, other => true
+     */
+    static Tango::DevBoolean ENUM2BOOL(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        int64_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val;
+    }
+    static void BOOL2ENUM(mci::Node &a_root, const std::string &a_path, const Tango::DevBoolean a_val) {
+        istd_FTRC();
+        int64_t val(a_val);
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
+    }
+    /**
+     * DSCMode specific conversion for adjust and type subnodes.
+     * 0 : disabled => adjust = false
+     * 1 : unity    => adjust = true, type = unity(0)
+     * 2 : auto     => adjust = true, type = adjusted(1)
+     */
+    static Tango::DevShort DSC2SHORT(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        bool enabled;
+        Tango::DevShort res(0);
+        a_root.GetNode(mci::Tokenize(a_path + ".adjust")).Get(enabled);
+        if (enabled) {
+            res = 1;
+            int64_t type;
+            a_root.GetNode(mci::Tokenize(a_path+".type")).Get(type);
+            if (type != 0) {
+                res = 2;
+            }
+        }
+        return res;
+    }
+    static void SHORT2DSC(mci::Node &a_root, const std::string &a_path, const Tango::DevShort a_val) {
+        istd_FTRC();
+        bool enabled(a_val != 0);
+        a_root.GetNode(mci::Tokenize(a_path+".adjust")).Set(enabled);
+        int64_t type(a_val == 1 ? 0 : 1);
+        a_root.GetNode(mci::Tokenize(a_path+".type")).Set(type);
+    }
+    static Tango::DevShort FAN2SHORT(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        double min;
+        a_root.GetNode(mci::Tokenize(a_path + "front")).Get(min);
+        double val;
+        a_root.GetNode(mci::Tokenize(a_path + "middle")).Get(val);
+        if (val < min) {
+            min = val;
+        }
+        a_root.GetNode(mci::Tokenize(a_path + "rear")).Get(val);
+        if (val < min) {
+            min = val;
+        }
+        return min;
+    }
+    static Tango::DevShort DBL2SHORT(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        double val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val;
+    }
+    static Tango::DevLong CPU2LONG(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        double user;
+        a_root.GetNode(mci::Tokenize(a_path + ".ID_4.value")).Get(user);
+        double kernel;
+        a_root.GetNode(mci::Tokenize(a_path + ".ID_5.value")).Get(kernel);
+        return user + kernel;
+    }
+    static Tango::DevLong MEM2LONG(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        double total;
+        a_root.GetNode(mci::Tokenize(a_path + ".ID_0.value")).Get(total);
+        double used;
+        a_root.GetNode(mci::Tokenize(a_path + ".ID_1.value")).Get(used);
+        return total - used;
+    }
 private:
-    LiberaType m_val;
-    TangoType *&m_attr;
-    const std::string m_path;
-};
-
-/*******************************************************************************
- * Derived log read attribute class.
- */
-
-class LogsReadAttr : public LiberaAttr {
-public:
-    LogsReadAttr(Tango::DevString *&a_attr, const size_t a_size);
-    virtual ~LogsReadAttr();
-
-    virtual void Read(mci::Node &a_root);
-    void Write(mci::Node &a_root, const Tango::DevString a_val);
-
-private:
-    size_t             m_size;
-    Tango::DevString *&m_attr;
+    LiberaClient *m_client;
 };
 
 #endif //LIBERA_ATTR_H

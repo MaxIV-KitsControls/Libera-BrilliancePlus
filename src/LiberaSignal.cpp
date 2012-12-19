@@ -2,22 +2,28 @@
  * Copyright (c) 2012 Instrumentation Technologies
  * All Rights Reserved.
  *
- * $Id: LiberaSignal.cpp 18273 2012-11-30 15:28:11Z tomaz.beltram $
+ * $Id: LiberaSignal.cpp 18368 2012-12-18 14:55:03Z tomaz.beltram $
  */
+
+#include <chrono>
 
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #include <tango.h>
 #pragma GCC diagnostic warning "-Wold-style-cast"
 
+#include <istd/trace.h>
 #include <mci/mci.h>
 #include <mci/mci_util.h>
+#include <isig/signal_source.h>
 
 #include "LiberaSignal.h"
 
-LiberaSignalBase::LiberaSignalBase(const char *a_path, size_t a_length,
+LiberaSignal::LiberaSignal(const std::string &a_path, size_t a_length,
     Tango::DevBoolean *&a_enabled, Tango::DevLong *&a_bufSize)
   : m_running(false),
     m_thread(),
+    m_period(2000),
+    m_offset(0),
     m_enabled(a_enabled),
     m_length(a_bufSize),
     m_path(a_path)
@@ -36,7 +42,7 @@ LiberaSignalBase::LiberaSignalBase(const char *a_path, size_t a_length,
     };
 }
 
-LiberaSignalBase::~LiberaSignalBase()
+LiberaSignal::~LiberaSignal()
 {
     istd_FTRC();
     m_running = false;
@@ -45,50 +51,77 @@ LiberaSignalBase::~LiberaSignalBase()
     }
     delete m_enabled;
     delete m_length;
+    istd_TRC(istd::eTrcDetail, "Destroyed base signal for: " << m_path);
 }
 
-void LiberaSignalBase::operator()()
+void LiberaSignal::operator()()
 {
     istd_FTRC();
     // thread function has started
     m_running = true;
     while (m_running) {
         if (*m_enabled) {
-            try {
-                Update();
-            }
-            catch (istd::Exception e)
-            {
-                istd_TRC(istd::eTrcLow, "Exception thrown while reading signal!");
-                istd_TRC(istd::eTrcLow, e.what());
-                Disable();
-            }
-            std::this_thread::sleep_for(std::chrono::seconds(2));
+            Update();
+            std::this_thread::sleep_for(std::chrono::milliseconds(m_period));
         }
         else {
             // wait for stop running
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
+    istd_TRC(istd::eTrcHigh, "Exit update thread for: " << m_path);
 }
 
-void LiberaSignalBase::Enable(mci::Node &a_root)
+bool LiberaSignal::Connect(mci::Node &a_root)
 {
+    istd_FTRC();
+    bool res(false);
     m_root = a_root;
+    try {
+        mci::Node sNode = m_root.GetNode(mci::Tokenize(m_path));
+        //isig::SignalSourceSharedPtr signal = mci::CreateRemoteSignal(sNode);
+        Initialize(sNode);
+        res = true;
+    }
+    catch (istd::Exception e)
+    {
+        istd_TRC(istd::eTrcLow, "Exception thrown while connecting signal: " << m_path);
+        istd_TRC(istd::eTrcLow, e.what());
+    }
+    return res;
+}
+
+void LiberaSignal::Enable()
+{
     *m_enabled = true;
 }
 
-void LiberaSignalBase::Disable()
+void LiberaSignal::Disable()
 {
     *m_enabled = false;
 }
 
-size_t LiberaSignalBase::GetLength()
+void LiberaSignal::SetPeriod(uint32_t a_period)
+{
+    m_period = a_period;
+}
+
+void LiberaSignal::SetOffset(int32_t a_offset)
+{
+    m_offset = a_offset;
+}
+
+int32_t LiberaSignal::GetOffset()
+{
+    return m_offset;
+}
+
+size_t LiberaSignal::GetLength()
 {
     return *m_length;
 }
 
-void LiberaSignalBase::SetLength(size_t a_length)
+void LiberaSignal::SetLength(size_t a_length)
 {
     *m_length = a_length;
 }
@@ -96,20 +129,17 @@ void LiberaSignalBase::SetLength(size_t a_length)
 /**
  * Method for differentiating between stream and data on demand access type.
  */
-void LiberaSignalBase::Update()
+void LiberaSignal::Update()
 {
     istd_FTRC();
 
-    mci::Node sNode = m_root.GetNode(mci::Tokenize(m_path));
-    auto rSignal = mci::CreateRemoteSignal(sNode);
-
-    if (rSignal->AccessType() == isig::eAccessStream) {
-        UpdateStream(rSignal);
+    try {
+        UpdateSignal();
     }
-    else if (rSignal->AccessType() == isig::eAccessDataOnDemand) {
-        UpdateDod(rSignal);
-    }
-    else {
-        istd_TRC(istd::eTrcLow, "Unsupported signal access mode.")
+    catch (istd::Exception e)
+    {
+        istd_TRC(istd::eTrcLow, "Exception thrown while reading signal: " << m_path);
+        istd_TRC(istd::eTrcLow, e.what());
+        Disable();
     }
 }

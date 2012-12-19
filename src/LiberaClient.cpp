@@ -2,7 +2,7 @@
  * Copyright (c) 2012 Instrumentation Technologies
  * All Rights Reserved.
  *
- * $Id: LiberaClient.cpp 18277 2012-12-03 12:02:45Z tomaz.beltram $
+ * $Id: LiberaClient.cpp 18372 2012-12-19 13:43:52Z tomaz.beltram $
  */
 
 #include <istd/trace.h>
@@ -15,8 +15,8 @@
 #include <tango.h>
 #pragma GCC diagnostic warning "-Wold-style-cast"
 
-#include "LiberaAttr.h"
-#include "LiberaSignal.h"
+#include "LiberaBrilliancePlus.h"
+
 #include "LiberaClient.h"
 
 const char *c_localHost = "127.0.0.1";
@@ -24,20 +24,48 @@ const char *c_localHost = "127.0.0.1";
 /**
  * Constructor with member initializations.
  */
-LiberaClient::LiberaClient(Tango::Device_4Impl *a_deviceServer, const std::string &a_board)
-  : m_deviceServer(a_deviceServer), m_board("boards." + a_board + ".")
+LiberaClient::LiberaClient(LiberaBrilliancePlus_ns::LiberaBrilliancePlus *a_deviceServer)
+  : m_connected(false),
+    m_running(false),
+    m_thread(),
+    m_deviceServer(a_deviceServer)
 {
+    m_thread = std::thread(std::ref(*this));
+    // safety check, wait that thread function has started
+    while (!m_running) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    };
+}
+
+LiberaClient::~LiberaClient()
+{
+    istd_FTRC();
+    m_running = false;
+    if (m_thread.joinable()) {
+        m_thread.join();
+    }
+    m_signals.clear(); // destroy signal objects
+    m_attr.clear(); // destroy signal objects
+}
+
+void LiberaClient::Notify(LiberaAttr *a_attr)
+{
+    istd_FTRC();
+    m_notify[a_attr]();
 }
 
 /**
  * Method for updating all attributes on the list.
  */
-void LiberaClient::Update()
+void LiberaClient::UpdateAttr()
 {
     istd_FTRC();
     try {
         for (auto i = m_attr.begin(); i != m_attr.end(); ++i) {
             (*i)->Read(m_root);
+        }
+        for (auto i = m_attr_pm.begin(); i != m_attr_pm.end(); ++i) {
+            (*i)->Read(m_platform);
         }
     }
     catch (istd::Exception e)
@@ -46,84 +74,173 @@ void LiberaClient::Update()
         istd_TRC(istd::eTrcLow, e.what());
         // let the server know it
         m_deviceServer->set_state(Tango::OFF);
+        m_connected = false;
     }
 }
 
-void LiberaClient::Enable(LiberaSignalBase *a_signal)
+void LiberaClient::operator()()
 {
     istd_FTRC();
-    a_signal->Enable(m_root);
+    // thread function has started
+    m_running = true;
+    while (m_running) {
+        if (m_connected) {
+            UpdateAttr();
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+        }
+        else {
+            // wait for stop running
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+    }
+    istd_TRC(istd::eTrcHigh, "Exit attribute update thread");
 }
 
-void LiberaClient::Disable(LiberaSignalBase *a_signal)
+bool LiberaClient::Execute(const std::string &a_path)
 {
     istd_FTRC();
-    a_signal->Disable();
+    bool res = false;
+    try {
+        res = m_root.GetNode(mci::Tokenize(a_path)).Execute();
+    }
+    catch (istd::Exception e)
+    {
+        istd_TRC(istd::eTrcLow, "Exception thrown on execute node!");
+        istd_TRC(istd::eTrcLow, e.what());
+    }
+    return res;
+}
+
+void LiberaClient::TreeWalk(
+    const mci::Node &a_node, Tango::DevVarStringArray *a_out)
+{
+    std::string s = mci::ToString(a_node.GetRelPath());
+
+    if (a_node.GetValueType() != mci::eNvUndefined && a_node.IsReadable()) {
+        s = s + "=" + a_node.ToString(0);
+    }
+    (*a_out)[a_out->length() - 1] = CORBA::string_dup(s.c_str());
+
+    for (size_t i(0); i < a_node.GetNodeCount(); ++i) {
+        a_out->length(a_out->length() + 1);
+        TreeWalk(a_node.GetNode(i), a_out);
+    }
+}
+
+bool LiberaClient::MagicCommand(
+    const std::string &a_path, Tango::DevVarStringArray *a_out)
+{
+    istd_FTRC();
+    bool res = false;
+    try {
+        if (a_path == "dump") {
+            TreeWalk(m_root, a_out);
+        }
+        else {
+            TreeWalk(m_root.GetNode(mci::Tokenize(std::string(a_path))), a_out);
+        }
+    }
+    catch (istd::Exception e)
+    {
+        istd_TRC(istd::eTrcLow, "Exception thrown on read node!");
+        istd_TRC(istd::eTrcLow, e.what());
+        a_out->length(1);
+        (*a_out)[0] = CORBA::string_dup(e.what());
+    }
+    return res;
 }
 
 /**
  * Connection handling methods.
  */
-bool LiberaClient::Connect()
-{
-    istd_FTRC();
 
+void LiberaClient::Connect(mci::Node &a_root, mci::Root a_type)
+{
     // Destroy root node to force disconnect
-    if (m_root.IsValid()) {
+    if (a_root.IsValid()) {
         try {
-            m_root.Destroy();
+            a_root.Destroy();
         }
         catch (istd::Exception e)
         {
             istd_TRC(istd::eTrcLow, "Exception thrown while destroying root node!");
             istd_TRC(istd::eTrcLow, e.what());
         }
-        m_root = mci::Node();
+        a_root = mci::Node();
     }
 
     // disconnect if connected
     try {
-        mci::Disconnect(c_localHost, mci::Root::Application, mci::c_defaultPort);
+        mci::Disconnect(c_localHost, a_type);
     }
     catch (istd::Exception e)
     {
-        istd_TRC(istd::eTrcLow, "Exception thrown while disconnecting from application!");
+        istd_TRC(istd::eTrcLow, "Exception thrown while disconnecting root node!");
         istd_TRC(istd::eTrcLow, e.what());
     }
 
     // make new connection
     try {
-        m_root = mci::Connect(c_localHost, mci::Root::Application, mci::c_defaultPort);
+        a_root = mci::Connect(c_localHost, a_type);
     }
     catch (istd::Exception e)
     {
-        istd_TRC(istd::eTrcLow, "Exception thrown while connecting to application!");
+        istd_TRC(istd::eTrcLow, "Exception thrown while connecting root node!");
         istd_TRC(istd::eTrcLow, e.what());
     }
+}
+
+bool LiberaClient::Connect()
+{
+    istd_FTRC();
+
+    Connect(m_root, mci::Root::Application);
+    Connect(m_platform, mci::Root::Platform);
 
     // update attributes for the first time
-    if (m_root.IsValid()) {
-        Update();
+    if (m_root.IsValid() && m_platform.IsValid()) {
+        // start attribute update loop
+        m_connected = true;
+        // set root node connection for signals
+        for (auto i = m_signals.begin(); i != m_signals.end(); ++i) {
+            if (!(*i)->Connect(m_root)) {
+                m_connected = false;
+            }
+        }
         return true;
     }
     return false;
 }
 
-void LiberaClient::Disconnect()
+void LiberaClient::Disconnect(mci::Node &a_root, mci::Root a_type)
 {
-    istd_FTRC();
-
-    // Destroy root node to force disconnect
+    // destroy root node to force disconnect
     try {
-        m_root.Destroy();
+        a_root.Destroy();
     }
     catch (istd::Exception e)
     {
         istd_TRC(istd::eTrcLow, "Exception thrown while destroying root node!");
         istd_TRC(istd::eTrcLow, e.what());
     }
-    m_root = mci::Node();
+    a_root = mci::Node();
 
     // disconnect if connected
-    mci::Disconnect(c_localHost, mci::Root::Application, mci::c_defaultPort);
+    mci::Disconnect(c_localHost, a_type);
+}
+
+void LiberaClient::Disconnect()
+{
+    istd_FTRC();
+
+    // stop attribute update loop
+    m_connected = false;
+
+    Disconnect(m_root, mci::Root::Application);
+    Disconnect(m_platform, mci::Root::Platform);
+}
+
+bool LiberaClient::IsConnected()
+{
+    return m_connected;
 }

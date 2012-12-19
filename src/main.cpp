@@ -36,7 +36,7 @@ static const char *RcsId = "$Id: $";
 int main(int argc,char *argv[])
 {
     istd::TraceInit("-");
-    istd::TraceStart(istd::eTrcDetail);
+    istd::TraceStart(istd::eTrcLow);
 
     mci::Init(argc, argv);
 

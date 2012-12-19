@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
   <classes name="LiberaBrilliancePlus">
-    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/home/ubuntu/tango/inge/Libera-BrilliancePlus/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
+    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/home/ubuntu/devel/tango/inge/Libera-BrilliancePlus/src" language="Cpp" filestogenerate="XMI   file,Code files" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="Device_4Impl" sourcePath=""/>
       <identification contact="at maxlab.lu.se - kitscontrols" author="kitscontrols" emailDomain="maxlab.lu.se" classFamily="BeamDiag" siteSpecific="" platform="Unix Like" bus="Ethernet" manufacturer="I-Tech" reference="Libera Brilliance Plus"/>
-      <comments commandsTable="//================================================================&#xA;//&#xA;//  The following table gives the correspondence&#xA;//  between command and method names.&#xA;//&#xA;//  Command name                |  Method name&#xA;//----------------------------------------------------------------&#xA;//  State                       |  dev_state&#xA;//  Status                      |  dev_status&#xA;//  GetParameters               |  get_parameters&#xA;//  UnfreezeDDBuffer            |  unfreeze_ddbuffer&#xA;//  EnableDDBufferFreezing      |  enable_ddbuffer_freezing&#xA;//  DisableDDBufferFreezing     |  disable_ddbuffer_freezing&#xA;//  EnableDD                    |  enable_dd&#xA;//  DisableDD                   |  disable_dd&#xA;//  EnableSA                    |  enable_sa&#xA;//  DisableSA                   |  disable_sa&#xA;//  ResetPMNotification         |  reset_pmnotification&#xA;//  ResetInterlockNotification  |  reset_interlock_notification&#xA;//  SetInterlockConfiguration   |  set_interlock_configuration&#xA;//  EnableADC                   |  enable_adc&#xA;//  DisableADC                  |  disable_adc&#xA;//  SetTimeOnNextTrigger        |  set_time_on_next_trigger&#xA;//  ReadFAData                  |  read_fadata&#xA;//  WriteFAData                 |  write_fadata&#xA;//  SaveDSCParameters           |  save_dscparameters&#xA;//  ReloadSystemProperties      |  reload_system_properties&#xA;//  SetRefIncoherence           |  set_ref_incoherence&#xA;//================================================================"/>
+      <comments commandsTable="//================================================================&#xA;//&#xA;//  The following table gives the correspondence&#xA;//  between command and method names.&#xA;//&#xA;//  Command name                |  Method name&#xA;//----------------------------------------------------------------&#xA;//  State                       |  dev_state&#xA;//  Status                      |  dev_status&#xA;//  GetParameters               |  get_parameters&#xA;//  UnfreezeDDBuffer            |  unfreeze_ddbuffer&#xA;//  EnableDDBufferFreezing      |  enable_ddbuffer_freezing&#xA;//  DisableDDBufferFreezing     |  disable_ddbuffer_freezing&#xA;//  EnableDD                    |  enable_dd&#xA;//  DisableDD                   |  disable_dd&#xA;//  EnableSA                    |  enable_sa&#xA;//  DisableSA                   |  disable_sa&#xA;//  ResetPMNotification         |  reset_pmnotification&#xA;//  ResetInterlockNotification  |  reset_interlock_notification&#xA;//  SetInterlockConfiguration   |  set_interlock_configuration&#xA;//  EnableADC                   |  enable_adc&#xA;//  DisableADC                  |  disable_adc&#xA;//  SetTimeOnNextTrigger        |  set_time_on_next_trigger&#xA;//  ReadFAData                  |  read_fadata&#xA;//  WriteFAData                 |  write_fadata&#xA;//  SaveDSCParameters           |  save_dscparameters&#xA;//  ReloadSystemProperties      |  reload_system_properties&#xA;//  SetRefIncoherence           |  set_ref_incoherence&#xA;//  MagicCommand                |  magic_command&#xA;//================================================================"/>
     </description>
     <classProperties name="InterlockConfiguration" description="The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`&#xA;the Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configuration&#xA;can also be applied using the dedicated ``SetInterlockConfiguration`` expert command.&#xA;Parameters mapping:&#xA;[0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency&#xA;[1] Interlock : threshold : X low in mm&#xA;[2] Interlock : threshold : X high in mm&#xA;[3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)&#xA;[4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)&#xA;[5] Interlock : overflow limit (ADC threshold)&#xA;[6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)&#xA;[7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0]">
       <type xsi:type="pogoDsl:DoubleVectorType"/>
@@ -176,7 +176,12 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>500</DefaultPropValue>
     </deviceProperties>
-    <commands name="State" description="This command gets the device state (stored in its &lt;i>device_state&lt;/i> data member) and returns it to the caller." execMethod="dev_state" displayLevel="OPERATOR" polledPeriod="0">
+    <deviceProperties name="LiberaBoard" description="BPM board ID within the chassis [raf3,raf4,raf5 or raf6]">
+      <type xsi:type="pogoDsl:StringType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>raf5</DefaultPropValue>
+    </deviceProperties>
+    <commands name="State" description="This command gets the device state (stored in its &lt;i>device_state&lt;/i> data member) and returns it to the caller." execMethod="dev_state" displayLevel="OPERATOR">
       <argin description="none.">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -185,7 +190,7 @@
       </argout>
       <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
     </commands>
-    <commands name="Status" description="This command gets the device status (stored in its &lt;i>device_status&lt;/i> data member) and returns it to the caller." execMethod="dev_status" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="Status" description="This command gets the device status (stored in its &lt;i>device_status&lt;/i> data member) and returns it to the caller." execMethod="dev_status" displayLevel="OPERATOR">
       <argin description="none.">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -194,7 +199,7 @@
       </argout>
       <status abstract="true" inherited="true" concrete="true" concreteHere="true"/>
     </commands>
-    <commands name="GetParameters" description="Retruns the current gains and offsets (i.e. the parameters used for position computation)" execMethod="get_parameters" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="GetParameters" description="Retruns the current gains and offsets (i.e. the parameters used for position computation)" execMethod="get_parameters" displayLevel="OPERATOR">
       <argin description="N/A">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -205,7 +210,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="UnfreezeDDBuffer" description="Unfreezes the DD buffer" execMethod="unfreeze_ddbuffer" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="UnfreezeDDBuffer" description="Unfreezes the DD buffer" execMethod="unfreeze_ddbuffer" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -216,7 +221,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="EnableDDBufferFreezing" description="Enables the DD buffer freezing mechanism" execMethod="enable_ddbuffer_freezing" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="EnableDDBufferFreezing" description="Enables the DD buffer freezing mechanism" execMethod="enable_ddbuffer_freezing" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -227,7 +232,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="DisableDDBufferFreezing" description="Disables the DD buffer freezing mechanism" execMethod="disable_ddbuffer_freezing" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="DisableDDBufferFreezing" description="Disables the DD buffer freezing mechanism" execMethod="disable_ddbuffer_freezing" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -238,7 +243,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="EnableDD" description="Enables the so called &quot;data on demand&quot; (i.e. first turns) data source" execMethod="enable_dd" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="EnableDD" description="Enables the so called &quot;data on demand&quot; (i.e. first turns) data source" execMethod="enable_dd" displayLevel="OPERATOR">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -249,7 +254,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="DisableDD" description="Disables the so called &quot;data on demand&quot; (i.e. first turns) data source" execMethod="disable_dd" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="DisableDD" description="Disables the so called &quot;data on demand&quot; (i.e. first turns) data source" execMethod="disable_dd" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -260,7 +265,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="EnableSA" description="Enables the so called &quot;slow acquisition&quot; data source" execMethod="enable_sa" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="EnableSA" description="Enables the so called &quot;slow acquisition&quot; data source" execMethod="enable_sa" displayLevel="OPERATOR">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -271,7 +276,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="DisableSA" description="Disables the so called &quot;slow acquisition&quot; data source" execMethod="disable_sa" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="DisableSA" description="Disables the so called &quot;slow acquisition&quot; data source" execMethod="disable_sa" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -282,7 +287,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="ResetPMNotification" description="" execMethod="reset_pmnotification" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="ResetPMNotification" description="" execMethod="reset_pmnotification" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -293,7 +298,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="ResetInterlockNotification" description="Resets the interlock notification flags to false" execMethod="reset_interlock_notification" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="ResetInterlockNotification" description="Resets the interlock notification flags to false" execMethod="reset_interlock_notification" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -304,7 +309,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="SetInterlockConfiguration" description="Change interlock configuration using the InterlockConfiguration class (or device) property.&#xA;Only  modify  the interlock configuration, the remaining env. parameters remain unchanged." execMethod="set_interlock_configuration" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="SetInterlockConfiguration" description="Change interlock configuration using the InterlockConfiguration class (or device) property.&#xA;Only  modify  the interlock configuration, the remaining env. parameters remain unchanged." execMethod="set_interlock_configuration" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -315,7 +320,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="EnableADC" description="Enables the so called ADC data source" execMethod="enable_adc" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="EnableADC" description="Enables the so called ADC data source" execMethod="enable_adc" displayLevel="OPERATOR">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -326,7 +331,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="DisableADC" description="Disables the so called ADC data source" execMethod="disable_adc" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="DisableADC" description="Disables the so called ADC data source" execMethod="disable_adc" displayLevel="OPERATOR">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -337,7 +342,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="SetTimeOnNextTrigger" description="Applies both machine et system time values on next trigger" execMethod="set_time_on_next_trigger" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="SetTimeOnNextTrigger" description="Applies both machine et system time values on next trigger" execMethod="set_time_on_next_trigger" displayLevel="OPERATOR">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -348,7 +353,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="ReadFAData" description="Statring from[offest] in FA data block, reads [size of elems] * [num of elems] bytes." execMethod="read_fadata" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="ReadFAData" description="Statring from[offest] in FA data block, reads [size of elems] * [num of elems] bytes." execMethod="read_fadata" displayLevel="OPERATOR">
       <argin description="The reading parameters: [0]:offset in FA data block, [1]:size of elems, [2]:num of elems">
         <type xsi:type="pogoDsl:IntArrayType"/>
       </argin>
@@ -359,7 +364,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="WriteFAData" description="Starting from [offset] in Fa data block, writes [size of elems * num of elems].&#xA;The actual data to be written starts at index [4] in the input array." execMethod="write_fadata" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="WriteFAData" description="Starting from [offset] in Fa data block, writes [size of elems * num of elems].&#xA;The actual data to be written starts at index [4] in the input array." execMethod="write_fadata" displayLevel="OPERATOR">
       <argin description="The writting parameters: [0]:offset in FA data block, bytes[1]:size of elems, [2]:num of elems, [3, ...]: actual to data to be written">
         <type xsi:type="pogoDsl:IntArrayType"/>
       </argin>
@@ -370,7 +375,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="SaveDSCParameters" description="Saves the current DSC parameters" execMethod="save_dscparameters" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="SaveDSCParameters" description="Saves the current DSC parameters" execMethod="save_dscparameters" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -381,7 +386,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="ReloadSystemProperties" description="" execMethod="reload_system_properties" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="ReloadSystemProperties" description="" execMethod="reload_system_properties" displayLevel="OPERATOR">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -392,7 +397,7 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
-    <commands name="SetRefIncoherence" description="Set the actual incoherence value as refeference value for the drift alarm calculation." execMethod="set_ref_incoherence" displayLevel="OPERATOR" polledPeriod="0">
+    <commands name="SetRefIncoherence" description="Set the actual incoherence value as refeference value for the drift alarm calculation." execMethod="set_ref_incoherence" displayLevel="OPERATOR">
       <argin description="">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -402,6 +407,15 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
+    </commands>
+    <commands name="MagicCommand" description="" execMethod="magic_command" displayLevel="EXPERT">
+      <argin description="">
+        <type xsi:type="pogoDsl:StringType"/>
+      </argin>
+      <argout description="">
+        <type xsi:type="pogoDsl:StringArrayType"/>
+      </argout>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
     </commands>
     <attributes name="LiberaModel" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0">
       <dataType xsi:type="pogoDsl:UShortType"/>
@@ -482,14 +496,13 @@
       <readExcludedStates>UNKNOWN</readExcludedStates>
       <readExcludedStates>FAULT</readExcludedStates>
     </attributes>
-    <attributes name="ExternalTriggerDelay" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true">
+    <attributes name="ExternalTriggerDelay" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false">
       <dataType xsi:type="pogoDsl:IntType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="The external trigger signal can be internally hardware delayed. \nThe delay is set in steps of ADC samples of about 9ns." label="External Trigger Delay" unit="ADC samples" standardUnit="" displayUnit="" format="%6d" maxValue="" minValue="0" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
-      <readExcludedStates>UNKNOWN</readExcludedStates>
-      <readExcludedStates>FAULT</readExcludedStates>
+      <properties description="The external trigger signal can be internally hardware delayed. &#xA;The delay is set in steps of ADC samples of about 9ns." label="External Trigger Delay" unit="ADC samples" standardUnit="" displayUnit="" format="%6d" maxValue="" minValue="0" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="SAEnabled" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true">
       <dataType xsi:type="pogoDsl:BooleanType"/>
@@ -815,14 +828,13 @@
       <readExcludedStates>UNKNOWN</readExcludedStates>
       <readExcludedStates>FAULT</readExcludedStates>
     </attributes>
-    <attributes name="SwitchingDelay" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true">
+    <attributes name="SwitchingDelay" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false">
       <dataType xsi:type="pogoDsl:IntType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="Delay for the ADC source switching." label="Switching Delay" unit="a.u." standardUnit="" displayUnit="%6d" format="" maxValue="" minValue="0" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
-      <readExcludedStates>UNKNOWN</readExcludedStates>
-      <readExcludedStates>FAULT</readExcludedStates>
     </attributes>
     <attributes name="OffsetTune" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true">
       <dataType xsi:type="pogoDsl:IntType"/>
@@ -905,14 +917,13 @@
       <readExcludedStates>UNKNOWN</readExcludedStates>
       <readExcludedStates>FAULT</readExcludedStates>
     </attributes>
-    <attributes name="TimePhase" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true">
+    <attributes name="TimePhase" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false">
       <dataType xsi:type="pogoDsl:IntType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="The Machine Time Phase" label="Machine Time Phase" unit="a.u." standardUnit="" displayUnit="" format="%6d" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
-      <readExcludedStates>UNKNOWN</readExcludedStates>
-      <readExcludedStates>FAULT</readExcludedStates>
     </attributes>
     <attributes name="SystemTime" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0">
       <dataType xsi:type="pogoDsl:DoubleType"/>
@@ -941,14 +952,29 @@
       <readExcludedStates>UNKNOWN</readExcludedStates>
       <readExcludedStates>FAULT</readExcludedStates>
     </attributes>
-    <attributes name="HWTemperature" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0">
+    <attributes name="Temp1" attType="Scalar" rwType="READ" displayLevel="OPERATOR" maxX="0" maxY="0" allocReadMember="false">
       <dataType xsi:type="pogoDsl:ShortType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="The current Libera hardware temperature" label="HW Temp." unit="deg.C" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="50" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
-      <readExcludedStates>UNKNOWN</readExcludedStates>
-      <readExcludedStates>FAULT</readExcludedStates>
+      <properties description="The Libera box first temperature" label="Temperature 1" unit="deg.C" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="65" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+    </attributes>
+    <attributes name="Temp2" attType="Scalar" rwType="READ" displayLevel="OPERATOR" maxX="0" maxY="0" allocReadMember="false">
+      <dataType xsi:type="pogoDsl:ShortType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="The Libera box second temperature" label="Temperature 2" unit="deg.C" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="65" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+    </attributes>
+    <attributes name="Temp3" attType="Scalar" rwType="READ" displayLevel="OPERATOR" maxX="0" maxY="0" allocReadMember="false">
+      <dataType xsi:type="pogoDsl:ShortType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="The Libera box third temperature" label="Temperature 3" unit="deg.C" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="65" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="Fan1Speed" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0">
       <dataType xsi:type="pogoDsl:ShortType"/>
@@ -1360,6 +1386,6 @@
     <states name="ON" description="BPM is up and running">
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
     </states>
-    <preferences docHome="./doc_html" makefileHome="/usr/local/share/pogo/preferences"/>
+    <preferences docHome="./doc_html" makefileHome="/usr/share/pogo/preferences"/>
   </classes>
 </pogoDsl:PogoSystem>

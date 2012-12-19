@@ -934,18 +934,46 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_MCPLLStatus_allowed(ty);}
 };
 
-//	Attribute HWTemperature class definition
-class HWTemperatureAttrib: public Tango::Attr
+//	Attribute Temp1 class definition
+class Temp1Attrib: public Tango::Attr
 {
 public:
-	HWTemperatureAttrib():Attr("HWTemperature",
+	Temp1Attrib():Attr("Temp1",
 	                   Tango::DEV_SHORT, Tango::READ) {};
-	~HWTemperatureAttrib() {};
+	~Temp1Attrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_HWTemperature(att);}
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_Temp1(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_HWTemperature_allowed(ty);}
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Temp1_allowed(ty);}
+};
+
+//	Attribute Temp2 class definition
+class Temp2Attrib: public Tango::Attr
+{
+public:
+	Temp2Attrib():Attr("Temp2",
+	                   Tango::DEV_SHORT, Tango::READ) {};
+	~Temp2Attrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_Temp2(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Temp2_allowed(ty);}
+};
+
+//	Attribute Temp3 class definition
+class Temp3Attrib: public Tango::Attr
+{
+public:
+	Temp3Attrib():Attr("Temp3",
+	                   Tango::DEV_SHORT, Tango::READ) {};
+	~Temp3Attrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_Temp3(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Temp3_allowed(ty);}
 };
 
 //	Attribute Fan1Speed class definition
@@ -1588,7 +1616,6 @@ public:
 
 
 
-
 //=========================================
 //	Define classes for commands
 //=========================================
@@ -2029,6 +2056,29 @@ public:
 	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SetRefIncoherence_allowed(any);}
 };
 
+//	Command MagicCommand class definition
+class MagicCommandClass : public Tango::Command
+{
+public:
+	MagicCommandClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	MagicCommandClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~MagicCommandClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_MagicCommand_allowed(any);}
+};
+
 
 
 
@@ -2109,7 +2159,6 @@ private:
 	void create_static_attribute_list(vector<Tango::Attr *> &);
 	void erase_dynamic_attributes(const Tango::DevVarStringArray *,vector<Tango::Attr *> &);
 	vector<string>	defaultAttList;
-	Tango::Attr *get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname);
 
 
 };

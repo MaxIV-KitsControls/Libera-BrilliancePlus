@@ -31,7 +31,8 @@
 
 #include <tango.h>
 
-#include "LiberaClient.h"
+class LiberaClient;
+class LiberaSignal;
 
 /*----- PROTECTED REGION END -----*/
 
@@ -60,17 +61,21 @@ class LiberaBrilliancePlus : public Tango::Device_4Impl
 	//		Add your own data members
     LiberaClient *m_libera;
 
-    LiberaSignalBase *m_signalDdc;
-    LiberaSignalBase *m_signalDdcRaw;
+    LiberaSignal *m_signalDdc;
+    LiberaSignal *m_signalDdcRaw;
+    Tango::DevBoolean *attr_DDEnabled_read_added;
+    Tango::DevLong   *attr_DDBufferSize_read_added;
 
-    LiberaSignalBase *m_signalSA;
+    LiberaSignal *m_signalSA;
     Tango::DevLong *attr_SABufferSize_read_added; //declared here for completenes
 
-    LiberaSignalBase *m_signalPM;
+    LiberaSignal *m_signalPM;
     Tango::DevBoolean *attr_PMEnabled_read_added;
     Tango::DevLong   *attr_PMBufferSize_read_added;
 
-    LiberaSignalBase *m_signalADC;
+    LiberaSignal *m_signalADC;
+
+    std::string m_raf;
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Data Members
 
@@ -159,7 +164,10 @@ public:		//	LiberaIpAddr:	The Libera IP address [no default value]
 	//	FADataCacheRefreshPeriod:	The <FA Data> cache refresh period in msecs.
 	//	Defaults to 500 ms (2Hz).
 	Tango::DevULong	fADataCacheRefreshPeriod;
+	//	LiberaBoard:	BPM board ID within the chassis [raf3,raf4,raf5 or raf6]
+	string	liberaBoard;
 	
+
 //	Attribute data members
 public:
 	Tango::DevUShort	*attr_LiberaModel_read;
@@ -222,7 +230,9 @@ public:
 	Tango::DevDouble	*attr_SystemTime_read;
 	Tango::DevBoolean	*attr_SCPLLStatus_read;
 	Tango::DevBoolean	*attr_MCPLLStatus_read;
-	Tango::DevShort	*attr_HWTemperature_read;
+	Tango::DevShort	*attr_Temp1_read;
+	Tango::DevShort	*attr_Temp2_read;
+	Tango::DevShort	*attr_Temp3_read;
 	Tango::DevShort	*attr_Fan1Speed_read;
 	Tango::DevShort	*attr_Fan2Speed_read;
 	Tango::DevDouble	*attr_Incoherence_read;
@@ -445,7 +455,8 @@ public:
 
 	/**
 	 *	ExternalTriggerDelay attribute related methods.
-	 *	Description: The external trigger signal can be internally hardware delayed. \nThe delay is set in steps of ADC samples of about 9ns.
+	 *	Description: The external trigger signal can be internally hardware delayed. 
+ *	             The delay is set in steps of ADC samples of about 9ns.
 	 *
 	 *	Data type:	Tango::DevLong
 	 *	Attr type:	Scalar 
@@ -1075,14 +1086,38 @@ public:
 
 
 	/**
-	 *	HWTemperature attribute related methods.
-	 *	Description: The current Libera hardware temperature
+	 *	Temp1 attribute related methods.
+	 *	Description: The Libera box first temperature
 	 *
 	 *	Data type:	Tango::DevShort
 	 *	Attr type:	Scalar 
 	 */
-	virtual void read_HWTemperature(Tango::Attribute &attr);
-	virtual bool is_HWTemperature_allowed(Tango::AttReqType type);
+	virtual void read_Temp1(Tango::Attribute &attr);
+	virtual bool is_Temp1_allowed(Tango::AttReqType type);
+
+
+
+	/**
+	 *	Temp2 attribute related methods.
+	 *	Description: The Libera box second temperature
+	 *
+	 *	Data type:	Tango::DevShort
+	 *	Attr type:	Scalar 
+	 */
+	virtual void read_Temp2(Tango::Attribute &attr);
+	virtual bool is_Temp2_allowed(Tango::AttReqType type);
+
+
+
+	/**
+	 *	Temp3 attribute related methods.
+	 *	Description: The Libera box third temperature
+	 *
+	 *	Data type:	Tango::DevShort
+	 *	Attr type:	Scalar 
+	 */
+	virtual void read_Temp3(Tango::Attribute &attr);
+	virtual bool is_Temp3_allowed(Tango::AttReqType type);
 
 
 
@@ -1629,144 +1664,150 @@ public:
 
 
 
-
 	/**
 	 *	Method      : LiberaBrilliancePlus::add_dynamic_attributes()
 	 *	Description : Add dynamic attributes if any.
 	 */
-	void add_dynamic_attributes();
+		void add_dynamic_attributes();
 
 //	Command related methods
 public: 
 	/**
 	 *	Command State related methods.
 	 */
-	virtual Tango::DevState dev_state();
+	Tango::DevState dev_state();
 
 	/**
 	 *	Command Status related methods.
 	 */
-	virtual Tango::ConstDevString dev_status();
+	Tango::ConstDevString dev_status();
 
 	/**
 	 *	Command GetParameters related methods.
 	 */
-	virtual Tango::DevVarDoubleStringArray *get_parameters();
+	Tango::DevVarDoubleStringArray *get_parameters();
 	virtual bool is_GetParameters_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command UnfreezeDDBuffer related methods.
 	 */
-	virtual void unfreeze_ddbuffer();
+	void unfreeze_ddbuffer();
 	virtual bool is_UnfreezeDDBuffer_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command EnableDDBufferFreezing related methods.
 	 */
-	virtual void enable_ddbuffer_freezing();
+	void enable_ddbuffer_freezing();
 	virtual bool is_EnableDDBufferFreezing_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command DisableDDBufferFreezing related methods.
 	 */
-	virtual void disable_ddbuffer_freezing();
+	void disable_ddbuffer_freezing();
 	virtual bool is_DisableDDBufferFreezing_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command EnableDD related methods.
 	 */
-	virtual void enable_dd();
+	void enable_dd();
 	virtual bool is_EnableDD_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command DisableDD related methods.
 	 */
-	virtual void disable_dd();
+	void disable_dd();
 	virtual bool is_DisableDD_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command EnableSA related methods.
 	 */
-	virtual void enable_sa();
+	void enable_sa();
 	virtual bool is_EnableSA_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command DisableSA related methods.
 	 */
-	virtual void disable_sa();
+	void disable_sa();
 	virtual bool is_DisableSA_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command ResetPMNotification related methods.
 	 */
-	virtual void reset_pmnotification();
+	void reset_pmnotification();
 	virtual bool is_ResetPMNotification_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command ResetInterlockNotification related methods.
 	 */
-	virtual void reset_interlock_notification();
+	void reset_interlock_notification();
 	virtual bool is_ResetInterlockNotification_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command SetInterlockConfiguration related methods.
 	 */
-	virtual void set_interlock_configuration();
+	void set_interlock_configuration();
 	virtual bool is_SetInterlockConfiguration_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command EnableADC related methods.
 	 */
-	virtual void enable_adc();
+	void enable_adc();
 	virtual bool is_EnableADC_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command DisableADC related methods.
 	 */
-	virtual void disable_adc();
+	void disable_adc();
 	virtual bool is_DisableADC_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command SetTimeOnNextTrigger related methods.
 	 */
-	virtual void set_time_on_next_trigger();
+	void set_time_on_next_trigger();
 	virtual bool is_SetTimeOnNextTrigger_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command ReadFAData related methods.
 	 */
-	virtual Tango::DevVarLongArray *read_fadata(const Tango::DevVarLongArray *argin);
+	Tango::DevVarLongArray *read_fadata(const Tango::DevVarLongArray *argin);
 	virtual bool is_ReadFAData_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command WriteFAData related methods.
 	 */
-	virtual void write_fadata(const Tango::DevVarLongArray *argin);
+	void write_fadata(const Tango::DevVarLongArray *argin);
 	virtual bool is_WriteFAData_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command SaveDSCParameters related methods.
 	 */
-	virtual void save_dscparameters();
+	void save_dscparameters();
 	virtual bool is_SaveDSCParameters_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command ReloadSystemProperties related methods.
 	 */
-	virtual void reload_system_properties();
+	void reload_system_properties();
 	virtual bool is_ReloadSystemProperties_allowed(const CORBA::Any &any);
 
 	/**
 	 *	Command SetRefIncoherence related methods.
 	 */
-	virtual void set_ref_incoherence();
+	void set_ref_incoherence();
 	virtual bool is_SetRefIncoherence_allowed(const CORBA::Any &any);
+
+	/**
+	 *	Command MagicCommand related methods.
+	 */
+	Tango::DevVarStringArray *magic_command(Tango::DevString argin);
+	virtual bool is_MagicCommand_allowed(const CORBA::Any &any);
 
 
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::Additional Method prototypes) ENABLED START -----*/
 
 	//	Additional Method prototypes
+	void UpdatePM();
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Additional Method prototypes
 

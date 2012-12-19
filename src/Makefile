@@ -140,6 +140,7 @@ SVC_OBJS =      \
 ADDITIONAL_OBJS = \
             $(OBJDIR)/LiberaClient.o \
             $(OBJDIR)/LiberaAttr.o   \
+            $(OBJDIR)/LiberaLogsAttr.o   \
             $(OBJDIR)/LiberaSignal.o
 
 #=============================================================================

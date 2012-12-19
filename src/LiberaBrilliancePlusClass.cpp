@@ -164,7 +164,7 @@ LiberaBrilliancePlusClass *LiberaBrilliancePlusClass::instance()
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *GetParametersClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *GetParametersClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "GetParametersClass::execute(): arrived" << endl;
 
@@ -182,7 +182,7 @@ CORBA::Any *GetParametersClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *UnfreezeDDBufferClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *UnfreezeDDBufferClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "UnfreezeDDBufferClass::execute(): arrived" << endl;
 
@@ -201,7 +201,7 @@ CORBA::Any *UnfreezeDDBufferClass::execute(Tango::DeviceImpl *device, TANGO_UNUS
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *EnableDDBufferFreezingClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *EnableDDBufferFreezingClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "EnableDDBufferFreezingClass::execute(): arrived" << endl;
 
@@ -220,7 +220,7 @@ CORBA::Any *EnableDDBufferFreezingClass::execute(Tango::DeviceImpl *device, TANG
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *DisableDDBufferFreezingClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *DisableDDBufferFreezingClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "DisableDDBufferFreezingClass::execute(): arrived" << endl;
 
@@ -239,7 +239,7 @@ CORBA::Any *DisableDDBufferFreezingClass::execute(Tango::DeviceImpl *device, TAN
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *EnableDDClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *EnableDDClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "EnableDDClass::execute(): arrived" << endl;
 
@@ -258,7 +258,7 @@ CORBA::Any *EnableDDClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *DisableDDClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *DisableDDClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "DisableDDClass::execute(): arrived" << endl;
 
@@ -277,7 +277,7 @@ CORBA::Any *DisableDDClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(cons
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *EnableSAClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *EnableSAClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "EnableSAClass::execute(): arrived" << endl;
 
@@ -296,7 +296,7 @@ CORBA::Any *EnableSAClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *DisableSAClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *DisableSAClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "DisableSAClass::execute(): arrived" << endl;
 
@@ -315,7 +315,7 @@ CORBA::Any *DisableSAClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(cons
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *ResetPMNotificationClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *ResetPMNotificationClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "ResetPMNotificationClass::execute(): arrived" << endl;
 
@@ -334,7 +334,7 @@ CORBA::Any *ResetPMNotificationClass::execute(Tango::DeviceImpl *device, TANGO_U
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *ResetInterlockNotificationClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *ResetInterlockNotificationClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "ResetInterlockNotificationClass::execute(): arrived" << endl;
 
@@ -353,7 +353,7 @@ CORBA::Any *ResetInterlockNotificationClass::execute(Tango::DeviceImpl *device, 
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *SetInterlockConfigurationClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *SetInterlockConfigurationClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "SetInterlockConfigurationClass::execute(): arrived" << endl;
 
@@ -372,7 +372,7 @@ CORBA::Any *SetInterlockConfigurationClass::execute(Tango::DeviceImpl *device, T
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *EnableADCClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *EnableADCClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "EnableADCClass::execute(): arrived" << endl;
 
@@ -391,7 +391,7 @@ CORBA::Any *EnableADCClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(cons
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *DisableADCClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *DisableADCClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "DisableADCClass::execute(): arrived" << endl;
 
@@ -410,7 +410,7 @@ CORBA::Any *DisableADCClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(con
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *SetTimeOnNextTriggerClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *SetTimeOnNextTriggerClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "SetTimeOnNextTriggerClass::execute(): arrived" << endl;
 
@@ -429,7 +429,7 @@ CORBA::Any *SetTimeOnNextTriggerClass::execute(Tango::DeviceImpl *device, TANGO_
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *ReadFADataClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *ReadFADataClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "ReadFADataClass::execute(): arrived" << endl;
 
@@ -448,7 +448,7 @@ CORBA::Any *ReadFADataClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(con
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *WriteFADataClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *WriteFADataClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "WriteFADataClass::execute(): arrived" << endl;
 
@@ -468,7 +468,7 @@ CORBA::Any *WriteFADataClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(co
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *SaveDSCParametersClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *SaveDSCParametersClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "SaveDSCParametersClass::execute(): arrived" << endl;
 
@@ -487,7 +487,7 @@ CORBA::Any *SaveDSCParametersClass::execute(Tango::DeviceImpl *device, TANGO_UNU
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *ReloadSystemPropertiesClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *ReloadSystemPropertiesClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "ReloadSystemPropertiesClass::execute(): arrived" << endl;
 
@@ -506,13 +506,32 @@ CORBA::Any *ReloadSystemPropertiesClass::execute(Tango::DeviceImpl *device, TANG
  *	returns The command output data (packed in the Any object)
  */
 //--------------------------------------------------------
-CORBA::Any *SetRefIncoherenceClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+CORBA::Any *SetRefIncoherenceClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
 {
 	cout2 << "SetRefIncoherenceClass::execute(): arrived" << endl;
 
 	
 	((static_cast<LiberaBrilliancePlus *>(device))->set_ref_incoherence());
 	return new CORBA::Any();
+}
+//--------------------------------------------------------
+/**
+ * method : 		MagicCommandClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *MagicCommandClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "MagicCommandClass::execute(): arrived" << endl;
+
+	Tango::DevString	argin;
+	extract(in_any, argin);
+	return insert((static_cast<LiberaBrilliancePlus *>(device))->magic_command(argin));
 }
 
 
@@ -1218,6 +1237,21 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
+
+	prop_name = "LiberaBoard";
+	prop_desc = "BPM board ID within the chassis [raf3,raf4,raf5 or raf6]";
+	prop_def  = "raf5\n";
+	vect_data.clear();
+	vect_data.push_back("raf5");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 
@@ -1435,6 +1469,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Class::attribute_factory_before
 
+
 	//	Attribute : LiberaModel
 	LiberaModelAttrib	*liberamodel = new LiberaModelAttrib();
 	Tango::UserDefaultAttrProp	liberamodel_prop;
@@ -1452,18 +1487,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	LiberaModel
 	//	delta_t	not set for	LiberaModel
 	//	delta_val	not set for	LiberaModel
-
 	liberamodel->set_default_properties(liberamodel_prop);
-	liberamodel->set_polling_period(0);
+	//	Not Polled
 	liberamodel->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	LiberaModel does not fire change event
 	//	LiberaModel does not fire archive event
 	//	LiberaModel does not fire data_ready event
-
 	att_list.push_back(liberamodel);
-	
+
 	//	Attribute : DDEnabled
 	DDEnabledAttrib	*ddenabled = new DDEnabledAttrib();
 	Tango::UserDefaultAttrProp	ddenabled_prop;
@@ -1481,18 +1514,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	DDEnabled
 	//	delta_t	not set for	DDEnabled
 	//	delta_val	not set for	DDEnabled
-
 	ddenabled->set_default_properties(ddenabled_prop);
-	ddenabled->set_polling_period(0);
+	//	Not Polled
 	ddenabled->set_disp_level(Tango::OPERATOR);
 	ddenabled->set_memorized();
 	ddenabled->set_memorized_init(true);
 	//	DDEnabled does not fire change event
 	//	DDEnabled does not fire archive event
 	//	DDEnabled does not fire data_ready event
-
 	att_list.push_back(ddenabled);
-	
+
 	//	Attribute : DDBufferSize
 	DDBufferSizeAttrib	*ddbuffersize = new DDBufferSizeAttrib();
 	Tango::UserDefaultAttrProp	ddbuffersize_prop;
@@ -1510,18 +1541,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	DDBufferSize
 	//	delta_t	not set for	DDBufferSize
 	//	delta_val	not set for	DDBufferSize
-
 	ddbuffersize->set_default_properties(ddbuffersize_prop);
-	ddbuffersize->set_polling_period(0);
+	//	Not Polled
 	ddbuffersize->set_disp_level(Tango::OPERATOR);
 	ddbuffersize->set_memorized();
 	ddbuffersize->set_memorized_init(true);
 	//	DDBufferSize does not fire change event
 	//	DDBufferSize does not fire archive event
 	//	DDBufferSize does not fire data_ready event
-
 	att_list.push_back(ddbuffersize);
-	
+
 	//	Attribute : DDDecimationFactor
 	DDDecimationFactorAttrib	*dddecimationfactor = new DDDecimationFactorAttrib();
 	Tango::UserDefaultAttrProp	dddecimationfactor_prop;
@@ -1539,18 +1568,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	DDDecimationFactor
 	//	delta_t	not set for	DDDecimationFactor
 	//	delta_val	not set for	DDDecimationFactor
-
 	dddecimationfactor->set_default_properties(dddecimationfactor_prop);
-	dddecimationfactor->set_polling_period(0);
+	//	Not Polled
 	dddecimationfactor->set_disp_level(Tango::OPERATOR);
 	dddecimationfactor->set_memorized();
 	dddecimationfactor->set_memorized_init(true);
 	//	DDDecimationFactor does not fire change event
 	//	DDDecimationFactor does not fire archive event
 	//	DDDecimationFactor does not fire data_ready event
-
 	att_list.push_back(dddecimationfactor);
-	
+
 	//	Attribute : DDTriggerOffset
 	DDTriggerOffsetAttrib	*ddtriggeroffset = new DDTriggerOffsetAttrib();
 	Tango::UserDefaultAttrProp	ddtriggeroffset_prop;
@@ -1568,18 +1595,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	DDTriggerOffset
 	//	delta_t	not set for	DDTriggerOffset
 	//	delta_val	not set for	DDTriggerOffset
-
 	ddtriggeroffset->set_default_properties(ddtriggeroffset_prop);
-	ddtriggeroffset->set_polling_period(0);
+	//	Not Polled
 	ddtriggeroffset->set_disp_level(Tango::OPERATOR);
 	ddtriggeroffset->set_memorized();
 	ddtriggeroffset->set_memorized_init(true);
 	//	DDTriggerOffset does not fire change event
 	//	DDTriggerOffset does not fire archive event
 	//	DDTriggerOffset does not fire data_ready event
-
 	att_list.push_back(ddtriggeroffset);
-	
+
 	//	Attribute : DDBufferFreezingEnabled
 	DDBufferFreezingEnabledAttrib	*ddbufferfreezingenabled = new DDBufferFreezingEnabledAttrib();
 	Tango::UserDefaultAttrProp	ddbufferfreezingenabled_prop;
@@ -1597,18 +1622,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	DDBufferFreezingEnabled
 	//	delta_t	not set for	DDBufferFreezingEnabled
 	//	delta_val	not set for	DDBufferFreezingEnabled
-
 	ddbufferfreezingenabled->set_default_properties(ddbufferfreezingenabled_prop);
-	ddbufferfreezingenabled->set_polling_period(0);
+	//	Not Polled
 	ddbufferfreezingenabled->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	DDBufferFreezingEnabled does not fire change event
 	//	DDBufferFreezingEnabled does not fire archive event
 	//	DDBufferFreezingEnabled does not fire data_ready event
-
 	att_list.push_back(ddbufferfreezingenabled);
-	
+
 	//	Attribute : DDBufferFrozen
 	DDBufferFrozenAttrib	*ddbufferfrozen = new DDBufferFrozenAttrib();
 	Tango::UserDefaultAttrProp	ddbufferfrozen_prop;
@@ -1626,18 +1649,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	DDBufferFrozen
 	//	delta_t	not set for	DDBufferFrozen
 	//	delta_val	not set for	DDBufferFrozen
-
 	ddbufferfrozen->set_default_properties(ddbufferfrozen_prop);
-	ddbufferfrozen->set_polling_period(0);
+	//	Not Polled
 	ddbufferfrozen->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	DDBufferFrozen does not fire change event
 	//	DDBufferFrozen does not fire archive event
 	//	DDBufferFrozen does not fire data_ready event
-
 	att_list.push_back(ddbufferfrozen);
-	
+
 	//	Attribute : DDTriggerCounter
 	DDTriggerCounterAttrib	*ddtriggercounter = new DDTriggerCounterAttrib();
 	Tango::UserDefaultAttrProp	ddtriggercounter_prop;
@@ -1655,18 +1676,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	DDTriggerCounter
 	//	delta_t	not set for	DDTriggerCounter
 	//	delta_val	not set for	DDTriggerCounter
-
 	ddtriggercounter->set_default_properties(ddtriggercounter_prop);
-	ddtriggercounter->set_polling_period(0);
+	//	Not Polled
 	ddtriggercounter->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	DDTriggerCounter does not fire change event
 	//	DDTriggerCounter does not fire archive event
 	//	DDTriggerCounter does not fire data_ready event
-
 	att_list.push_back(ddtriggercounter);
-	
+
 	//	Attribute : ExternalTriggerEnabled
 	ExternalTriggerEnabledAttrib	*externaltriggerenabled = new ExternalTriggerEnabledAttrib();
 	Tango::UserDefaultAttrProp	externaltriggerenabled_prop;
@@ -1684,18 +1703,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ExternalTriggerEnabled
 	//	delta_t	not set for	ExternalTriggerEnabled
 	//	delta_val	not set for	ExternalTriggerEnabled
-
 	externaltriggerenabled->set_default_properties(externaltriggerenabled_prop);
-	externaltriggerenabled->set_polling_period(0);
+	//	Not Polled
 	externaltriggerenabled->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ExternalTriggerEnabled does not fire change event
 	//	ExternalTriggerEnabled does not fire archive event
 	//	ExternalTriggerEnabled does not fire data_ready event
-
 	att_list.push_back(externaltriggerenabled);
-	
+
 	//	Attribute : ExternalTriggerDelay
 	ExternalTriggerDelayAttrib	*externaltriggerdelay = new ExternalTriggerDelayAttrib();
 	Tango::UserDefaultAttrProp	externaltriggerdelay_prop;
@@ -1713,18 +1730,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ExternalTriggerDelay
 	//	delta_t	not set for	ExternalTriggerDelay
 	//	delta_val	not set for	ExternalTriggerDelay
-
 	externaltriggerdelay->set_default_properties(externaltriggerdelay_prop);
-	externaltriggerdelay->set_polling_period(0);
+	//	Not Polled
 	externaltriggerdelay->set_disp_level(Tango::OPERATOR);
 	externaltriggerdelay->set_memorized();
 	externaltriggerdelay->set_memorized_init(true);
 	//	ExternalTriggerDelay does not fire change event
 	//	ExternalTriggerDelay does not fire archive event
 	//	ExternalTriggerDelay does not fire data_ready event
-
 	att_list.push_back(externaltriggerdelay);
-	
+
 	//	Attribute : SAEnabled
 	SAEnabledAttrib	*saenabled = new SAEnabledAttrib();
 	Tango::UserDefaultAttrProp	saenabled_prop;
@@ -1742,18 +1757,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SAEnabled
 	//	delta_t	not set for	SAEnabled
 	//	delta_val	not set for	SAEnabled
-
 	saenabled->set_default_properties(saenabled_prop);
-	saenabled->set_polling_period(0);
+	//	Not Polled
 	saenabled->set_disp_level(Tango::OPERATOR);
 	saenabled->set_memorized();
 	saenabled->set_memorized_init(true);
 	//	SAEnabled does not fire change event
 	//	SAEnabled does not fire archive event
 	//	SAEnabled does not fire data_ready event
-
 	att_list.push_back(saenabled);
-	
+
 	//	Attribute : VaSA
 	VaSAAttrib	*vasa = new VaSAAttrib();
 	Tango::UserDefaultAttrProp	vasa_prop;
@@ -1771,18 +1784,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VaSA
 	//	delta_t	not set for	VaSA
 	//	delta_val	not set for	VaSA
-
 	vasa->set_default_properties(vasa_prop);
-	vasa->set_polling_period(0);
+	//	Not Polled
 	vasa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VaSA does not fire change event
 	//	VaSA does not fire archive event
 	//	VaSA does not fire data_ready event
-
 	att_list.push_back(vasa);
-	
+
 	//	Attribute : VbSA
 	VbSAAttrib	*vbsa = new VbSAAttrib();
 	Tango::UserDefaultAttrProp	vbsa_prop;
@@ -1800,18 +1811,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VbSA
 	//	delta_t	not set for	VbSA
 	//	delta_val	not set for	VbSA
-
 	vbsa->set_default_properties(vbsa_prop);
-	vbsa->set_polling_period(0);
+	//	Not Polled
 	vbsa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VbSA does not fire change event
 	//	VbSA does not fire archive event
 	//	VbSA does not fire data_ready event
-
 	att_list.push_back(vbsa);
-	
+
 	//	Attribute : VcSA
 	VcSAAttrib	*vcsa = new VcSAAttrib();
 	Tango::UserDefaultAttrProp	vcsa_prop;
@@ -1829,18 +1838,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VcSA
 	//	delta_t	not set for	VcSA
 	//	delta_val	not set for	VcSA
-
 	vcsa->set_default_properties(vcsa_prop);
-	vcsa->set_polling_period(0);
+	//	Not Polled
 	vcsa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VcSA does not fire change event
 	//	VcSA does not fire archive event
 	//	VcSA does not fire data_ready event
-
 	att_list.push_back(vcsa);
-	
+
 	//	Attribute : VdSA
 	VdSAAttrib	*vdsa = new VdSAAttrib();
 	Tango::UserDefaultAttrProp	vdsa_prop;
@@ -1858,18 +1865,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VdSA
 	//	delta_t	not set for	VdSA
 	//	delta_val	not set for	VdSA
-
 	vdsa->set_default_properties(vdsa_prop);
-	vdsa->set_polling_period(0);
+	//	Not Polled
 	vdsa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VdSA does not fire change event
 	//	VdSA does not fire archive event
 	//	VdSA does not fire data_ready event
-
 	att_list.push_back(vdsa);
-	
+
 	//	Attribute : XPosSA
 	XPosSAAttrib	*xpossa = new XPosSAAttrib();
 	Tango::UserDefaultAttrProp	xpossa_prop;
@@ -1887,18 +1892,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XPosSA
 	//	delta_t	not set for	XPosSA
 	//	delta_val	not set for	XPosSA
-
 	xpossa->set_default_properties(xpossa_prop);
-	xpossa->set_polling_period(0);
+	//	Not Polled
 	xpossa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XPosSA does not fire change event
 	//	XPosSA does not fire archive event
 	//	XPosSA does not fire data_ready event
-
 	att_list.push_back(xpossa);
-	
+
 	//	Attribute : ZPosSA
 	ZPosSAAttrib	*zpossa = new ZPosSAAttrib();
 	Tango::UserDefaultAttrProp	zpossa_prop;
@@ -1916,18 +1919,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZPosSA
 	//	delta_t	not set for	ZPosSA
 	//	delta_val	not set for	ZPosSA
-
 	zpossa->set_default_properties(zpossa_prop);
-	zpossa->set_polling_period(0);
+	//	Not Polled
 	zpossa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZPosSA does not fire change event
 	//	ZPosSA does not fire archive event
 	//	ZPosSA does not fire data_ready event
-
 	att_list.push_back(zpossa);
-	
+
 	//	Attribute : SumSA
 	SumSAAttrib	*sumsa = new SumSAAttrib();
 	Tango::UserDefaultAttrProp	sumsa_prop;
@@ -1945,18 +1946,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SumSA
 	//	delta_t	not set for	SumSA
 	//	delta_val	not set for	SumSA
-
 	sumsa->set_default_properties(sumsa_prop);
-	sumsa->set_polling_period(0);
+	//	Not Polled
 	sumsa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	SumSA does not fire change event
 	//	SumSA does not fire archive event
 	//	SumSA does not fire data_ready event
-
 	att_list.push_back(sumsa);
-	
+
 	//	Attribute : QuadSA
 	QuadSAAttrib	*quadsa = new QuadSAAttrib();
 	Tango::UserDefaultAttrProp	quadsa_prop;
@@ -1974,18 +1973,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	QuadSA
 	//	delta_t	not set for	QuadSA
 	//	delta_val	not set for	QuadSA
-
 	quadsa->set_default_properties(quadsa_prop);
-	quadsa->set_polling_period(0);
+	//	Not Polled
 	quadsa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	QuadSA does not fire change event
 	//	QuadSA does not fire archive event
 	//	QuadSA does not fire data_ready event
-
 	att_list.push_back(quadsa);
-	
+
 	//	Attribute : CxSA
 	CxSAAttrib	*cxsa = new CxSAAttrib();
 	Tango::UserDefaultAttrProp	cxsa_prop;
@@ -2003,18 +2000,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	CxSA
 	//	delta_t	not set for	CxSA
 	//	delta_val	not set for	CxSA
-
 	cxsa->set_default_properties(cxsa_prop);
-	cxsa->set_polling_period(0);
+	//	Not Polled
 	cxsa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	CxSA does not fire change event
 	//	CxSA does not fire archive event
 	//	CxSA does not fire data_ready event
-
 	att_list.push_back(cxsa);
-	
+
 	//	Attribute : CzSA
 	CzSAAttrib	*czsa = new CzSAAttrib();
 	Tango::UserDefaultAttrProp	czsa_prop;
@@ -2032,18 +2027,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	CzSA
 	//	delta_t	not set for	CzSA
 	//	delta_val	not set for	CzSA
-
 	czsa->set_default_properties(czsa_prop);
-	czsa->set_polling_period(0);
+	//	Not Polled
 	czsa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	CzSA does not fire change event
 	//	CzSA does not fire archive event
 	//	CzSA does not fire data_ready event
-
 	att_list.push_back(czsa);
-	
+
 	//	Attribute : SAStatNumSamples
 	SAStatNumSamplesAttrib	*sastatnumsamples = new SAStatNumSamplesAttrib();
 	Tango::UserDefaultAttrProp	sastatnumsamples_prop;
@@ -2061,18 +2054,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SAStatNumSamples
 	//	delta_t	not set for	SAStatNumSamples
 	//	delta_val	not set for	SAStatNumSamples
-
 	sastatnumsamples->set_default_properties(sastatnumsamples_prop);
-	sastatnumsamples->set_polling_period(0);
+	//	Not Polled
 	sastatnumsamples->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	SAStatNumSamples does not fire change event
 	//	SAStatNumSamples does not fire archive event
 	//	SAStatNumSamples does not fire data_ready event
-
 	att_list.push_back(sastatnumsamples);
-	
+
 	//	Attribute : XMeanPosSA
 	XMeanPosSAAttrib	*xmeanpossa = new XMeanPosSAAttrib();
 	Tango::UserDefaultAttrProp	xmeanpossa_prop;
@@ -2090,18 +2081,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XMeanPosSA
 	//	delta_t	not set for	XMeanPosSA
 	//	delta_val	not set for	XMeanPosSA
-
 	xmeanpossa->set_default_properties(xmeanpossa_prop);
-	xmeanpossa->set_polling_period(0);
+	//	Not Polled
 	xmeanpossa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XMeanPosSA does not fire change event
 	//	XMeanPosSA does not fire archive event
 	//	XMeanPosSA does not fire data_ready event
-
 	att_list.push_back(xmeanpossa);
-	
+
 	//	Attribute : ZMeanPosSA
 	ZMeanPosSAAttrib	*zmeanpossa = new ZMeanPosSAAttrib();
 	Tango::UserDefaultAttrProp	zmeanpossa_prop;
@@ -2119,18 +2108,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZMeanPosSA
 	//	delta_t	not set for	ZMeanPosSA
 	//	delta_val	not set for	ZMeanPosSA
-
 	zmeanpossa->set_default_properties(zmeanpossa_prop);
-	zmeanpossa->set_polling_period(0);
+	//	Not Polled
 	zmeanpossa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZMeanPosSA does not fire change event
 	//	ZMeanPosSA does not fire archive event
 	//	ZMeanPosSA does not fire data_ready event
-
 	att_list.push_back(zmeanpossa);
-	
+
 	//	Attribute : XRMSPosSA
 	XRMSPosSAAttrib	*xrmspossa = new XRMSPosSAAttrib();
 	Tango::UserDefaultAttrProp	xrmspossa_prop;
@@ -2148,18 +2135,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XRMSPosSA
 	//	delta_t	not set for	XRMSPosSA
 	//	delta_val	not set for	XRMSPosSA
-
 	xrmspossa->set_default_properties(xrmspossa_prop);
-	xrmspossa->set_polling_period(0);
+	//	Not Polled
 	xrmspossa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XRMSPosSA does not fire change event
 	//	XRMSPosSA does not fire archive event
 	//	XRMSPosSA does not fire data_ready event
-
 	att_list.push_back(xrmspossa);
-	
+
 	//	Attribute : ZRMSPosSA
 	ZRMSPosSAAttrib	*zrmspossa = new ZRMSPosSAAttrib();
 	Tango::UserDefaultAttrProp	zrmspossa_prop;
@@ -2177,18 +2162,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZRMSPosSA
 	//	delta_t	not set for	ZRMSPosSA
 	//	delta_val	not set for	ZRMSPosSA
-
 	zrmspossa->set_default_properties(zrmspossa_prop);
-	zrmspossa->set_polling_period(0);
+	//	Not Polled
 	zrmspossa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZRMSPosSA does not fire change event
 	//	ZRMSPosSA does not fire archive event
 	//	ZRMSPosSA does not fire data_ready event
-
 	att_list.push_back(zrmspossa);
-	
+
 	//	Attribute : XPeakPosSA
 	XPeakPosSAAttrib	*xpeakpossa = new XPeakPosSAAttrib();
 	Tango::UserDefaultAttrProp	xpeakpossa_prop;
@@ -2206,18 +2189,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XPeakPosSA
 	//	delta_t	not set for	XPeakPosSA
 	//	delta_val	not set for	XPeakPosSA
-
 	xpeakpossa->set_default_properties(xpeakpossa_prop);
-	xpeakpossa->set_polling_period(0);
+	//	Not Polled
 	xpeakpossa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XPeakPosSA does not fire change event
 	//	XPeakPosSA does not fire archive event
 	//	XPeakPosSA does not fire data_ready event
-
 	att_list.push_back(xpeakpossa);
-	
+
 	//	Attribute : ZPeakPosSA
 	ZPeakPosSAAttrib	*zpeakpossa = new ZPeakPosSAAttrib();
 	Tango::UserDefaultAttrProp	zpeakpossa_prop;
@@ -2235,18 +2216,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZPeakPosSA
 	//	delta_t	not set for	ZPeakPosSA
 	//	delta_val	not set for	ZPeakPosSA
-
 	zpeakpossa->set_default_properties(zpeakpossa_prop);
-	zpeakpossa->set_polling_period(0);
+	//	Not Polled
 	zpeakpossa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZPeakPosSA does not fire change event
 	//	ZPeakPosSA does not fire archive event
 	//	ZPeakPosSA does not fire data_ready event
-
 	att_list.push_back(zpeakpossa);
-	
+
 	//	Attribute : SumMeanSA
 	SumMeanSAAttrib	*summeansa = new SumMeanSAAttrib();
 	Tango::UserDefaultAttrProp	summeansa_prop;
@@ -2264,18 +2243,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SumMeanSA
 	//	delta_t	not set for	SumMeanSA
 	//	delta_val	not set for	SumMeanSA
-
 	summeansa->set_default_properties(summeansa_prop);
-	summeansa->set_polling_period(0);
+	//	Not Polled
 	summeansa->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	SumMeanSA does not fire change event
 	//	SumMeanSA does not fire archive event
 	//	SumMeanSA does not fire data_ready event
-
 	att_list.push_back(summeansa);
-	
+
 	//	Attribute : ADCEnabled
 	ADCEnabledAttrib	*adcenabled = new ADCEnabledAttrib();
 	Tango::UserDefaultAttrProp	adcenabled_prop;
@@ -2293,18 +2270,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ADCEnabled
 	//	delta_t	not set for	ADCEnabled
 	//	delta_val	not set for	ADCEnabled
-
 	adcenabled->set_default_properties(adcenabled_prop);
-	adcenabled->set_polling_period(0);
+	//	Not Polled
 	adcenabled->set_disp_level(Tango::OPERATOR);
 	adcenabled->set_memorized();
 	adcenabled->set_memorized_init(true);
 	//	ADCEnabled does not fire change event
 	//	ADCEnabled does not fire archive event
 	//	ADCEnabled does not fire data_ready event
-
 	att_list.push_back(adcenabled);
-	
+
 	//	Attribute : ADCBufferSize
 	ADCBufferSizeAttrib	*adcbuffersize = new ADCBufferSizeAttrib();
 	Tango::UserDefaultAttrProp	adcbuffersize_prop;
@@ -2322,18 +2297,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ADCBufferSize
 	//	delta_t	not set for	ADCBufferSize
 	//	delta_val	not set for	ADCBufferSize
-
 	adcbuffersize->set_default_properties(adcbuffersize_prop);
-	adcbuffersize->set_polling_period(0);
+	//	Not Polled
 	adcbuffersize->set_disp_level(Tango::OPERATOR);
 	adcbuffersize->set_memorized();
 	adcbuffersize->set_memorized_init(true);
 	//	ADCBufferSize does not fire change event
 	//	ADCBufferSize does not fire archive event
 	//	ADCBufferSize does not fire data_ready event
-
 	att_list.push_back(adcbuffersize);
-	
+
 	//	Attribute : PMOffset
 	PMOffsetAttrib	*pmoffset = new PMOffsetAttrib();
 	Tango::UserDefaultAttrProp	pmoffset_prop;
@@ -2351,18 +2324,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	PMOffset
 	//	delta_t	not set for	PMOffset
 	//	delta_val	not set for	PMOffset
-
 	pmoffset->set_default_properties(pmoffset_prop);
-	pmoffset->set_polling_period(0);
+	//	Not Polled
 	pmoffset->set_disp_level(Tango::OPERATOR);
 	pmoffset->set_memorized();
 	pmoffset->set_memorized_init(true);
 	//	PMOffset does not fire change event
 	//	PMOffset does not fire archive event
 	//	PMOffset does not fire data_ready event
-
 	att_list.push_back(pmoffset);
-	
+
 	//	Attribute : PMNotified
 	PMNotifiedAttrib	*pmnotified = new PMNotifiedAttrib();
 	Tango::UserDefaultAttrProp	pmnotified_prop;
@@ -2380,18 +2351,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	PMNotified
 	//	delta_t	not set for	PMNotified
 	//	delta_val	not set for	PMNotified
-
 	pmnotified->set_default_properties(pmnotified_prop);
-	pmnotified->set_polling_period(0);
+	//	Not Polled
 	pmnotified->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	PMNotified does not fire change event
 	//	PMNotified does not fire archive event
 	//	PMNotified does not fire data_ready event
-
 	att_list.push_back(pmnotified);
-	
+
 	//	Attribute : PMNotificationCounter
 	PMNotificationCounterAttrib	*pmnotificationcounter = new PMNotificationCounterAttrib();
 	Tango::UserDefaultAttrProp	pmnotificationcounter_prop;
@@ -2409,18 +2378,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	PMNotificationCounter
 	//	delta_t	not set for	PMNotificationCounter
 	//	delta_val	not set for	PMNotificationCounter
-
 	pmnotificationcounter->set_default_properties(pmnotificationcounter_prop);
-	pmnotificationcounter->set_polling_period(0);
+	//	Not Polled
 	pmnotificationcounter->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	PMNotificationCounter does not fire change event
 	//	PMNotificationCounter does not fire archive event
 	//	PMNotificationCounter does not fire data_ready event
-
 	att_list.push_back(pmnotificationcounter);
-	
+
 	//	Attribute : InterlockXNotified
 	InterlockXNotifiedAttrib	*interlockxnotified = new InterlockXNotifiedAttrib();
 	Tango::UserDefaultAttrProp	interlockxnotified_prop;
@@ -2438,18 +2405,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	InterlockXNotified
 	//	delta_t	not set for	InterlockXNotified
 	//	delta_val	not set for	InterlockXNotified
-
 	interlockxnotified->set_default_properties(interlockxnotified_prop);
-	interlockxnotified->set_polling_period(0);
+	//	Not Polled
 	interlockxnotified->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	InterlockXNotified does not fire change event
 	//	InterlockXNotified does not fire archive event
 	//	InterlockXNotified does not fire data_ready event
-
 	att_list.push_back(interlockxnotified);
-	
+
 	//	Attribute : InterlockZNotified
 	InterlockZNotifiedAttrib	*interlockznotified = new InterlockZNotifiedAttrib();
 	Tango::UserDefaultAttrProp	interlockznotified_prop;
@@ -2467,18 +2432,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	InterlockZNotified
 	//	delta_t	not set for	InterlockZNotified
 	//	delta_val	not set for	InterlockZNotified
-
 	interlockznotified->set_default_properties(interlockznotified_prop);
-	interlockznotified->set_polling_period(0);
+	//	Not Polled
 	interlockznotified->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	InterlockZNotified does not fire change event
 	//	InterlockZNotified does not fire archive event
 	//	InterlockZNotified does not fire data_ready event
-
 	att_list.push_back(interlockznotified);
-	
+
 	//	Attribute : InterlockAttnNotified
 	InterlockAttnNotifiedAttrib	*interlockattnnotified = new InterlockAttnNotifiedAttrib();
 	Tango::UserDefaultAttrProp	interlockattnnotified_prop;
@@ -2496,18 +2459,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	InterlockAttnNotified
 	//	delta_t	not set for	InterlockAttnNotified
 	//	delta_val	not set for	InterlockAttnNotified
-
 	interlockattnnotified->set_default_properties(interlockattnnotified_prop);
-	interlockattnnotified->set_polling_period(0);
+	//	Not Polled
 	interlockattnnotified->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	InterlockAttnNotified does not fire change event
 	//	InterlockAttnNotified does not fire archive event
 	//	InterlockAttnNotified does not fire data_ready event
-
 	att_list.push_back(interlockattnnotified);
-	
+
 	//	Attribute : InterlockADCPreFilterNotified
 	InterlockADCPreFilterNotifiedAttrib	*interlockadcprefilternotified = new InterlockADCPreFilterNotifiedAttrib();
 	Tango::UserDefaultAttrProp	interlockadcprefilternotified_prop;
@@ -2525,18 +2486,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	InterlockADCPreFilterNotified
 	//	delta_t	not set for	InterlockADCPreFilterNotified
 	//	delta_val	not set for	InterlockADCPreFilterNotified
-
 	interlockadcprefilternotified->set_default_properties(interlockadcprefilternotified_prop);
-	interlockadcprefilternotified->set_polling_period(0);
+	//	Not Polled
 	interlockadcprefilternotified->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	InterlockADCPreFilterNotified does not fire change event
 	//	InterlockADCPreFilterNotified does not fire archive event
 	//	InterlockADCPreFilterNotified does not fire data_ready event
-
 	att_list.push_back(interlockadcprefilternotified);
-	
+
 	//	Attribute : InterlockADCPostFilterNotified
 	InterlockADCPostFilterNotifiedAttrib	*interlockadcpostfilternotified = new InterlockADCPostFilterNotifiedAttrib();
 	Tango::UserDefaultAttrProp	interlockadcpostfilternotified_prop;
@@ -2554,18 +2513,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	InterlockADCPostFilterNotified
 	//	delta_t	not set for	InterlockADCPostFilterNotified
 	//	delta_val	not set for	InterlockADCPostFilterNotified
-
 	interlockadcpostfilternotified->set_default_properties(interlockadcpostfilternotified_prop);
-	interlockadcpostfilternotified->set_polling_period(0);
+	//	Not Polled
 	interlockadcpostfilternotified->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	InterlockADCPostFilterNotified does not fire change event
 	//	InterlockADCPostFilterNotified does not fire archive event
 	//	InterlockADCPostFilterNotified does not fire data_ready event
-
 	att_list.push_back(interlockadcpostfilternotified);
-	
+
 	//	Attribute : XLow
 	XLowAttrib	*xlow = new XLowAttrib();
 	Tango::UserDefaultAttrProp	xlow_prop;
@@ -2583,18 +2540,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XLow
 	//	delta_t	not set for	XLow
 	//	delta_val	not set for	XLow
-
 	xlow->set_default_properties(xlow_prop);
-	xlow->set_polling_period(0);
+	//	Not Polled
 	xlow->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XLow does not fire change event
 	//	XLow does not fire archive event
 	//	XLow does not fire data_ready event
-
 	att_list.push_back(xlow);
-	
+
 	//	Attribute : XHigh
 	XHighAttrib	*xhigh = new XHighAttrib();
 	Tango::UserDefaultAttrProp	xhigh_prop;
@@ -2612,18 +2567,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XHigh
 	//	delta_t	not set for	XHigh
 	//	delta_val	not set for	XHigh
-
 	xhigh->set_default_properties(xhigh_prop);
-	xhigh->set_polling_period(0);
+	//	Not Polled
 	xhigh->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XHigh does not fire change event
 	//	XHigh does not fire archive event
 	//	XHigh does not fire data_ready event
-
 	att_list.push_back(xhigh);
-	
+
 	//	Attribute : ZLow
 	ZLowAttrib	*zlow = new ZLowAttrib();
 	Tango::UserDefaultAttrProp	zlow_prop;
@@ -2641,18 +2594,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZLow
 	//	delta_t	not set for	ZLow
 	//	delta_val	not set for	ZLow
-
 	zlow->set_default_properties(zlow_prop);
-	zlow->set_polling_period(0);
+	//	Not Polled
 	zlow->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZLow does not fire change event
 	//	ZLow does not fire archive event
 	//	ZLow does not fire data_ready event
-
 	att_list.push_back(zlow);
-	
+
 	//	Attribute : ZHigh
 	ZHighAttrib	*zhigh = new ZHighAttrib();
 	Tango::UserDefaultAttrProp	zhigh_prop;
@@ -2670,18 +2621,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZHigh
 	//	delta_t	not set for	ZHigh
 	//	delta_val	not set for	ZHigh
-
 	zhigh->set_default_properties(zhigh_prop);
-	zhigh->set_polling_period(0);
+	//	Not Polled
 	zhigh->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZHigh does not fire change event
 	//	ZHigh does not fire archive event
 	//	ZHigh does not fire data_ready event
-
 	att_list.push_back(zhigh);
-	
+
 	//	Attribute : AutoSwitchingEnabled
 	AutoSwitchingEnabledAttrib	*autoswitchingenabled = new AutoSwitchingEnabledAttrib();
 	Tango::UserDefaultAttrProp	autoswitchingenabled_prop;
@@ -2699,18 +2648,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	AutoSwitchingEnabled
 	//	delta_t	not set for	AutoSwitchingEnabled
 	//	delta_val	not set for	AutoSwitchingEnabled
-
 	autoswitchingenabled->set_default_properties(autoswitchingenabled_prop);
-	autoswitchingenabled->set_polling_period(0);
+	//	Not Polled
 	autoswitchingenabled->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	AutoSwitchingEnabled does not fire change event
 	//	AutoSwitchingEnabled does not fire archive event
 	//	AutoSwitchingEnabled does not fire data_ready event
-
 	att_list.push_back(autoswitchingenabled);
-	
+
 	//	Attribute : Switches
 	SwitchesAttrib	*switches = new SwitchesAttrib();
 	Tango::UserDefaultAttrProp	switches_prop;
@@ -2728,18 +2675,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	Switches
 	//	delta_t	not set for	Switches
 	//	delta_val	not set for	Switches
-
 	switches->set_default_properties(switches_prop);
-	switches->set_polling_period(0);
+	//	Not Polled
 	switches->set_disp_level(Tango::OPERATOR);
 	switches->set_memorized();
 	switches->set_memorized_init(true);
 	//	Switches does not fire change event
 	//	Switches does not fire archive event
 	//	Switches does not fire data_ready event
-
 	att_list.push_back(switches);
-	
+
 	//	Attribute : ExternalSwitching
 	ExternalSwitchingAttrib	*externalswitching = new ExternalSwitchingAttrib();
 	Tango::UserDefaultAttrProp	externalswitching_prop;
@@ -2757,18 +2702,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ExternalSwitching
 	//	delta_t	not set for	ExternalSwitching
 	//	delta_val	not set for	ExternalSwitching
-
 	externalswitching->set_default_properties(externalswitching_prop);
-	externalswitching->set_polling_period(0);
+	//	Not Polled
 	externalswitching->set_disp_level(Tango::OPERATOR);
 	externalswitching->set_memorized();
 	externalswitching->set_memorized_init(true);
 	//	ExternalSwitching does not fire change event
 	//	ExternalSwitching does not fire archive event
 	//	ExternalSwitching does not fire data_ready event
-
 	att_list.push_back(externalswitching);
-	
+
 	//	Attribute : SwitchingDelay
 	SwitchingDelayAttrib	*switchingdelay = new SwitchingDelayAttrib();
 	Tango::UserDefaultAttrProp	switchingdelay_prop;
@@ -2786,18 +2729,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SwitchingDelay
 	//	delta_t	not set for	SwitchingDelay
 	//	delta_val	not set for	SwitchingDelay
-
 	switchingdelay->set_default_properties(switchingdelay_prop);
-	switchingdelay->set_polling_period(0);
+	//	Not Polled
 	switchingdelay->set_disp_level(Tango::OPERATOR);
 	switchingdelay->set_memorized();
 	switchingdelay->set_memorized_init(true);
 	//	SwitchingDelay does not fire change event
 	//	SwitchingDelay does not fire archive event
 	//	SwitchingDelay does not fire data_ready event
-
 	att_list.push_back(switchingdelay);
-	
+
 	//	Attribute : OffsetTune
 	OffsetTuneAttrib	*offsettune = new OffsetTuneAttrib();
 	Tango::UserDefaultAttrProp	offsettune_prop;
@@ -2815,18 +2756,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	OffsetTune
 	//	delta_t	not set for	OffsetTune
 	//	delta_val	not set for	OffsetTune
-
 	offsettune->set_default_properties(offsettune_prop);
-	offsettune->set_polling_period(0);
+	//	Not Polled
 	offsettune->set_disp_level(Tango::OPERATOR);
 	offsettune->set_memorized();
 	offsettune->set_memorized_init(true);
 	//	OffsetTune does not fire change event
 	//	OffsetTune does not fire archive event
 	//	OffsetTune does not fire data_ready event
-
 	att_list.push_back(offsettune);
-	
+
 	//	Attribute : CompensateTune
 	CompensateTuneAttrib	*compensatetune = new CompensateTuneAttrib();
 	Tango::UserDefaultAttrProp	compensatetune_prop;
@@ -2844,18 +2783,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	CompensateTune
 	//	delta_t	not set for	CompensateTune
 	//	delta_val	not set for	CompensateTune
-
 	compensatetune->set_default_properties(compensatetune_prop);
-	compensatetune->set_polling_period(0);
+	//	Not Polled
 	compensatetune->set_disp_level(Tango::OPERATOR);
 	compensatetune->set_memorized();
 	compensatetune->set_memorized_init(true);
 	//	CompensateTune does not fire change event
 	//	CompensateTune does not fire archive event
 	//	CompensateTune does not fire data_ready event
-
 	att_list.push_back(compensatetune);
-	
+
 	//	Attribute : DSCMode
 	DSCModeAttrib	*dscmode = new DSCModeAttrib();
 	Tango::UserDefaultAttrProp	dscmode_prop;
@@ -2873,18 +2810,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	DSCMode
 	//	delta_t	not set for	DSCMode
 	//	delta_val	not set for	DSCMode
-
 	dscmode->set_default_properties(dscmode_prop);
-	dscmode->set_polling_period(0);
+	//	Not Polled
 	dscmode->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	DSCMode does not fire change event
 	//	DSCMode does not fire archive event
 	//	DSCMode does not fire data_ready event
-
 	att_list.push_back(dscmode);
-	
+
 	//	Attribute : AGCEnabled
 	AGCEnabledAttrib	*agcenabled = new AGCEnabledAttrib();
 	Tango::UserDefaultAttrProp	agcenabled_prop;
@@ -2902,18 +2837,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	AGCEnabled
 	//	delta_t	not set for	AGCEnabled
 	//	delta_val	not set for	AGCEnabled
-
 	agcenabled->set_default_properties(agcenabled_prop);
-	agcenabled->set_polling_period(0);
+	//	Not Polled
 	agcenabled->set_disp_level(Tango::OPERATOR);
 	agcenabled->set_memorized();
 	agcenabled->set_memorized_init(true);
 	//	AGCEnabled does not fire change event
 	//	AGCEnabled does not fire archive event
 	//	AGCEnabled does not fire data_ready event
-
 	att_list.push_back(agcenabled);
-	
+
 	//	Attribute : Gain
 	GainAttrib	*gain = new GainAttrib();
 	Tango::UserDefaultAttrProp	gain_prop;
@@ -2931,18 +2864,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	Gain
 	//	delta_t	not set for	Gain
 	//	delta_val	not set for	Gain
-
 	gain->set_default_properties(gain_prop);
-	gain->set_polling_period(0);
+	//	Not Polled
 	gain->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	Gain does not fire change event
 	//	Gain does not fire archive event
 	//	Gain does not fire data_ready event
-
 	att_list.push_back(gain);
-	
+
 	//	Attribute : HasMAFSupport
 	HasMAFSupportAttrib	*hasmafsupport = new HasMAFSupportAttrib();
 	Tango::UserDefaultAttrProp	hasmafsupport_prop;
@@ -2960,18 +2891,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	HasMAFSupport
 	//	delta_t	not set for	HasMAFSupport
 	//	delta_val	not set for	HasMAFSupport
-
 	hasmafsupport->set_default_properties(hasmafsupport_prop);
-	hasmafsupport->set_polling_period(0);
+	//	Not Polled
 	hasmafsupport->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	HasMAFSupport does not fire change event
 	//	HasMAFSupport does not fire archive event
 	//	HasMAFSupport does not fire data_ready event
-
 	att_list.push_back(hasmafsupport);
-	
+
 	//	Attribute : MAFLength
 	MAFLengthAttrib	*maflength = new MAFLengthAttrib();
 	Tango::UserDefaultAttrProp	maflength_prop;
@@ -2989,18 +2918,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	MAFLength
 	//	delta_t	not set for	MAFLength
 	//	delta_val	not set for	MAFLength
-
 	maflength->set_default_properties(maflength_prop);
-	maflength->set_polling_period(0);
+	//	Not Polled
 	maflength->set_disp_level(Tango::OPERATOR);
 	maflength->set_memorized();
 	maflength->set_memorized_init(true);
 	//	MAFLength does not fire change event
 	//	MAFLength does not fire archive event
 	//	MAFLength does not fire data_ready event
-
 	att_list.push_back(maflength);
-	
+
 	//	Attribute : MAFDelay
 	MAFDelayAttrib	*mafdelay = new MAFDelayAttrib();
 	Tango::UserDefaultAttrProp	mafdelay_prop;
@@ -3018,18 +2945,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	MAFDelay
 	//	delta_t	not set for	MAFDelay
 	//	delta_val	not set for	MAFDelay
-
 	mafdelay->set_default_properties(mafdelay_prop);
-	mafdelay->set_polling_period(0);
+	//	Not Polled
 	mafdelay->set_disp_level(Tango::OPERATOR);
 	mafdelay->set_memorized();
 	mafdelay->set_memorized_init(true);
 	//	MAFDelay does not fire change event
 	//	MAFDelay does not fire archive event
 	//	MAFDelay does not fire data_ready event
-
 	att_list.push_back(mafdelay);
-	
+
 	//	Attribute : MachineTime
 	MachineTimeAttrib	*machinetime = new MachineTimeAttrib();
 	Tango::UserDefaultAttrProp	machinetime_prop;
@@ -3047,18 +2972,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	MachineTime
 	//	delta_t	not set for	MachineTime
 	//	delta_val	not set for	MachineTime
-
 	machinetime->set_default_properties(machinetime_prop);
-	machinetime->set_polling_period(0);
+	//	Not Polled
 	machinetime->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	MachineTime does not fire change event
 	//	MachineTime does not fire archive event
 	//	MachineTime does not fire data_ready event
-
 	att_list.push_back(machinetime);
-	
+
 	//	Attribute : TimePhase
 	TimePhaseAttrib	*timephase = new TimePhaseAttrib();
 	Tango::UserDefaultAttrProp	timephase_prop;
@@ -3076,18 +2999,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	TimePhase
 	//	delta_t	not set for	TimePhase
 	//	delta_val	not set for	TimePhase
-
 	timephase->set_default_properties(timephase_prop);
-	timephase->set_polling_period(0);
+	//	Not Polled
 	timephase->set_disp_level(Tango::OPERATOR);
 	timephase->set_memorized();
 	timephase->set_memorized_init(true);
 	//	TimePhase does not fire change event
 	//	TimePhase does not fire archive event
 	//	TimePhase does not fire data_ready event
-
 	att_list.push_back(timephase);
-	
+
 	//	Attribute : SystemTime
 	SystemTimeAttrib	*systemtime = new SystemTimeAttrib();
 	Tango::UserDefaultAttrProp	systemtime_prop;
@@ -3105,18 +3026,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SystemTime
 	//	delta_t	not set for	SystemTime
 	//	delta_val	not set for	SystemTime
-
 	systemtime->set_default_properties(systemtime_prop);
-	systemtime->set_polling_period(0);
+	//	Not Polled
 	systemtime->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	SystemTime does not fire change event
 	//	SystemTime does not fire archive event
 	//	SystemTime does not fire data_ready event
-
 	att_list.push_back(systemtime);
-	
+
 	//	Attribute : SCPLLStatus
 	SCPLLStatusAttrib	*scpllstatus = new SCPLLStatusAttrib();
 	Tango::UserDefaultAttrProp	scpllstatus_prop;
@@ -3134,18 +3053,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SCPLLStatus
 	//	delta_t	not set for	SCPLLStatus
 	//	delta_val	not set for	SCPLLStatus
-
 	scpllstatus->set_default_properties(scpllstatus_prop);
-	scpllstatus->set_polling_period(0);
+	//	Not Polled
 	scpllstatus->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	SCPLLStatus does not fire change event
 	//	SCPLLStatus does not fire archive event
 	//	SCPLLStatus does not fire data_ready event
-
 	att_list.push_back(scpllstatus);
-	
+
 	//	Attribute : MCPLLStatus
 	MCPLLStatusAttrib	*mcpllstatus = new MCPLLStatusAttrib();
 	Tango::UserDefaultAttrProp	mcpllstatus_prop;
@@ -3163,47 +3080,97 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	MCPLLStatus
 	//	delta_t	not set for	MCPLLStatus
 	//	delta_val	not set for	MCPLLStatus
-
 	mcpllstatus->set_default_properties(mcpllstatus_prop);
-	mcpllstatus->set_polling_period(0);
+	//	Not Polled
 	mcpllstatus->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	MCPLLStatus does not fire change event
 	//	MCPLLStatus does not fire archive event
 	//	MCPLLStatus does not fire data_ready event
-
 	att_list.push_back(mcpllstatus);
-	
-	//	Attribute : HWTemperature
-	HWTemperatureAttrib	*hwtemperature = new HWTemperatureAttrib();
-	Tango::UserDefaultAttrProp	hwtemperature_prop;
-	hwtemperature_prop.set_description("The current Libera hardware temperature");
-	hwtemperature_prop.set_label("HW Temp.");
-	hwtemperature_prop.set_unit("deg.C");
-	//	standard_unit	not set for	HWTemperature
-	//	display_unit	not set for	HWTemperature
-	hwtemperature_prop.set_format("%8d");
-	//	max_value	not set for	HWTemperature
-	//	min_value	not set for	HWTemperature
-	hwtemperature_prop.set_max_alarm("50");
-	//	min_alarm	not set for	HWTemperature
-	//	max_warning	not set for	HWTemperature
-	//	min_warning	not set for	HWTemperature
-	//	delta_t	not set for	HWTemperature
-	//	delta_val	not set for	HWTemperature
 
-	hwtemperature->set_default_properties(hwtemperature_prop);
-	hwtemperature->set_polling_period(0);
-	hwtemperature->set_disp_level(Tango::OPERATOR);
+	//	Attribute : Temp1
+	Temp1Attrib	*temp1 = new Temp1Attrib();
+	Tango::UserDefaultAttrProp	temp1_prop;
+	temp1_prop.set_description("The Libera box first temperature");
+	temp1_prop.set_label("Temperature 1");
+	temp1_prop.set_unit("deg.C");
+	//	standard_unit	not set for	Temp1
+	//	display_unit	not set for	Temp1
+	temp1_prop.set_format("%8d");
+	//	max_value	not set for	Temp1
+	//	min_value	not set for	Temp1
+	temp1_prop.set_max_alarm("65");
+	//	min_alarm	not set for	Temp1
+	//	max_warning	not set for	Temp1
+	//	min_warning	not set for	Temp1
+	//	delta_t	not set for	Temp1
+	//	delta_val	not set for	Temp1
+	temp1->set_default_properties(temp1_prop);
+	//	Not Polled
+	temp1->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
-	//	HWTemperature does not fire change event
-	//	HWTemperature does not fire archive event
-	//	HWTemperature does not fire data_ready event
+	//	Temp1 does not fire change event
+	//	Temp1 does not fire archive event
+	//	Temp1 does not fire data_ready event
+	att_list.push_back(temp1);
 
-	att_list.push_back(hwtemperature);
-	
+	//	Attribute : Temp2
+	Temp2Attrib	*temp2 = new Temp2Attrib();
+	Tango::UserDefaultAttrProp	temp2_prop;
+	temp2_prop.set_description("The Libera box second temperature");
+	temp2_prop.set_label("Temperature 2");
+	temp2_prop.set_unit("deg.C");
+	//	standard_unit	not set for	Temp2
+	//	display_unit	not set for	Temp2
+	temp2_prop.set_format("%8d");
+	//	max_value	not set for	Temp2
+	//	min_value	not set for	Temp2
+	temp2_prop.set_max_alarm("65");
+	//	min_alarm	not set for	Temp2
+	//	max_warning	not set for	Temp2
+	//	min_warning	not set for	Temp2
+	//	delta_t	not set for	Temp2
+	//	delta_val	not set for	Temp2
+	temp2->set_default_properties(temp2_prop);
+	//	Not Polled
+	temp2->set_disp_level(Tango::OPERATOR);
+	//	Not memorized
+
+	//	Temp2 does not fire change event
+	//	Temp2 does not fire archive event
+	//	Temp2 does not fire data_ready event
+	att_list.push_back(temp2);
+
+	//	Attribute : Temp3
+	Temp3Attrib	*temp3 = new Temp3Attrib();
+	Tango::UserDefaultAttrProp	temp3_prop;
+	temp3_prop.set_description("The Libera box third temperature");
+	temp3_prop.set_label("Temperature 3");
+	temp3_prop.set_unit("deg.C");
+	//	standard_unit	not set for	Temp3
+	//	display_unit	not set for	Temp3
+	temp3_prop.set_format("%8d");
+	//	max_value	not set for	Temp3
+	//	min_value	not set for	Temp3
+	temp3_prop.set_max_alarm("65");
+	//	min_alarm	not set for	Temp3
+	//	max_warning	not set for	Temp3
+	//	min_warning	not set for	Temp3
+	//	delta_t	not set for	Temp3
+	//	delta_val	not set for	Temp3
+	temp3->set_default_properties(temp3_prop);
+	//	Not Polled
+	temp3->set_disp_level(Tango::OPERATOR);
+	//	Not memorized
+
+	//	Temp3 does not fire change event
+	//	Temp3 does not fire archive event
+	//	Temp3 does not fire data_ready event
+	att_list.push_back(temp3);
+
 	//	Attribute : Fan1Speed
 	Fan1SpeedAttrib	*fan1speed = new Fan1SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan1speed_prop;
@@ -3221,18 +3188,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	Fan1Speed
 	//	delta_t	not set for	Fan1Speed
 	//	delta_val	not set for	Fan1Speed
-
 	fan1speed->set_default_properties(fan1speed_prop);
-	fan1speed->set_polling_period(0);
+	//	Not Polled
 	fan1speed->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	Fan1Speed does not fire change event
 	//	Fan1Speed does not fire archive event
 	//	Fan1Speed does not fire data_ready event
-
 	att_list.push_back(fan1speed);
-	
+
 	//	Attribute : Fan2Speed
 	Fan2SpeedAttrib	*fan2speed = new Fan2SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan2speed_prop;
@@ -3250,18 +3215,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	Fan2Speed
 	//	delta_t	not set for	Fan2Speed
 	//	delta_val	not set for	Fan2Speed
-
 	fan2speed->set_default_properties(fan2speed_prop);
-	fan2speed->set_polling_period(0);
+	//	Not Polled
 	fan2speed->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	Fan2Speed does not fire change event
 	//	Fan2Speed does not fire archive event
 	//	Fan2Speed does not fire data_ready event
-
 	att_list.push_back(fan2speed);
-	
+
 	//	Attribute : Incoherence
 	IncoherenceAttrib	*incoherence = new IncoherenceAttrib();
 	Tango::UserDefaultAttrProp	incoherence_prop;
@@ -3279,18 +3242,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	Incoherence
 	//	delta_t	not set for	Incoherence
 	//	delta_val	not set for	Incoherence
-
 	incoherence->set_default_properties(incoherence_prop);
-	incoherence->set_polling_period(0);
+	//	Not Polled
 	incoherence->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	Incoherence does not fire change event
 	//	Incoherence does not fire archive event
 	//	Incoherence does not fire data_ready event
-
 	att_list.push_back(incoherence);
-	
+
 	//	Attribute : RefIncoherence
 	RefIncoherenceAttrib	*refincoherence = new RefIncoherenceAttrib();
 	Tango::UserDefaultAttrProp	refincoherence_prop;
@@ -3308,18 +3269,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	RefIncoherence
 	//	delta_t	not set for	RefIncoherence
 	//	delta_val	not set for	RefIncoherence
-
 	refincoherence->set_default_properties(refincoherence_prop);
-	refincoherence->set_polling_period(0);
+	//	Not Polled
 	refincoherence->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	RefIncoherence does not fire change event
 	//	RefIncoherence does not fire archive event
 	//	RefIncoherence does not fire data_ready event
-
 	att_list.push_back(refincoherence);
-	
+
 	//	Attribute : MaxIncoherence
 	MaxIncoherenceAttrib	*maxincoherence = new MaxIncoherenceAttrib();
 	Tango::UserDefaultAttrProp	maxincoherence_prop;
@@ -3337,18 +3296,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	MaxIncoherence
 	//	delta_t	not set for	MaxIncoherence
 	//	delta_val	not set for	MaxIncoherence
-
 	maxincoherence->set_default_properties(maxincoherence_prop);
-	maxincoherence->set_polling_period(0);
+	//	Not Polled
 	maxincoherence->set_disp_level(Tango::OPERATOR);
 	maxincoherence->set_memorized();
 	maxincoherence->set_memorized_init(true);
 	//	MaxIncoherence does not fire change event
 	//	MaxIncoherence does not fire archive event
 	//	MaxIncoherence does not fire data_ready event
-
 	att_list.push_back(maxincoherence);
-	
+
 	//	Attribute : MaxIncoherenceDrift
 	MaxIncoherenceDriftAttrib	*maxincoherencedrift = new MaxIncoherenceDriftAttrib();
 	Tango::UserDefaultAttrProp	maxincoherencedrift_prop;
@@ -3366,18 +3323,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	MaxIncoherenceDrift
 	//	delta_t	not set for	MaxIncoherenceDrift
 	//	delta_val	not set for	MaxIncoherenceDrift
-
 	maxincoherencedrift->set_default_properties(maxincoherencedrift_prop);
-	maxincoherencedrift->set_polling_period(0);
+	//	Not Polled
 	maxincoherencedrift->set_disp_level(Tango::OPERATOR);
 	maxincoherencedrift->set_memorized();
 	maxincoherencedrift->set_memorized_init(true);
 	//	MaxIncoherenceDrift does not fire change event
 	//	MaxIncoherenceDrift does not fire archive event
 	//	MaxIncoherenceDrift does not fire data_ready event
-
 	att_list.push_back(maxincoherencedrift);
-	
+
 	//	Attribute : UpTime
 	UpTimeAttrib	*uptime = new UpTimeAttrib();
 	Tango::UserDefaultAttrProp	uptime_prop;
@@ -3395,18 +3350,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	UpTime
 	//	delta_t	not set for	UpTime
 	//	delta_val	not set for	UpTime
-
 	uptime->set_default_properties(uptime_prop);
-	uptime->set_polling_period(0);
+	//	Not Polled
 	uptime->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	UpTime does not fire change event
 	//	UpTime does not fire archive event
 	//	UpTime does not fire data_ready event
-
 	att_list.push_back(uptime);
-	
+
 	//	Attribute : CpuUsage
 	CpuUsageAttrib	*cpuusage = new CpuUsageAttrib();
 	Tango::UserDefaultAttrProp	cpuusage_prop;
@@ -3424,18 +3377,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	CpuUsage
 	//	delta_t	not set for	CpuUsage
 	//	delta_val	not set for	CpuUsage
-
 	cpuusage->set_default_properties(cpuusage_prop);
-	cpuusage->set_polling_period(0);
+	//	Not Polled
 	cpuusage->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	CpuUsage does not fire change event
 	//	CpuUsage does not fire archive event
 	//	CpuUsage does not fire data_ready event
-
 	att_list.push_back(cpuusage);
-	
+
 	//	Attribute : FreeMemory
 	FreeMemoryAttrib	*freememory = new FreeMemoryAttrib();
 	Tango::UserDefaultAttrProp	freememory_prop;
@@ -3453,18 +3404,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	FreeMemory
 	//	delta_t	not set for	FreeMemory
 	//	delta_val	not set for	FreeMemory
-
 	freememory->set_default_properties(freememory_prop);
-	freememory->set_polling_period(0);
+	//	Not Polled
 	freememory->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	FreeMemory does not fire change event
 	//	FreeMemory does not fire archive event
 	//	FreeMemory does not fire data_ready event
-
 	att_list.push_back(freememory);
-	
+
 	//	Attribute : RamFsUsage
 	RamFsUsageAttrib	*ramfsusage = new RamFsUsageAttrib();
 	Tango::UserDefaultAttrProp	ramfsusage_prop;
@@ -3482,18 +3431,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	RamFsUsage
 	//	delta_t	not set for	RamFsUsage
 	//	delta_val	not set for	RamFsUsage
-
 	ramfsusage->set_default_properties(ramfsusage_prop);
-	ramfsusage->set_polling_period(0);
+	//	Not Polled
 	ramfsusage->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	RamFsUsage does not fire change event
 	//	RamFsUsage does not fire archive event
 	//	RamFsUsage does not fire data_ready event
-
 	att_list.push_back(ramfsusage);
-	
+
 	//	Attribute : UseLiberaSAData
 	UseLiberaSADataAttrib	*useliberasadata = new UseLiberaSADataAttrib();
 	Tango::UserDefaultAttrProp	useliberasadata_prop;
@@ -3511,18 +3458,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	UseLiberaSAData
 	//	delta_t	not set for	UseLiberaSAData
 	//	delta_val	not set for	UseLiberaSAData
-
 	useliberasadata->set_default_properties(useliberasadata_prop);
-	useliberasadata->set_polling_period(0);
+	//	Not Polled
 	useliberasadata->set_disp_level(Tango::EXPERT);
 	useliberasadata->set_memorized();
 	useliberasadata->set_memorized_init(true);
 	//	UseLiberaSAData does not fire change event
 	//	UseLiberaSAData does not fire archive event
 	//	UseLiberaSAData does not fire data_ready event
-
 	att_list.push_back(useliberasadata);
-	
+
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
 	Tango::UserDefaultAttrProp	xposdd_prop;
@@ -3540,18 +3485,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XPosDD
 	//	delta_t	not set for	XPosDD
 	//	delta_val	not set for	XPosDD
-
 	xposdd->set_default_properties(xposdd_prop);
-	xposdd->set_polling_period(0);
+	//	Not Polled
 	xposdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XPosDD does not fire change event
 	//	XPosDD does not fire archive event
 	//	XPosDD does not fire data_ready event
-
 	att_list.push_back(xposdd);
-	
+
 	//	Attribute : ZPosDD
 	ZPosDDAttrib	*zposdd = new ZPosDDAttrib();
 	Tango::UserDefaultAttrProp	zposdd_prop;
@@ -3569,18 +3512,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZPosDD
 	//	delta_t	not set for	ZPosDD
 	//	delta_val	not set for	ZPosDD
-
 	zposdd->set_default_properties(zposdd_prop);
-	zposdd->set_polling_period(0);
+	//	Not Polled
 	zposdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZPosDD does not fire change event
 	//	ZPosDD does not fire archive event
 	//	ZPosDD does not fire data_ready event
-
 	att_list.push_back(zposdd);
-	
+
 	//	Attribute : QuadDD
 	QuadDDAttrib	*quaddd = new QuadDDAttrib();
 	Tango::UserDefaultAttrProp	quaddd_prop;
@@ -3598,18 +3539,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	QuadDD
 	//	delta_t	not set for	QuadDD
 	//	delta_val	not set for	QuadDD
-
 	quaddd->set_default_properties(quaddd_prop);
-	quaddd->set_polling_period(0);
+	//	Not Polled
 	quaddd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	QuadDD does not fire change event
 	//	QuadDD does not fire archive event
 	//	QuadDD does not fire data_ready event
-
 	att_list.push_back(quaddd);
-	
+
 	//	Attribute : SumDD
 	SumDDAttrib	*sumdd = new SumDDAttrib();
 	Tango::UserDefaultAttrProp	sumdd_prop;
@@ -3627,18 +3566,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SumDD
 	//	delta_t	not set for	SumDD
 	//	delta_val	not set for	SumDD
-
 	sumdd->set_default_properties(sumdd_prop);
-	sumdd->set_polling_period(0);
+	//	Not Polled
 	sumdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	SumDD does not fire change event
 	//	SumDD does not fire archive event
 	//	SumDD does not fire data_ready event
-
 	att_list.push_back(sumdd);
-	
+
 	//	Attribute : VaDD
 	VaDDAttrib	*vadd = new VaDDAttrib();
 	Tango::UserDefaultAttrProp	vadd_prop;
@@ -3656,18 +3593,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VaDD
 	//	delta_t	not set for	VaDD
 	//	delta_val	not set for	VaDD
-
 	vadd->set_default_properties(vadd_prop);
-	vadd->set_polling_period(0);
+	//	Not Polled
 	vadd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VaDD does not fire change event
 	//	VaDD does not fire archive event
 	//	VaDD does not fire data_ready event
-
 	att_list.push_back(vadd);
-	
+
 	//	Attribute : VbDD
 	VbDDAttrib	*vbdd = new VbDDAttrib();
 	Tango::UserDefaultAttrProp	vbdd_prop;
@@ -3685,18 +3620,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VbDD
 	//	delta_t	not set for	VbDD
 	//	delta_val	not set for	VbDD
-
 	vbdd->set_default_properties(vbdd_prop);
-	vbdd->set_polling_period(0);
+	//	Not Polled
 	vbdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VbDD does not fire change event
 	//	VbDD does not fire archive event
 	//	VbDD does not fire data_ready event
-
 	att_list.push_back(vbdd);
-	
+
 	//	Attribute : VcDD
 	VcDDAttrib	*vcdd = new VcDDAttrib();
 	Tango::UserDefaultAttrProp	vcdd_prop;
@@ -3714,18 +3647,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VcDD
 	//	delta_t	not set for	VcDD
 	//	delta_val	not set for	VcDD
-
 	vcdd->set_default_properties(vcdd_prop);
-	vcdd->set_polling_period(0);
+	//	Not Polled
 	vcdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VcDD does not fire change event
 	//	VcDD does not fire archive event
 	//	VcDD does not fire data_ready event
-
 	att_list.push_back(vcdd);
-	
+
 	//	Attribute : VdDD
 	VdDDAttrib	*vddd = new VdDDAttrib();
 	Tango::UserDefaultAttrProp	vddd_prop;
@@ -3743,18 +3674,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VdDD
 	//	delta_t	not set for	VdDD
 	//	delta_val	not set for	VdDD
-
 	vddd->set_default_properties(vddd_prop);
-	vddd->set_polling_period(0);
+	//	Not Polled
 	vddd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VdDD does not fire change event
 	//	VdDD does not fire archive event
 	//	VdDD does not fire data_ready event
-
 	att_list.push_back(vddd);
-	
+
 	//	Attribute : XPosSAHistory
 	XPosSAHistoryAttrib	*xpossahistory = new XPosSAHistoryAttrib();
 	Tango::UserDefaultAttrProp	xpossahistory_prop;
@@ -3772,18 +3701,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XPosSAHistory
 	//	delta_t	not set for	XPosSAHistory
 	//	delta_val	not set for	XPosSAHistory
-
 	xpossahistory->set_default_properties(xpossahistory_prop);
-	xpossahistory->set_polling_period(0);
+	//	Not Polled
 	xpossahistory->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XPosSAHistory does not fire change event
 	//	XPosSAHistory does not fire archive event
 	//	XPosSAHistory does not fire data_ready event
-
 	att_list.push_back(xpossahistory);
-	
+
 	//	Attribute : ZPosSAHistory
 	ZPosSAHistoryAttrib	*zpossahistory = new ZPosSAHistoryAttrib();
 	Tango::UserDefaultAttrProp	zpossahistory_prop;
@@ -3801,18 +3728,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZPosSAHistory
 	//	delta_t	not set for	ZPosSAHistory
 	//	delta_val	not set for	ZPosSAHistory
-
 	zpossahistory->set_default_properties(zpossahistory_prop);
-	zpossahistory->set_polling_period(0);
+	//	Not Polled
 	zpossahistory->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZPosSAHistory does not fire change event
 	//	ZPosSAHistory does not fire archive event
 	//	ZPosSAHistory does not fire data_ready event
-
 	att_list.push_back(zpossahistory);
-	
+
 	//	Attribute : SumSAHistory
 	SumSAHistoryAttrib	*sumsahistory = new SumSAHistoryAttrib();
 	Tango::UserDefaultAttrProp	sumsahistory_prop;
@@ -3830,18 +3755,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SumSAHistory
 	//	delta_t	not set for	SumSAHistory
 	//	delta_val	not set for	SumSAHistory
-
 	sumsahistory->set_default_properties(sumsahistory_prop);
-	sumsahistory->set_polling_period(0);
+	//	Not Polled
 	sumsahistory->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	SumSAHistory does not fire change event
 	//	SumSAHistory does not fire archive event
 	//	SumSAHistory does not fire data_ready event
-
 	att_list.push_back(sumsahistory);
-	
+
 	//	Attribute : XPosPM
 	XPosPMAttrib	*xpospm = new XPosPMAttrib();
 	Tango::UserDefaultAttrProp	xpospm_prop;
@@ -3859,18 +3782,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	XPosPM
 	//	delta_t	not set for	XPosPM
 	//	delta_val	not set for	XPosPM
-
 	xpospm->set_default_properties(xpospm_prop);
-	xpospm->set_polling_period(0);
+	//	Not Polled
 	xpospm->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	XPosPM does not fire change event
 	//	XPosPM does not fire archive event
 	//	XPosPM does not fire data_ready event
-
 	att_list.push_back(xpospm);
-	
+
 	//	Attribute : ZPosPM
 	ZPosPMAttrib	*zpospm = new ZPosPMAttrib();
 	Tango::UserDefaultAttrProp	zpospm_prop;
@@ -3888,18 +3809,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ZPosPM
 	//	delta_t	not set for	ZPosPM
 	//	delta_val	not set for	ZPosPM
-
 	zpospm->set_default_properties(zpospm_prop);
-	zpospm->set_polling_period(0);
+	//	Not Polled
 	zpospm->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ZPosPM does not fire change event
 	//	ZPosPM does not fire archive event
 	//	ZPosPM does not fire data_ready event
-
 	att_list.push_back(zpospm);
-	
+
 	//	Attribute : QuadPM
 	QuadPMAttrib	*quadpm = new QuadPMAttrib();
 	Tango::UserDefaultAttrProp	quadpm_prop;
@@ -3917,18 +3836,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	QuadPM
 	//	delta_t	not set for	QuadPM
 	//	delta_val	not set for	QuadPM
-
 	quadpm->set_default_properties(quadpm_prop);
-	quadpm->set_polling_period(0);
+	//	Not Polled
 	quadpm->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	QuadPM does not fire change event
 	//	QuadPM does not fire archive event
 	//	QuadPM does not fire data_ready event
-
 	att_list.push_back(quadpm);
-	
+
 	//	Attribute : SumPM
 	SumPMAttrib	*sumpm = new SumPMAttrib();
 	Tango::UserDefaultAttrProp	sumpm_prop;
@@ -3946,18 +3863,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	SumPM
 	//	delta_t	not set for	SumPM
 	//	delta_val	not set for	SumPM
-
 	sumpm->set_default_properties(sumpm_prop);
-	sumpm->set_polling_period(0);
+	//	Not Polled
 	sumpm->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	SumPM does not fire change event
 	//	SumPM does not fire archive event
 	//	SumPM does not fire data_ready event
-
 	att_list.push_back(sumpm);
-	
+
 	//	Attribute : VaPM
 	VaPMAttrib	*vapm = new VaPMAttrib();
 	Tango::UserDefaultAttrProp	vapm_prop;
@@ -3975,18 +3890,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VaPM
 	//	delta_t	not set for	VaPM
 	//	delta_val	not set for	VaPM
-
 	vapm->set_default_properties(vapm_prop);
-	vapm->set_polling_period(0);
+	//	Not Polled
 	vapm->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VaPM does not fire change event
 	//	VaPM does not fire archive event
 	//	VaPM does not fire data_ready event
-
 	att_list.push_back(vapm);
-	
+
 	//	Attribute : VbPM
 	VbPMAttrib	*vbpm = new VbPMAttrib();
 	Tango::UserDefaultAttrProp	vbpm_prop;
@@ -4004,18 +3917,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VbPM
 	//	delta_t	not set for	VbPM
 	//	delta_val	not set for	VbPM
-
 	vbpm->set_default_properties(vbpm_prop);
-	vbpm->set_polling_period(0);
+	//	Not Polled
 	vbpm->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VbPM does not fire change event
 	//	VbPM does not fire archive event
 	//	VbPM does not fire data_ready event
-
 	att_list.push_back(vbpm);
-	
+
 	//	Attribute : VcPM
 	VcPMAttrib	*vcpm = new VcPMAttrib();
 	Tango::UserDefaultAttrProp	vcpm_prop;
@@ -4033,18 +3944,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VcPM
 	//	delta_t	not set for	VcPM
 	//	delta_val	not set for	VcPM
-
 	vcpm->set_default_properties(vcpm_prop);
-	vcpm->set_polling_period(0);
+	//	Not Polled
 	vcpm->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VcPM does not fire change event
 	//	VcPM does not fire archive event
 	//	VcPM does not fire data_ready event
-
 	att_list.push_back(vcpm);
-	
+
 	//	Attribute : VdPM
 	VdPMAttrib	*vdpm = new VdPMAttrib();
 	Tango::UserDefaultAttrProp	vdpm_prop;
@@ -4062,18 +3971,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	VdPM
 	//	delta_t	not set for	VdPM
 	//	delta_val	not set for	VdPM
-
 	vdpm->set_default_properties(vdpm_prop);
-	vdpm->set_polling_period(0);
+	//	Not Polled
 	vdpm->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	VdPM does not fire change event
 	//	VdPM does not fire archive event
 	//	VdPM does not fire data_ready event
-
 	att_list.push_back(vdpm);
-	
+
 	//	Attribute : ADCChannelA
 	ADCChannelAAttrib	*adcchannela = new ADCChannelAAttrib();
 	Tango::UserDefaultAttrProp	adcchannela_prop;
@@ -4091,18 +3998,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ADCChannelA
 	//	delta_t	not set for	ADCChannelA
 	//	delta_val	not set for	ADCChannelA
-
 	adcchannela->set_default_properties(adcchannela_prop);
-	adcchannela->set_polling_period(0);
+	//	Not Polled
 	adcchannela->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ADCChannelA does not fire change event
 	//	ADCChannelA does not fire archive event
 	//	ADCChannelA does not fire data_ready event
-
 	att_list.push_back(adcchannela);
-	
+
 	//	Attribute : ADCChannelB
 	ADCChannelBAttrib	*adcchannelb = new ADCChannelBAttrib();
 	Tango::UserDefaultAttrProp	adcchannelb_prop;
@@ -4120,18 +4025,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ADCChannelB
 	//	delta_t	not set for	ADCChannelB
 	//	delta_val	not set for	ADCChannelB
-
 	adcchannelb->set_default_properties(adcchannelb_prop);
-	adcchannelb->set_polling_period(0);
+	//	Not Polled
 	adcchannelb->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ADCChannelB does not fire change event
 	//	ADCChannelB does not fire archive event
 	//	ADCChannelB does not fire data_ready event
-
 	att_list.push_back(adcchannelb);
-	
+
 	//	Attribute : ADCChannelC
 	ADCChannelCAttrib	*adcchannelc = new ADCChannelCAttrib();
 	Tango::UserDefaultAttrProp	adcchannelc_prop;
@@ -4149,18 +4052,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ADCChannelC
 	//	delta_t	not set for	ADCChannelC
 	//	delta_val	not set for	ADCChannelC
-
 	adcchannelc->set_default_properties(adcchannelc_prop);
-	adcchannelc->set_polling_period(0);
+	//	Not Polled
 	adcchannelc->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ADCChannelC does not fire change event
 	//	ADCChannelC does not fire archive event
 	//	ADCChannelC does not fire data_ready event
-
 	att_list.push_back(adcchannelc);
-	
+
 	//	Attribute : ADCChannelD
 	ADCChannelDAttrib	*adcchanneld = new ADCChannelDAttrib();
 	Tango::UserDefaultAttrProp	adcchanneld_prop;
@@ -4178,18 +4079,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	ADCChannelD
 	//	delta_t	not set for	ADCChannelD
 	//	delta_val	not set for	ADCChannelD
-
 	adcchanneld->set_default_properties(adcchanneld_prop);
-	adcchanneld->set_polling_period(0);
+	//	Not Polled
 	adcchanneld->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	ADCChannelD does not fire change event
 	//	ADCChannelD does not fire archive event
 	//	ADCChannelD does not fire data_ready event
-
 	att_list.push_back(adcchanneld);
-	
+
 	//	Attribute : IaDD
 	IaDDAttrib	*iadd = new IaDDAttrib();
 	Tango::UserDefaultAttrProp	iadd_prop;
@@ -4207,18 +4106,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	IaDD
 	//	delta_t	not set for	IaDD
 	//	delta_val	not set for	IaDD
-
 	iadd->set_default_properties(iadd_prop);
-	iadd->set_polling_period(0);
+	//	Not Polled
 	iadd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	IaDD does not fire change event
 	//	IaDD does not fire archive event
 	//	IaDD does not fire data_ready event
-
 	att_list.push_back(iadd);
-	
+
 	//	Attribute : IbDD
 	IbDDAttrib	*ibdd = new IbDDAttrib();
 	Tango::UserDefaultAttrProp	ibdd_prop;
@@ -4236,18 +4133,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	IbDD
 	//	delta_t	not set for	IbDD
 	//	delta_val	not set for	IbDD
-
 	ibdd->set_default_properties(ibdd_prop);
-	ibdd->set_polling_period(0);
+	//	Not Polled
 	ibdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	IbDD does not fire change event
 	//	IbDD does not fire archive event
 	//	IbDD does not fire data_ready event
-
 	att_list.push_back(ibdd);
-	
+
 	//	Attribute : IcDD
 	IcDDAttrib	*icdd = new IcDDAttrib();
 	Tango::UserDefaultAttrProp	icdd_prop;
@@ -4265,18 +4160,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	IcDD
 	//	delta_t	not set for	IcDD
 	//	delta_val	not set for	IcDD
-
 	icdd->set_default_properties(icdd_prop);
-	icdd->set_polling_period(0);
+	//	Not Polled
 	icdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	IcDD does not fire change event
 	//	IcDD does not fire archive event
 	//	IcDD does not fire data_ready event
-
 	att_list.push_back(icdd);
-	
+
 	//	Attribute : IdDD
 	IdDDAttrib	*iddd = new IdDDAttrib();
 	Tango::UserDefaultAttrProp	iddd_prop;
@@ -4294,18 +4187,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	IdDD
 	//	delta_t	not set for	IdDD
 	//	delta_val	not set for	IdDD
-
 	iddd->set_default_properties(iddd_prop);
-	iddd->set_polling_period(0);
+	//	Not Polled
 	iddd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	IdDD does not fire change event
 	//	IdDD does not fire archive event
 	//	IdDD does not fire data_ready event
-
 	att_list.push_back(iddd);
-	
+
 	//	Attribute : QaDD
 	QaDDAttrib	*qadd = new QaDDAttrib();
 	Tango::UserDefaultAttrProp	qadd_prop;
@@ -4323,18 +4214,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	QaDD
 	//	delta_t	not set for	QaDD
 	//	delta_val	not set for	QaDD
-
 	qadd->set_default_properties(qadd_prop);
-	qadd->set_polling_period(0);
+	//	Not Polled
 	qadd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	QaDD does not fire change event
 	//	QaDD does not fire archive event
 	//	QaDD does not fire data_ready event
-
 	att_list.push_back(qadd);
-	
+
 	//	Attribute : QbDD
 	QbDDAttrib	*qbdd = new QbDDAttrib();
 	Tango::UserDefaultAttrProp	qbdd_prop;
@@ -4352,18 +4241,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	QbDD
 	//	delta_t	not set for	QbDD
 	//	delta_val	not set for	QbDD
-
 	qbdd->set_default_properties(qbdd_prop);
-	qbdd->set_polling_period(0);
+	//	Not Polled
 	qbdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	QbDD does not fire change event
 	//	QbDD does not fire archive event
 	//	QbDD does not fire data_ready event
-
 	att_list.push_back(qbdd);
-	
+
 	//	Attribute : QcDD
 	QcDDAttrib	*qcdd = new QcDDAttrib();
 	Tango::UserDefaultAttrProp	qcdd_prop;
@@ -4381,18 +4268,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	QcDD
 	//	delta_t	not set for	QcDD
 	//	delta_val	not set for	QcDD
-
 	qcdd->set_default_properties(qcdd_prop);
-	qcdd->set_polling_period(0);
+	//	Not Polled
 	qcdd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	QcDD does not fire change event
 	//	QcDD does not fire archive event
 	//	QcDD does not fire data_ready event
-
 	att_list.push_back(qcdd);
-	
+
 	//	Attribute : QdDD
 	QdDDAttrib	*qddd = new QdDDAttrib();
 	Tango::UserDefaultAttrProp	qddd_prop;
@@ -4410,18 +4295,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	QdDD
 	//	delta_t	not set for	QdDD
 	//	delta_val	not set for	QdDD
-
 	qddd->set_default_properties(qddd_prop);
-	qddd->set_polling_period(0);
+	//	Not Polled
 	qddd->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	QdDD does not fire change event
 	//	QdDD does not fire archive event
 	//	QdDD does not fire data_ready event
-
 	att_list.push_back(qddd);
-	
+
 	//	Attribute : UserData
 	UserDataAttrib	*userdata = new UserDataAttrib();
 	Tango::UserDefaultAttrProp	userdata_prop;
@@ -4439,18 +4322,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	UserData
 	//	delta_t	not set for	UserData
 	//	delta_val	not set for	UserData
-
 	userdata->set_default_properties(userdata_prop);
-	userdata->set_polling_period(0);
+	//	Not Polled
 	userdata->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	UserData does not fire change event
 	//	UserData does not fire archive event
 	//	UserData does not fire data_ready event
-
 	att_list.push_back(userdata);
-	
+
 	//	Attribute : InterlockConfiguration
 	InterlockConfigurationAttrib	*interlockconfiguration = new InterlockConfigurationAttrib();
 	Tango::UserDefaultAttrProp	interlockconfiguration_prop;
@@ -4468,18 +4349,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	InterlockConfiguration
 	//	delta_t	not set for	InterlockConfiguration
 	//	delta_val	not set for	InterlockConfiguration
-
 	interlockconfiguration->set_default_properties(interlockconfiguration_prop);
-	interlockconfiguration->set_polling_period(0);
+	//	Not Polled
 	interlockconfiguration->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	InterlockConfiguration does not fire change event
 	//	InterlockConfiguration does not fire archive event
 	//	InterlockConfiguration does not fire data_ready event
-
 	att_list.push_back(interlockconfiguration);
-	
+
 	//	Attribute : logs
 	logsAttrib	*logs = new logsAttrib();
 	Tango::UserDefaultAttrProp	logs_prop;
@@ -4497,18 +4376,16 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	min_warning	not set for	logs
 	//	delta_t	not set for	logs
 	//	delta_val	not set for	logs
-
 	logs->set_default_properties(logs_prop);
-	logs->set_polling_period(0);
+	//	Not Polled
 	logs->set_disp_level(Tango::OPERATOR);
 	//	Not memorized
 
 	//	logs does not fire change event
 	//	logs does not fire archive event
 	//	logs does not fire data_ready event
-
 	att_list.push_back(logs);
-	
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
@@ -4520,7 +4397,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Class::attribute_factory_after
 
 }
-
 
 
 //--------------------------------------------------------
@@ -4536,9 +4412,6 @@ void LiberaBrilliancePlusClass::command_factory()
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Class::command_factory_before
 
-
-	
-	//	Create GetParameters command object
 	GetParametersClass	*pGetParametersCmd =
 		new GetParametersClass("GetParameters",
 			Tango::DEV_VOID, Tango::DEVVAR_DOUBLESTRINGARRAY,
@@ -4546,10 +4419,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"The BPM gain and offsets",
 			Tango::OPERATOR);
 	command_list.push_back(pGetParametersCmd);
-
-
-	
-	//	Create UnfreezeDDBuffer command object
 	UnfreezeDDBufferClass	*pUnfreezeDDBufferCmd =
 		new UnfreezeDDBufferClass("UnfreezeDDBuffer",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4557,10 +4426,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pUnfreezeDDBufferCmd);
-
-
-	
-	//	Create EnableDDBufferFreezing command object
 	EnableDDBufferFreezingClass	*pEnableDDBufferFreezingCmd =
 		new EnableDDBufferFreezingClass("EnableDDBufferFreezing",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4568,10 +4433,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pEnableDDBufferFreezingCmd);
-
-
-	
-	//	Create DisableDDBufferFreezing command object
 	DisableDDBufferFreezingClass	*pDisableDDBufferFreezingCmd =
 		new DisableDDBufferFreezingClass("DisableDDBufferFreezing",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4579,10 +4440,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pDisableDDBufferFreezingCmd);
-
-
-	
-	//	Create EnableDD command object
 	EnableDDClass	*pEnableDDCmd =
 		new EnableDDClass("EnableDD",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4590,10 +4447,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pEnableDDCmd);
-
-
-	
-	//	Create DisableDD command object
 	DisableDDClass	*pDisableDDCmd =
 		new DisableDDClass("DisableDD",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4601,10 +4454,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pDisableDDCmd);
-
-
-	
-	//	Create EnableSA command object
 	EnableSAClass	*pEnableSACmd =
 		new EnableSAClass("EnableSA",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4612,10 +4461,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pEnableSACmd);
-
-
-	
-	//	Create DisableSA command object
 	DisableSAClass	*pDisableSACmd =
 		new DisableSAClass("DisableSA",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4623,10 +4468,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pDisableSACmd);
-
-
-	
-	//	Create ResetPMNotification command object
 	ResetPMNotificationClass	*pResetPMNotificationCmd =
 		new ResetPMNotificationClass("ResetPMNotification",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4634,10 +4475,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pResetPMNotificationCmd);
-
-
-	
-	//	Create ResetInterlockNotification command object
 	ResetInterlockNotificationClass	*pResetInterlockNotificationCmd =
 		new ResetInterlockNotificationClass("ResetInterlockNotification",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4645,10 +4482,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pResetInterlockNotificationCmd);
-
-
-	
-	//	Create SetInterlockConfiguration command object
 	SetInterlockConfigurationClass	*pSetInterlockConfigurationCmd =
 		new SetInterlockConfigurationClass("SetInterlockConfiguration",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4656,10 +4489,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pSetInterlockConfigurationCmd);
-
-
-	
-	//	Create EnableADC command object
 	EnableADCClass	*pEnableADCCmd =
 		new EnableADCClass("EnableADC",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4667,10 +4496,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pEnableADCCmd);
-
-
-	
-	//	Create DisableADC command object
 	DisableADCClass	*pDisableADCCmd =
 		new DisableADCClass("DisableADC",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4678,10 +4503,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pDisableADCCmd);
-
-
-	
-	//	Create SetTimeOnNextTrigger command object
 	SetTimeOnNextTriggerClass	*pSetTimeOnNextTriggerCmd =
 		new SetTimeOnNextTriggerClass("SetTimeOnNextTrigger",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4689,10 +4510,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pSetTimeOnNextTriggerCmd);
-
-
-	
-	//	Create ReadFAData command object
 	ReadFADataClass	*pReadFADataCmd =
 		new ReadFADataClass("ReadFAData",
 			Tango::DEVVAR_LONGARRAY, Tango::DEVVAR_LONGARRAY,
@@ -4700,10 +4517,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"The data [as an array of bytes]",
 			Tango::OPERATOR);
 	command_list.push_back(pReadFADataCmd);
-
-
-	
-	//	Create WriteFAData command object
 	WriteFADataClass	*pWriteFADataCmd =
 		new WriteFADataClass("WriteFAData",
 			Tango::DEVVAR_LONGARRAY, Tango::DEV_VOID,
@@ -4711,10 +4524,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pWriteFADataCmd);
-
-
-	
-	//	Create SaveDSCParameters command object
 	SaveDSCParametersClass	*pSaveDSCParametersCmd =
 		new SaveDSCParametersClass("SaveDSCParameters",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4722,10 +4531,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pSaveDSCParametersCmd);
-
-
-	
-	//	Create ReloadSystemProperties command object
 	ReloadSystemPropertiesClass	*pReloadSystemPropertiesCmd =
 		new ReloadSystemPropertiesClass("ReloadSystemProperties",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4733,10 +4538,6 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pReloadSystemPropertiesCmd);
-
-
-	
-	//	Create SetRefIncoherence command object
 	SetRefIncoherenceClass	*pSetRefIncoherenceCmd =
 		new SetRefIncoherenceClass("SetRefIncoherence",
 			Tango::DEV_VOID, Tango::DEV_VOID,
@@ -4744,9 +4545,13 @@ void LiberaBrilliancePlusClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pSetRefIncoherenceCmd);
-
-
-
+	MagicCommandClass	*pMagicCommandCmd =
+		new MagicCommandClass("MagicCommand",
+			Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,
+			"",
+			"",
+			Tango::EXPERT);
+	command_list.push_back(pMagicCommandCmd);
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::Class::command_factory_after) ENABLED START -----*/
 
