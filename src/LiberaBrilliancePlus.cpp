@@ -81,7 +81,7 @@ namespace LiberaBrilliancePlus_ns
 
 	//	static initializations
 Tango::DevUShort c_liberaModel(1); // BPM type
-const std::string c_timingBoard("tim2"); // TODO: evrx2
+const std::string c_timingBoard("evrx2"); // TODO: evrx2
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::namespace_starting
 
