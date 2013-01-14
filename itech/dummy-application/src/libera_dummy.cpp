@@ -2,7 +2,7 @@
  * Copyright (c) 2008-2012 Instrumentation Technologies
  * All Rights Reserved.
  *
- * $Id: libera_dummy.cpp 18375 2012-12-19 14:45:27Z tomaz.beltram $
+ * $Id: libera_dummy.cpp 18382 2012-12-21 13:09:48Z tomaz.beltram $
  */
 
 #include <isig/signal_source.h>
@@ -212,6 +212,11 @@ void liberaDummy::RegistryAddRaf(const char *a_name)
                 ->Attach(Create<RegValueUInt32Node>("trigger_delay", 0))
             )
             ->Attach(Create<RegNode>("interlock")
+                ->Attach(Create<RegValueBoolNode>("enabled", false))
+                ->Attach(Create<RegNode>("gain_dependent")
+                    ->Attach(Create<RegValueBoolNode>("enabled", false))
+                    ->Attach(Create<RegValueInt32Node>("threshold", -40))
+                )
                 ->Attach(Create<RegNode>("limits")
                     ->Attach(Create<RegNode>("position")
                         ->Attach(Create<RegNode>("min")
@@ -222,10 +227,10 @@ void liberaDummy::RegistryAddRaf(const char *a_name)
                             ->Attach(Create<RegValueInt32Node>("x", 1000000))
                             ->Attach(Create<RegValueInt32Node>("y", 1000000))
                         )
-                        ->Attach(Create<RegNode>("overflow")
-                            ->Attach(Create<RegValueInt32Node>("threshold", 30000))
-                            ->Attach(Create<RegValueInt32Node>("duration", 5))
-                        )
+                    )
+                    ->Attach(Create<RegNode>("overflow")
+                        ->Attach(Create<RegValueUInt32Node>("threshold", 30000))
+                        ->Attach(Create<RegValueUInt32Node>("duration", 5))
                     )
                 )
                 ->Attach(Create<RegNode>("status")
@@ -248,8 +253,8 @@ void liberaDummy::RegistryAddRaf(const char *a_name)
             )
             ->Attach(Create<RegNode>("signal_processing")
                 ->Attach(Create<RegNode>("position")
-                    ->Attach(Create<RegValueInt32Node>("Kx", 10000000))
-                    ->Attach(Create<RegValueInt32Node>("Ky", 10000000))
+                    ->Attach(Create<RegValueUInt32Node>("Kx", 10000000))
+                    ->Attach(Create<RegValueUInt32Node>("Ky", 10000000))
                     ->Attach(Create<RegValueInt32Node>("off_x", 0))
                     ->Attach(Create<RegValueInt32Node>("off_y", 0))
                 )

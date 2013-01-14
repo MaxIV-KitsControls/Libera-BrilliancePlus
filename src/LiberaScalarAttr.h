@@ -2,7 +2,7 @@
  * Copyright (c) 2012 Instrumentation Technologies
  * All Rights Reserved.
  *
- * $Id: LiberaScalarAttr.h 18350 2012-12-17 14:29:19Z tomaz.beltram $
+ * $Id: LiberaScalarAttr.h 18413 2013-01-09 11:53:17Z tomaz.beltram $
  */
 
 #ifndef LIBERA_SCALAR_ATTR_H
@@ -60,12 +60,19 @@ struct TangoToLibera<Tango::DevBoolean> {
 /*******************************************************************************
  * Class for mapping between types, storing values and ireg access.
  * The a_attr reference passed in constructor is used for updating
- * attribute value via Read/Write methods..
+ * attribute value via Read/Write methods.
+ * Can be used just for storing value if the ireg node path is empty.
  */
 template <typename TangoType>
 class LiberaScalarAttr : public LiberaAttr {
 public:
     typedef typename TangoToLibera<TangoType>::Type LiberaType;
+
+    /**
+     * Assign the attribute pointer reference and allocate attribute memory.
+     * The attributes may not have the associated ireg node so the path can
+     * be empty
+     */
     LiberaScalarAttr(const std::string a_path, TangoType *&a_attr,
         TangoType (*a_reader)(mci::Node &, const std::string &),
         void (*a_writer)(mci::Node &, const std::string &, const TangoType))
@@ -76,6 +83,9 @@ public:
         m_writer(a_writer)
     {
         m_attr = new TangoType;
+        if (m_path.empty()) {
+            *m_attr = 0;
+        }
     }
     virtual ~LiberaScalarAttr()
     {
@@ -83,6 +93,9 @@ public:
         istd_TRC(istd::eTrcDetail, "Destroyed scalar attribute for: " << m_path);
     }
 
+    /**
+     * Default reader function gets value from registry.
+     */
     static TangoType DoRead(mci::Node &a_root, const std::string &a_path) {
         istd_FTRC();
         LiberaType val;
@@ -90,15 +103,16 @@ public:
         return val;
     }
 
+    /**
+     * Call the reader function and notify client if value has changed.
+     */
     virtual void Read(mci::Node &a_root) {
         istd_FTRC();
-        if (m_path.empty()) {
-            *m_attr = 0;
-        }
-        else {
+        if (!m_path.empty()) {
             istd_TRC(istd::eTrcDetail, "Read from node: " << m_path);
             TangoType val = m_reader(a_root, m_path);
-            // poor man's notification client, TODO: use mci::NotificationClient
+            // poor man's notification client
+            // could also use mci::NotificationClient
             if (*m_attr != val) {
                 *m_attr = val;
                 Notify();
@@ -106,12 +120,18 @@ public:
         }
     }
 
+    /**
+     * Default writer function puts value to registry node.
+     */
     static void DoWrite(mci::Node &a_root, const std::string &a_path, const TangoType a_val) {
         istd_FTRC();
         LiberaType val(a_val);
         a_root.GetNode(mci::Tokenize(a_path)).Set(val);
     }
 
+    /**
+     * Call the writer function.
+     */
     void Write(mci::Node &a_root, const TangoType a_val) {
         if (!m_path.empty()) {
             m_writer(a_root, m_path, a_val);
@@ -119,6 +139,10 @@ public:
         }
     }
 
+    /**
+     * The attribute memory address is used as handle since it doesn't change
+     * in object's lifetime.
+     */
     bool IsEqual(TangoType *&a_attr) { return a_attr == m_attr; }
 
 private:

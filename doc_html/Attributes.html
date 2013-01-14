@@ -102,7 +102,7 @@
 	<Table Border=2 Cellpadding=3 CELLSPACING=0>
 	<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 	<Td COLSPAN=8> <Font Size=+1> <Center><b>
-		  106 Device Attributes
+		  116 Device Attributes
 	</b></Font></Center></td>
 	<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 		<Td><Center><b>
@@ -215,7 +215,7 @@
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ                             </Td>
+		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> External trigger activation flag             </Td>
@@ -228,7 +228,8 @@
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_LONG          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> The external trigger signal can be internally hardware delayed. \nThe delay is set in steps of ADC samples of about 9ns.             </Td>
+		<Td> The external trigger signal can be internally hardware delayed. 
+The delay is set in steps of ADC samples of about 9ns.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrSAEnabled.html> SAEnabled </a></Td>
@@ -525,7 +526,7 @@
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ                             </Td>
+		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Lower limit of the X position interlock threshold in mm             </Td>
@@ -535,7 +536,7 @@
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ                             </Td>
+		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Upper limit of the X position interlock threshold in mm             </Td>
@@ -545,7 +546,7 @@
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ                             </Td>
+		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Lower limit of the Z position interlock threshold in mm             </Td>
@@ -555,7 +556,7 @@
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ                             </Td>
+		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Upper limit of the Z position interlock threshold in mm             </Td>
@@ -565,7 +566,7 @@
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ                             </Td>
+		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Auto switching status (true=enabled, false=disabled)             </Td>
@@ -731,14 +732,34 @@
 		<Td> The MC PLL lock status             </Td>
 	</Tr>
 	<Tr>
-		<Td> <a href=AttrHWTemperature.html> HWTemperature </a></Td>
+		<Td> <a href=AttrTemp1.html> Temp1 </a></Td>
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_SHORT          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> The current Libera hardware temperature             </Td>
+		<Td> The Libera box first temperature             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrTemp2.html> Temp2 </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ                             </Td>
+		<Td> Tango::DEV_SHORT          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> The Libera box second temperature             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrTemp3.html> Temp3 </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ                             </Td>
+		<Td> Tango::DEV_SHORT          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> The Libera box third temperature             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrFan1Speed.html> Fan1Speed </a></Td>
@@ -849,6 +870,96 @@
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> EXPERT                       </Td>
 		<Td> If set to true, the X & Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.\n              </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrInterlockEnabled.html> InterlockEnabled </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_BOOLEAN          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> en/disable interlock triggering             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrInterlockGainDependentEnabled.html> InterlockGainDependentEnabled </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_BOOLEAN          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> en/disable interlock gain depandence             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrInterlockOverflowThreshold.html> InterlockOverflowThreshold </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_LONG          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> maximum safe signal level for the ADCs             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrInterlockOverflowDuration.html> InterlockOverflowDuration </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_LONG          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> allowed duration of the overflow             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrInterlockGainDependentThreshold.html> InterlockGainDependentThreshold </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_LONG          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> maximum safe power level             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrKx.html> Kx </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_DOUBLE          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> Coeficcient used for position calculation             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrKz.html> Kz </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_DOUBLE          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> Coeficcient used for position calculation             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrXOffset.html> XOffset </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_DOUBLE          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> Offset value used for position calculation             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrZOffset.html> ZOffset </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Scalar    </Td>
+		<Td> READ_WRITE                             </Td>
+		<Td> Tango::DEV_DOUBLE          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> Offset value used for position calculation             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrXPosDD.html> XPosDD </a></Td>
@@ -1169,16 +1280,6 @@
 		<Td> Tango::DEV_SHORT          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> User defined data             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrInterlockConfiguration.html> InterlockConfiguration </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Spectrum				(8)    </Td>
-		<Td> READ                             </Td>
-		<Td> Tango::DEV_DOUBLE          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> The current interlock configuration. The vector mapping is the follwoing:\n[0] Mode : [0]: disabled, [1]: enabled, [3]: enabled with gain dependency\n[1] X low threshold in mm\n[2] X high threshold in mm\n[3] Z threshold low in mm \n[4] Z high threshold in mm\n[5] Overflow limit (ADC threshold)\n[6] Overflow duration (num of overloaded ADC samples before raising interlock)\n[7] Gain limit in dBm  (no interlock under this threshold)              </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=Attrlogs.html> logs </a></Td>

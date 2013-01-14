@@ -11,7 +11,7 @@ static const char *HttpServer = "http://www.esrf.eu/computing/cs/tango/tango_doc
 // description : C++ source for the LiberaBrilliancePlusClass. A singleton
 //               class derived from DeviceClass. It implements the
 //               command list and all properties and methods required
-//               by the «name» once per process.
+//               by the ï¿½nameï¿½ once per process.
 //
 // project :     Libera BPM Device Server.
 //
@@ -3468,6 +3468,249 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	UseLiberaSAData does not fire data_ready event
 	att_list.push_back(useliberasadata);
 
+	//	Attribute : InterlockEnabled
+	InterlockEnabledAttrib	*interlockenabled = new InterlockEnabledAttrib();
+	Tango::UserDefaultAttrProp	interlockenabled_prop;
+	interlockenabled_prop.set_description("en/disable interlock triggering");
+	interlockenabled_prop.set_label("Interlock Enabled");
+	interlockenabled_prop.set_unit("n/a");
+	interlockenabled_prop.set_standard_unit("n/a");
+	interlockenabled_prop.set_display_unit("n/a");
+	//	format	not set for	InterlockEnabled
+	//	max_value	not set for	InterlockEnabled
+	//	min_value	not set for	InterlockEnabled
+	//	max_alarm	not set for	InterlockEnabled
+	//	min_alarm	not set for	InterlockEnabled
+	//	max_warning	not set for	InterlockEnabled
+	//	min_warning	not set for	InterlockEnabled
+	//	delta_t	not set for	InterlockEnabled
+	//	delta_val	not set for	InterlockEnabled
+	interlockenabled->set_default_properties(interlockenabled_prop);
+	//	Not Polled
+	interlockenabled->set_disp_level(Tango::OPERATOR);
+	interlockenabled->set_memorized();
+	interlockenabled->set_memorized_init(true);
+	//	InterlockEnabled does not fire change event
+	//	InterlockEnabled does not fire archive event
+	//	InterlockEnabled does not fire data_ready event
+	att_list.push_back(interlockenabled);
+
+	//	Attribute : InterlockGainDependentEnabled
+	InterlockGainDependentEnabledAttrib	*interlockgaindependentenabled = new InterlockGainDependentEnabledAttrib();
+	Tango::UserDefaultAttrProp	interlockgaindependentenabled_prop;
+	interlockgaindependentenabled_prop.set_description("en/disable interlock gain depandence");
+	interlockgaindependentenabled_prop.set_label("Interlock Gain Dependence Enabled");
+	interlockgaindependentenabled_prop.set_unit("n/a");
+	interlockgaindependentenabled_prop.set_standard_unit("n/a");
+	interlockgaindependentenabled_prop.set_display_unit("n/a");
+	//	format	not set for	InterlockGainDependentEnabled
+	//	max_value	not set for	InterlockGainDependentEnabled
+	//	min_value	not set for	InterlockGainDependentEnabled
+	//	max_alarm	not set for	InterlockGainDependentEnabled
+	//	min_alarm	not set for	InterlockGainDependentEnabled
+	//	max_warning	not set for	InterlockGainDependentEnabled
+	//	min_warning	not set for	InterlockGainDependentEnabled
+	//	delta_t	not set for	InterlockGainDependentEnabled
+	//	delta_val	not set for	InterlockGainDependentEnabled
+	interlockgaindependentenabled->set_default_properties(interlockgaindependentenabled_prop);
+	//	Not Polled
+	interlockgaindependentenabled->set_disp_level(Tango::OPERATOR);
+	interlockgaindependentenabled->set_memorized();
+	interlockgaindependentenabled->set_memorized_init(true);
+	//	InterlockGainDependentEnabled does not fire change event
+	//	InterlockGainDependentEnabled does not fire archive event
+	//	InterlockGainDependentEnabled does not fire data_ready event
+	att_list.push_back(interlockgaindependentenabled);
+
+	//	Attribute : InterlockOverflowThreshold
+	InterlockOverflowThresholdAttrib	*interlockoverflowthreshold = new InterlockOverflowThresholdAttrib();
+	Tango::UserDefaultAttrProp	interlockoverflowthreshold_prop;
+	interlockoverflowthreshold_prop.set_description("maximum safe signal level for the ADCs");
+	interlockoverflowthreshold_prop.set_label("interlock overflow");
+	interlockoverflowthreshold_prop.set_unit("a.u.");
+	//	standard_unit	not set for	InterlockOverflowThreshold
+	//	display_unit	not set for	InterlockOverflowThreshold
+	interlockoverflowthreshold_prop.set_format("%5d");
+	interlockoverflowthreshold_prop.set_max_value("32766");
+	interlockoverflowthreshold_prop.set_min_value("0");
+	//	max_alarm	not set for	InterlockOverflowThreshold
+	//	min_alarm	not set for	InterlockOverflowThreshold
+	//	max_warning	not set for	InterlockOverflowThreshold
+	//	min_warning	not set for	InterlockOverflowThreshold
+	//	delta_t	not set for	InterlockOverflowThreshold
+	//	delta_val	not set for	InterlockOverflowThreshold
+	interlockoverflowthreshold->set_default_properties(interlockoverflowthreshold_prop);
+	//	Not Polled
+	interlockoverflowthreshold->set_disp_level(Tango::OPERATOR);
+	interlockoverflowthreshold->set_memorized();
+	interlockoverflowthreshold->set_memorized_init(true);
+	//	InterlockOverflowThreshold does not fire change event
+	//	InterlockOverflowThreshold does not fire archive event
+	//	InterlockOverflowThreshold does not fire data_ready event
+	att_list.push_back(interlockoverflowthreshold);
+
+	//	Attribute : InterlockOverflowDuration
+	InterlockOverflowDurationAttrib	*interlockoverflowduration = new InterlockOverflowDurationAttrib();
+	Tango::UserDefaultAttrProp	interlockoverflowduration_prop;
+	interlockoverflowduration_prop.set_description("allowed duration of the overflow");
+	interlockoverflowduration_prop.set_label("interlock overflow duration");
+	interlockoverflowduration_prop.set_unit("a.u.");
+	//	standard_unit	not set for	InterlockOverflowDuration
+	//	display_unit	not set for	InterlockOverflowDuration
+	interlockoverflowduration_prop.set_format("%5d");
+	interlockoverflowduration_prop.set_max_value("1023");
+	interlockoverflowduration_prop.set_min_value("0");
+	//	max_alarm	not set for	InterlockOverflowDuration
+	//	min_alarm	not set for	InterlockOverflowDuration
+	//	max_warning	not set for	InterlockOverflowDuration
+	//	min_warning	not set for	InterlockOverflowDuration
+	//	delta_t	not set for	InterlockOverflowDuration
+	//	delta_val	not set for	InterlockOverflowDuration
+	interlockoverflowduration->set_default_properties(interlockoverflowduration_prop);
+	//	Not Polled
+	interlockoverflowduration->set_disp_level(Tango::OPERATOR);
+	interlockoverflowduration->set_memorized();
+	interlockoverflowduration->set_memorized_init(true);
+	//	InterlockOverflowDuration does not fire change event
+	//	InterlockOverflowDuration does not fire archive event
+	//	InterlockOverflowDuration does not fire data_ready event
+	att_list.push_back(interlockoverflowduration);
+
+	//	Attribute : InterlockGainDependentThreshold
+	InterlockGainDependentThresholdAttrib	*interlockgaindependentthreshold = new InterlockGainDependentThresholdAttrib();
+	Tango::UserDefaultAttrProp	interlockgaindependentthreshold_prop;
+	interlockgaindependentthreshold_prop.set_description("maximum safe power level");
+	interlockgaindependentthreshold_prop.set_label("interlock gain limit");
+	interlockgaindependentthreshold_prop.set_unit("a.u.");
+	//	standard_unit	not set for	InterlockGainDependentThreshold
+	interlockgaindependentthreshold_prop.set_display_unit("%5d");
+	//	format	not set for	InterlockGainDependentThreshold
+	interlockgaindependentthreshold_prop.set_max_value("0");
+	interlockgaindependentthreshold_prop.set_min_value("-80");
+	//	max_alarm	not set for	InterlockGainDependentThreshold
+	//	min_alarm	not set for	InterlockGainDependentThreshold
+	//	max_warning	not set for	InterlockGainDependentThreshold
+	//	min_warning	not set for	InterlockGainDependentThreshold
+	//	delta_t	not set for	InterlockGainDependentThreshold
+	//	delta_val	not set for	InterlockGainDependentThreshold
+	interlockgaindependentthreshold->set_default_properties(interlockgaindependentthreshold_prop);
+	//	Not Polled
+	interlockgaindependentthreshold->set_disp_level(Tango::OPERATOR);
+	interlockgaindependentthreshold->set_memorized();
+	interlockgaindependentthreshold->set_memorized_init(true);
+	//	InterlockGainDependentThreshold does not fire change event
+	//	InterlockGainDependentThreshold does not fire archive event
+	//	InterlockGainDependentThreshold does not fire data_ready event
+	att_list.push_back(interlockgaindependentthreshold);
+
+	//	Attribute : Kx
+	KxAttrib	*kx = new KxAttrib();
+	Tango::UserDefaultAttrProp	kx_prop;
+	kx_prop.set_description("Coeficcient used for position calculation");
+	kx_prop.set_label("X position coefficient");
+	kx_prop.set_unit("a.u.");
+	//	standard_unit	not set for	Kx
+	//	display_unit	not set for	Kx
+	kx_prop.set_format("%8.2f");
+	kx_prop.set_max_value("50");
+	kx_prop.set_min_value("0.0000001");
+	//	max_alarm	not set for	Kx
+	//	min_alarm	not set for	Kx
+	//	max_warning	not set for	Kx
+	//	min_warning	not set for	Kx
+	//	delta_t	not set for	Kx
+	//	delta_val	not set for	Kx
+	kx->set_default_properties(kx_prop);
+	//	Not Polled
+	kx->set_disp_level(Tango::OPERATOR);
+	kx->set_memorized();
+	kx->set_memorized_init(true);
+	//	Kx does not fire change event
+	//	Kx does not fire archive event
+	//	Kx does not fire data_ready event
+	att_list.push_back(kx);
+
+	//	Attribute : Kz
+	KzAttrib	*kz = new KzAttrib();
+	Tango::UserDefaultAttrProp	kz_prop;
+	kz_prop.set_description("Coeficcient used for position calculation");
+	kz_prop.set_label("Z position coefficient");
+	kz_prop.set_unit("a.u.");
+	//	standard_unit	not set for	Kz
+	//	display_unit	not set for	Kz
+	kz_prop.set_format("%8.2f");
+	kz_prop.set_max_value("50");
+	kz_prop.set_min_value("0.0000001");
+	//	max_alarm	not set for	Kz
+	//	min_alarm	not set for	Kz
+	//	max_warning	not set for	Kz
+	//	min_warning	not set for	Kz
+	//	delta_t	not set for	Kz
+	//	delta_val	not set for	Kz
+	kz->set_default_properties(kz_prop);
+	//	Not Polled
+	kz->set_disp_level(Tango::OPERATOR);
+	kz->set_memorized();
+	kz->set_memorized_init(true);
+	//	Kz does not fire change event
+	//	Kz does not fire archive event
+	//	Kz does not fire data_ready event
+	att_list.push_back(kz);
+
+	//	Attribute : XOffset
+	XOffsetAttrib	*xoffset = new XOffsetAttrib();
+	Tango::UserDefaultAttrProp	xoffset_prop;
+	xoffset_prop.set_description("Offset value used for position calculation");
+	xoffset_prop.set_label("X position offset");
+	xoffset_prop.set_unit("mm");
+	//	standard_unit	not set for	XOffset
+	//	display_unit	not set for	XOffset
+	xoffset_prop.set_format("%8.4f");
+	//	max_value	not set for	XOffset
+	//	min_value	not set for	XOffset
+	//	max_alarm	not set for	XOffset
+	//	min_alarm	not set for	XOffset
+	//	max_warning	not set for	XOffset
+	//	min_warning	not set for	XOffset
+	//	delta_t	not set for	XOffset
+	//	delta_val	not set for	XOffset
+	xoffset->set_default_properties(xoffset_prop);
+	//	Not Polled
+	xoffset->set_disp_level(Tango::OPERATOR);
+	xoffset->set_memorized();
+	xoffset->set_memorized_init(true);
+	//	XOffset does not fire change event
+	//	XOffset does not fire archive event
+	//	XOffset does not fire data_ready event
+	att_list.push_back(xoffset);
+
+	//	Attribute : ZOffset
+	ZOffsetAttrib	*zoffset = new ZOffsetAttrib();
+	Tango::UserDefaultAttrProp	zoffset_prop;
+	zoffset_prop.set_description("Offset value used for position calculation");
+	zoffset_prop.set_label("Z position offset");
+	zoffset_prop.set_unit("mm");
+	//	standard_unit	not set for	ZOffset
+	//	display_unit	not set for	ZOffset
+	zoffset_prop.set_format("%8.4f");
+	//	max_value	not set for	ZOffset
+	//	min_value	not set for	ZOffset
+	//	max_alarm	not set for	ZOffset
+	//	min_alarm	not set for	ZOffset
+	//	max_warning	not set for	ZOffset
+	//	min_warning	not set for	ZOffset
+	//	delta_t	not set for	ZOffset
+	//	delta_val	not set for	ZOffset
+	zoffset->set_default_properties(zoffset_prop);
+	//	Not Polled
+	zoffset->set_disp_level(Tango::OPERATOR);
+	zoffset->set_memorized();
+	zoffset->set_memorized_init(true);
+	//	ZOffset does not fire change event
+	//	ZOffset does not fire archive event
+	//	ZOffset does not fire data_ready event
+	att_list.push_back(zoffset);
+
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
 	Tango::UserDefaultAttrProp	xposdd_prop;
@@ -4332,33 +4575,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	UserData does not fire data_ready event
 	att_list.push_back(userdata);
 
-	//	Attribute : InterlockConfiguration
-	InterlockConfigurationAttrib	*interlockconfiguration = new InterlockConfigurationAttrib();
-	Tango::UserDefaultAttrProp	interlockconfiguration_prop;
-	interlockconfiguration_prop.set_description("The current interlock configuration. The vector mapping is the follwoing:\n[0] Mode : [0]: disabled, [1]: enabled, [3]: enabled with gain dependency\n[1] X low threshold in mm\n[2] X high threshold in mm\n[3] Z threshold low in mm \n[4] Z high threshold in mm\n[5] Overflow limit (ADC threshold)\n[6] Overflow duration (num of overloaded ADC samples before raising interlock)\n[7] Gain limit in dBm  (no interlock under this threshold) ");
-	//	label	not set for	InterlockConfiguration
-	//	unit	not set for	InterlockConfiguration
-	//	standard_unit	not set for	InterlockConfiguration
-	//	display_unit	not set for	InterlockConfiguration
-	//	format	not set for	InterlockConfiguration
-	//	max_value	not set for	InterlockConfiguration
-	//	min_value	not set for	InterlockConfiguration
-	//	max_alarm	not set for	InterlockConfiguration
-	//	min_alarm	not set for	InterlockConfiguration
-	//	max_warning	not set for	InterlockConfiguration
-	//	min_warning	not set for	InterlockConfiguration
-	//	delta_t	not set for	InterlockConfiguration
-	//	delta_val	not set for	InterlockConfiguration
-	interlockconfiguration->set_default_properties(interlockconfiguration_prop);
-	//	Not Polled
-	interlockconfiguration->set_disp_level(Tango::OPERATOR);
-	//	Not memorized
-
-	//	InterlockConfiguration does not fire change event
-	//	InterlockConfiguration does not fire archive event
-	//	InterlockConfiguration does not fire data_ready event
-	att_list.push_back(interlockconfiguration);
-
 	//	Attribute : logs
 	logsAttrib	*logs = new logsAttrib();
 	Tango::UserDefaultAttrProp	logs_prop;
@@ -4548,8 +4764,8 @@ void LiberaBrilliancePlusClass::command_factory()
 	MagicCommandClass	*pMagicCommandCmd =
 		new MagicCommandClass("MagicCommand",
 			Tango::DEV_STRING, Tango::DEVVAR_STRINGARRAY,
-			"",
-			"",
+			"absolute path of the node name",
+			"value of specified node(s)",
 			Tango::EXPERT);
 	command_list.push_back(pMagicCommandCmd);
 

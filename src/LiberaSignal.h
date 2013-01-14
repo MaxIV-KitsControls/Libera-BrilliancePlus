@@ -2,7 +2,7 @@
  * Copyright (c) 2012 Instrumentation Technologies
  * All Rights Reserved.
  *
- * $Id: LiberaSignal.h 18368 2012-12-18 14:55:03Z tomaz.beltram $
+ * $Id: LiberaSignal.h 18420 2013-01-10 14:26:03Z tomaz.beltram $
  */
 
 #ifndef LIBERA_SIGNAL_H
@@ -20,7 +20,7 @@
 #include <mci/node.h>
 
 /*******************************************************************************
- * Base signal class for reading streams and dod.
+ * Base abstract signal class for reading streams and dod.
  */
 class LiberaSignal {
 public:
@@ -32,17 +32,23 @@ public:
     void Enable();
     void Disable();
     void SetPeriod(uint32_t a_period);
-    void SetOffset(int32_t a_offset);
-    virtual void Realloc(size_t a_length) = 0;
-
     void operator ()();
     void Update();
+    void SetMode(isig::AccessMode_e  a_mode);
+
+    // interface functions for the derived class
+    virtual void SetOffset(int32_t a_offset) = 0;
+    virtual void Realloc(size_t a_length) = 0;
+    virtual bool IsUpdated() = 0;
+    virtual void ClearUpdated() = 0;
     virtual void GetData() = 0;
 
 protected:
-    int32_t GetOffset();
+    virtual int32_t    GetOffset() = 0;
+    isig::AccessMode_e GetMode();
     size_t GetLength();
-    void SetLength(size_t a_length);
+    void   SetLength(size_t a_length);
+    void   Stop();
 
 private:
     virtual void Initialize(mci::Node &a_node) = 0;
@@ -51,9 +57,10 @@ private:
     std::atomic<bool>   m_running;
     std::thread         m_thread;
     uint32_t            m_period;
-    int32_t             m_offset;
     Tango::DevBoolean *&m_enabled;
     Tango::DevLong    *&m_length; // length of each column
+    bool                m_connected;
+    isig::AccessMode_e  m_mode;
 
     const std::string m_path;
     mci::Node m_root;

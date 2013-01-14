@@ -141,7 +141,8 @@ ADDITIONAL_OBJS = \
             $(OBJDIR)/LiberaClient.o \
             $(OBJDIR)/LiberaAttr.o   \
             $(OBJDIR)/LiberaLogsAttr.o   \
-            $(OBJDIR)/LiberaSignal.o
+            $(OBJDIR)/LiberaSignal.o     \
+            $(OBJDIR)/LiberaSignalSAHistory.o
 
 #=============================================================================
 #	include common targets

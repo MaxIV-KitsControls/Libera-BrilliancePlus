@@ -2,7 +2,7 @@
  * Copyright (c) 2012 Instrumentation Technologies
  * All Rights Reserved.
  *
- * $Id: LiberaAttr.h 18372 2012-12-19 13:43:52Z tomaz.beltram $
+ * $Id: LiberaAttr.h 18414 2013-01-10 08:30:19Z tomaz.beltram $
  */
 
 #ifndef LIBERA_ATTR_H
@@ -30,6 +30,11 @@ public:
     void EnableNotify(LiberaClient *a_client) { m_client = a_client; }
     void Notify();
     virtual void Read(mci::Node &a_root) = 0;
+    /**
+     * This methods check for given attribute handle and are implemented
+     * in derived class. All has default implementation here because if the type
+     * doesn't match also the handle does not.
+     */
     virtual bool IsEqual(Tango::DevDouble *&) { return false; }
     virtual bool IsEqual(Tango::DevLong *&) { return false; }
     virtual bool IsEqual(Tango::DevULong *&) { return false; }
@@ -37,13 +42,30 @@ public:
     virtual bool IsEqual(Tango::DevUShort *&) { return false; }
     virtual bool IsEqual(Tango::DevBoolean *&) { return false; }
     /**
-     *  reader and writer functions for specific atribute handling
+     *  Reader and writer functions for specific attribute handling implement
+     *  type conversion, combining of several ireg nodes, etc...
      */
     static Tango::DevDouble NM2MM(mci::Node &a_root, const std::string &a_path) {
         istd_FTRC();
         int32_t val;
         a_root.GetNode(mci::Tokenize(a_path)).Get(val);
-        return val/1e6;
+        return val / 1e6;
+    }
+    static void MM2NM(mci::Node &a_root, const std::string &a_path, const Tango::DevDouble a_val) {
+        istd_FTRC();
+        int32_t val = a_val * 1e6;
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
+    }
+    static Tango::DevDouble K2MM(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        uint32_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val / 1e7;
+    }
+    static void MM2K(mci::Node &a_root, const std::string &a_path, const Tango::DevDouble a_val) {
+        istd_FTRC();
+        uint32_t val = a_val * 1e7;
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
     }
     static Tango::DevDouble INT2DBL(mci::Node &a_root, const std::string &a_path) {
         istd_FTRC();
@@ -82,13 +104,24 @@ public:
         istd_FTRC();
         uint64_t val;
         a_root.GetNode(mci::Tokenize(a_path)).Get(val);
-        return val % 2^32;
+        return val;
     }
     static Tango::DevShort ULL2SHORT(mci::Node &a_root, const std::string &a_path) {
         istd_FTRC();
         uint64_t val;
         a_root.GetNode(mci::Tokenize(a_path)).Get(val);
         return val % 2^16;
+    }
+    static Tango::DevDouble ULL2DBL(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        uint64_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val;
+    }
+    static void DBL2ULL(mci::Node &a_root, const std::string &a_path, const Tango::DevDouble a_val) {
+        istd_FTRC();
+        uint64_t val = a_val;
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
     }
     /**
      * reader and writer for negated bool value
@@ -184,7 +217,7 @@ public:
         return total - used;
     }
 private:
-    LiberaClient *m_client;
+    LiberaClient *m_client; // only needed when notification enabled
 };
 
 #endif //LIBERA_ATTR_H

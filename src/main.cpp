@@ -38,6 +38,7 @@ int main(int argc,char *argv[])
     istd::TraceInit("-");
     istd::TraceStart(istd::eTrcLow);
 
+    // need to initialize CORBA from mci before Tango does it
     mci::Init(argc, argv);
 
     Tango::Util *tg = NULL;

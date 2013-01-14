@@ -2,7 +2,7 @@
  * Copyright (c) 2012 Instrumentation Technologies
  * All Rights Reserved.
  *
- * $Id: LiberaClient.cpp 18372 2012-12-19 13:43:52Z tomaz.beltram $
+ * $Id: LiberaClient.cpp 18413 2013-01-09 11:53:17Z tomaz.beltram $
  */
 
 #include <istd/trace.h>
@@ -37,6 +37,9 @@ LiberaClient::LiberaClient(LiberaBrilliancePlus_ns::LiberaBrilliancePlus *a_devi
     };
 }
 
+/**
+ * Wait for update thread to finish and delete destroy created objects.
+ */
 LiberaClient::~LiberaClient()
 {
     istd_FTRC();
@@ -45,9 +48,13 @@ LiberaClient::~LiberaClient()
         m_thread.join();
     }
     m_signals.clear(); // destroy signal objects
-    m_attr.clear(); // destroy signal objects
+    m_attr_pm.clear(); // destroy platform attributes objects
+    m_attr.clear(); // destroy atribute objects
 }
 
+/**
+ * Call notifier function.
+ */
 void LiberaClient::Notify(LiberaAttr *a_attr)
 {
     istd_FTRC();
@@ -55,7 +62,8 @@ void LiberaClient::Notify(LiberaAttr *a_attr)
 }
 
 /**
- * Method for updating all attributes on the list.
+ * Method for updating all attributes on the list. Its periodically called from
+ * the update thread.
  */
 void LiberaClient::UpdateAttr()
 {
@@ -77,7 +85,9 @@ void LiberaClient::UpdateAttr()
         m_connected = false;
     }
 }
-
+/**
+ * Periodically read all attribute values.
+ */
 void LiberaClient::operator()()
 {
     istd_FTRC();
@@ -96,6 +106,9 @@ void LiberaClient::operator()()
     istd_TRC(istd::eTrcHigh, "Exit attribute update thread");
 }
 
+/**
+ * Call execute on the given ireg node.
+ */
 bool LiberaClient::Execute(const std::string &a_path)
 {
     istd_FTRC();
@@ -111,6 +124,9 @@ bool LiberaClient::Execute(const std::string &a_path)
     return res;
 }
 
+/**
+ * Recursively collect values for all sub-nodes.
+ */
 void LiberaClient::TreeWalk(
     const mci::Node &a_node, Tango::DevVarStringArray *a_out)
 {
@@ -127,6 +143,9 @@ void LiberaClient::TreeWalk(
     }
 }
 
+/**
+ * Fill the output argument with value of the ireg node and its sub-nodes.
+ */
 bool LiberaClient::MagicCommand(
     const std::string &a_path, Tango::DevVarStringArray *a_out)
 {
@@ -151,9 +170,8 @@ bool LiberaClient::MagicCommand(
 }
 
 /**
- * Connection handling methods.
+ * Connection handling method.
  */
-
 void LiberaClient::Connect(mci::Node &a_root, mci::Root a_type)
 {
     // Destroy root node to force disconnect
@@ -190,26 +208,36 @@ void LiberaClient::Connect(mci::Node &a_root, mci::Root a_type)
     }
 }
 
+/**
+ * Connect to application and platform daemons.
+ */
 bool LiberaClient::Connect()
 {
     istd_FTRC();
+
+    m_connected = false;
 
     Connect(m_root, mci::Root::Application);
     Connect(m_platform, mci::Root::Platform);
 
     // update attributes for the first time
     if (m_root.IsValid() && m_platform.IsValid()) {
-        // start attribute update loop
-        m_connected = true;
         // set root node connection for signals
         for (auto i = m_signals.begin(); i != m_signals.end(); ++i) {
             if (!(*i)->Connect(m_root)) {
                 m_connected = false;
+                istd_TRC(istd::eTrcLow, "Connection to signals failed.");
+                return false;
             }
         }
-        return true;
+        // start attribute update loop
+        m_connected = true;
+        istd_TRC(istd::eTrcLow, "Connection to platform and application succeeded.");
     }
-    return false;
+    else {
+        istd_TRC(istd::eTrcLow, "Connection to platform or application failed.");
+    }
+    return m_connected;
 }
 
 void LiberaClient::Disconnect(mci::Node &a_root, mci::Root a_type)
