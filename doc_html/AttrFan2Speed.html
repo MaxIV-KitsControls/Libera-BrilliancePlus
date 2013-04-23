@@ -99,7 +99,10 @@
 <ul>
 	<Font SIZE="+0"> <b><u> Description :</u></b> </Font>
 	<ul>
-		The current rotation speed of the second hardware cooling fan
+		Provides minimal fan speed reading of all three fans on 
+the right side of the chassis in order to identify if the fan 
+module (consisting of 3 fans) is broken - returned value 
+0 means that at least one fan has stopped.
 	</ul>
 	<Br>
 	<Br>
@@ -139,11 +142,8 @@
 			
 		<!--- Read access --->
 		<Tr>
-			<Td> <Font=+1><b> Read NOT allowed for   </b></Font></Td>
-			<Td> 
-					- UNKNOWN <Br>
-					- FAULT <Br>
-			</Td>
+			<Td> <Font=+1><b> Read allowed for   </b></Font></Td>
+			<Td> All states </Td>
 		</Tr>
 
 		
@@ -164,10 +164,6 @@
 			</Tr>
 	
 			<!---------- Polling ----------->
-			<Tr>
-				<Td> <Font=+1><b> Polling Period  </b></Font></Td>
-				<Td> 0 ms </Td>
-			</Tr>
 		
 			<!---------- Memorized ----------->
 		
@@ -199,7 +195,10 @@
 			<Tr><Td> <Font=+1><b>  min_warning   </b></Font></Td>    <Td> </Td></Tr>
 			<Tr><Td> <Font=+1><b>  delta_time    </b></Font></Td>    <Td> </Td></Tr>
 			<Tr><Td> <Font=+1><b>  delta_val     </b></Font></Td>    <Td> </Td></Tr>
-			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> The current rotation speed of the second hardware cooling fan</Td></Tr--->
+			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> Provides minimal fan speed reading of all three fans on 
+the right side of the chassis in order to identify if the fan 
+module (consisting of 3 fans) is broken - returned value 
+0 means that at least one fan has stopped.</Td></Tr--->
 		</Table>
 	</Td>
 	</Table>

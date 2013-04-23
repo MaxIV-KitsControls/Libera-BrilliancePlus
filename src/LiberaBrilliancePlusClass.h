@@ -173,11 +173,13 @@ class ExternalTriggerEnabledAttrib: public Tango::Attr
 {
 public:
 	ExternalTriggerEnabledAttrib():Attr("ExternalTriggerEnabled",
-	                   Tango::DEV_BOOLEAN, Tango::READ) {};
+	                   Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
 	~ExternalTriggerEnabledAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ExternalTriggerEnabled(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_ExternalTriggerEnabled(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ExternalTriggerEnabled_allowed(ty);}
 };
@@ -619,11 +621,13 @@ class XLowAttrib: public Tango::Attr
 {
 public:
 	XLowAttrib():Attr("XLow",
-	                   Tango::DEV_DOUBLE, Tango::READ) {};
+	                   Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
 	~XLowAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_XLow(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_XLow(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_XLow_allowed(ty);}
 };
@@ -633,11 +637,13 @@ class XHighAttrib: public Tango::Attr
 {
 public:
 	XHighAttrib():Attr("XHigh",
-	                   Tango::DEV_DOUBLE, Tango::READ) {};
+	                   Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
 	~XHighAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_XHigh(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_XHigh(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_XHigh_allowed(ty);}
 };
@@ -647,11 +653,13 @@ class ZLowAttrib: public Tango::Attr
 {
 public:
 	ZLowAttrib():Attr("ZLow",
-	                   Tango::DEV_DOUBLE, Tango::READ) {};
+	                   Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
 	~ZLowAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ZLow(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_ZLow(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ZLow_allowed(ty);}
 };
@@ -661,11 +669,13 @@ class ZHighAttrib: public Tango::Attr
 {
 public:
 	ZHighAttrib():Attr("ZHigh",
-	                   Tango::DEV_DOUBLE, Tango::READ) {};
+	                   Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
 	~ZHighAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ZHigh(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_ZHigh(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ZHigh_allowed(ty);}
 };
@@ -675,11 +685,13 @@ class AutoSwitchingEnabledAttrib: public Tango::Attr
 {
 public:
 	AutoSwitchingEnabledAttrib():Attr("AutoSwitchingEnabled",
-	                   Tango::DEV_BOOLEAN, Tango::READ) {};
+	                   Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
 	~AutoSwitchingEnabledAttrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_AutoSwitchingEnabled(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_AutoSwitchingEnabled(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_AutoSwitchingEnabled_allowed(ty);}
 };
@@ -934,18 +946,46 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_MCPLLStatus_allowed(ty);}
 };
 
-//	Attribute HWTemperature class definition
-class HWTemperatureAttrib: public Tango::Attr
+//	Attribute Temp1 class definition
+class Temp1Attrib: public Tango::Attr
 {
 public:
-	HWTemperatureAttrib():Attr("HWTemperature",
+	Temp1Attrib():Attr("Temp1",
 	                   Tango::DEV_SHORT, Tango::READ) {};
-	~HWTemperatureAttrib() {};
+	~Temp1Attrib() {};
 	
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_HWTemperature(att);}
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_Temp1(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_HWTemperature_allowed(ty);}
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Temp1_allowed(ty);}
+};
+
+//	Attribute Temp2 class definition
+class Temp2Attrib: public Tango::Attr
+{
+public:
+	Temp2Attrib():Attr("Temp2",
+	                   Tango::DEV_SHORT, Tango::READ) {};
+	~Temp2Attrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_Temp2(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Temp2_allowed(ty);}
+};
+
+//	Attribute Temp3 class definition
+class Temp3Attrib: public Tango::Attr
+{
+public:
+	Temp3Attrib():Attr("Temp3",
+	                   Tango::DEV_SHORT, Tango::READ) {};
+	~Temp3Attrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_Temp3(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Temp3_allowed(ty);}
 };
 
 //	Attribute Fan1Speed class definition
@@ -1106,6 +1146,150 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->write_UseLiberaSAData(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_UseLiberaSAData_allowed(ty);}
+};
+
+//	Attribute InterlockEnabled class definition
+class InterlockEnabledAttrib: public Tango::Attr
+{
+public:
+	InterlockEnabledAttrib():Attr("InterlockEnabled",
+	                   Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~InterlockEnabledAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockEnabled(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockEnabled(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockEnabled_allowed(ty);}
+};
+
+//	Attribute InterlockGainDependentEnabled class definition
+class InterlockGainDependentEnabledAttrib: public Tango::Attr
+{
+public:
+	InterlockGainDependentEnabledAttrib():Attr("InterlockGainDependentEnabled",
+	                   Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~InterlockGainDependentEnabledAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockGainDependentEnabled(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockGainDependentEnabled(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockGainDependentEnabled_allowed(ty);}
+};
+
+//	Attribute InterlockOverflowThreshold class definition
+class InterlockOverflowThresholdAttrib: public Tango::Attr
+{
+public:
+	InterlockOverflowThresholdAttrib():Attr("InterlockOverflowThreshold",
+	                   Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~InterlockOverflowThresholdAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockOverflowThreshold(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockOverflowThreshold(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockOverflowThreshold_allowed(ty);}
+};
+
+//	Attribute InterlockOverflowDuration class definition
+class InterlockOverflowDurationAttrib: public Tango::Attr
+{
+public:
+	InterlockOverflowDurationAttrib():Attr("InterlockOverflowDuration",
+	                   Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~InterlockOverflowDurationAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockOverflowDuration(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockOverflowDuration(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockOverflowDuration_allowed(ty);}
+};
+
+//	Attribute InterlockGainDependentThreshold class definition
+class InterlockGainDependentThresholdAttrib: public Tango::Attr
+{
+public:
+	InterlockGainDependentThresholdAttrib():Attr("InterlockGainDependentThreshold",
+	                   Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~InterlockGainDependentThresholdAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockGainDependentThreshold(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockGainDependentThreshold(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockGainDependentThreshold_allowed(ty);}
+};
+
+//	Attribute Kx class definition
+class KxAttrib: public Tango::Attr
+{
+public:
+	KxAttrib():Attr("Kx",
+	                   Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~KxAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_Kx(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_Kx(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Kx_allowed(ty);}
+};
+
+//	Attribute Kz class definition
+class KzAttrib: public Tango::Attr
+{
+public:
+	KzAttrib():Attr("Kz",
+	                   Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~KzAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_Kz(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_Kz(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Kz_allowed(ty);}
+};
+
+//	Attribute XOffset class definition
+class XOffsetAttrib: public Tango::Attr
+{
+public:
+	XOffsetAttrib():Attr("XOffset",
+	                   Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~XOffsetAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_XOffset(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_XOffset(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_XOffset_allowed(ty);}
+};
+
+//	Attribute ZOffset class definition
+class ZOffsetAttrib: public Tango::Attr
+{
+public:
+	ZOffsetAttrib():Attr("ZOffset",
+	                   Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~ZOffsetAttrib() {};
+	
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ZOffset(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_ZOffset(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ZOffset_allowed(ty);}
 };
 
 //	Attribute XPosDD class definition
@@ -1554,20 +1738,6 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_UserData(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_UserData_allowed(ty);}
-};
-
-//	Attribute InterlockConfiguration class definition
-class InterlockConfigurationAttrib: public Tango::SpectrumAttr
-{
-public:
-	InterlockConfigurationAttrib():SpectrumAttr("InterlockConfiguration",
-	                   Tango::DEV_DOUBLE, Tango::READ, 8) {};
-	~InterlockConfigurationAttrib() {};
-	
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockConfiguration(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockConfiguration_allowed(ty);}
 };
 
 //	Attribute logs class definition
@@ -2026,6 +2196,29 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SetRefIncoherence_allowed(any);}
+};
+
+//	Command MagicCommand class definition
+class MagicCommandClass : public Tango::Command
+{
+public:
+	MagicCommandClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	MagicCommandClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~MagicCommandClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_MagicCommand_allowed(any);}
 };
 
 

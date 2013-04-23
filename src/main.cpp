@@ -30,10 +30,18 @@ static const char *RcsId = "$Id: $";
 
 #include <tango.h>
 
+#include <istd/trace.h>
+#include <mci/mci.h>
 
 int main(int argc,char *argv[])
 {
-	Tango::Util *tg = NULL;
+    istd::TraceInit("-");
+    istd::TraceStart(istd::eTrcLow);
+
+    // need to initialize CORBA from mci before Tango does it
+    mci::Init(argc, argv);
+
+    Tango::Util *tg = NULL;
 	try
 	{
 		// Initialise the device server
