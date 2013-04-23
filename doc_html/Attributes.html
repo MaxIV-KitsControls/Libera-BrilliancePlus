@@ -102,7 +102,7 @@
 	<Table Border=2 Cellpadding=3 CELLSPACING=0>
 	<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 	<Td COLSPAN=8> <Font Size=+1> <Center><b>
-		  116 Device Attributes
+		  106 Device Attributes
 	</b></Font></Center></td>
 	<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
 		<Td><Center><b>
@@ -215,7 +215,7 @@
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
+		<Td> READ                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> External trigger activation flag             </Td>
@@ -228,8 +228,7 @@
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_LONG          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets the delay on the external trigger arrival. 
-The delay is set in steps of ADC samples (~ 9 ns).             </Td>
+		<Td> The external trigger signal can be internally hardware delayed. \nThe delay is set in steps of ADC samples of about 9ns.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrSAEnabled.html> SAEnabled </a></Td>
@@ -359,7 +358,7 @@ The delay is set in steps of ADC samples (~ 9 ns).             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition:  arithmetic average from history values             </Td>
+		<Td> Slow Acquisition:  X Mean Pos.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrZMeanPosSA.html> ZMeanPosSA </a></Td>
@@ -369,7 +368,7 @@ The delay is set in steps of ADC samples (~ 9 ns).             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition:  arithmetic average from history values             </Td>
+		<Td> Slow Acquisition:  Z Mean Pos.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrXRMSPosSA.html> XRMSPosSA </a></Td>
@@ -379,7 +378,7 @@ The delay is set in steps of ADC samples (~ 9 ns).             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition:  X root mean square from histry samples sqrt(Xi^2-mean^2)/N^2             </Td>
+		<Td> Slow Acquisition:  X RMS Pos.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrZRMSPosSA.html> ZRMSPosSA </a></Td>
@@ -389,7 +388,7 @@ The delay is set in steps of ADC samples (~ 9 ns).             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition: Z root mean square from histry samples sqrt(Xi^2-mean^2)/N^2.             </Td>
+		<Td> Slow Acquisition: Z RMS Pos.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrXPeakPosSA.html> XPeakPosSA </a></Td>
@@ -399,7 +398,7 @@ The delay is set in steps of ADC samples (~ 9 ns).             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition: X difference between max and min value from history             </Td>
+		<Td> Slow Acquisition: X pos peak to peak amplitude             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrZPeakPosSA.html> ZPeakPosSA </a></Td>
@@ -409,7 +408,7 @@ The delay is set in steps of ADC samples (~ 9 ns).             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition: Z difference between max and min value from history             </Td>
+		<Td> Slow Acquisition: X pos peak to peak amplitude             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrSumMeanSA.html> SumMeanSA </a></Td>
@@ -449,10 +448,7 @@ The delay is set in steps of ADC samples (~ 9 ns).             </Td>
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_LONG          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Offset relative to the post mortem event setting. 
-Set value is in turns, e.g. 1024 would mean that post mortem 
-acquisition is starting 1024 turns after the post mortem trigger 
-was received.             </Td>
+		<Td> Internal delay of the post mortem trigger. \nCan be set in the range of +/- 10 ksamples.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrPMNotified.html> PMNotified </a></Td>
@@ -482,7 +478,7 @@ was received.             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets to 1 if X position trip caused the Interlock event.             </Td>
+		<Td>              </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrInterlockZNotified.html> InterlockZNotified </a></Td>
@@ -492,7 +488,7 @@ was received.             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets to 1 if Yposition trip caused the Interlock event.             </Td>
+		<Td>              </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrInterlockAttnNotified.html> InterlockAttnNotified </a></Td>
@@ -502,8 +498,7 @@ was received.             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets to 1 if the attenuator's value is higher than gain 
-dependence threshold             </Td>
+		<Td>              </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrInterlockADCPreFilterNotified.html> InterlockADCPreFilterNotified </a></Td>
@@ -513,7 +508,7 @@ dependence threshold             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> ADC overflow without filtering.             </Td>
+		<Td>              </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrInterlockADCPostFilterNotified.html> InterlockADCPostFilterNotified </a></Td>
@@ -523,14 +518,14 @@ dependence threshold             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> ADC overflow with filtering.             </Td>
+		<Td>              </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrXLow.html> XLow </a></Td>
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
+		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Lower limit of the X position interlock threshold in mm             </Td>
@@ -540,7 +535,7 @@ dependence threshold             </Td>
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
+		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Upper limit of the X position interlock threshold in mm             </Td>
@@ -550,7 +545,7 @@ dependence threshold             </Td>
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
+		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Lower limit of the Z position interlock threshold in mm             </Td>
@@ -560,7 +555,7 @@ dependence threshold             </Td>
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
+		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> Upper limit of the Z position interlock threshold in mm             </Td>
@@ -570,10 +565,10 @@ dependence threshold             </Td>
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
+		<Td> READ                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Enables / disables the switching mechanism.             </Td>
+		<Td> Auto switching status (true=enabled, false=disabled)             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrSwitches.html> Switches </a></Td>
@@ -593,8 +588,7 @@ dependence threshold             </Td>
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets the source of switching clock - MC (external) or from the 
-oscillator (internal). Default value is internal.             </Td>
+		<Td> Determines whether the ADC source switching  will be triggered by the \ninternally (false) or be the externally (true) by the machine clock.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrSwitchingDelay.html> SwitchingDelay </a></Td>
@@ -604,8 +598,7 @@ oscillator (internal). Default value is internal.             </Td>
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_LONG          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets the delay of the switch position change relative to the 
-switching source clock.             </Td>
+		<Td> Delay for the ADC source switching.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrOffsetTune.html> OffsetTune </a></Td>
@@ -615,8 +608,7 @@ switching source clock.             </Td>
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_LONG          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets the offset tune value, 1 unit is approximately 40 Hz. 
-Default value is 0 (precisely tuned).             </Td>
+		<Td> Determines the pll offset to tune the BPM. \nThe unit is ~40Hz.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrCompensateTune.html> CompensateTune </a></Td>
@@ -626,8 +618,7 @@ Default value is 0 (precisely tuned).             </Td>
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> To enable double offset-tune, issue the following command 
-(to disable it, just use 'false' instead of 'true').             </Td>
+		<Td> Determines whether single or double offset tune will be employed. \nDefault value is true, which means that the the double offset tune is employed.             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrDSCMode.html> DSCMode </a></Td>
@@ -637,11 +628,7 @@ Default value is 0 (precisely tuned).             </Td>
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_SHORT          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets the adjustment (learning) of the amplitude and 
-phase coefficients true or false. Set the 
-coefficients` type - adjusted or unity. Combination of 
-these two nodes is necessary to achieve backward 
-compatiblity.             </Td>
+		<Td> Digital Signal Conditioning mode\n0:OFF - 1:UNITY - 2:AUTO             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrAGCEnabled.html> AGCEnabled </a></Td>
@@ -661,9 +648,7 @@ compatiblity.             </Td>
 		<Td> READ_WRITE                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Sets the power_level. Attenuation at chosen level 
-depends on the gain scheme configuration. AGC 
-must be disabled to use manual Gain setting.             </Td>
+		<Td> The Libera input gain. \nCan't be change while the AGC is active             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrHasMAFSupport.html> HasMAFSupport </a></Td>
@@ -743,40 +728,17 @@ must be disabled to use manual Gain setting.             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_BOOLEAN          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Indicates the MC PLL status (1=locked, 0=unlocked)             </Td>
+		<Td> The MC PLL lock status             </Td>
 	</Tr>
 	<Tr>
-		<Td> <a href=AttrTemp1.html> Temp1 </a></Td>
+		<Td> <a href=AttrHWTemperature.html> HWTemperature </a></Td>
 		<Td> false                   </Td>
 		<Td>  false </Td>
 		<Td> Scalar    </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_SHORT          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Temperature of the hottest component on the BPM 
-module is returned.             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrTemp2.html> Temp2 </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ                             </Td>
-		<Td> Tango::DEV_SHORT          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Temperature of the hottest component on the chassis 
-interconnection board is returned.             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrTemp3.html> Temp3 </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ                             </Td>
-		<Td> Tango::DEV_SHORT          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Temperature of the hottest component on the timing 
-module is returned.             </Td>
+		<Td> The current Libera hardware temperature             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrFan1Speed.html> Fan1Speed </a></Td>
@@ -786,10 +748,7 @@ module is returned.             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_SHORT          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Provides minimal fan speed reading of all three fans on 
-the left side of the chassis in order to identify if the fan 
-module (consisting of 3 fans) is broken - returned value 
-0 means that at least one fan has stopped.             </Td>
+		<Td> The current rotation speed of the first hardware cooling fan             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrFan2Speed.html> Fan2Speed </a></Td>
@@ -799,10 +758,7 @@ module (consisting of 3 fans) is broken - returned value
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_SHORT          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Provides minimal fan speed reading of all three fans on 
-the right side of the chassis in order to identify if the fan 
-module (consisting of 3 fans) is broken - returned value 
-0 means that at least one fan has stopped.             </Td>
+		<Td> The current rotation speed of the second hardware cooling fan             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrIncoherence.html> Incoherence </a></Td>
@@ -895,99 +851,6 @@ module (consisting of 3 fans) is broken - returned value
 		<Td> If set to true, the X & Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.\n              </Td>
 	</Tr>
 	<Tr>
-		<Td> <a href=AttrInterlockEnabled.html> InterlockEnabled </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_BOOLEAN          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Enables / disables the Interlock detection.             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrInterlockGainDependentEnabled.html> InterlockGainDependentEnabled </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_BOOLEAN          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Enables / disables gain dependent mode of Interlock operation.             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrInterlockOverflowThreshold.html> InterlockOverflowThreshold </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_LONG          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> ADC saturation threshold.             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrInterlockOverflowDuration.html> InterlockOverflowDuration </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_LONG          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Duration of allowed ADC saturation (in ADC samples).             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrInterlockGainDependentThreshold.html> InterlockGainDependentThreshold </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_LONG          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Sets the threshold for gain dependent mode of Interlock 
-operation.             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrKx.html> Kx </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_DOUBLE          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Sets the Kx for X position calculation. Default setting is 10 mm 
-(=10000000 nm).             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrKz.html> Kz </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_DOUBLE          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Sets the Kz for Y position calculation. Default setting is 10 mm 
-(=10000000 nm).              </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrXOffset.html> XOffset </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_DOUBLE          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Sets the offset for X position in nm. Default value is 0 nm.             </Td>
-	</Tr>
-	<Tr>
-		<Td> <a href=AttrZOffset.html> ZOffset </a></Td>
-		<Td> false                   </Td>
-		<Td>  false </Td>
-		<Td> Scalar    </Td>
-		<Td> READ_WRITE                             </Td>
-		<Td> Tango::DEV_DOUBLE          </Td>
-		<Td> OPERATOR                       </Td>
-		<Td> Sets the offset for Z position in nm. Default value is 0 nm.             </Td>
-	</Tr>
-	<Tr>
 		<Td> <a href=AttrXPosDD.html> XPosDD </a></Td>
 		<Td> false                   </Td>
 		<Td>  false </Td>
@@ -1075,8 +938,7 @@ operation.             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition: X scrolling window of last NumSamples 
-(512) sa samples             </Td>
+		<Td> Slow Acquisition: SA X Pos. History             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrZPosSAHistory.html> ZPosSAHistory </a></Td>
@@ -1086,8 +948,7 @@ operation.             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition: Z scrolling window of last NumSamples 
-(512) sa samples             </Td>
+		<Td> Slow Acquisition: SA Z Pos. History             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrSumSAHistory.html> SumSAHistory </a></Td>
@@ -1097,8 +958,7 @@ operation.             </Td>
 		<Td> READ                             </Td>
 		<Td> Tango::DEV_DOUBLE          </Td>
 		<Td> OPERATOR                       </Td>
-		<Td> Slow Acquisition: Sum scrolling window of last 
-NumSamples (512) sa samples             </Td>
+		<Td> Slow Acquisition: SA Sum Pos. History             </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=AttrXPosPM.html> XPosPM </a></Td>
@@ -1309,6 +1169,16 @@ NumSamples (512) sa samples             </Td>
 		<Td> Tango::DEV_SHORT          </Td>
 		<Td> OPERATOR                       </Td>
 		<Td> User defined data             </Td>
+	</Tr>
+	<Tr>
+		<Td> <a href=AttrInterlockConfiguration.html> InterlockConfiguration </a></Td>
+		<Td> false                   </Td>
+		<Td>  false </Td>
+		<Td> Spectrum				(8)    </Td>
+		<Td> READ                             </Td>
+		<Td> Tango::DEV_DOUBLE          </Td>
+		<Td> OPERATOR                       </Td>
+		<Td> The current interlock configuration. The vector mapping is the follwoing:\n[0] Mode : [0]: disabled, [1]: enabled, [3]: enabled with gain dependency\n[1] X low threshold in mm\n[2] X high threshold in mm\n[3] Z threshold low in mm \n[4] Z high threshold in mm\n[5] Overflow limit (ADC threshold)\n[6] Overflow duration (num of overloaded ADC samples before raising interlock)\n[7] Gain limit in dBm  (no interlock under this threshold)              </Td>
 	</Tr>
 	<Tr>
 		<Td> <a href=Attrlogs.html> logs </a></Td>
