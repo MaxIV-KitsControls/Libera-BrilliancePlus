@@ -99,7 +99,8 @@
 <ul>
 	<Font SIZE="+0"> <b><u> Description :</u></b> </Font>
 	<ul>
-		Determines the pll offset to tune the BPM. \nThe unit is ~40Hz.
+		Sets the offset tune value, 1 unit is approximately 40 Hz. 
+Default value is 0 (precisely tuned).
 	</ul>
 	<Br>
 	<Br>
@@ -139,11 +140,8 @@
 			
 		<!--- Read access --->
 		<Tr>
-			<Td> <Font=+1><b> Read NOT allowed for   </b></Font></Td>
-			<Td> 
-					- UNKNOWN <Br>
-					- FAULT <Br>
-			</Td>
+			<Td> <Font=+1><b> Read allowed for   </b></Font></Td>
+			<Td> All states </Td>
 		</Tr>
 		<Tr>
 			<Td> <Font=+1><b> Write allowed for   </b></Font></Td>
@@ -168,10 +166,6 @@
 			</Tr>
 	
 			<!---------- Polling ----------->
-			<Tr>
-				<Td> <Font=+1><b> Polling Period  </b></Font></Td>
-				<Td> 0 ms </Td>
-			</Tr>
 		
 			<!---------- Memorized ----------->
 			<Tr>
@@ -207,7 +201,8 @@
 			<Tr><Td> <Font=+1><b>  min_warning   </b></Font></Td>    <Td> </Td></Tr>
 			<Tr><Td> <Font=+1><b>  delta_time    </b></Font></Td>    <Td> </Td></Tr>
 			<Tr><Td> <Font=+1><b>  delta_val     </b></Font></Td>    <Td> </Td></Tr>
-			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> Determines the pll offset to tune the BPM. \nThe unit is ~40Hz.</Td></Tr--->
+			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> Sets the offset tune value, 1 unit is approximately 40 Hz. 
+Default value is 0 (precisely tuned).</Td></Tr--->
 		</Table>
 	</Td>
 	</Table>

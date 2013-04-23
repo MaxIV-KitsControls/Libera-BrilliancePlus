@@ -99,7 +99,11 @@
 <ul>
 	<Font SIZE="+0"> <b><u> Description :</u></b> </Font>
 	<ul>
-		Digital Signal Conditioning mode\n0:OFF - 1:UNITY - 2:AUTO
+		Sets the adjustment (learning) of the amplitude and 
+phase coefficients true or false. Set the 
+coefficients` type - adjusted or unity. Combination of 
+these two nodes is necessary to achieve backward 
+compatiblity.
 	</ul>
 	<Br>
 	<Br>
@@ -139,11 +143,8 @@
 			
 		<!--- Read access --->
 		<Tr>
-			<Td> <Font=+1><b> Read NOT allowed for   </b></Font></Td>
-			<Td> 
-					- UNKNOWN <Br>
-					- FAULT <Br>
-			</Td>
+			<Td> <Font=+1><b> Read allowed for   </b></Font></Td>
+			<Td> All states </Td>
 		</Tr>
 		<Tr>
 			<Td> <Font=+1><b> Write allowed for   </b></Font></Td>
@@ -168,10 +169,6 @@
 			</Tr>
 	
 			<!---------- Polling ----------->
-			<Tr>
-				<Td> <Font=+1><b> Polling Period  </b></Font></Td>
-				<Td> 0 ms </Td>
-			</Tr>
 		
 			<!---------- Memorized ----------->
 		
@@ -203,7 +200,11 @@
 			<Tr><Td> <Font=+1><b>  min_warning   </b></Font></Td>    <Td> </Td></Tr>
 			<Tr><Td> <Font=+1><b>  delta_time    </b></Font></Td>    <Td> </Td></Tr>
 			<Tr><Td> <Font=+1><b>  delta_val     </b></Font></Td>    <Td> </Td></Tr>
-			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> Digital Signal Conditioning mode\n0:OFF - 1:UNITY - 2:AUTO</Td></Tr--->
+			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> Sets the adjustment (learning) of the amplitude and 
+phase coefficients true or false. Set the 
+coefficients` type - adjusted or unity. Combination of 
+these two nodes is necessary to achieve backward 
+compatiblity.</Td></Tr--->
 		</Table>
 	</Td>
 	</Table>
