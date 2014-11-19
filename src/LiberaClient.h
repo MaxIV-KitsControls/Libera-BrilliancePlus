@@ -112,6 +112,12 @@ public:
         }
     }
 
+    template<typename TangoType>
+    void WriteIreg(const std::string& a_path, const TangoType& value)
+    {
+        LiberaScalarAttr<TangoType>::DoWrite(m_root, a_path, value);
+    }
+
     /**
      * Create signal handling object and assign scalar attribute pointers to it.
      */

@@ -33,7 +33,7 @@ LiberaClient::LiberaClient(LiberaBrilliancePlus_ns::LiberaBrilliancePlus *a_devi
     m_thread = std::thread(std::ref(*this));
     // safety check, wait that thread function has started
     while (!m_running) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        ::usleep(100000);
     };
 }
 
@@ -96,11 +96,11 @@ void LiberaClient::operator()()
     while (m_running) {
         if (m_connected) {
             UpdateAttr();
-            std::this_thread::sleep_for(std::chrono::seconds(2));
+            ::sleep(2);
         }
         else {
             // wait for stop running
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            ::usleep(100000);
         }
     }
     istd_TRC(istd::eTrcHigh, "Exit attribute update thread");

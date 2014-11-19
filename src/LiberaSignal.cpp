@@ -39,7 +39,7 @@ LiberaSignal::LiberaSignal(const std::string &a_path, size_t a_length,
     m_thread = std::thread(std::ref(*this));
     // safety check, wait that thread function has started
     while (!m_running) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        ::usleep(100000);
     };
 }
 
@@ -81,12 +81,12 @@ void LiberaSignal::operator()()
             if (m_mode == isig::eModeDodNow) {
                 // In order to avoid busy loop the dod acquisition with
                 // eModeDodNow waits here, since Read() is immediate.
-                std::this_thread::sleep_for(std::chrono::milliseconds(m_period));
+                ::usleep(m_period * 1000);
             }
         }
         else {
             // wait for stop running
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            ::usleep(100000);
         }
     }
     istd_TRC(istd::eTrcHigh, "Exit update thread for: " << m_path);
