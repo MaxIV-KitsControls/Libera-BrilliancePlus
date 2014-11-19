@@ -285,7 +285,7 @@ private:
         else {
             if (GetMode() != isig::eModeDodNow) {
                 // avoid busy loop when not reading
-                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                ::usleep(100000);
             }
         }
     }

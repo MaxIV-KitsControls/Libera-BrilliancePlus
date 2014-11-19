@@ -1,5 +1,5 @@
 /*PROTECTED REGION ID(LiberaBrilliancePlus::main.cpp) ENABLED START*/
-static const char *RcsId = "$Id: $";
+
 //=============================================================================
 //
 // file :        LiberaBrilliancePlus.cpp
@@ -36,7 +36,7 @@ static const char *RcsId = "$Id: $";
 int main(int argc,char *argv[])
 {
     istd::TraceInit("-");
-    istd::TraceStart(istd::eTrcLow);
+    //istd::TraceStart(istd::eTrcLow);
 
     // need to initialize CORBA from mci before Tango does it
     mci::Init(argc, argv);
@@ -74,5 +74,4 @@ int main(int argc,char *argv[])
 		tg->server_cleanup();
 	return(0);
 }
-/*PROTECTED REGION END*/
-//========================================================
+/*PROTECTED REGION END*/	//	LiberaBrilliancePlus::main.cpp
