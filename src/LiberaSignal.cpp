@@ -103,6 +103,8 @@ void LiberaSignal::Update()
 
     try {
         UpdateSignal();
+        if (m_callback)
+            m_callback(m_callback_arg);
     }
     catch (istd::Exception e)
     {
@@ -167,4 +169,10 @@ size_t LiberaSignal::GetLength()
 void LiberaSignal::SetLength(size_t a_length)
 {
     *m_length = a_length;
+}
+
+void LiberaSignal::SetNotifier(SignalCallback a_callback, void *a_arg)
+{
+    m_callback = a_callback;
+    m_callback_arg = a_arg;
 }
