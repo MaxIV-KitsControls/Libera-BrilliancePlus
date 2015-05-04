@@ -46,4 +46,4 @@ void Tango::DServer::class_factory()
 	add_class(LiberaBrilliancePlus_ns::LiberaBrilliancePlusClass::init("LiberaBrilliancePlus"));
 }
 
-/*----- PROTECTED REGION END -----*/
+/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ClassFactory.cpp
