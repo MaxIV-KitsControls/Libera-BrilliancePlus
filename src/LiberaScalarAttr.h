@@ -57,6 +57,11 @@ struct TangoToLibera<Tango::DevBoolean> {
     typedef bool Type;
 };
 
+template<>
+struct TangoToLibera<Tango::DevLong64> {
+    typedef int64_t Type;
+};
+
 /*******************************************************************************
  * Class for mapping between types, storing values and ireg access.
  * The a_attr reference passed in constructor is used for updating
