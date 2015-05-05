@@ -19,6 +19,8 @@
 
 #include <mci/node.h>
 
+typedef void (*SignalCallback)(void *);
+
 /*******************************************************************************
  * Base abstract signal class for reading streams and dod.
  */
@@ -35,6 +37,8 @@ public:
     void operator ()();
     void Update();
     void SetMode(isig::AccessMode_e  a_mode);
+
+    void SetNotifier(SignalCallback a_callback, void *a_arg);
 
     // interface functions for the derived class
     virtual void SetOffset(int32_t a_offset) = 0;
@@ -64,6 +68,9 @@ private:
 
     const std::string m_path;
     mci::Node m_root;
+
+    SignalCallback m_callback;
+    void *m_callback_arg;
 };
 
 #endif //LIBERA_SIGNAL_H
