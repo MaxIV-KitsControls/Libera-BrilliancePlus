@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+if [ -x "/etc/init.d/platform-dummy" ]; then
+	if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+		invoke-rc.d platform-dummy start || exit $?
+	else
+		/etc/init.d/platform-dummy start || exit $?
+	fi
+fi

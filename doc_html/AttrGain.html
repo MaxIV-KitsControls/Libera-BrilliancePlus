@@ -99,7 +99,9 @@
 <ul>
 	<Font SIZE="+0"> <b><u> Description :</u></b> </Font>
 	<ul>
-		The Libera input gain. \nCan't be change while the AGC is active
+		Sets the power_level. Attenuation at chosen level 
+depends on the gain scheme configuration. AGC 
+must be disabled to use manual Gain setting.
 	</ul>
 	<Br>
 	<Br>
@@ -139,11 +141,8 @@
 			
 		<!--- Read access --->
 		<Tr>
-			<Td> <Font=+1><b> Read NOT allowed for   </b></Font></Td>
-			<Td> 
-					- UNKNOWN <Br>
-					- FAULT <Br>
-			</Td>
+			<Td> <Font=+1><b> Read allowed for   </b></Font></Td>
+			<Td> All states </Td>
 		</Tr>
 		<Tr>
 			<Td> <Font=+1><b> Write allowed for   </b></Font></Td>
@@ -168,10 +167,6 @@
 			</Tr>
 	
 			<!---------- Polling ----------->
-			<Tr>
-				<Td> <Font=+1><b> Polling Period  </b></Font></Td>
-				<Td> 0 ms </Td>
-			</Tr>
 		
 			<!---------- Memorized ----------->
 		
@@ -203,7 +198,9 @@
 			<Tr><Td> <Font=+1><b>  min_warning   </b></Font></Td>    <Td> </Td></Tr>
 			<Tr><Td> <Font=+1><b>  delta_time    </b></Font></Td>    <Td> </Td></Tr>
 			<Tr><Td> <Font=+1><b>  delta_val     </b></Font></Td>    <Td> </Td></Tr>
-			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> The Libera input gain. \nCan't be change while the AGC is active</Td></Tr--->
+			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> Sets the power_level. Attenuation at chosen level 
+depends on the gain scheme configuration. AGC 
+must be disabled to use manual Gain setting.</Td></Tr--->
 		</Table>
 	</Td>
 	</Table>
