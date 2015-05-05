@@ -2934,7 +2934,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Fan1Speed
 	Fan1SpeedAttrib	*fan1speed = new Fan1SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan1speed_prop;
-	fan1speed_prop.set_description("Provides minimal fan speed reading of all three  fans on \nthe left side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken ? returned value \n0 means that at least one fan has stopped.");
+	fan1speed_prop.set_description("Provides minimal fan speed reading of all three fans on \nthe left side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken ? returned value \n0 means that at least one fan has stopped.");
 	fan1speed_prop.set_label("Fan.1");
 	fan1speed_prop.set_unit("rpm");
 	//	standard_unit	not set for Fan1Speed
@@ -2958,7 +2958,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Fan2Speed
 	Fan2SpeedAttrib	*fan2speed = new Fan2SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan2speed_prop;
-	fan2speed_prop.set_description("Provides minimal fan speed reading of all three  fans on \nthe right side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken ? returned value \n0 means that at least one fan has stopped.");
+	fan2speed_prop.set_description("Provides minimal fan speed reading of all three fans on \nthe right side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken ? returned value \n0 means that at least one fan has stopped.");
 	fan2speed_prop.set_label("Fan.2");
 	fan2speed_prop.set_unit("rpm");
 	//	standard_unit	not set for Fan2Speed
