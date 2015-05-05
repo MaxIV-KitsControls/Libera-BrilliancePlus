@@ -1,0 +1,10 @@
+#!/bin/sh
+set +e
+
+service "LiberaBrilliancePlus" stop
+
+if [ "$1" = "remove" ]; then
+    update-rc.d -f "LiberaBrilliancePlus" remove
+
+    rm /etc/init.d/LiberaBrilliancePlus
+fi

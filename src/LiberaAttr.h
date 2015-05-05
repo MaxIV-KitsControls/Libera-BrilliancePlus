@@ -110,7 +110,7 @@ public:
         istd_FTRC();
         uint64_t val;
         a_root.GetNode(mci::Tokenize(a_path)).Get(val);
-        return val % 2^16;
+        return val & 0x0000ffff;
     }
     static Tango::DevDouble ULL2DBL(mci::Node &a_root, const std::string &a_path) {
         istd_FTRC();

@@ -1,0 +1,12 @@
+Package: LiberaBrilliancePlusTango
+Version: 1.0.0.1
+Installed-Size: 71000
+Section: utils
+Maintainer: Cosylab d.o.o. <info@cosylab.com>
+Homepage: http://cosylab.com
+Priority: optional
+Architecture: i386
+Depends: libera-base2.8, libera-mci2.8, libusb-1.0-0, libc6
+Pre-Depends: 
+Description: Tango Device Server for Libera Brilliance Plus
+
