@@ -1,0 +1,12 @@
+Package: tangods-liberabrillianceplus
+Version: 1.0.1.1
+Installed-Size: 71000
+Section: utils
+Maintainer: MAXIV Laboratory <kits@maxlab.lu.se>, Cosylab d.o.o. <info@cosylab.com>
+Homepage: http://maxiv.lu.se, http://cosylab.com
+Priority: optional
+Architecture: i386
+Depends: libera-base2.6, libera-mci2.6, libusb-1.0-0, libc6
+Pre-Depends: 
+Description: Tango Device Server for Libera Brilliance Plus
+
