@@ -8,7 +8,7 @@
 SRC_TOP=.
 TARGET_NAME = platform-dummy
 
-export BASE_VER?=2.6
+export BASE_VER?=2.8
 
 ifeq ($(BASE_LIB_DIR),)
   #if EBPM_LIB_DIR is not defined, libraries are taken from installed package

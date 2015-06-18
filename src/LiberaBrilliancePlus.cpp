@@ -4078,6 +4078,12 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 	DEBUG_STREAM << "LiberaBrilliancePlus::State()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_state) ENABLED START -----*/
 	set_state(m_state);    // Give the state to Tango.; // replace by your own algorithm
+	if (*attr_InterlockXNotified_read == true || *attr_InterlockYNotified_read == true ||
+	 *attr_InterlockAttnNotified_read == true || *attr_InterlockADCPreFilterNotified_read == true ||
+        *attr_InterlockADCPostFilterNotified_read == true)
+	{
+		set_state(Tango::ALARM);
+	}
 	//	Add your own code
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_state
 	return DeviceImpl::dev_state();
