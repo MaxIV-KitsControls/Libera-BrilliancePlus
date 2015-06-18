@@ -282,7 +282,7 @@ void LiberaBrilliancePlus::init_device()
 	
 	//	Initialization before get_device_property() call
 	attr_LiberaModel_read = &c_liberaModel;
-
+  m_libera = NULL;
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::init_device_before
 	
 
@@ -292,12 +292,23 @@ void LiberaBrilliancePlus::init_device()
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::init_device) ENABLED START -----*/
 
+    if (liberaBoard.empty())
+    {
+        m_state = Tango::FAULT;
+        m_status = "The liberaBoard property must be filled";
+        ERROR_STREAM << m_status << std::endl;
+        return;
+    }
+    if (liberaIpAddr.empty())
+    {
+      INFO_STREAM << "Using 127.0.0.1 as ip address" << std::endl;
+    }
 
     m_raf = "boards." + liberaBoard + ".";
 	std::string tim("boards." + c_timingBoard + ".");
 
 	//	Initialize device
-    m_libera = new LiberaClient(this);
+    m_libera = new LiberaClient(this, liberaIpAddr);
 
     // Add scalar values
     m_libera->AddScalar("", attr_DDDecimationFactor_read); //n.a.
@@ -552,8 +563,16 @@ void LiberaBrilliancePlus::init_device()
     set_change_event("QuadSA",  true, false);
     set_change_event("SumSA",  true, false);
 
-    if (m_libera->Connect()) {
-        set_state(Tango::ON);
+    try
+    {
+      m_libera->Connect();
+      m_state = Tango::ON;
+      m_status = "Connected to Libera";
+    }
+    catch (...)
+    {
+      m_state = Tango::UNKNOWN;
+      m_status = "Connection to Libera failed. Try to reinit the device.";
     }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::init_device
@@ -972,23 +991,26 @@ void LiberaBrilliancePlus::always_executed_hook()
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::always_executed_hook) ENABLED START -----*/
 	
 	//	code always executed before all requests
-	if (m_libera->IsConnected()) {
-        // call GetData also all attributes from here?
-
-	    m_signalSA->GetData();
-	    m_signalADC->GetData();
-        if (*attr_DDBufferFreezingEnabled_read) {
-            if (!(*attr_DDBufferFrozen_read) && m_signalDdc->IsUpdated()) {
-                *attr_DDBufferFrozen_read = true;
-                m_signalDdc->GetData();
-                m_signalDdcRaw->GetData();
-            }
-        }
-        else {
-            m_signalDdc->GetData();
-            m_signalDdcRaw->GetData();
-        }
-	}
+	if (m_libera != NULL)
+ {
+    if (m_libera->IsConnected()) {
+          // call GetData also all attributes from here?
+  
+  	    m_signalSA->GetData();
+  	    m_signalADC->GetData();
+          if (*attr_DDBufferFreezingEnabled_read) {
+              if (!(*attr_DDBufferFrozen_read) && m_signalDdc->IsUpdated()) {
+                  *attr_DDBufferFrozen_read = true;
+                  m_signalDdc->GetData();
+                  m_signalDdcRaw->GetData();
+              }
+          }
+          else {
+              m_signalDdc->GetData();
+              m_signalDdcRaw->GetData();
+          }
+  	}
+ }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::always_executed_hook
 }
@@ -4055,15 +4077,10 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::State()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_state) ENABLED START -----*/
-	
-	Tango::DevState	argout = Tango::UNKNOWN; // replace by your own algorithm
+	set_state(m_state);    // Give the state to Tango.; // replace by your own algorithm
 	//	Add your own code
-	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_state
-	set_state(argout);    // Give the state to Tango.
-	if (argout!=Tango::ALARM)
-		DeviceImpl::dev_state();
-	return get_state();  // Return it after Tango management.
+	return DeviceImpl::dev_state();
 }
 //--------------------------------------------------------
 /**
@@ -4077,13 +4094,10 @@ Tango::ConstDevString LiberaBrilliancePlus::dev_status()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::Status()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_status) ENABLED START -----*/
-	
-	string	status = "Device is OK";
 	//	Add your own code
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status
-	set_status(status);               // Give the status to Tango.
-	return DeviceImpl::dev_status();  // Return it.
+	set_status(m_status);  
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status       // Give the status to Tango.
+	return DeviceImpl::dev_status();
 }
 //--------------------------------------------------------
 /**
@@ -4172,10 +4186,12 @@ void LiberaBrilliancePlus::enable_dd()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::EnableDD()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::enable_dd) ENABLED START -----*/
-	
+		if(m_libera != NULL)
+ {
 	//	Add your own code
 	m_signalDdc->Enable();
 	m_signalDdcRaw->Enable();
+ }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::enable_dd
 }
@@ -4190,10 +4206,12 @@ void LiberaBrilliancePlus::disable_dd()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::DisableDD()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::disable_dd) ENABLED START -----*/
-	
+		if(m_libera != NULL)
+ {
 	//	Add your own code
 	m_signalDdc->Disable();
 	m_signalDdcRaw->Disable();
+ }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_dd
 }
@@ -4208,9 +4226,11 @@ void LiberaBrilliancePlus::enable_sa()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::EnableSA()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::enable_sa) ENABLED START -----*/
-	
+	if(m_libera != NULL)
+ {
 	//	Add your own code
 	m_signalSA->Enable();
+ }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::enable_sa
 }
@@ -4225,10 +4245,11 @@ void LiberaBrilliancePlus::disable_sa()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::DisableSA()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::disable_sa) ENABLED START -----*/
-	
+		if(m_libera != NULL)
+ {
 	//	Add your own code
 	m_signalSA->Disable();
-
+}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_sa
 }
 //--------------------------------------------------------
@@ -4293,9 +4314,11 @@ void LiberaBrilliancePlus::enable_adc()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::EnableADC()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::enable_adc) ENABLED START -----*/
-	
+		if(m_libera != NULL)
+ {
 	//	Add your own code
 	m_signalADC->Enable();
+ }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::enable_adc
 }
@@ -4310,9 +4333,11 @@ void LiberaBrilliancePlus::disable_adc()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::DisableADC()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::disable_adc) ENABLED START -----*/
-	
+		if(m_libera != NULL)
+ {
 	//	Add your own code
 	m_signalADC->Disable();
+ }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_adc
 }
@@ -4383,9 +4408,11 @@ void LiberaBrilliancePlus::save_dscparameters()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::SaveDSCParameters()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::save_dscparameters) ENABLED START -----*/
-	
+		if(m_libera != NULL)
+ {
 	//	Add your own code
 	m_libera->Execute(m_raf + "conditioning.tuning.dsc.coefficients.store");
+ }
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::save_dscparameters
 }
@@ -4612,6 +4639,15 @@ void LiberaBrilliancePlus::_PMCallback(void *data)
 {
         LiberaBrilliancePlus *device = reinterpret_cast<LiberaBrilliancePlus *>(data);
         device->PMCallback();
+}
+
+/*
+ *      PM stream callback
+ */
+void LiberaBrilliancePlus::set_lib_error()
+{
+    m_state = Tango::OFF;
+    m_status = "Error while reading from a node. Please reinit the device";
 }
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::namespace_ending
 } //	namespace

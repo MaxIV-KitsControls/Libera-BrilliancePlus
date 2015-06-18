@@ -19,22 +19,25 @@
 
 #include "LiberaClient.h"
 
-const char *c_localHost = "127.0.0.1";
-
 /**
  * Constructor with member initializations.
  */
-LiberaClient::LiberaClient(LiberaBrilliancePlus_ns::LiberaBrilliancePlus *a_deviceServer)
+LiberaClient::LiberaClient(LiberaBrilliancePlus_ns::LiberaBrilliancePlus *a_deviceServer, std::string ip_address)
   : m_connected(false),
     m_running(false),
     m_thread(),
     m_deviceServer(a_deviceServer)
 {
+    m_ip_address = "127.0.0.1";
     m_thread = std::thread(std::ref(*this));
     // safety check, wait that thread function has started
     while (!m_running) {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     };
+    if (!ip_address.empty())
+    {
+      m_ip_address = ip_address;
+    }
 }
 
 /**
@@ -81,7 +84,7 @@ void LiberaClient::UpdateAttr()
         istd_TRC(istd::eTrcLow, "Exception thrown while reading from node!");
         istd_TRC(istd::eTrcLow, e.what());
         // let the server know it
-        m_deviceServer->set_state(Tango::OFF);
+        m_deviceServer->set_lib_error();
         m_connected = false;
     }
 }
@@ -189,7 +192,7 @@ void LiberaClient::Connect(mci::Node &a_root, mci::Root a_type)
 
     // disconnect if connected
     try {
-        mci::Disconnect(c_localHost, a_type);
+        mci::Disconnect(m_ip_address.c_str(), a_type);
     }
     catch (istd::Exception e)
     {
@@ -199,7 +202,7 @@ void LiberaClient::Connect(mci::Node &a_root, mci::Root a_type)
 
     // make new connection
     try {
-        a_root = mci::Connect(c_localHost, a_type);
+        a_root = mci::Connect(m_ip_address.c_str(), a_type);
     }
     catch (istd::Exception e)
     {
@@ -254,7 +257,7 @@ void LiberaClient::Disconnect(mci::Node &a_root, mci::Root a_type)
     a_root = mci::Node();
 
     // disconnect if connected
-    mci::Disconnect(c_localHost, a_type);
+    mci::Disconnect(m_ip_address.c_str(), a_type);
 }
 
 void LiberaClient::Disconnect()

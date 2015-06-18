@@ -22,7 +22,7 @@ using LiberaBrilliancePlus_ns::LiberaBrilliancePlus;
  */
 class LiberaClient {
 public:
-    LiberaClient(LiberaBrilliancePlus *a_deviceServer);
+    LiberaClient(LiberaBrilliancePlus *a_deviceServer, std::string ip_address);
     ~LiberaClient();
 
     bool Connect();
@@ -108,7 +108,7 @@ public:
             istd_TRC(istd::eTrcLow, "Exception thrown while writing to node!");
             istd_TRC(istd::eTrcLow, e.what());
             // let the server know it
-            m_deviceServer->set_state(Tango::OFF);
+            m_deviceServer->set_lib_error();
         }
     }
 
@@ -140,6 +140,8 @@ private:
     std::thread         m_thread;
 
     LiberaBrilliancePlus *m_deviceServer; // used for changing device state
+
+    std::string m_ip_address;
 
     mci::Node            m_root;
     mci::Node            m_platform;
