@@ -43,16 +43,16 @@ class LiberaBrillianceTestCase(unittest.TestCase):
             self.devices += [PyTango.DeviceProxy(device)]
 
 
-    def testTriggerReset(self):
+    def testPMCountReset(self):
 
         for device in self.devices :
             "when :"
-            trigger_read1=device.read_attribute('TriggerCounter').value
-            device.command_inout('ResetTrigger')
-            trigger_read2=device.read_attribute('TriggerCounter').value
+            pmn_read1=device.read_attribute('PMNotificationCounter').value
+            device.command_inout('ResetPMNotification')
+            pmn_read2=device.read_attribute('PMNotificationCounter').value
 
             "then :"
-            self.assertTrue(trigger_read2<trigger_read1, "**ERROR** trigger counter before reset : %s  is not smaller then trigger counter after : %s" % (trigger_read1, trigger_read2) )
+            self.assertTrue(pmn_read2<pmn_read1, "**ERROR** PMNotification counter before reset : %s  is not smaller then PMNotification counter after : %s" % (pmn_read1, pmn_read2) )
 
     def testReadWriteBooleanAttribute(self):
         # Absolute random values
@@ -130,7 +130,7 @@ class LiberaBrillianceTestCase(unittest.TestCase):
 
 
     def testWrongBufferSize(self):
-        sizes = [-1000, 2.5]
+        sizes = [-1000, -1, 0]
         attributes = ["DDBufferSize", "SAStatNumSamples", "ADCBufferSize"]
         for device in self.devices :
             for attribute in attributes :
@@ -139,9 +139,33 @@ class LiberaBrillianceTestCase(unittest.TestCase):
                     self.assertRaises(PyTango.DevFailed, lambda : device.write_attribute(attribute, wrong) )
 
 
+    def testSignalADCSize(self):
+
+        signals = ["XPosPM", "YPosPM", "QuadPM", "SumPM", "VaPM", "VbPM", "VcPM", "VdPM",
+        "ADCChannelA", "ADCChannelB", "ADCChannelC", "ADCChannelD"]
+        sizes = [10, 55, 100, 5400, 7300, 8192]
+
+        for device in self.devices :
+            for expected in sizes :
+                "when:"
+                device.ADCBufferSize = expected
+                #XXX We should expect to exit the write request with the value taken account in the low level
+                time.sleep(1)
+                actual = device.ADCBufferSize
+
+                "then:"
+                self.assertEquals(expected, actual, "ADCBufferSize is not set correctly : %s (expected : %s)" % (actual, expected))
+
+                "then:"
+                for signal in signals :
+                    value = device.read_attribute(signal).value
+                    actual = len(value)
+                    self.assertEquals(expected, actual, "The signal %s has not the expected length : %s (expected %s)" % (signal, actual, expected))
+
     def testSignalDDSize(self):
 
-        signals = ["VaDD", "VbDD", "VcDD", "VdDD"]
+        signals = ["VaDD", "VbDD", "VcDD", "VdDD", "XPosDD", "YPosDD", "QuadDD", "SumDD", 
+        "IaDD", "IbDD", "IcDD", "IdDD", "QaDD", "QbDD", "QcDD", "QdDD"]
         sizes = [10, 55, 100, 5400, 7300, 8192]
 
         for device in self.devices :
@@ -161,9 +185,9 @@ class LiberaBrillianceTestCase(unittest.TestCase):
                     actual = len(value)
                     self.assertEquals(expected, actual, "The signal %s has not the expected length : %s (expected %s)" % (signal, actual, expected))
 
-    def testSignalPMSize(self):
+    def testSignalStatSize(self):
 
-        signals = ["VaPM", "VbPM", "VcPM", "VdPM"]
+        signals = ["XPosSAHistory", "YPosSAHistory", "SumSAHistory"]
         sizes = [10, 55, 100, 5400, 7300, 8192]
 
         for device in self.devices :
@@ -287,6 +311,6 @@ class LiberaBrillianceTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     suiteFew = unittest.TestSuite()
-    suiteFew.addTest(LiberaBrillianceTestCase("testPlatformFanSpeed"))
+    suiteFew.addTest(LiberaBrillianceTestCase("testWrongBufferSize"))
     # unittest.TextTestRunner(verbosity=4).run(suiteFew)
     unittest.TextTestRunner(verbosity=4).run(unittest.makeSuite(LiberaBrillianceTestCase))

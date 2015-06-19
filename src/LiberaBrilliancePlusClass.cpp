@@ -1920,8 +1920,8 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	standard_unit	not set for SAStatNumSamples
 	//	display_unit	not set for SAStatNumSamples
 	sastatnumsamples_prop.set_format("%5d");
-	//	max_value	not set for SAStatNumSamples
-	//	min_value	not set for SAStatNumSamples
+	sastatnumsamples_prop.set_max_value("65535");
+	sastatnumsamples_prop.set_min_value("2");
 	//	max_alarm	not set for SAStatNumSamples
 	//	min_alarm	not set for SAStatNumSamples
 	//	max_warning	not set for SAStatNumSamples
