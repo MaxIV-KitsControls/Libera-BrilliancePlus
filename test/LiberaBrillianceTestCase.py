@@ -60,9 +60,10 @@ class LiberaBrillianceTestCase(unittest.TestCase):
         attributes = [
                 'DDEnabled', 'ExternalTriggerEnabled', 
                 'SAEnabled', 'ADCEnabled', 
+                'AGCEnabled', 
+                'AutoSwitchingEnabled', 'ExternalSwitching',
                 'InterlockEnabled', 
-                'InterlockGainDependentEnabled',
-                'AutoSwitchingEnabled', 'ExternalSwitching', 
+                'InterlockGainDependentEnabled', 
                 'CompensateTune', 'UseLiberaSAData', 
                 ]
         for device in self.devices :
@@ -75,6 +76,35 @@ class LiberaBrillianceTestCase(unittest.TestCase):
         values = [10, 25, 0, 38, 10000]
         attributes = [
                 'overflow_threshold',
+                'DDDecimationFactor',
+                ]
+        for device in self.devices :
+            for attribute in attributes :
+                for expected in values :
+                    self._write_read_test(device, attribute, expected)
+
+    def testReadWriteDSC(self):
+        # Absolute random values
+        values = [0, 1, 2]
+        attributes = ['DSCMode']
+        
+        for device in self.devices :
+            for attribute in attributes :
+                for expected in values :
+                    self._write_read_test(device, attribute, expected)
+
+    def testReadWriteIntegerAttribute(self):
+        # Absolute random values
+        values = [10, -25, 0, 38, 10000]
+        attributes = [
+                'DDTriggerOffset', 'ExternalTriggerDelay',
+                'PMOffset', 'SwitchingDelay',
+                'OffsetTune', 'TimePhase'
+                'MAFLength', 'MAFDelay',
+                'InterlockOverflowThreshold',
+                'InterlockOverflowDuration',
+                'InterlockGainDependentThreshold',
+                'Switches', 
                 ]
         for device in self.devices :
             for attribute in attributes :
@@ -86,13 +116,12 @@ class LiberaBrillianceTestCase(unittest.TestCase):
         values = [-10.0, -25.45, 0.0, 38.56, 10000.0]
         # XXX Bad practice to test several attribute in one unit test
         # TODO Check if unittest accept the parametrized test
-        attributes = [
-                'XLow',
-                'XHigh',
-                'ZLow',
-                'ZHigh',
-                'XOffset',
-                'ZOffset']
+        attributes = ['Gain', 'MachineTime',
+                'SystemTime', 'MaxIncoherence',
+                'MaxIncoherenceDrift', 'Kx', 'Ky',
+                'XLow', 'XHigh',
+                'YLow', 'YHigh',
+                'XOffset', 'YOffset',]
 
         for device in self.devices :
             for attribute in attributes :
@@ -101,8 +130,8 @@ class LiberaBrillianceTestCase(unittest.TestCase):
 
 
     def testWrongBufferSize(self):
-        sizes = [1, 8193, 1000000]
-        attributes = ["DDBufferSize", "SAStatNumSamples"]
+        sizes = [-1000, 2.5]
+        attributes = ["DDBufferSize", "SAStatNumSamples", "ADCBufferSize"]
         for device in self.devices :
             for attribute in attributes :
                 for wrong in sizes :
@@ -258,13 +287,6 @@ class LiberaBrillianceTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     suiteFew = unittest.TestSuite()
-    #suiteFew.addTest(LiberaBrillianceTestCase("testPlatformFanSpeed"))
-    #suiteFew.addTest(LiberaBrillianceTestCase("testPlatformTemperature"))
-    suiteFew.addTest(LiberaBrillianceTestCase("testReadWriteBooleanAttribute"))
-    suiteFew.addTest(LiberaBrillianceTestCase("testReadWriteUnsignedIntegerAttribute"))
-    suiteFew.addTest(LiberaBrillianceTestCase("testReadWriteDoubleAttribute"))
-    suiteFew.addTest(LiberaBrillianceTestCase("testWrongBufferSize"))
-    suiteFew.addTest(LiberaBrillianceTestCase("testSignalPMSize"))
-    suiteFew.addTest(LiberaBrillianceTestCase("testSignalDDSize"))
-    unittest.TextTestRunner(verbosity=4).run(suiteFew)
-    #unittest.TextTestRunner(verbosity=2).run(unittest.makeSuite(LiberaBrillianceTestCase))
+    suiteFew.addTest(LiberaBrillianceTestCase("testPlatformFanSpeed"))
+    # unittest.TextTestRunner(verbosity=4).run(suiteFew)
+    unittest.TextTestRunner(verbosity=4).run(unittest.makeSuite(LiberaBrillianceTestCase))
