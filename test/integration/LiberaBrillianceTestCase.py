@@ -73,9 +73,8 @@ class LiberaBrillianceTestCase(unittest.TestCase):
 
     def testReadWriteUnsignedIntegerAttribute(self):
         # Absolute random values
-        values = [10, 25, 0, 38, 10000]
+        values = [10, 25, 38, 10000]
         attributes = [
-                'overflow_threshold',
                 'DDDecimationFactor',
                 ]
         for device in self.devices :
@@ -95,7 +94,7 @@ class LiberaBrillianceTestCase(unittest.TestCase):
 
     def testReadWriteIntegerAttribute(self):
         # Absolute random values
-        values = [10, -25, 0, 38, 10000]
+        values = [10, -25, 38, -1500 , 10000]
         attributes = [
                 'DDTriggerOffset', 'ExternalTriggerDelay',
                 'PMOffset', 'SwitchingDelay',
@@ -311,6 +310,6 @@ class LiberaBrillianceTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     suiteFew = unittest.TestSuite()
-    suiteFew.addTest(LiberaBrillianceTestCase("testWrongBufferSize"))
+    suiteFew.addTest(LiberaBrillianceTestCase("testReadWriteUnsignedIntegerAttribute"))
     # unittest.TextTestRunner(verbosity=4).run(suiteFew)
     unittest.TextTestRunner(verbosity=4).run(unittest.makeSuite(LiberaBrillianceTestCase))
