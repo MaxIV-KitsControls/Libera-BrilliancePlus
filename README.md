@@ -37,11 +37,9 @@ make
 ```
 
 ### Packaging
-To make the debian package
+To make the debian package, just call the following command from the project directory
 ``` shell
-mkdir -p tangods-liberabrillanceplus/usr/bin
-cp src/bin/LiberaBrilliancePlus tangods-liberabrillianceplus/usr/bin
-dpkg-deb --build tangods-liberabrillianceplus
+dpkg-buildpackage -us -uc
 ```
 ### At Solaris (Branch cosylab)
 Prerequisites:
