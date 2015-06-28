@@ -88,6 +88,9 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
         static void _SACallback(void *data);
         void PMCallback();
         static void _PMCallback(void *data);
+        
+        Tango::DevState m_state;
+        std::string m_status;
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Data Members
 
@@ -1662,6 +1665,8 @@ public:
 
 	//	Additional Method prototypes
 	void UpdatePM();
+ 
+  void set_lib_error();
 
 /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Additional Method prototypes
 };

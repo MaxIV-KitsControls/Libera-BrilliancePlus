@@ -64,7 +64,7 @@ OUTPUT_DIR = ./bin/$(BIN_DIR)
 #   - '-I ../include' and '-I .' are automatically appended in all cases
 #
 #
-INC_DIR_USER= -I . -I /usr/include/libera-2.6
+INC_DIR_USER= -I . -I /usr/include/libera-2.8
 
 #=============================================================================
 # LIB_DIR_USER is the list of user library directories
@@ -85,7 +85,7 @@ LIB_DIR_USER= -L /opt/libera/lib
 # 'undefined reference' errors
 #
 #LFLAGS_USR+=
-LFLAGS_USR+= -lliberamci2.6 -lliberainet2.6 -lliberaistd2.6
+LFLAGS_USR+= -lliberamci2.8 -lliberainet2.8 -lliberaistd2.8
 
 #=============================================================================
 # CXXFLAGS_USR lists the compilation flags specific for your library/device/exe
@@ -149,3 +149,18 @@ include $(MAKE_ENV)/common_target.opt
 
 
 #PROTECTED REGION END#
+
+#------------------------------------------------------------------------------
+#-- install:
+#------------------------------------------------------------------------------
+INSTALL_DIR=$(DESTDIR)/$(TANGO_HOME)/bin
+
+install:
+	@echo "Installing $(OUTPUT_DIR)/$(PROJECT_NAME)  to  $(INSTALL_DIR)"
+ifeq ($(PROJECT_TYPE),DEVICE)
+	mkdir -p $(INSTALL_DIR)
+	mv $(OUTPUT_DIR)/$(PROJECT_NAME) $(INSTALL_DIR)
+	ls -l $(INSTALL_DIR)/$(PROJECT_NAME)
+endif
+
+
