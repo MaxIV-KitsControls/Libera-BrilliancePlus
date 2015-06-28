@@ -1,3 +1,8 @@
+tangods-liberabrillianceplus (1.1.0) unstable; urgency=low
+
+  * Change dependencies version to 2.9
+
+ -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Sun, 28 June 2015 17:00:00 +0200
 tangods-liberabrillianceplus (1.0.1) unstable; urgency=low
 
   * Fix State Machine (merge request #14 NexeyaSGara)
