@@ -149,3 +149,18 @@ include $(MAKE_ENV)/common_target.opt
 
 
 #PROTECTED REGION END#
+
+#------------------------------------------------------------------------------
+#-- install:
+#------------------------------------------------------------------------------
+INSTALL_DIR=$(DESTDIR)/$(TANGO_HOME)/bin
+
+install:
+	@echo "Installing $(OUTPUT_DIR)/$(PROJECT_NAME)  to  $(INSTALL_DIR)"
+ifeq ($(PROJECT_TYPE),DEVICE)
+	mkdir -p $(INSTALL_DIR)
+	mv $(OUTPUT_DIR)/$(PROJECT_NAME) $(INSTALL_DIR)
+	ls -l $(INSTALL_DIR)/$(PROJECT_NAME)
+endif
+
+

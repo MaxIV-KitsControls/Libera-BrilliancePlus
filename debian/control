@@ -1,6 +1,5 @@
 Source: tangods-liberabrillianceplus
-Version: 1.0.0
-Installed-Size: 71000
+Standards-Version: 1.0.1
 Section: utils
 Maintainer: MAXIV Laboratory <kits@maxlab.lu.se>, Cosylab d.o.o. <info@cosylab.com>
 Homepage: https://github.com/MaxIV-KitsControls/Libera-BrilliancePlus
