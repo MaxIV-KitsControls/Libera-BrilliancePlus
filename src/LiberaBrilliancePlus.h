@@ -293,6 +293,10 @@ public:
 	Tango::DevDouble	*attr_SumSP_read;
 	Tango::DevBoolean	*attr_SPEnabled_read;
 	Tango::DevLong	*attr_SPThreshold_read;
+	Tango::DevDouble	*attr_VaSP_read;
+	Tango::DevDouble	*attr_VbSP_read;
+	Tango::DevDouble	*attr_VcSP_read;
+	Tango::DevDouble	*attr_VdSP_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -326,10 +330,6 @@ public:
 	Tango::DevDouble	*attr_QdDD_read;
 	Tango::DevShort	*attr_UserData_read;
 	Tango::DevString	*attr_logs_read;
-	Tango::DevDouble	*attr_VaSP_read;
-	Tango::DevDouble	*attr_VbSP_read;
-	Tango::DevDouble	*attr_VcSP_read;
-	Tango::DevDouble	*attr_VdSP_read;
 
 //	Constructors and destructors
 public:
@@ -1261,6 +1261,42 @@ public:
 	virtual void write_SPThreshold(Tango::WAttribute &attr);
 	virtual bool is_SPThreshold_allowed(Tango::AttReqType type);
 /**
+ *	Attribute VaSP related methods
+ *	Description: Single Pass : Va
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VaSP(Tango::Attribute &attr);
+	virtual bool is_VaSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VbSP related methods
+ *	Description: Single Pass : Vb
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VbSP(Tango::Attribute &attr);
+	virtual bool is_VbSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VcSP related methods
+ *	Description: Single Pass : Vc
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VcSP(Tango::Attribute &attr);
+	virtual bool is_VcSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VdSP related methods
+ *	Description: Single Pass : Vd
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VdSP(Tango::Attribute &attr);
+	virtual bool is_VdSP_allowed(Tango::AttReqType type);
+/**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
  *
@@ -1560,42 +1596,6 @@ public:
  */
 	virtual void read_logs(Tango::Attribute &attr);
 	virtual bool is_logs_allowed(Tango::AttReqType type);
-/**
- *	Attribute VaSP related methods
- *	Description: Single Pass : Va
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_VaSP(Tango::Attribute &attr);
-	virtual bool is_VaSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VbSP related methods
- *	Description: Single Pass : Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_VbSP(Tango::Attribute &attr);
-	virtual bool is_VbSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VcSP related methods
- *	Description: Single Pass : Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_VcSP(Tango::Attribute &attr);
-	virtual bool is_VcSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VdSP related methods
- *	Description: Single Pass : Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_VdSP(Tango::Attribute &attr);
-	virtual bool is_VdSP_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------

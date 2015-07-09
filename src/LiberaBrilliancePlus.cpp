@@ -175,6 +175,10 @@ static const char *RcsId = "$Id:  $";
 //  SumSP                            |  Tango::DevDouble	Scalar
 //  SPEnabled                        |  Tango::DevBoolean	Scalar
 //  SPThreshold                      |  Tango::DevLong	Scalar
+//  VaSP                             |  Tango::DevDouble	Scalar
+//  VbSP                             |  Tango::DevDouble	Scalar
+//  VcSP                             |  Tango::DevDouble	Scalar
+//  VdSP                             |  Tango::DevDouble	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  YPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  QuadDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -208,10 +212,6 @@ static const char *RcsId = "$Id:  $";
 //  QdDD                             |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  UserData                         |  Tango::DevShort	Spectrum  ( max = 256)
 //  logs                             |  Tango::DevString	Spectrum  ( max = 2048)
-//  VaSP                             |  Tango::DevDouble	Spectrum  ( max = 16384)
-//  VbSP                             |  Tango::DevDouble	Spectrum  ( max = 16384)
-//  VcSP                             |  Tango::DevDouble	Spectrum  ( max = 16384)
-//  VdSP                             |  Tango::DevDouble	Spectrum  ( max = 16384)
 //================================================================
 
 namespace LiberaBrilliancePlus_ns
@@ -559,9 +559,9 @@ void LiberaBrilliancePlus::init_device()
     }
 
     m_signalSPE = m_libera->AddSignal<Tango::DevDouble>(
-        m_raf + "signals.spe",
+        m_raf + "single_pass.signal",
         1,
-        m_spe_enabled,
+        attr_SPEnabled_read,
         m_spe_buffer_size,
         attr_VaSP_read,
         attr_VbSP_read,
@@ -587,7 +587,7 @@ void LiberaBrilliancePlus::init_device()
     if (enableExternalTrigger) {
         m_signalSPE->SetMode(isig::eModeDodOnEvent);
     }
-    m_libera->AddScalar(m_raf + "signals.spe.threshold",
+    m_libera->AddScalar(m_raf + ".single_pass.threshold",
         attr_SPThreshold_read);
 
     set_change_event("XPosPM",  true, false);
@@ -1033,11 +1033,11 @@ void LiberaBrilliancePlus::get_device_property()
 //--------------------------------------------------------
 void LiberaBrilliancePlus::always_executed_hook()
 {
-	INFO_STREAM << "LiberaBrilliancePlus::always_executed_hook()  " << device_name << endl;
+	//INFO_STREAM << "LiberaBrilliancePlus::always_executed_hook()  " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::always_executed_hook) ENABLED START -----*/
     
     //  code always executed before all requests
-    if (m_libera != NULL)
+    /*if (m_libera != NULL)
  {
     if (m_libera->IsConnected()) {
           // call GetData also all attributes from here?
@@ -1056,7 +1056,7 @@ void LiberaBrilliancePlus::always_executed_hook()
               m_signalDdcRaw->GetData();
           }
     }
- }
+ }*/
 
     /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::always_executed_hook
 }
@@ -3584,7 +3584,7 @@ void LiberaBrilliancePlus::write_SPEnabled(Tango::WAttribute &attr)
 	Tango::DevBoolean	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_SPEnabled) ENABLED START -----*/
-    
+     w_val ? enable_sp() : disable_sp();
     
     /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SPEnabled
 }
@@ -3624,6 +3624,78 @@ void LiberaBrilliancePlus::write_SPThreshold(Tango::WAttribute &attr)
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_SPThreshold) ENABLED START -----*/
     m_libera->UpdateScalar(attr_SPThreshold_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SPThreshold
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VaSP related method
+ *	Description: Single Pass : Va
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VaSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VaSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VbSP related method
+ *	Description: Single Pass : Vb
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VbSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VbSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VcSP related method
+ *	Description: Single Pass : Vc
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VcSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VcSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VdSP related method
+ *	Description: Single Pass : Vd
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VdSP) ENABLED START -----*/
+    //  Set the attribute value
+    attr.set_value(attr_VdSP_read);
+    
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdSP
 }
 //--------------------------------------------------------
 /**
@@ -4222,78 +4294,6 @@ void LiberaBrilliancePlus::read_logs(Tango::Attribute &attr)
     
     /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_logs
 }
-//--------------------------------------------------------
-/**
- *	Read attribute VaSP related method
- *	Description: Single Pass : Va
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VaSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_VaSP_read, 16384);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute VbSP related method
- *	Description: Single Pass : Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VbSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_VbSP_read, 16384);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute VcSP related method
- *	Description: Single Pass : Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VcSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_VcSP_read, 16384);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute VdSP related method
- *	Description: Single Pass : Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VdSP) ENABLED START -----*/
-    //  Set the attribute value
-    attr.set_value(attr_VaPM_read, *attr_ADCBufferSize_read);
-    
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdSP
-}
 
 //--------------------------------------------------------
 /**
@@ -4873,8 +4873,9 @@ void LiberaBrilliancePlus::UpdatePM()
  */
 void LiberaBrilliancePlus::DDCallback()
 {
-    INFO_STREAM << "DD CALLBACK " << endl;
+    DEBUG_STREAM << "DD CALLBACK " << endl;
         m_signalDdc->GetData();
+        m_signalDdcRaw->GetData();
 
         push_change_event("XPosDD", attr_XPosDD_read);
         push_change_event("YPosDD", attr_YPosDD_read);
@@ -4895,7 +4896,7 @@ void LiberaBrilliancePlus::_DDCallback(void *data)
  */
 void LiberaBrilliancePlus::SACallback()
 {
-    INFO_STREAM << "SA CALLBACK " << endl;
+    DEBUG_STREAM << "SA CALLBACK " << endl;
         m_signalSA->GetData();
 
         push_change_event("XPosSA", attr_XPosSA_read);
@@ -4917,7 +4918,7 @@ void LiberaBrilliancePlus::_SACallback(void *data)
  */
 void LiberaBrilliancePlus::PMCallback()
 {
-    INFO_STREAM << "PM CALLBACK " << endl;
+    DEBUG_STREAM << "PM CALLBACK " << endl;
         m_signalPM->GetData();
         
         push_change_event("XPosPM", attr_XPosPM_read);
@@ -4940,6 +4941,7 @@ void LiberaBrilliancePlus::_PMCallback(void *data)
  */
 void LiberaBrilliancePlus::SPCallback()
 {
+    DEBUG_STREAM << "SP CALLBACK " << endl;
         m_signalSPE->GetData();
 
         push_change_event("XPosSP", attr_XPosSP_read);
@@ -4963,6 +4965,5 @@ void LiberaBrilliancePlus::set_lib_error()
     m_state = Tango::OFF;
     m_status = "Error while reading from a node. Please reinit the device";
 }
-
     /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::namespace_ending
 } //	namespace
