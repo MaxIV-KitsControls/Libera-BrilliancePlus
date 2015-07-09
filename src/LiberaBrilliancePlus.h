@@ -79,6 +79,25 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
     Tango::DevLong   *attr_PMBufferSize_read_added;
 
     LiberaSignal *m_signalADC;
+	
+	
+    LiberaSignal *m_signalSPE;
+	
+	Tango::DevLong *m_spe_buffer_size;
+	Tango::DevBoolean *m_spe_enabled;
+	Tango::DevDouble *m_spe_va;
+	Tango::DevDouble *m_spe_vb;
+	Tango::DevDouble *m_spe_vc;
+	Tango::DevDouble *m_spe_vd;
+    Tango::DevDouble *m_spe_q;
+	Tango::DevDouble *m_spe_trigger_cnt;
+	Tango::DevDouble *m_spe_bunch_cnt;
+	Tango::DevDouble *m_spe_status;
+	Tango::DevDouble *m_spe_mode;
+	Tango::DevDouble *m_spe_r2;
+	Tango::DevDouble *m_spe_r3;
+	Tango::DevDouble *m_spe_timestamp_h;
+	Tango::DevDouble *m_spe_timestamp_l;
 
     std::string m_raf;
     
@@ -88,6 +107,8 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
         static void _SACallback(void *data);
         void PMCallback();
         static void _PMCallback(void *data);
+        void SPCallback();
+        static void _SPCallback(void *data);
         
         Tango::DevState m_state;
         std::string m_status;
@@ -267,6 +288,11 @@ public:
 	Tango::DevDouble	*attr_Ky_read;
 	Tango::DevDouble	*attr_XOffset_read;
 	Tango::DevDouble	*attr_YOffset_read;
+	Tango::DevDouble	*attr_XPosSP_read;
+	Tango::DevDouble	*attr_YPosSP_read;
+	Tango::DevDouble	*attr_SumSP_read;
+	Tango::DevBoolean	*attr_SPEnabled_read;
+	Tango::DevLong	*attr_SPThreshold_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -300,6 +326,10 @@ public:
 	Tango::DevDouble	*attr_QdDD_read;
 	Tango::DevShort	*attr_UserData_read;
 	Tango::DevString	*attr_logs_read;
+	Tango::DevDouble	*attr_VaSP_read;
+	Tango::DevDouble	*attr_VbSP_read;
+	Tango::DevDouble	*attr_VcSP_read;
+	Tango::DevDouble	*attr_VdSP_read;
 
 //	Constructors and destructors
 public:
@@ -984,7 +1014,7 @@ public:
 	virtual bool is_Temp3_allowed(Tango::AttReqType type);
 /**
  *	Attribute Fan1Speed related methods
- *	Description: Provides minimal fan speed reading of all three  fans on 
+ *	Description: Provides minimal fan speed reading of all three fans on 
  *               the left side of the chassis in order to identify if the fan 
  *               module (consisting of 3 fans) is broken ? returned value 
  *               0 means that at least one fan has stopped.
@@ -996,7 +1026,7 @@ public:
 	virtual bool is_Fan1Speed_allowed(Tango::AttReqType type);
 /**
  *	Attribute Fan2Speed related methods
- *	Description: Provides minimal fan speed reading of all three  fans on 
+ *	Description: Provides minimal fan speed reading of all three fans on 
  *               the right side of the chassis in order to identify if the fan 
  *               module (consisting of 3 fans) is broken ? returned value 
  *               0 means that at least one fan has stopped.
@@ -1183,6 +1213,53 @@ public:
 	virtual void read_YOffset(Tango::Attribute &attr);
 	virtual void write_YOffset(Tango::WAttribute &attr);
 	virtual bool is_YOffset_allowed(Tango::AttReqType type);
+/**
+ *	Attribute XPosSP related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_XPosSP(Tango::Attribute &attr);
+	virtual bool is_XPosSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute YPosSP related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_YPosSP(Tango::Attribute &attr);
+	virtual bool is_YPosSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute SumSP related methods
+ *	Description: 
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_SumSP(Tango::Attribute &attr);
+	virtual bool is_SumSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute SPEnabled related methods
+ *	Description: SP data source activation flag
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_SPEnabled(Tango::Attribute &attr);
+	virtual void write_SPEnabled(Tango::WAttribute &attr);
+	virtual bool is_SPEnabled_allowed(Tango::AttReqType type);
+/**
+ *	Attribute SPThreshold related methods
+ *	Description: Single Pass threshold.
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_SPThreshold(Tango::Attribute &attr);
+	virtual void write_SPThreshold(Tango::WAttribute &attr);
+	virtual bool is_SPThreshold_allowed(Tango::AttReqType type);
 /**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
@@ -1483,6 +1560,42 @@ public:
  */
 	virtual void read_logs(Tango::Attribute &attr);
 	virtual bool is_logs_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VaSP related methods
+ *	Description: Single Pass : Va
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 16384
+ */
+	virtual void read_VaSP(Tango::Attribute &attr);
+	virtual bool is_VaSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VbSP related methods
+ *	Description: Single Pass : Vb
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 16384
+ */
+	virtual void read_VbSP(Tango::Attribute &attr);
+	virtual bool is_VbSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VcSP related methods
+ *	Description: Single Pass : Vc
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 16384
+ */
+	virtual void read_VcSP(Tango::Attribute &attr);
+	virtual bool is_VcSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VdSP related methods
+ *	Description: Single Pass : Vd
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 16384
+ */
+	virtual void read_VdSP(Tango::Attribute &attr);
+	virtual bool is_VdSP_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -1659,6 +1772,20 @@ public:
 	 */
 	virtual Tango::DevVarStringArray *magic_command(Tango::DevString argin);
 	virtual bool is_MagicCommand_allowed(const CORBA::Any &any);
+	/**
+	 *	Command EnableSP related method
+	 *	Description: Enables the so called ``Single Pass`` data source
+	 *
+	 */
+	virtual void enable_sp();
+	virtual bool is_EnableSP_allowed(const CORBA::Any &any);
+	/**
+	 *	Command DisableSP related method
+	 *	Description: Disables the so called ``Singel Pass`` data source
+	 *
+	 */
+	virtual void disable_sp();
+	virtual bool is_DisableSP_allowed(const CORBA::Any &any);
 
 
 /*----- PROTECTED REGION ID(LiberaBrilliancePlus::Additional Method prototypes) ENABLED START -----*/

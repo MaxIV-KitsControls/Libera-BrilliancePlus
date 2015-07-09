@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title> LiberaBrilliancePlus Tango Class Commands </title>
+</head>
+<body text="Black" bgcolor="White" link="Blue" vlink="Purple" alink="Red">
+<br><br><br><br>
+<Table Border=2 Cellpadding=3 CELLSPACING=0>
+	<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+	<td colspan=5> <font size=+1> <center><b> LiberaBrilliancePlus Class Commands </b></font></center></td>
+	<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+		<td> <center><b> Name </b></center> </td>
+		<td> <center><b> Input type </b></center> </td>
+		<td> <center><b> Output type </b></center> </td>
+		<td> <center><b> Level </b></center> </td>
+		<td> <center><b> Description </b></center> </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdState.html"> State </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_STATE </td>
+		<td> OPERATOR </td>
+		<td> This command gets the device state (stored in its <i>device_state</i> data member) and returns it to the caller. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdStatus.html"> Status </a> </td>
+		<td> DEV_VOID </td>
+		<td> CONST_DEV_STRING </td>
+		<td> OPERATOR </td>
+		<td> This command gets the device status (stored in its <i>device_status</i> data member) and returns it to the caller. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdGetParameters.html"> GetParameters </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEVVAR_DOUBLESTRINGARRAY </td>
+		<td> OPERATOR </td>
+		<td> Retruns the current gains and offsets (i.e. the parameters used for position computation) </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdUnfreezeDDBuffer.html"> UnfreezeDDBuffer </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Unfreezes the DD buffer </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdEnableDDBufferFreezing.html"> EnableDDBufferFreezing </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Enables the DD buffer freezing mechanism </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdDisableDDBufferFreezing.html"> DisableDDBufferFreezing </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Disables the DD buffer freezing mechanism </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdEnableDD.html"> EnableDD </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Enables the so called &quot;data on demand&quot; (i.e. first turns) data source </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdDisableDD.html"> DisableDD </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Disables the so called &quot;data on demand&quot; (i.e. first turns) data source </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdEnableSA.html"> EnableSA </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Enables the so called &quot;slow acquisition&quot; data source </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdDisableSA.html"> DisableSA </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Disables the so called &quot;slow acquisition&quot; data source </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdResetPMNotification.html"> ResetPMNotification </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> None. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdResetInterlockNotification.html"> ResetInterlockNotification </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Resets the interlock notification flags to false </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdSetInterlockConfiguration.html"> SetInterlockConfiguration </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Change interlock configuration using the InterlockConfiguration class (or device) property.<Br>
+			Only  modify  the interlock configuration, the remaining env. parameters remain unchanged. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdEnableADC.html"> EnableADC </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Enables the so called ADC data source </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdDisableADC.html"> DisableADC </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Disables the so called ADC data source </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdSetTimeOnNextTrigger.html"> SetTimeOnNextTrigger </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Applies both machine et system time values on next trigger </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdReadFAData.html"> ReadFAData </a> </td>
+		<td> DEVVAR_LONGARRAY </td>
+		<td> DEVVAR_LONGARRAY </td>
+		<td> OPERATOR </td>
+		<td> Statring from[offest] in FA data block, reads [size of elems] * [num of elems] bytes. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdWriteFAData.html"> WriteFAData </a> </td>
+		<td> DEVVAR_LONGARRAY </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Starting from [offset] in Fa data block, writes [size of elems * num of elems].<Br>
+			The actual data to be written starts at index [4] in the input array. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdSaveDSCParameters.html"> SaveDSCParameters </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Saves the current DSC parameters </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdReloadSystemProperties.html"> ReloadSystemProperties </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> None. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdSetRefIncoherence.html"> SetRefIncoherence </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Set the actual incoherence value as refeference value for the drift alarm calculation. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdMagicCommand.html"> MagicCommand </a> </td>
+		<td> DEV_STRING </td>
+		<td> DEVVAR_STRINGARRAY </td>
+		<td> EXPERT </td>
+		<td> Directly dump the Libera ireg node structure. If the input argument is a sub tree all subnodes will be dumped out. </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdEnableSP.html"> EnableSP </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Enables the so called ``Single Pass`` data source </td>
+	</tr>
+	<tr>
+		<td> <a href="CmdDisableSP.html"> DisableSP </a> </td>
+		<td> DEV_VOID </td>
+		<td> DEV_VOID </td>
+		<td> OPERATOR </td>
+		<td> Disables the so called ``Singel Pass`` data source </td>
+	</tr>
+</table>
+</body>
+</html>
