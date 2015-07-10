@@ -1220,6 +1220,127 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_YOffset_allowed(ty);}
 };
 
+//	Attribute XPosSP class definition
+class XPosSPAttrib: public Tango::Attr
+{
+public:
+	XPosSPAttrib():Attr("XPosSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~XPosSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_XPosSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_XPosSP_allowed(ty);}
+};
+
+//	Attribute YPosSP class definition
+class YPosSPAttrib: public Tango::Attr
+{
+public:
+	YPosSPAttrib():Attr("YPosSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~YPosSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_YPosSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_YPosSP_allowed(ty);}
+};
+
+//	Attribute SumSP class definition
+class SumSPAttrib: public Tango::Attr
+{
+public:
+	SumSPAttrib():Attr("SumSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~SumSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_SumSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SumSP_allowed(ty);}
+};
+
+//	Attribute SPEnabled class definition
+class SPEnabledAttrib: public Tango::Attr
+{
+public:
+	SPEnabledAttrib():Attr("SPEnabled",
+			Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~SPEnabledAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_SPEnabled(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_SPEnabled(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SPEnabled_allowed(ty);}
+};
+
+//	Attribute SPThreshold class definition
+class SPThresholdAttrib: public Tango::Attr
+{
+public:
+	SPThresholdAttrib():Attr("SPThreshold",
+			Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~SPThresholdAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_SPThreshold(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_SPThreshold(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SPThreshold_allowed(ty);}
+};
+
+//	Attribute VaSP class definition
+class VaSPAttrib: public Tango::Attr
+{
+public:
+	VaSPAttrib():Attr("VaSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~VaSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VaSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VaSP_allowed(ty);}
+};
+
+//	Attribute VbSP class definition
+class VbSPAttrib: public Tango::Attr
+{
+public:
+	VbSPAttrib():Attr("VbSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~VbSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VbSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VbSP_allowed(ty);}
+};
+
+//	Attribute VcSP class definition
+class VcSPAttrib: public Tango::Attr
+{
+public:
+	VcSPAttrib():Attr("VcSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~VcSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VcSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VcSP_allowed(ty);}
+};
+
+//	Attribute VdSP class definition
+class VdSPAttrib: public Tango::Attr
+{
+public:
+	VdSPAttrib():Attr("VdSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~VdSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VdSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VdSP_allowed(ty);}
+};
+
 //	Attribute XPosDD class definition
 class XPosDDAttrib: public Tango::SpectrumAttr
 {
@@ -2111,6 +2232,52 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_MagicCommand_allowed(any);}
+};
+
+//	Command EnableSP class definition
+class EnableSPClass : public Tango::Command
+{
+public:
+	EnableSPClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	EnableSPClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~EnableSPClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_EnableSP_allowed(any);}
+};
+
+//	Command DisableSP class definition
+class DisableSPClass : public Tango::Command
+{
+public:
+	DisableSPClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DisableSPClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DisableSPClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DisableSP_allowed(any);}
 };
 
 

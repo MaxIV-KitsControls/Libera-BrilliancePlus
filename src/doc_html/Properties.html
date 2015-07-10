@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title> LiberaBrilliancePlus Tango Class Properties </title>
+</head>
+<body text="Black" bgcolor="White" link="Blue" vlink="Purple" alink="Red">
+<br><br><br>
+<font size="+1"><u><b> LiberaBrilliancePlus  Properties : </b></u></font>
+<br><br><br>
+<Table Border=2 Cellpadding=3 CELLSPACING=0>
+	<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+	<td colspan=4> <font size=+1> <center><b> Class Properties </b></font></center></td>
+	<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+		<td> <center><b> Name </b></center> </td>
+		<td> <center><b> Description </b></center> </td>
+		<td> <center><b> Type </b></center> </td>
+		<td> <center><b> Default Value </b></center> </td>
+	</tr>
+	<tr>
+		<td> InterlockConfiguration </td>
+		<td> The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`<Br>
+			the Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configuration<Br>
+			can also be applied using the dedicated ``SetInterlockConfiguration`` expert command.<Br>
+			Parameters mapping:<Br>
+			[0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency<Br>
+			[1] Interlock : threshold : X low in mm<Br>
+			[2] Interlock : threshold : X high in mm<Br>
+			[3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)<Br>
+			[4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)<Br>
+			[5] Interlock : overflow limit (ADC threshold)<Br>
+			[6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)<Br>
+			[7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0] </td>
+		<td> double[] </td>
+		<td> none </td>
+	</tr>
+	<tr>
+		<td> EnableDDOptionalData </td>
+		<td> Enables/Disables  DD optional data (IxDD and QxDD) </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> EnableSAOptionalData </td>
+		<td> Enables/disables SA optional Data (currently not used) </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> EnableSAHistoryOptionalData </td>
+		<td> Enables/disables SA History optional data (sum history) </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> EnableADCOptionalData </td>
+		<td> Enables/disables ADC optional data (currently not used) </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> Institute </td>
+		<td> 0: TANGO_INSTITUTE (GENERIC)<Br>
+			1: ALBA<Br>
+			2: ESRF<Br>
+			3: ELETTRA<Br>
+			4: SOLEIL </td>
+		<td> short </td>
+		<td> 0 <br> </td>
+	</tr>
+</table>
+<br><br><br>
+<Table Border=2 Cellpadding=3 CELLSPACING=0>
+	<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+	<td colspan=4> <font size=+1> <center><b> Device Properties </b></font></center></td>
+	<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+		<td> <center><b> Name </b></center> </td>
+		<td> <center><b> Description </b></center> </td>
+		<td> <center><b> Type </b></center> </td>
+		<td> <center><b> Default Value </b></center> </td>
+	</tr>
+	<tr>
+		<td> LiberaIpAddr </td>
+		<td> The Libera IP address [no default value] </td>
+		<td> String </td>
+		<td> 127.0.0.1 <br> </td>
+	</tr>
+	<tr>
+		<td> LiberaPort </td>
+		<td> The port on which the generic server handles external requests. Defaults to 23721. </td>
+		<td> short </td>
+		<td> 23271 <br> </td>
+	</tr>
+	<tr>
+		<td> DefaultDDBufferSize </td>
+		<td> Default [or initial] value for attribute DDBufferSize [in samples]. Defaults to 1024. </td>
+		<td> int </td>
+		<td> 1024 <br> </td>
+	</tr>
+	<tr>
+		<td> Switches </td>
+		<td> Switches configuration. The valid range is [0..15]. Defaults to 3. </td>
+		<td> short </td>
+		<td> 3 <br> </td>
+	</tr>
+	<tr>
+		<td> LiberaMulticastIpAddr </td>
+		<td> Asynch. notifications (e.g. trigger events) will be send to this addr [no default value] </td>
+		<td> String </td>
+		<td> none </td>
+	</tr>
+	<tr>
+		<td> Location </td>
+		<td> The BPM location [TL1, BOOSTER, TL2 or STORAGE_RING]. No default value. </td>
+		<td> String </td>
+		<td> none </td>
+	</tr>
+	<tr>
+		<td> EnableExternalTrigger </td>
+		<td> Enables (or not) the external trigger source.<Br>
+			Inlfuences the TANGO device behaviour not the Libera itself. Defaults to false. </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> DDTaskActivityPeriod </td>
+		<td> Specify the watch-dog (1) or data reading period (2) in ms.<Br>
+			Must be in the rangec [500, 25000] ms. Defaults to 1000.<Br>
+			(1) : external trigger enabled - (2) : external trigger disabled. </td>
+		<td> int </td>
+		<td> 1000 <br> </td>
+	</tr>
+	<tr>
+		<td> SATaskActivityPeriod </td>
+		<td> Specify the watch-dog (1) or data reading period (2) in ms.<Br>
+			Must be in the range [100, 25000] ms. Defaults to 100. </td>
+		<td> int </td>
+		<td> 100 <br> </td>
+	</tr>
+	<tr>
+		<td> EnableDD </td>
+		<td> Specifies whether or not the DD data source should be enabled at startup. Defaults to false. </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> EnableSA </td>
+		<td> Specifies whether or not the SA data source should be enabled at startup. Defaults to false. </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> SAHistoryLength </td>
+		<td> SA history buffer length [in samples]. Defaults to 8196. </td>
+		<td> int </td>
+		<td> 512 <br> </td>
+	</tr>
+	<tr>
+		<td> DDDecimationFactor </td>
+		<td> The DD decimation factor.<Br>
+			Allowed values : 1 (no decimation) or 64 (for the so called booster normal mode) </td>
+		<td> short </td>
+		<td> 1 <br> </td>
+	</tr>
+	<tr>
+		<td> EnableAutoSwitchingIfSAEnabled </td>
+		<td> When set to TRUE, auto-switching is automattically enabled when the SA data source is itself enabled </td>
+		<td> boolean </td>
+		<td> true <br> </td>
+	</tr>
+	<tr>
+		<td> EnableDSCIfAutoSwitchingEnabled </td>
+		<td> When set to TRUE, the Digital Signal Conditioning is automattically enabled when the auto-switching is itself enabled </td>
+		<td> boolean </td>
+		<td> true <br> </td>
+	</tr>
+	<tr>
+		<td> DefaultSAStatNumSamples </td>
+		<td> Default number of SA history samples to use form RMS pos. computation.<Br>
+			Defaults to 10 (last second in the SA history). </td>
+		<td> int </td>
+		<td> 256 <br> </td>
+	</tr>
+	<tr>
+		<td> DefaultADCBufferSize </td>
+		<td> Default [or initial] value for attribute ADCBufferSize [in samples]. Defaults to 1024. </td>
+		<td> int </td>
+		<td> 1024 <br> </td>
+	</tr>
+	<tr>
+		<td> ADCTaskActivityPeriod </td>
+		<td> Specifies the data reading period in ms.<Br>
+			Must be in the range [500, 25000] ms. Defaults to 1000. </td>
+		<td> int </td>
+		<td> 1000 <br> </td>
+	</tr>
+	<tr>
+		<td> EnableADC </td>
+		<td> Specifies whether or not the ADC data source should be enabled at startup. Defaults to false. </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> DefaultTimePhaseValue </td>
+		<td> Default value for the machine time phase. Its valid range is [0, RfSfRatio - 1] where<Br>
+			RfSfRatio is a machine dependent system property. </td>
+		<td> int </td>
+		<td> none </td>
+	</tr>
+	<tr>
+		<td> InterlockConfiguration </td>
+		<td> The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`<Br>
+			the Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configuration<Br>
+			can also be applied using the dedicated `SetInterlockConfiguration` expert command.<Br>
+			Parameters mapping:<Br>
+			[0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency<Br>
+			[1] Interlock : threshold : X low in mm<Br>
+			[2] Interlock : threshold : X high in mm<Br>
+			[3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)<Br>
+			[4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)<Br>
+			[5] Interlock : overflow limit (ADC threshold)<Br>
+			[6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)<Br>
+			[7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0] </td>
+		<td> double[] </td>
+		<td> none </td>
+	</tr>
+	<tr>
+		<td> EnableDDOptionalData </td>
+		<td> Enables/Disables  DD optional data (IxDD and QxDD) </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> EnableSAOptionalData </td>
+		<td> Enables/disables SA optional Data (currently not used) </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> EnableSAHistoryOptionalData </td>
+		<td> Enables/disables SA History optional data (sum history) </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> EnableADCOptionalData </td>
+		<td> Enables/disables ADC optional data (currently not used) </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> Institute </td>
+		<td> 0: TANGO_INSTITUTE (GENERIC)<Br>
+			1: ALBA<Br>
+			2: ESRF<Br>
+			3: ELETTRA<Br>
+			4: SOLEIL </td>
+		<td> short </td>
+		<td> 0 <br> </td>
+	</tr>
+	<tr>
+		<td> MaxDDBufferSizeWhenDecimationEnabled </td>
+		<td> Max. DD buffer size when decimation enabled on DD data source.<Br>
+			Defaults to 10000 </td>
+		<td> int </td>
+		<td> 16384 <br> </td>
+	</tr>
+	<tr>
+		<td> PassBBAOffsetsToFPGA </td>
+		<td> Controls wether or not the BBA offsets are taken into account when computing the offsets passed to the FPGA process </td>
+		<td> boolean </td>
+		<td> false <br> </td>
+	</tr>
+	<tr>
+		<td> FADataCacheRefreshPeriod </td>
+		<td> The <FA Data> cache refresh period in msecs.<Br>
+			Defaults to 500 ms (2Hz). </td>
+		<td> int </td>
+		<td> 500 <br> </td>
+	</tr>
+	<tr>
+		<td> LiberaBoard </td>
+		<td> BPM board ID within the chassis [raf3,raf4,raf5 or raf6] </td>
+		<td> String </td>
+		<td> raf5 <br> </td>
+	</tr>
+</table>
+</body>
+</html>

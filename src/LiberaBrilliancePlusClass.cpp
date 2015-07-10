@@ -522,6 +522,42 @@ CORBA::Any *MagicCommandClass::execute(Tango::DeviceImpl *device, const CORBA::A
 	return insert((static_cast<LiberaBrilliancePlus *>(device))->magic_command(argin));
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		EnableSPClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *EnableSPClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "EnableSPClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->enable_sp());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		DisableSPClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *DisableSPClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "DisableSPClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->disable_sp());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -3423,6 +3459,224 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	yoffset->set_memorized_init(true);
 	att_list.push_back(yoffset);
 
+	//	Attribute : XPosSP
+	XPosSPAttrib	*xpossp = new XPosSPAttrib();
+	Tango::UserDefaultAttrProp	xpossp_prop;
+	//	description	not set for XPosSP
+	//	label	not set for XPosSP
+	xpossp_prop.set_unit("nm");
+	//	standard_unit	not set for XPosSP
+	//	display_unit	not set for XPosSP
+	//	format	not set for XPosSP
+	//	max_value	not set for XPosSP
+	//	min_value	not set for XPosSP
+	//	max_alarm	not set for XPosSP
+	//	min_alarm	not set for XPosSP
+	//	max_warning	not set for XPosSP
+	//	min_warning	not set for XPosSP
+	//	delta_t	not set for XPosSP
+	//	delta_val	not set for XPosSP
+	
+	xpossp->set_default_properties(xpossp_prop);
+	//	Not Polled
+	xpossp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(xpossp);
+
+	//	Attribute : YPosSP
+	YPosSPAttrib	*ypossp = new YPosSPAttrib();
+	Tango::UserDefaultAttrProp	ypossp_prop;
+	//	description	not set for YPosSP
+	//	label	not set for YPosSP
+	ypossp_prop.set_unit("nm");
+	//	standard_unit	not set for YPosSP
+	//	display_unit	not set for YPosSP
+	//	format	not set for YPosSP
+	//	max_value	not set for YPosSP
+	//	min_value	not set for YPosSP
+	//	max_alarm	not set for YPosSP
+	//	min_alarm	not set for YPosSP
+	//	max_warning	not set for YPosSP
+	//	min_warning	not set for YPosSP
+	//	delta_t	not set for YPosSP
+	//	delta_val	not set for YPosSP
+	
+	ypossp->set_default_properties(ypossp_prop);
+	//	Not Polled
+	ypossp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ypossp);
+
+	//	Attribute : SumSP
+	SumSPAttrib	*sumsp = new SumSPAttrib();
+	Tango::UserDefaultAttrProp	sumsp_prop;
+	//	description	not set for SumSP
+	//	label	not set for SumSP
+	//	unit	not set for SumSP
+	//	standard_unit	not set for SumSP
+	//	display_unit	not set for SumSP
+	//	format	not set for SumSP
+	//	max_value	not set for SumSP
+	//	min_value	not set for SumSP
+	//	max_alarm	not set for SumSP
+	//	min_alarm	not set for SumSP
+	//	max_warning	not set for SumSP
+	//	min_warning	not set for SumSP
+	//	delta_t	not set for SumSP
+	//	delta_val	not set for SumSP
+	
+	sumsp->set_default_properties(sumsp_prop);
+	//	Not Polled
+	sumsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(sumsp);
+
+	//	Attribute : SPEnabled
+	SPEnabledAttrib	*spenabled = new SPEnabledAttrib();
+	Tango::UserDefaultAttrProp	spenabled_prop;
+	spenabled_prop.set_description("SP data source activation flag");
+	spenabled_prop.set_label("SP Enabled");
+	spenabled_prop.set_unit("n/a");
+	spenabled_prop.set_standard_unit("n/a");
+	spenabled_prop.set_display_unit("n/a");
+	//	format	not set for SPEnabled
+	//	max_value	not set for SPEnabled
+	//	min_value	not set for SPEnabled
+	//	max_alarm	not set for SPEnabled
+	//	min_alarm	not set for SPEnabled
+	//	max_warning	not set for SPEnabled
+	//	min_warning	not set for SPEnabled
+	//	delta_t	not set for SPEnabled
+	//	delta_val	not set for SPEnabled
+	
+	spenabled->set_default_properties(spenabled_prop);
+	//	Not Polled
+	spenabled->set_disp_level(Tango::OPERATOR);
+	spenabled->set_memorized();
+	spenabled->set_memorized_init(true);
+	att_list.push_back(spenabled);
+
+	//	Attribute : SPThreshold
+	SPThresholdAttrib	*spthreshold = new SPThresholdAttrib();
+	Tango::UserDefaultAttrProp	spthreshold_prop;
+	spthreshold_prop.set_description("Single Pass threshold.");
+	spthreshold_prop.set_label("SPThreshold");
+	spthreshold_prop.set_unit("a.u.");
+	//	standard_unit	not set for SPThreshold
+	//	display_unit	not set for SPThreshold
+	spthreshold_prop.set_format("%5d");
+	spthreshold_prop.set_max_value("32766");
+	spthreshold_prop.set_min_value("0");
+	//	max_alarm	not set for SPThreshold
+	//	min_alarm	not set for SPThreshold
+	//	max_warning	not set for SPThreshold
+	//	min_warning	not set for SPThreshold
+	//	delta_t	not set for SPThreshold
+	//	delta_val	not set for SPThreshold
+	
+	spthreshold->set_default_properties(spthreshold_prop);
+	//	Not Polled
+	spthreshold->set_disp_level(Tango::OPERATOR);
+	spthreshold->set_memorized();
+	spthreshold->set_memorized_init(true);
+	att_list.push_back(spthreshold);
+
+	//	Attribute : VaSP
+	VaSPAttrib	*vasp = new VaSPAttrib();
+	Tango::UserDefaultAttrProp	vasp_prop;
+	vasp_prop.set_description("Single Pass : Va");
+	vasp_prop.set_label("SP Va");
+	vasp_prop.set_unit("a.u.");
+	vasp_prop.set_standard_unit("a.u.");
+	vasp_prop.set_display_unit("a.u.");
+	vasp_prop.set_format("%10.0f");
+	//	max_value	not set for VaSP
+	//	min_value	not set for VaSP
+	//	max_alarm	not set for VaSP
+	//	min_alarm	not set for VaSP
+	//	max_warning	not set for VaSP
+	//	min_warning	not set for VaSP
+	//	delta_t	not set for VaSP
+	//	delta_val	not set for VaSP
+	
+	vasp->set_default_properties(vasp_prop);
+	//	Not Polled
+	vasp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vasp);
+
+	//	Attribute : VbSP
+	VbSPAttrib	*vbsp = new VbSPAttrib();
+	Tango::UserDefaultAttrProp	vbsp_prop;
+	vbsp_prop.set_description("Single Pass : Vb");
+	vbsp_prop.set_label("SP Vb");
+	vbsp_prop.set_unit("a.u.");
+	vbsp_prop.set_standard_unit("a.u.");
+	vbsp_prop.set_display_unit("a.u.");
+	vbsp_prop.set_format("%10.0f");
+	//	max_value	not set for VbSP
+	//	min_value	not set for VbSP
+	//	max_alarm	not set for VbSP
+	//	min_alarm	not set for VbSP
+	//	max_warning	not set for VbSP
+	//	min_warning	not set for VbSP
+	//	delta_t	not set for VbSP
+	//	delta_val	not set for VbSP
+	
+	vbsp->set_default_properties(vbsp_prop);
+	//	Not Polled
+	vbsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vbsp);
+
+	//	Attribute : VcSP
+	VcSPAttrib	*vcsp = new VcSPAttrib();
+	Tango::UserDefaultAttrProp	vcsp_prop;
+	vcsp_prop.set_description("Single Pass : Vc");
+	vcsp_prop.set_label("SP Vc");
+	vcsp_prop.set_unit("a.u.");
+	vcsp_prop.set_standard_unit("a.u.");
+	vcsp_prop.set_display_unit("a.u.");
+	vcsp_prop.set_format("%10.0f");
+	//	max_value	not set for VcSP
+	//	min_value	not set for VcSP
+	//	max_alarm	not set for VcSP
+	//	min_alarm	not set for VcSP
+	//	max_warning	not set for VcSP
+	//	min_warning	not set for VcSP
+	//	delta_t	not set for VcSP
+	//	delta_val	not set for VcSP
+	
+	vcsp->set_default_properties(vcsp_prop);
+	//	Not Polled
+	vcsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vcsp);
+
+	//	Attribute : VdSP
+	VdSPAttrib	*vdsp = new VdSPAttrib();
+	Tango::UserDefaultAttrProp	vdsp_prop;
+	vdsp_prop.set_description("Single Pass : Vd");
+	vdsp_prop.set_label("SP Vd");
+	vdsp_prop.set_unit("a.u.");
+	vdsp_prop.set_standard_unit("a.u.");
+	vdsp_prop.set_display_unit("a.u.");
+	vdsp_prop.set_format("%10.0f");
+	//	max_value	not set for VdSP
+	//	min_value	not set for VdSP
+	//	max_alarm	not set for VdSP
+	//	min_alarm	not set for VdSP
+	//	max_warning	not set for VdSP
+	//	min_warning	not set for VdSP
+	//	delta_t	not set for VdSP
+	//	delta_val	not set for VdSP
+	
+	vdsp->set_default_properties(vdsp_prop);
+	//	Not Polled
+	vdsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vdsp);
+
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
 	Tango::UserDefaultAttrProp	xposdd_prop;
@@ -4418,6 +4672,24 @@ void LiberaBrilliancePlusClass::command_factory()
 			"value of specified node(s)",
 			Tango::EXPERT);
 	command_list.push_back(pMagicCommandCmd);
+
+	//	Command EnableSP
+	EnableSPClass	*pEnableSPCmd =
+		new EnableSPClass("EnableSP",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pEnableSPCmd);
+
+	//	Command DisableSP
+	DisableSPClass	*pDisableSPCmd =
+		new DisableSPClass("DisableSP",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pDisableSPCmd);
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::command_factory_after) ENABLED START -----*/
 	

@@ -1,0 +1,1307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title> LiberaBrilliancePlus Tango Class Attributes </title>
+</head>
+<body text="Black" bgcolor="White" link="Blue" vlink="Purple" alink="Red">
+<br><br><br><br>
+<Table Border=2 Cellpadding=3 CELLSPACING=0>
+	<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+	<td colspan=8> <font size=+1> <center><b> LiberaBrilliancePlus Class Attributes </b></font></center></td>
+	<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+		<td> <center><b> Name </b></center> </td>
+		<td> <center><b> Inherited </b></center> </td>
+		<td> <center><b> Abstract </b></center> </td>
+		<td> <center><b> Attr. type </b></center> </td>
+		<td> <center><b> R/W type </b></center> </td>
+		<td> <center><b> Data type </b></center> </td>
+		<td> <center><b> Level </b></center> </td>
+		<td> <center><b> Description </b></center> </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrLiberaModel.html"> LiberaModel </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_USHORT </td>
+		<td> OPERATOR </td>
+		<td> The Libera Model: 0:Electron, 1:Brillance, 2:Photon </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrDDEnabled.html"> DDEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> DD data source activation flag </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrDDBufferSize.html"> DDBufferSize </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> The number of samples to be read on DD data source.\nInfluences the size of the associated attributes [such as XPosDD for instance]. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrDDDecimationFactor.html"> DDDecimationFactor </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_USHORT </td>
+		<td> OPERATOR </td>
+		<td> The DD decimation factor </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrDDTriggerOffset.html"> DDTriggerOffset </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> DD data offset in num. of turns </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrDDBufferFreezingEnabled.html"> DDBufferFreezingEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> DD buffer freezing activation flag </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrDDBufferFrozen.html"> DDBufferFrozen </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> DD buffer status </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrDDTriggerCounter.html"> DDTriggerCounter </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Number of trigger notifications received since last device <init>  </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrExternalTriggerEnabled.html"> ExternalTriggerEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> External trigger activation flag </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrExternalTriggerDelay.html"> ExternalTriggerDelay </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Sets the delay on the external trigger arrival. <Br>
+			The delay is set in steps of ADC samples (~ 9 ns). </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSAEnabled.html"> SAEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> SA data source activation flag </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVaSA.html"> VaSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Va </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVbSA.html"> VbSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Vb </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVcSA.html"> VcSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Vc </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVdSA.html"> VdSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Vd </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXPosSA.html"> XPosSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: X </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYPosSA.html"> YPosSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Y </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSumSA.html"> SumSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Sum </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrQuadSA.html"> QuadSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Quad </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrCxSA.html"> CxSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> FOFB X correction sent to the power supply </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrCySA.html"> CySA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> FOFB Y correction sent to the power supply </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSAStatNumSamples.html"> SAStatNumSamples </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> The number of sample in SA history used to compute the SA statistics\n(Mean, RMS, Peak pos). The most recent samples will be used.\nThe valid range is [2, SAHistoryLength property value].\n </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXMeanPosSA.html"> XMeanPosSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition:  arithmetic average from history values </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYMeanPosSA.html"> YMeanPosSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition:  arithmetic average from history values </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXRMSPosSA.html"> XRMSPosSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition:  X root mean square from histry samples sqrt(Xi^2-mean^2)/N^2 </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYRMSPosSA.html"> YRMSPosSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Y root mean square from histry samples sqrt(Xi^2-mean^2)/N^2. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXPeakPosSA.html"> XPeakPosSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: X difference between max and min value from history </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYPeakPosSA.html"> YPeakPosSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Y difference between max and min value from history </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSumMeanSA.html"> SumMeanSA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> SA: mean of sum </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrADCEnabled.html"> ADCEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> ADC data source activation flag </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrADCBufferSize.html"> ADCBufferSize </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> The number of samples to be read on ADC data source.\nInfluences the size of the associated attributes [such as ADCChannelA for instance]. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrPMOffset.html"> PMOffset </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Offset relative to the post mortem event setting. <Br>
+			Set value is in turns, e.g. 1024 would mean that post mortem <Br>
+			acquisition is starting 1024 turns after the post mortem trigger <Br>
+			was received. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrPMNotified.html"> PMNotified </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Post Moterm notification flag </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrPMNotificationCounter.html"> PMNotificationCounter </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> Number a PM event recieved since last Init </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockXNotified.html"> InterlockXNotified </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Sets to 1 if X position trip caused the Interlock event. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockYNotified.html"> InterlockYNotified </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Sets to 1 if Yposition trip caused the Interlock event. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockAttnNotified.html"> InterlockAttnNotified </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Sets to 1 if the attenuator`s value is higher than gain <Br>
+			dependence threshold </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockADCPreFilterNotified.html"> InterlockADCPreFilterNotified </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> ADC overflow without filtering. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockADCPostFilterNotified.html"> InterlockADCPostFilterNotified </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> ADC overflow with filtering. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXLow.html"> XLow </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Lower limit of the X position interlock threshold in mm </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXHigh.html"> XHigh </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Upper limit of the X position interlock threshold in mm </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYLow.html"> YLow </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Lower limit of the Y position interlock threshold in mm </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYHigh.html"> YHigh </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Upper limit of the Y position interlock threshold in mm </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrAutoSwitchingEnabled.html"> AutoSwitchingEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Enables / disables the switching mechanism. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSwitches.html"> Switches </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> Switches selection. Must be in [0, 15] or 255 for auto-switching. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrExternalSwitching.html"> ExternalSwitching </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Sets the source of switching clock ? MC (external) or from the <Br>
+			oscillator (internal). Default value is internal.  </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSwitchingDelay.html"> SwitchingDelay </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Sets the delay of the switch position change relative to the <Br>
+			switching source clock. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrOffsetTune.html"> OffsetTune </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Sets the offset tune value, 1 unit is approximately 40 Hz. <Br>
+			Default value is 0 (precisely tuned). </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrCompensateTune.html"> CompensateTune </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> To enable double offset-tune, issue the following command <Br>
+			(to disable it, just use ?false? instead of ?true?). </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrDSCMode.html"> DSCMode </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> Sets the adjustment (learning) of the amplitude and <Br>
+			phase coefficients true or false. Set the <Br>
+			coefficients` type ? adjusted or unity. Combination of <Br>
+			these two nodes is necessary to achieve backward <Br>
+			compatiblity. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrAGCEnabled.html"> AGCEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Enables/disables the Automatic Gain Control </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrGain.html"> Gain </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Sets the power_level. Attenuation at chosen level <Br>
+			depends on the gain scheme configuration. AGC <Br>
+			must be disabled to use manual Gain setting. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrHasMAFSupport.html"> HasMAFSupport </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> <true> if FGPA design with MAF support installed on Libera, <false> otherwise </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrMAFLength.html"> MAFLength </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrMAFDelay.html"> MAFDelay </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.\n </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrMachineTime.html"> MachineTime </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Machine Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrTimePhase.html"> TimePhase </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> The Machine Time Phase </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSystemTime.html"> SystemTime </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> System Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed\nUnit is num of secs since 1/1/1970 (Unix system time reference) </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSCPLLStatus.html"> SCPLLStatus </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> The SC PLL lock status </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrMCPLLStatus.html"> MCPLLStatus </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Indicates the MC PLL status (1=locked, 0=unlocked) </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrTemp1.html"> Temp1 </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> Temperature of the hottest component on the BPM <Br>
+			module is returned. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrTemp2.html"> Temp2 </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> Temperature of the hottest component on the chassis <Br>
+			interconnection board is returned. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrTemp3.html"> Temp3 </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> Temperature of the hottest component on the timing <Br>
+			module is returned. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrFan1Speed.html"> Fan1Speed </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> Provides minimal fan speed reading of all three fans on <Br>
+			the left side of the chassis in order to identify if the fan <Br>
+			module (consisting of 3 fans) is broken ? returned value <Br>
+			0 means that at least one fan has stopped. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrFan2Speed.html"> Fan2Speed </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> Provides minimal fan speed reading of all three fans on <Br>
+			the right side of the chassis in order to identify if the fan <Br>
+			module (consisting of 3 fans) is broken ? returned value <Br>
+			0 means that at least one fan has stopped. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrIncoherence.html"> Incoherence </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Result of the incoherence calculation. Am alarm will be set \non the attribute when an incoherence was detected. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrRefIncoherence.html"> RefIncoherence </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> The reference incoherence value registered with the command \nSetReferenceIncoherence. The reference is used to calculate the\nalarm with the MaxIncoherenceDrift. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrMaxIncoherence.html"> MaxIncoherence </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Maximum incoherence value. Used to create an alarm on\nthe Incoherence attribute. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrMaxIncoherenceDrift.html"> MaxIncoherenceDrift </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Maximum incoherence drift value. Used to create an alarm on\nthe Incoherence attribute. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrUpTime.html"> UpTime </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Number of seconds since system boot on the host running this TANGO device </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrCpuUsage.html"> CpuUsage </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> CPU usage on the host running this TANGO device </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrFreeMemory.html"> FreeMemory </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Amount of free memory on the host running this TANGO device </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrRamFsUsage.html"> RamFsUsage </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Amount of ram-fs allocated bytes on the host running this TANGO device  </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrUseLiberaSAData.html"> UseLiberaSAData </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> EXPERT </td>
+		<td> If set to true, the X &amp; Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.\n  </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockEnabled.html"> InterlockEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Enables / disables the Interlock detection. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockGainDependentEnabled.html"> InterlockGainDependentEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> Enables / disables gain dependent mode of Interlock operation. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockOverflowThreshold.html"> InterlockOverflowThreshold </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> ADC saturation threshold. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockOverflowDuration.html"> InterlockOverflowDuration </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Duration of allowed ADC saturation (in ADC samples). </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrInterlockGainDependentThreshold.html"> InterlockGainDependentThreshold </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Sets the threshold for gain dependent mode of Interlock <Br>
+			operation. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrKx.html"> Kx </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Sets the Kx for X position calculation. Default setting is 10 mm <Br>
+			(=10000000 nm). </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrKy.html"> Ky </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Sets the Ky for Y position calculation. Default setting is 10 mm <Br>
+			(=10000000 nm). </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXOffset.html"> XOffset </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Sets the offset for X position in nm. Default value is 0 nm. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYOffset.html"> YOffset </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Sets the offset for Y position in nm. Default value is 0 nm. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXPosSP.html"> XPosSP </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYPosSP.html"> YPosSP </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSumSP.html"> SumSP </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td>  </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSPEnabled.html"> SPEnabled </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_BOOLEAN </td>
+		<td> OPERATOR </td>
+		<td> SP data source activation flag </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSPThreshold.html"> SPThreshold </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ_WRITE </td>
+		<td> Tango::DEV_LONG </td>
+		<td> OPERATOR </td>
+		<td> Single Pass threshold. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVaSP.html"> VaSP </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Single Pass : Va </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVbSP.html"> VbSP </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Single Pass : Vb </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVcSP.html"> VcSP </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Single Pass : Vc </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVdSP.html"> VdSP </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Scalar </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Single Pass : Vd </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXPosDD.html"> XPosDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: X Pos. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYPosDD.html"> YPosDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Y Pos. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrQuadDD.html"> QuadDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Quad </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSumDD.html"> SumDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Sum </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVaDD.html"> VaDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Va </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVbDD.html"> VbDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Vb </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVcDD.html"> VcDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Vc </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVdDD.html"> VdDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Vd </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXPosSAHistory.html"> XPosSAHistory </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: X scrolling window of last NumSamples <Br>
+			(512) sa samples </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYPosSAHistory.html"> YPosSAHistory </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Y scrolling window of last NumSamples <Br>
+			(512) sa samples </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSumSAHistory.html"> SumSAHistory </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Slow Acquisition: Sum scrolling window of last <Br>
+			NumSamples (512) sa samples </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrXPosPM.html"> XPosPM </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Post Mortem : X pos. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrYPosPM.html"> YPosPM </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Post Mortem : Y pos. </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrQuadPM.html"> QuadPM </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Post Mortem : Quad </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrSumPM.html"> SumPM </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Post Mortem : Sum </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVaPM.html"> VaPM </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Post Mortem : Va </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVbPM.html"> VbPM </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Post Mortem : Vb </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVcPM.html"> VcPM </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Post Mortem : Vc </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrVdPM.html"> VdPM </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Post Mortem : Vd </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrADCChannelA.html"> ADCChannelA </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> ADC values for pickup A </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrADCChannelB.html"> ADCChannelB </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> ADC values for pickup B </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrADCChannelC.html"> ADCChannelC </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> ADC values for pickup C </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrADCChannelD.html"> ADCChannelD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> ADC values for pickup D </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrIaDD.html"> IaDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Ia </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrIbDD.html"> IbDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Ib </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrIcDD.html"> IcDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Ic </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrIdDD.html"> IdDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Id </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrQaDD.html"> QaDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Qa </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrQbDD.html"> QbDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Qb </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrQcDD.html"> QcDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Qc </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrQdDD.html"> QdDD </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_DOUBLE </td>
+		<td> OPERATOR </td>
+		<td> Turn by turn data: Qd </td>
+	</tr>
+	<tr>
+		<td> <a href="AttrUserData.html"> UserData </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_SHORT </td>
+		<td> OPERATOR </td>
+		<td> User defined data </td>
+	</tr>
+	<tr>
+		<td> <a href="Attrlogs.html"> logs </a> </td>
+		<td> false </td>
+		<td> false </td>
+		<td> Spectrum </td>
+		<td> READ </td>
+		<td> Tango::DEV_STRING </td>
+		<td> OPERATOR </td>
+		<td>  </td>
+	</tr>
+</table>
+<br><br>
+<hr>
+<br><br>
+<font size="+1"><u><b> There is no dynamic attribute defined. </b></u></font>
+</body>
+</html>
