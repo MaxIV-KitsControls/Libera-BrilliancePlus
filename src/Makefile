@@ -28,8 +28,9 @@ MAKE_ENV = /usr/share/pogo/preferences
 #
 PACKAGE_NAME = LiberaBrilliancePlus
 MAJOR_VERS   = 1
-MINOR_VERS   = 0
+MINOR_VERS   = 1
 RELEASE      = Release_$(MAJOR_VERS)_$(MINOR_VERS)
+LIBERA_VERSION = 2.9
 
 # #=============================================================================
 # # RELEASE_TYPE
@@ -64,7 +65,7 @@ OUTPUT_DIR = ./bin/$(BIN_DIR)
 #   - '-I ../include' and '-I .' are automatically appended in all cases
 #
 #
-INC_DIR_USER= -I . -I /usr/include/libera-2.8
+INC_DIR_USER= -I . -I /usr/include/libera-$(LIBERA_VERSION)
 
 #=============================================================================
 # LIB_DIR_USER is the list of user library directories
@@ -85,7 +86,7 @@ LIB_DIR_USER= -L /opt/libera/lib
 # 'undefined reference' errors
 #
 #LFLAGS_USR+=
-LFLAGS_USR+= -lliberamci2.8 -lliberainet2.8 -lliberaistd2.8
+LFLAGS_USR+= -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VERSION) -lliberaistd$(LIBERA_VERSION)
 
 #=============================================================================
 # CXXFLAGS_USR lists the compilation flags specific for your library/device/exe
