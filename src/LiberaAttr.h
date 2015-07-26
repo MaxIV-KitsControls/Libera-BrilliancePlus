@@ -216,6 +216,32 @@ public:
         a_root.GetNode(mci::Tokenize(a_path + ".ID_1.value")).Get(used);
         return total - used;
     }
+    static Tango::DevLong SPEC2LONG(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        std::vector<uint32_t> val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val[0];
+    }
+    static void LONG2SPEC(mci::Node &a_root, const std::string &a_path, const Tango::DevLong a_val) {
+        istd_FTRC();
+        //Get the Vector Values
+        std::vector<uint32_t> val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        //Change only the First value
+        val[0]=a_val;
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
+    }
+    static Tango::DevShort USHORT2SHORT(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        int64_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val < SHRT_MAX ? val : SHRT_MAX;
+    }
+    static void SHORT2USHORT(mci::Node &a_root, const std::string &a_path, const Tango::DevShort a_val) {
+        istd_FTRC();
+        int64_t val = a_val > 0 ? a_val : 0;
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
+    }
 private:
     LiberaClient *m_client; // only needed when notification enabled
 };

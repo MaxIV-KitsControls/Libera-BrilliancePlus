@@ -522,6 +522,132 @@ CORBA::Any *MagicCommandClass::execute(Tango::DeviceImpl *device, const CORBA::A
 	return insert((static_cast<LiberaBrilliancePlus *>(device))->magic_command(argin));
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		EnableTDBufferFreezingClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *EnableTDBufferFreezingClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "EnableTDBufferFreezingClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->enable_tdbuffer_freezing());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		DisableTDBufferFreezingClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *DisableTDBufferFreezingClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "DisableTDBufferFreezingClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->disable_tdbuffer_freezing());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		EnableTDClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *EnableTDClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "EnableTDClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->enable_td());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		DisableTDClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *DisableTDClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "DisableTDClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->disable_td());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		UnfreezeTDBufferClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *UnfreezeTDBufferClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "UnfreezeTDBufferClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->unfreeze_tdbuffer());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		EnableSPClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *EnableSPClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "EnableSPClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->enable_sp());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		DisableSPClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *DisableSPClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "DisableSPClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->disable_sp());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -591,6 +717,7 @@ void LiberaBrilliancePlusClass::get_class_property()
 	cl_prop.push_back(Tango::DbDatum("EnableSAHistoryOptionalData"));
 	cl_prop.push_back(Tango::DbDatum("EnableADCOptionalData"));
 	cl_prop.push_back(Tango::DbDatum("Institute"));
+	cl_prop.push_back(Tango::DbDatum("EnableTDOptionalData"));
 	
 	//	Call database and extract values
 	if (Tango::Util::instance()->_UseDb==true)
@@ -668,6 +795,18 @@ void LiberaBrilliancePlusClass::get_class_property()
 		{
 			def_prop    >>  institute;
 			cl_prop[i]  <<  institute;
+		}
+	}
+	//	Try to extract EnableTDOptionalData value
+	if (cl_prop[++i].is_empty()==false)	cl_prop[i]  >>  enableTDOptionalData;
+	else
+	{
+		//	Check default value for EnableTDOptionalData
+		def_prop = get_default_class_property(cl_prop[i].name);
+		if (def_prop.is_empty()==false)
+		{
+			def_prop    >>  enableTDOptionalData;
+			cl_prop[i]  <<  enableTDOptionalData;
 		}
 	}
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::get_class_property_after) ENABLED START -----*/
@@ -769,6 +908,20 @@ void LiberaBrilliancePlusClass::set_default_property()
 	prop_def  = "0";
 	vect_data.clear();
 	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		cl_def_prop.push_back(data);
+		add_wiz_class_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_class_prop(prop_name, prop_desc);
+	prop_name = "EnableTDOptionalData";
+	prop_desc = "Enables/Disables  TD optional data (IxDD and QxDD)";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1196,6 +1349,622 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "EnableTDOptionalData";
+	prop_desc = "Enables/Disables  TD optional data (IxTD and QxTD)";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "DefaultTDBufferSize";
+	prop_desc = "Default [or initial] value for attribute TDBufferSize [in samples]. Defaults to 1024.";
+	prop_def  = "1024";
+	vect_data.clear();
+	vect_data.push_back("1024");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "EnableTD";
+	prop_desc = "Specifies whether or not the TD data source should be enabled at startup. Defaults to false.";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "TDTaskActivityPeriod";
+	prop_desc = "Specify the watch-dog (1) or data reading period (2) in ms.\nMust be in the rangec [500, 25000] ms. Defaults to 1000.\n(1) : external trigger enabled - (2) : external trigger disabled.";
+	prop_def  = "1000";
+	vect_data.clear();
+	vect_data.push_back("1000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "TDDecimationFactor";
+	prop_desc = "The DD decimation factor.\nAllowed values : 1 (no decimation) or 64 (for the so called booster normal mode)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "MaxTDBufferSizeWhenDecimationEnabled";
+	prop_desc = "Max. TD buffer size when decimation enabled on DD data source.\nDefaults to 10000";
+	prop_def  = "16384";
+	vect_data.clear();
+	vect_data.push_back("16384");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "MCDecoderSwitch";
+	prop_desc = "MC-Config property - MC decoder switch: Enumeration (off,on,debug)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "MCSource";
+	prop_desc = "Trigger line source selection - (Off,External,Internal,Pulse,LXI,RTC)";
+	prop_def  = "5";
+	vect_data.clear();
+	vect_data.push_back("5");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T0Direction";
+	prop_desc = "t0 port direction -  (Input,Output)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T0OutType";
+	prop_desc = "t0 port type -  (Off,Trigger,T3,SFP)";
+	prop_def  = "3";
+	vect_data.clear();
+	vect_data.push_back("3");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T0State";
+	prop_desc = "state of active signal: high (logical 1) or low (logical 0)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1Source";
+	prop_desc = "Enumeration Value (Off,External,Internal,Pulse,LXI,RTC)";
+	prop_def  = "5";
+	vect_data.clear();
+	vect_data.push_back("5");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2Source";
+	prop_desc = "Enumeration Value (Off,External,Internal,Pulse,LXI,RTC)";
+	prop_def  = "5";
+	vect_data.clear();
+	vect_data.push_back("5");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "MgtOut";
+	prop_desc = "Enumeration Value (off,sfp_in,debug,connectors)";
+	prop_def  = "3";
+	vect_data.clear();
+	vect_data.push_back("3");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "MCinMask";
+	prop_desc = "MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_def  = "256";
+	vect_data.clear();
+	vect_data.push_back("256");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "MCinFunction";
+	prop_desc = "MC Function array (in_function) contains 16-bit entries that define the value of masked bits.";
+	prop_def  = "256";
+	vect_data.clear();
+	vect_data.push_back("256");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T0inMask";
+	prop_desc = "T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_def  = "51";
+	vect_data.clear();
+	vect_data.push_back("51");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1inMask";
+	prop_desc = "T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_def  = "255";
+	vect_data.clear();
+	vect_data.push_back("255");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2inMask";
+	prop_desc = "T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_def  = "255";
+	vect_data.clear();
+	vect_data.push_back("255");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T0inFunction";
+	prop_desc = "T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
+	prop_def  = "255";
+	vect_data.clear();
+	vect_data.push_back("255");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1inFunction";
+	prop_desc = "T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
+	prop_def  = "51";
+	vect_data.clear();
+	vect_data.push_back("51");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2inFunction";
+	prop_desc = "T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
+	prop_def  = "80";
+	vect_data.clear();
+	vect_data.push_back("80");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T0Duration";
+	prop_desc = "Duration of signal active pulse";
+	prop_def  = "100000000";
+	vect_data.clear();
+	vect_data.push_back("100000000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T0Delay";
+	prop_desc = "Delay before transmission starts, set in cycles at fSFP";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "InterlockID";
+	prop_desc = "oversaturation or X-Y orbit threshold";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "EnableSP";
+	prop_desc = "Specifies whether or not the Single Pass data source should be enabled at startup. Defaults to false.";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "DefaultSPBufferSize";
+	prop_desc = "Default [or initial] value for attribute Single Pass BufferSize [in samples]. Defaults to 1024.";
+	prop_def  = "1024";
+	vect_data.clear();
+	vect_data.push_back("1024");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "PMCapture";
+	prop_desc = "PM functionality Enable/Disable";
+	prop_def  = "true";
+	vect_data.clear();
+	vect_data.push_back("true");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "PMOffset";
+	prop_desc = "PM Offset";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "DefaultPMBufferSize";
+	prop_desc = "PM buffer capacity";
+	prop_def  = "﻿524288";
+	vect_data.clear();
+	vect_data.push_back("﻿524288");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1EdgeFalling";
+	prop_desc = "T1 Edge Falling";
+	prop_def  = "true";
+	vect_data.clear();
+	vect_data.push_back("true");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2EdgeFalling";
+	prop_desc = "T2 Edge Falling";
+	prop_def  = "true";
+	vect_data.clear();
+	vect_data.push_back("true");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1EdgeRising";
+	prop_desc = "T2 Edge Falling";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2EdgeRising";
+	prop_desc = "T2 Edge Falling";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "PMSource";
+	prop_desc = "source of the PM event (﻿external,interlock,limits)";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1Direction";
+	prop_desc = "t1 port direction -  (Input,Output)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2Direction";
+	prop_desc = "t2 port direction -  (Input,Output)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "XminLimit";
+	prop_desc = "X interlock min limit";
+	prop_def  = "-1";
+	vect_data.clear();
+	vect_data.push_back("-1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "YminLimit";
+	prop_desc = "Y interlock min limit";
+	prop_def  = "-1";
+	vect_data.clear();
+	vect_data.push_back("-1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "XmaxLimit";
+	prop_desc = "X interlock max limit";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "YmaxLimit";
+	prop_desc = "Y interlock max limit";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "InterlockEnable";
+	prop_desc = "Specifies whether or not the Interlock should be enabled at startup.";
+	prop_def  = "true";
+	vect_data.clear();
+	vect_data.push_back("true");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1ID";
+	prop_desc = "T1 Optical event ID";
+	prop_def  = "21";
+	vect_data.clear();
+	vect_data.push_back("21");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2ID";
+	prop_desc = "T2 Optical event ID";
+	prop_def  = "62";
+	vect_data.clear();
+	vect_data.push_back("62");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
@@ -1361,7 +2130,7 @@ void LiberaBrilliancePlusClass::device_factory(const Tango::DevVarStringArray *d
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
 	{
 		cout4 << "Device name : " << (*devlist_ptr)[i].in() << endl;
-		device_list.push_back(new LiberaBrilliancePlus(this, (*devlist_ptr)[i]));							 
+		device_list.push_back(new LiberaBrilliancePlus(this, (*devlist_ptr)[i]));
 	}
 
 	//	Manage dynamic attributes if any
@@ -2173,9 +2942,8 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	pmoffset->set_default_properties(pmoffset_prop);
 	//	Not Polled
-	pmoffset->set_disp_level(Tango::OPERATOR);
-	pmoffset->set_memorized();
-	pmoffset->set_memorized_init(true);
+	pmoffset->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
 	att_list.push_back(pmoffset);
 
 	//	Attribute : PMNotified
@@ -2198,7 +2966,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	pmnotified->set_default_properties(pmnotified_prop);
 	//	Not Polled
-	pmnotified->set_disp_level(Tango::OPERATOR);
+	pmnotified->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
 	att_list.push_back(pmnotified);
 
@@ -2366,7 +3134,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	xlow->set_default_properties(xlow_prop);
 	//	Not Polled
-	xlow->set_disp_level(Tango::OPERATOR);
+	xlow->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
 	att_list.push_back(xlow);
 
@@ -2390,7 +3158,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	xhigh->set_default_properties(xhigh_prop);
 	//	Not Polled
-	xhigh->set_disp_level(Tango::OPERATOR);
+	xhigh->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
 	att_list.push_back(xhigh);
 
@@ -2414,7 +3182,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	ylow->set_default_properties(ylow_prop);
 	//	Not Polled
-	ylow->set_disp_level(Tango::OPERATOR);
+	ylow->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
 	att_list.push_back(ylow);
 
@@ -2494,7 +3262,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : ExternalSwitching
 	ExternalSwitchingAttrib	*externalswitching = new ExternalSwitchingAttrib();
 	Tango::UserDefaultAttrProp	externalswitching_prop;
-	externalswitching_prop.set_description("Sets the source of switching clock ? MC (external) or from the \noscillator (internal). Default value is internal. ");
+	externalswitching_prop.set_description("Sets the source of switching clock – MC (external) or from the \noscillator (internal). Default value is internal. ");
 	externalswitching_prop.set_label("External Switching");
 	//	unit	not set for ExternalSwitching
 	//	standard_unit	not set for ExternalSwitching
@@ -2569,7 +3337,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : CompensateTune
 	CompensateTuneAttrib	*compensatetune = new CompensateTuneAttrib();
 	Tango::UserDefaultAttrProp	compensatetune_prop;
-	compensatetune_prop.set_description("To enable double offset-tune, issue the following command \n(to disable it, just use ?false? instead of ?true?).");
+	compensatetune_prop.set_description("To enable double offset-tune, issue the following command \n(to disable it, just use “false” instead of “true”).");
 	compensatetune_prop.set_label("Compensate Tune");
 	//	unit	not set for CompensateTune
 	//	standard_unit	not set for CompensateTune
@@ -2594,7 +3362,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : DSCMode
 	DSCModeAttrib	*dscmode = new DSCModeAttrib();
 	Tango::UserDefaultAttrProp	dscmode_prop;
-	dscmode_prop.set_description("Sets the adjustment (learning) of the amplitude and \nphase coefficients true or false. Set the \ncoefficients' type ? adjusted or unity. Combination of \nthese two nodes is necessary to achieve backward \ncompatiblity.");
+	dscmode_prop.set_description("Sets the adjustment (learning) of the amplitude and \nphase coefficients true or false. Set the \ncoefficients' type – adjusted or unity. Combination of \nthese two nodes is necessary to achieve backward \ncompatiblity.");
 	dscmode_prop.set_label("DSC Mode");
 	dscmode_prop.set_unit("[0:OFF, 1:UNITY, 2:AUTO]");
 	//	standard_unit	not set for DSCMode
@@ -2934,7 +3702,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Fan1Speed
 	Fan1SpeedAttrib	*fan1speed = new Fan1SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan1speed_prop;
-	fan1speed_prop.set_description("Provides minimal fan speed reading of all three fans on \nthe left side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken ? returned value \n0 means that at least one fan has stopped.");
+	fan1speed_prop.set_description("Provides minimal fan speed reading of all three  fans on \nthe left side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken – returned value \n0 means that at least one fan has stopped.");
 	fan1speed_prop.set_label("Fan.1");
 	fan1speed_prop.set_unit("rpm");
 	//	standard_unit	not set for Fan1Speed
@@ -2958,7 +3726,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Fan2Speed
 	Fan2SpeedAttrib	*fan2speed = new Fan2SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan2speed_prop;
-	fan2speed_prop.set_description("Provides minimal fan speed reading of all three fans on \nthe right side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken ? returned value \n0 means that at least one fan has stopped.");
+	fan2speed_prop.set_description("Provides minimal fan speed reading of all three  fans on \nthe right side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken – returned value \n0 means that at least one fan has stopped.");
 	fan2speed_prop.set_label("Fan.2");
 	fan2speed_prop.set_unit("rpm");
 	//	standard_unit	not set for Fan2Speed
@@ -3218,9 +3986,8 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	interlockenabled->set_default_properties(interlockenabled_prop);
 	//	Not Polled
-	interlockenabled->set_disp_level(Tango::OPERATOR);
-	interlockenabled->set_memorized();
-	interlockenabled->set_memorized_init(true);
+	interlockenabled->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
 	att_list.push_back(interlockenabled);
 
 	//	Attribute : InterlockGainDependentEnabled
@@ -3422,6 +4189,1117 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	yoffset->set_memorized();
 	yoffset->set_memorized_init(true);
 	att_list.push_back(yoffset);
+
+	//	Attribute : TDEnabled
+	TDEnabledAttrib	*tdenabled = new TDEnabledAttrib();
+	Tango::UserDefaultAttrProp	tdenabled_prop;
+	tdenabled_prop.set_description("TD data source activation flag");
+	tdenabled_prop.set_label("TD Enabled");
+	tdenabled_prop.set_unit("n/a");
+	tdenabled_prop.set_standard_unit("n/a");
+	tdenabled_prop.set_display_unit("n/a");
+	//	format	not set for TDEnabled
+	//	max_value	not set for TDEnabled
+	//	min_value	not set for TDEnabled
+	//	max_alarm	not set for TDEnabled
+	//	min_alarm	not set for TDEnabled
+	//	max_warning	not set for TDEnabled
+	//	min_warning	not set for TDEnabled
+	//	delta_t	not set for TDEnabled
+	//	delta_val	not set for TDEnabled
+	
+	tdenabled->set_default_properties(tdenabled_prop);
+	//	Not Polled
+	tdenabled->set_disp_level(Tango::OPERATOR);
+	tdenabled->set_memorized();
+	tdenabled->set_memorized_init(true);
+	att_list.push_back(tdenabled);
+
+	//	Attribute : TDBufferSize
+	TDBufferSizeAttrib	*tdbuffersize = new TDBufferSizeAttrib();
+	Tango::UserDefaultAttrProp	tdbuffersize_prop;
+	tdbuffersize_prop.set_description("The number of samples to be read on TD data source.\nInfluences the size of the associated attributes [such as XPosTD for instance].");
+	tdbuffersize_prop.set_label("TD Buffer Size");
+	tdbuffersize_prop.set_unit("turns");
+	//	standard_unit	not set for TDBufferSize
+	//	display_unit	not set for TDBufferSize
+	tdbuffersize_prop.set_format("%5d");
+	tdbuffersize_prop.set_max_value("65535");
+	tdbuffersize_prop.set_min_value("2");
+	//	max_alarm	not set for TDBufferSize
+	//	min_alarm	not set for TDBufferSize
+	//	max_warning	not set for TDBufferSize
+	//	min_warning	not set for TDBufferSize
+	//	delta_t	not set for TDBufferSize
+	//	delta_val	not set for TDBufferSize
+	
+	tdbuffersize->set_default_properties(tdbuffersize_prop);
+	//	Not Polled
+	tdbuffersize->set_disp_level(Tango::OPERATOR);
+	tdbuffersize->set_memorized();
+	tdbuffersize->set_memorized_init(true);
+	att_list.push_back(tdbuffersize);
+
+	//	Attribute : TDDecimationFactor
+	TDDecimationFactorAttrib	*tddecimationfactor = new TDDecimationFactorAttrib();
+	Tango::UserDefaultAttrProp	tddecimationfactor_prop;
+	tddecimationfactor_prop.set_description("The TD decimation factor");
+	tddecimationfactor_prop.set_label("TD Decim. Factor");
+	tddecimationfactor_prop.set_unit("samples");
+	//	standard_unit	not set for TDDecimationFactor
+	//	display_unit	not set for TDDecimationFactor
+	tddecimationfactor_prop.set_format("%3d");
+	tddecimationfactor_prop.set_max_value("256");
+	tddecimationfactor_prop.set_min_value("1");
+	//	max_alarm	not set for TDDecimationFactor
+	//	min_alarm	not set for TDDecimationFactor
+	//	max_warning	not set for TDDecimationFactor
+	//	min_warning	not set for TDDecimationFactor
+	//	delta_t	not set for TDDecimationFactor
+	//	delta_val	not set for TDDecimationFactor
+	
+	tddecimationfactor->set_default_properties(tddecimationfactor_prop);
+	//	Not Polled
+	tddecimationfactor->set_disp_level(Tango::OPERATOR);
+	tddecimationfactor->set_memorized();
+	tddecimationfactor->set_memorized_init(true);
+	att_list.push_back(tddecimationfactor);
+
+	//	Attribute : TDTriggerOffset
+	TDTriggerOffsetAttrib	*tdtriggeroffset = new TDTriggerOffsetAttrib();
+	Tango::UserDefaultAttrProp	tdtriggeroffset_prop;
+	tdtriggeroffset_prop.set_description("TD data offset in num. of turns");
+	tdtriggeroffset_prop.set_label("TD Trigger Offset");
+	tdtriggeroffset_prop.set_unit("turns");
+	//	standard_unit	not set for TDTriggerOffset
+	//	display_unit	not set for TDTriggerOffset
+	tdtriggeroffset_prop.set_format("%6d");
+	//	max_value	not set for TDTriggerOffset
+	//	min_value	not set for TDTriggerOffset
+	//	max_alarm	not set for TDTriggerOffset
+	//	min_alarm	not set for TDTriggerOffset
+	//	max_warning	not set for TDTriggerOffset
+	//	min_warning	not set for TDTriggerOffset
+	//	delta_t	not set for TDTriggerOffset
+	//	delta_val	not set for TDTriggerOffset
+	
+	tdtriggeroffset->set_default_properties(tdtriggeroffset_prop);
+	//	Not Polled
+	tdtriggeroffset->set_disp_level(Tango::OPERATOR);
+	tdtriggeroffset->set_memorized();
+	tdtriggeroffset->set_memorized_init(true);
+	att_list.push_back(tdtriggeroffset);
+
+	//	Attribute : TDBufferFreezingEnabled
+	TDBufferFreezingEnabledAttrib	*tdbufferfreezingenabled = new TDBufferFreezingEnabledAttrib();
+	Tango::UserDefaultAttrProp	tdbufferfreezingenabled_prop;
+	tdbufferfreezingenabled_prop.set_description("TD buffer freezing activation flag");
+	tdbufferfreezingenabled_prop.set_label("TD Buffer Freezing Enabled");
+	tdbufferfreezingenabled_prop.set_unit("n/a");
+	tdbufferfreezingenabled_prop.set_standard_unit("n/a");
+	tdbufferfreezingenabled_prop.set_display_unit("n/a");
+	//	format	not set for TDBufferFreezingEnabled
+	//	max_value	not set for TDBufferFreezingEnabled
+	//	min_value	not set for TDBufferFreezingEnabled
+	//	max_alarm	not set for TDBufferFreezingEnabled
+	//	min_alarm	not set for TDBufferFreezingEnabled
+	//	max_warning	not set for TDBufferFreezingEnabled
+	//	min_warning	not set for TDBufferFreezingEnabled
+	//	delta_t	not set for TDBufferFreezingEnabled
+	//	delta_val	not set for TDBufferFreezingEnabled
+	
+	tdbufferfreezingenabled->set_default_properties(tdbufferfreezingenabled_prop);
+	//	Not Polled
+	tdbufferfreezingenabled->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(tdbufferfreezingenabled);
+
+	//	Attribute : TDBufferFrozen
+	TDBufferFrozenAttrib	*tdbufferfrozen = new TDBufferFrozenAttrib();
+	Tango::UserDefaultAttrProp	tdbufferfrozen_prop;
+	tdbufferfrozen_prop.set_description("TD buffer status");
+	tdbufferfrozen_prop.set_label("TD Buffer Frozen");
+	tdbufferfrozen_prop.set_unit("n/a");
+	tdbufferfrozen_prop.set_standard_unit("n/a");
+	tdbufferfrozen_prop.set_display_unit("n/a");
+	//	format	not set for TDBufferFrozen
+	//	max_value	not set for TDBufferFrozen
+	//	min_value	not set for TDBufferFrozen
+	//	max_alarm	not set for TDBufferFrozen
+	//	min_alarm	not set for TDBufferFrozen
+	//	max_warning	not set for TDBufferFrozen
+	//	min_warning	not set for TDBufferFrozen
+	//	delta_t	not set for TDBufferFrozen
+	//	delta_val	not set for TDBufferFrozen
+	
+	tdbufferfrozen->set_default_properties(tdbufferfrozen_prop);
+	//	Not Polled
+	tdbufferfrozen->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(tdbufferfrozen);
+
+	//	Attribute : TDTriggerCounter
+	TDTriggerCounterAttrib	*tdtriggercounter = new TDTriggerCounterAttrib();
+	Tango::UserDefaultAttrProp	tdtriggercounter_prop;
+	tdtriggercounter_prop.set_description("Number of trigger notifications received since last device <init>");
+	tdtriggercounter_prop.set_label("Trig.Counter");
+	tdtriggercounter_prop.set_unit("a.u.");
+	tdtriggercounter_prop.set_standard_unit("a.u.");
+	tdtriggercounter_prop.set_display_unit("a.u.");
+	tdtriggercounter_prop.set_format("%8d");
+	//	max_value	not set for TDTriggerCounter
+	//	min_value	not set for TDTriggerCounter
+	//	max_alarm	not set for TDTriggerCounter
+	//	min_alarm	not set for TDTriggerCounter
+	//	max_warning	not set for TDTriggerCounter
+	//	min_warning	not set for TDTriggerCounter
+	//	delta_t	not set for TDTriggerCounter
+	//	delta_val	not set for TDTriggerCounter
+	
+	tdtriggercounter->set_default_properties(tdtriggercounter_prop);
+	//	Not Polled
+	tdtriggercounter->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(tdtriggercounter);
+
+	//	Attribute : Ks
+	KsAttrib	*ks = new KsAttrib();
+	Tango::UserDefaultAttrProp	ks_prop;
+	ks_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2ˆ26)");
+	ks_prop.set_label("SUM value coefficient");
+	//	unit	not set for Ks
+	//	standard_unit	not set for Ks
+	//	display_unit	not set for Ks
+	ks_prop.set_format("%8.2f");
+	//	max_value	not set for Ks
+	//	min_value	not set for Ks
+	//	max_alarm	not set for Ks
+	//	min_alarm	not set for Ks
+	//	max_warning	not set for Ks
+	//	min_warning	not set for Ks
+	//	delta_t	not set for Ks
+	//	delta_val	not set for Ks
+	
+	ks->set_default_properties(ks_prop);
+	//	Not Polled
+	ks->set_disp_level(Tango::OPERATOR);
+	ks->set_memorized();
+	ks->set_memorized_init(true);
+	att_list.push_back(ks);
+
+	//	Attribute : QOffset
+	QOffsetAttrib	*qoffset = new QOffsetAttrib();
+	Tango::UserDefaultAttrProp	qoffset_prop;
+	qoffset_prop.set_description("Sets the offset for Q position in nm. Default value is 0 nm.");
+	qoffset_prop.set_label("Q position offset");
+	qoffset_prop.set_unit("mm");
+	//	standard_unit	not set for QOffset
+	//	display_unit	not set for QOffset
+	qoffset_prop.set_format("%8.4f");
+	//	max_value	not set for QOffset
+	//	min_value	not set for QOffset
+	//	max_alarm	not set for QOffset
+	//	min_alarm	not set for QOffset
+	//	max_warning	not set for QOffset
+	//	min_warning	not set for QOffset
+	//	delta_t	not set for QOffset
+	//	delta_val	not set for QOffset
+	
+	qoffset->set_default_properties(qoffset_prop);
+	//	Not Polled
+	qoffset->set_disp_level(Tango::OPERATOR);
+	qoffset->set_memorized();
+	qoffset->set_memorized_init(true);
+	att_list.push_back(qoffset);
+
+	//	Attribute : SOffset
+	SOffsetAttrib	*soffset = new SOffsetAttrib();
+	Tango::UserDefaultAttrProp	soffset_prop;
+	soffset_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2ˆ26)");
+	soffset_prop.set_label("Coefficient for SUM value.");
+	//	unit	not set for SOffset
+	//	standard_unit	not set for SOffset
+	//	display_unit	not set for SOffset
+	soffset_prop.set_format("%8.4f");
+	//	max_value	not set for SOffset
+	//	min_value	not set for SOffset
+	//	max_alarm	not set for SOffset
+	//	min_alarm	not set for SOffset
+	//	max_warning	not set for SOffset
+	//	min_warning	not set for SOffset
+	//	delta_t	not set for SOffset
+	//	delta_val	not set for SOffset
+	
+	soffset->set_default_properties(soffset_prop);
+	//	Not Polled
+	soffset->set_disp_level(Tango::OPERATOR);
+	soffset->set_memorized();
+	soffset->set_memorized_init(true);
+	att_list.push_back(soffset);
+
+	//	Attribute : SynchronizationStatus
+	SynchronizationStatusAttrib	*synchronizationstatus = new SynchronizationStatusAttrib();
+	Tango::UserDefaultAttrProp	synchronizationstatus_prop;
+	synchronizationstatus_prop.set_description("﻿The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.");
+	synchronizationstatus_prop.set_label("Synchronization state machine status");
+	//	unit	not set for SynchronizationStatus
+	//	standard_unit	not set for SynchronizationStatus
+	//	display_unit	not set for SynchronizationStatus
+	//	format	not set for SynchronizationStatus
+	//	max_value	not set for SynchronizationStatus
+	//	min_value	not set for SynchronizationStatus
+	//	max_alarm	not set for SynchronizationStatus
+	//	min_alarm	not set for SynchronizationStatus
+	//	max_warning	not set for SynchronizationStatus
+	//	min_warning	not set for SynchronizationStatus
+	//	delta_t	not set for SynchronizationStatus
+	//	delta_val	not set for SynchronizationStatus
+	
+	synchronizationstatus->set_default_properties(synchronizationstatus_prop);
+	//	Not Polled
+	synchronizationstatus->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(synchronizationstatus);
+
+	//	Attribute : T0Delay
+	T0DelayAttrib	*t0delay = new T0DelayAttrib();
+	Tango::UserDefaultAttrProp	t0delay_prop;
+	t0delay_prop.set_description("Delay before transmission starts, set in cycles at fSFP");
+	t0delay_prop.set_label("Delay before transmission");
+	t0delay_prop.set_unit("Cycles fSFP");
+	//	standard_unit	not set for T0Delay
+	//	display_unit	not set for T0Delay
+	//	format	not set for T0Delay
+	//	max_value	not set for T0Delay
+	//	min_value	not set for T0Delay
+	//	max_alarm	not set for T0Delay
+	//	min_alarm	not set for T0Delay
+	//	max_warning	not set for T0Delay
+	//	min_warning	not set for T0Delay
+	//	delta_t	not set for T0Delay
+	//	delta_val	not set for T0Delay
+	
+	t0delay->set_default_properties(t0delay_prop);
+	//	Not Polled
+	t0delay->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t0delay);
+
+	//	Attribute : MaxADC
+	MaxADCAttrib	*maxadc = new MaxADCAttrib();
+	Tango::UserDefaultAttrProp	maxadc_prop;
+	maxadc_prop.set_description("The MAX ADC is monitored to assess the level of the input signal (ADC saturation). It can be reset on read or on trigger. [OnTrigger, OnRead]");
+	maxadc_prop.set_label("Max ADC Saturation");
+	//	unit	not set for MaxADC
+	//	standard_unit	not set for MaxADC
+	//	display_unit	not set for MaxADC
+	//	format	not set for MaxADC
+	//	max_value	not set for MaxADC
+	//	min_value	not set for MaxADC
+	//	max_alarm	not set for MaxADC
+	//	min_alarm	not set for MaxADC
+	//	max_warning	not set for MaxADC
+	//	min_warning	not set for MaxADC
+	//	delta_t	not set for MaxADC
+	//	delta_val	not set for MaxADC
+	
+	maxadc->set_default_properties(maxadc_prop);
+	//	Not Polled
+	maxadc->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(maxadc);
+
+	//	Attribute : RtcDecoderSwitch
+	RtcDecoderSwitchAttrib	*rtcdecoderswitch = new RtcDecoderSwitchAttrib();
+	Tango::UserDefaultAttrProp	rtcdecoderswitch_prop;
+	rtcdecoderswitch_prop.set_description("RTC decoding switch of optical stream");
+	rtcdecoderswitch_prop.set_label("RTC decoding switch");
+	//	unit	not set for RtcDecoderSwitch
+	//	standard_unit	not set for RtcDecoderSwitch
+	//	display_unit	not set for RtcDecoderSwitch
+	//	format	not set for RtcDecoderSwitch
+	//	max_value	not set for RtcDecoderSwitch
+	//	min_value	not set for RtcDecoderSwitch
+	//	max_alarm	not set for RtcDecoderSwitch
+	//	min_alarm	not set for RtcDecoderSwitch
+	//	max_warning	not set for RtcDecoderSwitch
+	//	min_warning	not set for RtcDecoderSwitch
+	//	delta_t	not set for RtcDecoderSwitch
+	//	delta_val	not set for RtcDecoderSwitch
+	
+	rtcdecoderswitch->set_default_properties(rtcdecoderswitch_prop);
+	//	Not Polled
+	rtcdecoderswitch->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(rtcdecoderswitch);
+
+	//	Attribute : McSource
+	McSourceAttrib	*mcsource = new McSourceAttrib();
+	Tango::UserDefaultAttrProp	mcsource_prop;
+	mcsource_prop.set_description("Trigger line source selection");
+	mcsource_prop.set_label("MC Source");
+	//	unit	not set for McSource
+	//	standard_unit	not set for McSource
+	//	display_unit	not set for McSource
+	//	format	not set for McSource
+	//	max_value	not set for McSource
+	//	min_value	not set for McSource
+	//	max_alarm	not set for McSource
+	//	min_alarm	not set for McSource
+	//	max_warning	not set for McSource
+	//	min_warning	not set for McSource
+	//	delta_t	not set for McSource
+	//	delta_val	not set for McSource
+	
+	mcsource->set_default_properties(mcsource_prop);
+	//	Not Polled
+	mcsource->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(mcsource);
+
+	//	Attribute : T0Direction
+	T0DirectionAttrib	*t0direction = new T0DirectionAttrib();
+	Tango::UserDefaultAttrProp	t0direction_prop;
+	t0direction_prop.set_description("t0 port direction");
+	t0direction_prop.set_label("t0 Direction");
+	//	unit	not set for T0Direction
+	//	standard_unit	not set for T0Direction
+	//	display_unit	not set for T0Direction
+	//	format	not set for T0Direction
+	//	max_value	not set for T0Direction
+	//	min_value	not set for T0Direction
+	//	max_alarm	not set for T0Direction
+	//	min_alarm	not set for T0Direction
+	//	max_warning	not set for T0Direction
+	//	min_warning	not set for T0Direction
+	//	delta_t	not set for T0Direction
+	//	delta_val	not set for T0Direction
+	
+	t0direction->set_default_properties(t0direction_prop);
+	//	Not Polled
+	t0direction->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t0direction);
+
+	//	Attribute : T0OutputType
+	T0OutputTypeAttrib	*t0outputtype = new T0OutputTypeAttrib();
+	Tango::UserDefaultAttrProp	t0outputtype_prop;
+	t0outputtype_prop.set_description("t0 output type");
+	t0outputtype_prop.set_label("t0 output");
+	//	unit	not set for T0OutputType
+	//	standard_unit	not set for T0OutputType
+	//	display_unit	not set for T0OutputType
+	//	format	not set for T0OutputType
+	//	max_value	not set for T0OutputType
+	//	min_value	not set for T0OutputType
+	//	max_alarm	not set for T0OutputType
+	//	min_alarm	not set for T0OutputType
+	//	max_warning	not set for T0OutputType
+	//	min_warning	not set for T0OutputType
+	//	delta_t	not set for T0OutputType
+	//	delta_val	not set for T0OutputType
+	
+	t0outputtype->set_default_properties(t0outputtype_prop);
+	//	Not Polled
+	t0outputtype->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t0outputtype);
+
+	//	Attribute : T0State
+	T0StateAttrib	*t0state = new T0StateAttrib();
+	Tango::UserDefaultAttrProp	t0state_prop;
+	t0state_prop.set_description("state of active signal: high (logical 1) or low (logical 0)");
+	t0state_prop.set_label("t0 signal state");
+	//	unit	not set for T0State
+	//	standard_unit	not set for T0State
+	//	display_unit	not set for T0State
+	//	format	not set for T0State
+	//	max_value	not set for T0State
+	//	min_value	not set for T0State
+	//	max_alarm	not set for T0State
+	//	min_alarm	not set for T0State
+	//	max_warning	not set for T0State
+	//	min_warning	not set for T0State
+	//	delta_t	not set for T0State
+	//	delta_val	not set for T0State
+	
+	t0state->set_default_properties(t0state_prop);
+	//	Not Polled
+	t0state->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t0state);
+
+	//	Attribute : T1Source
+	T1SourceAttrib	*t1source = new T1SourceAttrib();
+	Tango::UserDefaultAttrProp	t1source_prop;
+	t1source_prop.set_description("Trigger line source selection");
+	t1source_prop.set_label("t1 Source");
+	//	unit	not set for T1Source
+	//	standard_unit	not set for T1Source
+	//	display_unit	not set for T1Source
+	//	format	not set for T1Source
+	//	max_value	not set for T1Source
+	//	min_value	not set for T1Source
+	//	max_alarm	not set for T1Source
+	//	min_alarm	not set for T1Source
+	//	max_warning	not set for T1Source
+	//	min_warning	not set for T1Source
+	//	delta_t	not set for T1Source
+	//	delta_val	not set for T1Source
+	
+	t1source->set_default_properties(t1source_prop);
+	//	Not Polled
+	t1source->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1source);
+
+	//	Attribute : T2Source
+	T2SourceAttrib	*t2source = new T2SourceAttrib();
+	Tango::UserDefaultAttrProp	t2source_prop;
+	t2source_prop.set_description("Trigger line source selection");
+	t2source_prop.set_label("t2 Source");
+	//	unit	not set for T2Source
+	//	standard_unit	not set for T2Source
+	//	display_unit	not set for T2Source
+	//	format	not set for T2Source
+	//	max_value	not set for T2Source
+	//	min_value	not set for T2Source
+	//	max_alarm	not set for T2Source
+	//	min_alarm	not set for T2Source
+	//	max_warning	not set for T2Source
+	//	min_warning	not set for T2Source
+	//	delta_t	not set for T2Source
+	//	delta_val	not set for T2Source
+	
+	t2source->set_default_properties(t2source_prop);
+	//	Not Polled
+	t2source->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2source);
+
+	//	Attribute : MgtOut
+	MgtOutAttrib	*mgtout = new MgtOutAttrib();
+	Tango::UserDefaultAttrProp	mgtout_prop;
+	mgtout_prop.set_description("MGT OUT selection off,sfp_in,debug,connectors");
+	mgtout_prop.set_label("MGT OUT");
+	//	unit	not set for MgtOut
+	//	standard_unit	not set for MgtOut
+	//	display_unit	not set for MgtOut
+	//	format	not set for MgtOut
+	//	max_value	not set for MgtOut
+	//	min_value	not set for MgtOut
+	//	max_alarm	not set for MgtOut
+	//	min_alarm	not set for MgtOut
+	//	max_warning	not set for MgtOut
+	//	min_warning	not set for MgtOut
+	//	delta_t	not set for MgtOut
+	//	delta_val	not set for MgtOut
+	
+	mgtout->set_default_properties(mgtout_prop);
+	//	Not Polled
+	mgtout->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(mgtout);
+
+	//	Attribute : SPThreshold
+	SPThresholdAttrib	*spthreshold = new SPThresholdAttrib();
+	Tango::UserDefaultAttrProp	spthreshold_prop;
+	spthreshold_prop.set_description("Specifies the threshold for start of calculation (in ADC counts) for the Single Pass functionality");
+	spthreshold_prop.set_label("SinglePass Mode Threshold");
+	//	unit	not set for SPThreshold
+	//	standard_unit	not set for SPThreshold
+	//	display_unit	not set for SPThreshold
+	//	format	not set for SPThreshold
+	//	max_value	not set for SPThreshold
+	//	min_value	not set for SPThreshold
+	//	max_alarm	not set for SPThreshold
+	//	min_alarm	not set for SPThreshold
+	//	max_warning	not set for SPThreshold
+	//	min_warning	not set for SPThreshold
+	//	delta_t	not set for SPThreshold
+	//	delta_val	not set for SPThreshold
+	
+	spthreshold->set_default_properties(spthreshold_prop);
+	//	Not Polled
+	spthreshold->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(spthreshold);
+
+	//	Attribute : SPnBefore
+	SPnBeforeAttrib	*spnbefore = new SPnBeforeAttrib();
+	Tango::UserDefaultAttrProp	spnbefore_prop;
+	spnbefore_prop.set_description("specifies the number of samples to take before the threshold (in ADC samples) for the Single Pass functionality");
+	spnbefore_prop.set_label("SinglePass Mode pre-Trigger");
+	//	unit	not set for SPnBefore
+	//	standard_unit	not set for SPnBefore
+	//	display_unit	not set for SPnBefore
+	//	format	not set for SPnBefore
+	//	max_value	not set for SPnBefore
+	//	min_value	not set for SPnBefore
+	//	max_alarm	not set for SPnBefore
+	//	min_alarm	not set for SPnBefore
+	//	max_warning	not set for SPnBefore
+	//	min_warning	not set for SPnBefore
+	//	delta_t	not set for SPnBefore
+	//	delta_val	not set for SPnBefore
+	
+	spnbefore->set_default_properties(spnbefore_prop);
+	//	Not Polled
+	spnbefore->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(spnbefore);
+
+	//	Attribute : SPnAfter
+	SPnAfterAttrib	*spnafter = new SPnAfterAttrib();
+	Tango::UserDefaultAttrProp	spnafter_prop;
+	spnafter_prop.set_description("specifies the number of samples to take after the threshold (in ADC samples) for the Single Pass functionality");
+	spnafter_prop.set_label("SinglePass Mode post-Trigger");
+	//	unit	not set for SPnAfter
+	//	standard_unit	not set for SPnAfter
+	//	display_unit	not set for SPnAfter
+	//	format	not set for SPnAfter
+	//	max_value	not set for SPnAfter
+	//	min_value	not set for SPnAfter
+	//	max_alarm	not set for SPnAfter
+	//	min_alarm	not set for SPnAfter
+	//	max_warning	not set for SPnAfter
+	//	min_warning	not set for SPnAfter
+	//	delta_t	not set for SPnAfter
+	//	delta_val	not set for SPnAfter
+	
+	spnafter->set_default_properties(spnafter_prop);
+	//	Not Polled
+	spnafter->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(spnafter);
+
+	//	Attribute : T0inMask
+	T0inMaskAttrib	*t0inmask = new T0inMaskAttrib();
+	Tango::UserDefaultAttrProp	t0inmask_prop;
+	t0inmask_prop.set_description("T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t0inmask_prop.set_label("T0 Masking Array");
+	//	unit	not set for T0inMask
+	//	standard_unit	not set for T0inMask
+	//	display_unit	not set for T0inMask
+	//	format	not set for T0inMask
+	//	max_value	not set for T0inMask
+	//	min_value	not set for T0inMask
+	//	max_alarm	not set for T0inMask
+	//	min_alarm	not set for T0inMask
+	//	max_warning	not set for T0inMask
+	//	min_warning	not set for T0inMask
+	//	delta_t	not set for T0inMask
+	//	delta_val	not set for T0inMask
+	
+	t0inmask->set_default_properties(t0inmask_prop);
+	//	Not Polled
+	t0inmask->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t0inmask);
+
+	//	Attribute : T1inMask
+	T1inMaskAttrib	*t1inmask = new T1inMaskAttrib();
+	Tango::UserDefaultAttrProp	t1inmask_prop;
+	t1inmask_prop.set_description("T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t1inmask_prop.set_label("T1 Masking Array");
+	//	unit	not set for T1inMask
+	//	standard_unit	not set for T1inMask
+	//	display_unit	not set for T1inMask
+	//	format	not set for T1inMask
+	//	max_value	not set for T1inMask
+	//	min_value	not set for T1inMask
+	//	max_alarm	not set for T1inMask
+	//	min_alarm	not set for T1inMask
+	//	max_warning	not set for T1inMask
+	//	min_warning	not set for T1inMask
+	//	delta_t	not set for T1inMask
+	//	delta_val	not set for T1inMask
+	
+	t1inmask->set_default_properties(t1inmask_prop);
+	//	Not Polled
+	t1inmask->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1inmask);
+
+	//	Attribute : T2inMask
+	T2inMaskAttrib	*t2inmask = new T2inMaskAttrib();
+	Tango::UserDefaultAttrProp	t2inmask_prop;
+	t2inmask_prop.set_description("T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t2inmask_prop.set_label("T2 Masking Array");
+	//	unit	not set for T2inMask
+	//	standard_unit	not set for T2inMask
+	//	display_unit	not set for T2inMask
+	//	format	not set for T2inMask
+	//	max_value	not set for T2inMask
+	//	min_value	not set for T2inMask
+	//	max_alarm	not set for T2inMask
+	//	min_alarm	not set for T2inMask
+	//	max_warning	not set for T2inMask
+	//	min_warning	not set for T2inMask
+	//	delta_t	not set for T2inMask
+	//	delta_val	not set for T2inMask
+	
+	t2inmask->set_default_properties(t2inmask_prop);
+	//	Not Polled
+	t2inmask->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2inmask);
+
+	//	Attribute : T0inFunction
+	T0inFunctionAttrib	*t0infunction = new T0inFunctionAttrib();
+	Tango::UserDefaultAttrProp	t0infunction_prop;
+	t0infunction_prop.set_description("T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
+	t0infunction_prop.set_label("T0 Function array");
+	//	unit	not set for T0inFunction
+	//	standard_unit	not set for T0inFunction
+	//	display_unit	not set for T0inFunction
+	//	format	not set for T0inFunction
+	//	max_value	not set for T0inFunction
+	//	min_value	not set for T0inFunction
+	//	max_alarm	not set for T0inFunction
+	//	min_alarm	not set for T0inFunction
+	//	max_warning	not set for T0inFunction
+	//	min_warning	not set for T0inFunction
+	//	delta_t	not set for T0inFunction
+	//	delta_val	not set for T0inFunction
+	
+	t0infunction->set_default_properties(t0infunction_prop);
+	//	Not Polled
+	t0infunction->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t0infunction);
+
+	//	Attribute : T1inFunction
+	T1inFunctionAttrib	*t1infunction = new T1inFunctionAttrib();
+	Tango::UserDefaultAttrProp	t1infunction_prop;
+	t1infunction_prop.set_description("T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
+	t1infunction_prop.set_label("T1 Function array");
+	//	unit	not set for T1inFunction
+	//	standard_unit	not set for T1inFunction
+	//	display_unit	not set for T1inFunction
+	//	format	not set for T1inFunction
+	//	max_value	not set for T1inFunction
+	//	min_value	not set for T1inFunction
+	//	max_alarm	not set for T1inFunction
+	//	min_alarm	not set for T1inFunction
+	//	max_warning	not set for T1inFunction
+	//	min_warning	not set for T1inFunction
+	//	delta_t	not set for T1inFunction
+	//	delta_val	not set for T1inFunction
+	
+	t1infunction->set_default_properties(t1infunction_prop);
+	//	Not Polled
+	t1infunction->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1infunction);
+
+	//	Attribute : T2inFunction
+	T2inFunctionAttrib	*t2infunction = new T2inFunctionAttrib();
+	Tango::UserDefaultAttrProp	t2infunction_prop;
+	t2infunction_prop.set_description("T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
+	t2infunction_prop.set_label("T2 Function array");
+	//	unit	not set for T2inFunction
+	//	standard_unit	not set for T2inFunction
+	//	display_unit	not set for T2inFunction
+	//	format	not set for T2inFunction
+	//	max_value	not set for T2inFunction
+	//	min_value	not set for T2inFunction
+	//	max_alarm	not set for T2inFunction
+	//	min_alarm	not set for T2inFunction
+	//	max_warning	not set for T2inFunction
+	//	min_warning	not set for T2inFunction
+	//	delta_t	not set for T2inFunction
+	//	delta_val	not set for T2inFunction
+	
+	t2infunction->set_default_properties(t2infunction_prop);
+	//	Not Polled
+	t2infunction->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2infunction);
+
+	//	Attribute : MCinMask
+	MCinMaskAttrib	*mcinmask = new MCinMaskAttrib();
+	Tango::UserDefaultAttrProp	mcinmask_prop;
+	mcinmask_prop.set_description("MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	mcinmask_prop.set_label("MC Masking Array");
+	//	unit	not set for MCinMask
+	//	standard_unit	not set for MCinMask
+	//	display_unit	not set for MCinMask
+	//	format	not set for MCinMask
+	//	max_value	not set for MCinMask
+	//	min_value	not set for MCinMask
+	//	max_alarm	not set for MCinMask
+	//	min_alarm	not set for MCinMask
+	//	max_warning	not set for MCinMask
+	//	min_warning	not set for MCinMask
+	//	delta_t	not set for MCinMask
+	//	delta_val	not set for MCinMask
+	
+	mcinmask->set_default_properties(mcinmask_prop);
+	//	Not Polled
+	mcinmask->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(mcinmask);
+
+	//	Attribute : MCinFunction
+	MCinFunctionAttrib	*mcinfunction = new MCinFunctionAttrib();
+	Tango::UserDefaultAttrProp	mcinfunction_prop;
+	mcinfunction_prop.set_description("MC Function array (in_function) contains 16-bit entries that define the value of masked bits.");
+	mcinfunction_prop.set_label("MC Function array");
+	//	unit	not set for MCinFunction
+	//	standard_unit	not set for MCinFunction
+	//	display_unit	not set for MCinFunction
+	//	format	not set for MCinFunction
+	//	max_value	not set for MCinFunction
+	//	min_value	not set for MCinFunction
+	//	max_alarm	not set for MCinFunction
+	//	min_alarm	not set for MCinFunction
+	//	max_warning	not set for MCinFunction
+	//	min_warning	not set for MCinFunction
+	//	delta_t	not set for MCinFunction
+	//	delta_val	not set for MCinFunction
+	
+	mcinfunction->set_default_properties(mcinfunction_prop);
+	//	Not Polled
+	mcinfunction->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(mcinfunction);
+
+	//	Attribute : T0Duration
+	T0DurationAttrib	*t0duration = new T0DurationAttrib();
+	Tango::UserDefaultAttrProp	t0duration_prop;
+	t0duration_prop.set_description("Duration of signal active pulse");
+	t0duration_prop.set_label("T0 Duration");
+	//	unit	not set for T0Duration
+	//	standard_unit	not set for T0Duration
+	//	display_unit	not set for T0Duration
+	//	format	not set for T0Duration
+	//	max_value	not set for T0Duration
+	//	min_value	not set for T0Duration
+	//	max_alarm	not set for T0Duration
+	//	min_alarm	not set for T0Duration
+	//	max_warning	not set for T0Duration
+	//	min_warning	not set for T0Duration
+	//	delta_t	not set for T0Duration
+	//	delta_val	not set for T0Duration
+	
+	t0duration->set_default_properties(t0duration_prop);
+	//	Not Polled
+	t0duration->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t0duration);
+
+	//	Attribute : InterlockID
+	InterlockIDAttrib	*interlockid = new InterlockIDAttrib();
+	Tango::UserDefaultAttrProp	interlockid_prop;
+	interlockid_prop.set_description("Oversaturation or X-Y orbit threshold");
+	interlockid_prop.set_label("Interlock ID");
+	//	unit	not set for InterlockID
+	//	standard_unit	not set for InterlockID
+	//	display_unit	not set for InterlockID
+	//	format	not set for InterlockID
+	//	max_value	not set for InterlockID
+	//	min_value	not set for InterlockID
+	//	max_alarm	not set for InterlockID
+	//	min_alarm	not set for InterlockID
+	//	max_warning	not set for InterlockID
+	//	min_warning	not set for InterlockID
+	//	delta_t	not set for InterlockID
+	//	delta_val	not set for InterlockID
+	
+	interlockid->set_default_properties(interlockid_prop);
+	//	Not Polled
+	interlockid->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(interlockid);
+
+	//	Attribute : SPEnabled
+	SPEnabledAttrib	*spenabled = new SPEnabledAttrib();
+	Tango::UserDefaultAttrProp	spenabled_prop;
+	spenabled_prop.set_description("Single Pass data source activation flag");
+	spenabled_prop.set_label("SP Enabled");
+	spenabled_prop.set_unit("n/a");
+	spenabled_prop.set_standard_unit("n/a");
+	spenabled_prop.set_display_unit("n/a");
+	//	format	not set for SPEnabled
+	//	max_value	not set for SPEnabled
+	//	min_value	not set for SPEnabled
+	//	max_alarm	not set for SPEnabled
+	//	min_alarm	not set for SPEnabled
+	//	max_warning	not set for SPEnabled
+	//	min_warning	not set for SPEnabled
+	//	delta_t	not set for SPEnabled
+	//	delta_val	not set for SPEnabled
+	
+	spenabled->set_default_properties(spenabled_prop);
+	//	Not Polled
+	spenabled->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(spenabled);
+
+	//	Attribute : SPBufferSize
+	SPBufferSizeAttrib	*spbuffersize = new SPBufferSizeAttrib();
+	Tango::UserDefaultAttrProp	spbuffersize_prop;
+	spbuffersize_prop.set_description("The number of samples to be read on Single Pass data source.");
+	spbuffersize_prop.set_label("SP Buffer Size");
+	spbuffersize_prop.set_unit("turns");
+	//	standard_unit	not set for SPBufferSize
+	//	display_unit	not set for SPBufferSize
+	spbuffersize_prop.set_format("%5d");
+	spbuffersize_prop.set_max_value("65535");
+	spbuffersize_prop.set_min_value("2");
+	//	max_alarm	not set for SPBufferSize
+	//	min_alarm	not set for SPBufferSize
+	//	max_warning	not set for SPBufferSize
+	//	min_warning	not set for SPBufferSize
+	//	delta_t	not set for SPBufferSize
+	//	delta_val	not set for SPBufferSize
+	
+	spbuffersize->set_default_properties(spbuffersize_prop);
+	//	Not Polled
+	spbuffersize->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(spbuffersize);
+
+	//	Attribute : T2EdgeFalling
+	T2EdgeFallingAttrib	*t2edgefalling = new T2EdgeFallingAttrib();
+	Tango::UserDefaultAttrProp	t2edgefalling_prop;
+	//	description	not set for T2EdgeFalling
+	t2edgefalling_prop.set_label("T2 Edge Falling");
+	t2edgefalling_prop.set_unit("n/a");
+	t2edgefalling_prop.set_standard_unit("n/a");
+	t2edgefalling_prop.set_display_unit("n/a");
+	//	format	not set for T2EdgeFalling
+	//	max_value	not set for T2EdgeFalling
+	//	min_value	not set for T2EdgeFalling
+	//	max_alarm	not set for T2EdgeFalling
+	//	min_alarm	not set for T2EdgeFalling
+	//	max_warning	not set for T2EdgeFalling
+	//	min_warning	not set for T2EdgeFalling
+	//	delta_t	not set for T2EdgeFalling
+	//	delta_val	not set for T2EdgeFalling
+	
+	t2edgefalling->set_default_properties(t2edgefalling_prop);
+	//	Not Polled
+	t2edgefalling->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2edgefalling);
+
+	//	Attribute : T2EdgeRising
+	T2EdgeRisingAttrib	*t2edgerising = new T2EdgeRisingAttrib();
+	Tango::UserDefaultAttrProp	t2edgerising_prop;
+	//	description	not set for T2EdgeRising
+	t2edgerising_prop.set_label("T2 Edge Rising");
+	t2edgerising_prop.set_unit("n/a");
+	t2edgerising_prop.set_standard_unit("n/a");
+	t2edgerising_prop.set_display_unit("n/a");
+	//	format	not set for T2EdgeRising
+	//	max_value	not set for T2EdgeRising
+	//	min_value	not set for T2EdgeRising
+	//	max_alarm	not set for T2EdgeRising
+	//	min_alarm	not set for T2EdgeRising
+	//	max_warning	not set for T2EdgeRising
+	//	min_warning	not set for T2EdgeRising
+	//	delta_t	not set for T2EdgeRising
+	//	delta_val	not set for T2EdgeRising
+	
+	t2edgerising->set_default_properties(t2edgerising_prop);
+	//	Not Polled
+	t2edgerising->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2edgerising);
+
+	//	Attribute : T1EdgeFalling
+	T1EdgeFallingAttrib	*t1edgefalling = new T1EdgeFallingAttrib();
+	Tango::UserDefaultAttrProp	t1edgefalling_prop;
+	//	description	not set for T1EdgeFalling
+	t1edgefalling_prop.set_label("T2 Edge Falling");
+	t1edgefalling_prop.set_unit("n/a");
+	t1edgefalling_prop.set_standard_unit("n/a");
+	t1edgefalling_prop.set_display_unit("n/a");
+	//	format	not set for T1EdgeFalling
+	//	max_value	not set for T1EdgeFalling
+	//	min_value	not set for T1EdgeFalling
+	//	max_alarm	not set for T1EdgeFalling
+	//	min_alarm	not set for T1EdgeFalling
+	//	max_warning	not set for T1EdgeFalling
+	//	min_warning	not set for T1EdgeFalling
+	//	delta_t	not set for T1EdgeFalling
+	//	delta_val	not set for T1EdgeFalling
+	
+	t1edgefalling->set_default_properties(t1edgefalling_prop);
+	//	Not Polled
+	t1edgefalling->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1edgefalling);
+
+	//	Attribute : T1EdgeRising
+	T1EdgeRisingAttrib	*t1edgerising = new T1EdgeRisingAttrib();
+	Tango::UserDefaultAttrProp	t1edgerising_prop;
+	//	description	not set for T1EdgeRising
+	t1edgerising_prop.set_label("T1 Edge Rising");
+	t1edgerising_prop.set_unit("n/a");
+	t1edgerising_prop.set_standard_unit("n/a");
+	t1edgerising_prop.set_display_unit("n/a");
+	//	format	not set for T1EdgeRising
+	//	max_value	not set for T1EdgeRising
+	//	min_value	not set for T1EdgeRising
+	//	max_alarm	not set for T1EdgeRising
+	//	min_alarm	not set for T1EdgeRising
+	//	max_warning	not set for T1EdgeRising
+	//	min_warning	not set for T1EdgeRising
+	//	delta_t	not set for T1EdgeRising
+	//	delta_val	not set for T1EdgeRising
+	
+	t1edgerising->set_default_properties(t1edgerising_prop);
+	//	Not Polled
+	t1edgerising->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1edgerising);
+
+	//	Attribute : T2ID
+	T2IDAttrib	*t2id = new T2IDAttrib();
+	Tango::UserDefaultAttrProp	t2id_prop;
+	t2id_prop.set_description("T2 Optical event ID");
+	t2id_prop.set_label("T2 ID");
+	t2id_prop.set_unit("n/a");
+	t2id_prop.set_standard_unit("n/a");
+	t2id_prop.set_display_unit("n/a");
+	//	format	not set for T2ID
+	//	max_value	not set for T2ID
+	//	min_value	not set for T2ID
+	//	max_alarm	not set for T2ID
+	//	min_alarm	not set for T2ID
+	//	max_warning	not set for T2ID
+	//	min_warning	not set for T2ID
+	//	delta_t	not set for T2ID
+	//	delta_val	not set for T2ID
+	
+	t2id->set_default_properties(t2id_prop);
+	//	Not Polled
+	t2id->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2id);
+
+	//	Attribute : T1ID
+	T1IDAttrib	*t1id = new T1IDAttrib();
+	Tango::UserDefaultAttrProp	t1id_prop;
+	t1id_prop.set_description("T1 Optical event ID");
+	t1id_prop.set_label("T1 ID");
+	t1id_prop.set_unit("n/a");
+	t1id_prop.set_standard_unit("n/a");
+	t1id_prop.set_display_unit("n/a");
+	//	format	not set for T1ID
+	//	max_value	not set for T1ID
+	//	min_value	not set for T1ID
+	//	max_alarm	not set for T1ID
+	//	min_alarm	not set for T1ID
+	//	max_warning	not set for T1ID
+	//	min_warning	not set for T1ID
+	//	delta_t	not set for T1ID
+	//	delta_val	not set for T1ID
+	
+	t1id->set_default_properties(t1id_prop);
+	//	Not Polled
+	t1id->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1id);
+
+	//	Attribute : PMBufferSize
+	PMBufferSizeAttrib	*pmbuffersize = new PMBufferSizeAttrib();
+	Tango::UserDefaultAttrProp	pmbuffersize_prop;
+	pmbuffersize_prop.set_description("The number of samples to be read on PM data source.\n");
+	pmbuffersize_prop.set_label("PM Buffer Size");
+	//	unit	not set for PMBufferSize
+	//	standard_unit	not set for PMBufferSize
+	//	display_unit	not set for PMBufferSize
+	pmbuffersize_prop.set_format("%5d");
+	//	max_value	not set for PMBufferSize
+	//	min_value	not set for PMBufferSize
+	//	max_alarm	not set for PMBufferSize
+	//	min_alarm	not set for PMBufferSize
+	//	max_warning	not set for PMBufferSize
+	//	min_warning	not set for PMBufferSize
+	//	delta_t	not set for PMBufferSize
+	//	delta_val	not set for PMBufferSize
+	
+	pmbuffersize->set_default_properties(pmbuffersize_prop);
+	//	Not Polled
+	pmbuffersize->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(pmbuffersize);
+
+	//	Attribute : PMSource
+	PMSourceAttrib	*pmsource = new PMSourceAttrib();
+	Tango::UserDefaultAttrProp	pmsource_prop;
+	pmsource_prop.set_description("source of the PM event (﻿external,interlock,limits)\n");
+	pmsource_prop.set_label("PM Source");
+	//	unit	not set for PMSource
+	//	standard_unit	not set for PMSource
+	//	display_unit	not set for PMSource
+	//	format	not set for PMSource
+	//	max_value	not set for PMSource
+	//	min_value	not set for PMSource
+	//	max_alarm	not set for PMSource
+	//	min_alarm	not set for PMSource
+	//	max_warning	not set for PMSource
+	//	min_warning	not set for PMSource
+	//	delta_t	not set for PMSource
+	//	delta_val	not set for PMSource
+	
+	pmsource->set_default_properties(pmsource_prop);
+	//	Not Polled
+	pmsource->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(pmsource);
+
+	//	Attribute : T1Direction
+	T1DirectionAttrib	*t1direction = new T1DirectionAttrib();
+	Tango::UserDefaultAttrProp	t1direction_prop;
+	t1direction_prop.set_description("t2 port direction");
+	t1direction_prop.set_label("t1 Direction");
+	//	unit	not set for T1Direction
+	//	standard_unit	not set for T1Direction
+	//	display_unit	not set for T1Direction
+	//	format	not set for T1Direction
+	//	max_value	not set for T1Direction
+	//	min_value	not set for T1Direction
+	//	max_alarm	not set for T1Direction
+	//	min_alarm	not set for T1Direction
+	//	max_warning	not set for T1Direction
+	//	min_warning	not set for T1Direction
+	//	delta_t	not set for T1Direction
+	//	delta_val	not set for T1Direction
+	
+	t1direction->set_default_properties(t1direction_prop);
+	//	Not Polled
+	t1direction->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1direction);
+
+	//	Attribute : T2Direction
+	T2DirectionAttrib	*t2direction = new T2DirectionAttrib();
+	Tango::UserDefaultAttrProp	t2direction_prop;
+	t2direction_prop.set_description("t2 port direction");
+	t2direction_prop.set_label("t2 Direction");
+	//	unit	not set for T2Direction
+	//	standard_unit	not set for T2Direction
+	//	display_unit	not set for T2Direction
+	//	format	not set for T2Direction
+	//	max_value	not set for T2Direction
+	//	min_value	not set for T2Direction
+	//	max_alarm	not set for T2Direction
+	//	min_alarm	not set for T2Direction
+	//	max_warning	not set for T2Direction
+	//	min_warning	not set for T2Direction
+	//	delta_t	not set for T2Direction
+	//	delta_val	not set for T2Direction
+	
+	t2direction->set_default_properties(t2direction_prop);
+	//	Not Polled
+	t2direction->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2direction);
 
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
@@ -4215,6 +6093,390 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(logs);
 
+	//	Attribute : XPosTD
+	XPosTDAttrib	*xpostd = new XPosTDAttrib();
+	Tango::UserDefaultAttrProp	xpostd_prop;
+	xpostd_prop.set_description("Turn by turn data: X Pos.");
+	xpostd_prop.set_label("TD X Pos.");
+	xpostd_prop.set_unit("mm");
+	xpostd_prop.set_standard_unit("mm");
+	xpostd_prop.set_display_unit("mm");
+	xpostd_prop.set_format("%8.4f");
+	//	max_value	not set for XPosTD
+	//	min_value	not set for XPosTD
+	//	max_alarm	not set for XPosTD
+	//	min_alarm	not set for XPosTD
+	//	max_warning	not set for XPosTD
+	//	min_warning	not set for XPosTD
+	//	delta_t	not set for XPosTD
+	//	delta_val	not set for XPosTD
+	
+	xpostd->set_default_properties(xpostd_prop);
+	//	Not Polled
+	xpostd->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(xpostd);
+
+	//	Attribute : YPosTD
+	YPosTDAttrib	*ypostd = new YPosTDAttrib();
+	Tango::UserDefaultAttrProp	ypostd_prop;
+	ypostd_prop.set_description("Turn by turn data: Y Pos.");
+	ypostd_prop.set_label("TD Y Pos.");
+	ypostd_prop.set_unit("mm");
+	ypostd_prop.set_standard_unit("mm");
+	ypostd_prop.set_display_unit("mm");
+	ypostd_prop.set_format("%8.4f");
+	//	max_value	not set for YPosTD
+	//	min_value	not set for YPosTD
+	//	max_alarm	not set for YPosTD
+	//	min_alarm	not set for YPosTD
+	//	max_warning	not set for YPosTD
+	//	min_warning	not set for YPosTD
+	//	delta_t	not set for YPosTD
+	//	delta_val	not set for YPosTD
+	
+	ypostd->set_default_properties(ypostd_prop);
+	//	Not Polled
+	ypostd->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ypostd);
+
+	//	Attribute : QuadTD
+	QuadTDAttrib	*quadtd = new QuadTDAttrib();
+	Tango::UserDefaultAttrProp	quadtd_prop;
+	quadtd_prop.set_description("Turn by turn data: Quad");
+	quadtd_prop.set_label("TD Quad");
+	quadtd_prop.set_unit("a.u.");
+	quadtd_prop.set_standard_unit("a.u.");
+	quadtd_prop.set_display_unit("a.u.");
+	quadtd_prop.set_format("%8.4f");
+	//	max_value	not set for QuadTD
+	//	min_value	not set for QuadTD
+	//	max_alarm	not set for QuadTD
+	//	min_alarm	not set for QuadTD
+	//	max_warning	not set for QuadTD
+	//	min_warning	not set for QuadTD
+	//	delta_t	not set for QuadTD
+	//	delta_val	not set for QuadTD
+	
+	quadtd->set_default_properties(quadtd_prop);
+	//	Not Polled
+	quadtd->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(quadtd);
+
+	//	Attribute : SumTD
+	SumTDAttrib	*sumtd = new SumTDAttrib();
+	Tango::UserDefaultAttrProp	sumtd_prop;
+	sumtd_prop.set_description("Turn by turn data: Sum");
+	sumtd_prop.set_label("TD Sum");
+	sumtd_prop.set_unit("mm");
+	sumtd_prop.set_standard_unit("mm");
+	sumtd_prop.set_display_unit("mm");
+	sumtd_prop.set_format("%10.0f");
+	//	max_value	not set for SumTD
+	//	min_value	not set for SumTD
+	//	max_alarm	not set for SumTD
+	//	min_alarm	not set for SumTD
+	//	max_warning	not set for SumTD
+	//	min_warning	not set for SumTD
+	//	delta_t	not set for SumTD
+	//	delta_val	not set for SumTD
+	
+	sumtd->set_default_properties(sumtd_prop);
+	//	Not Polled
+	sumtd->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(sumtd);
+
+	//	Attribute : VaTD
+	VaTDAttrib	*vatd = new VaTDAttrib();
+	Tango::UserDefaultAttrProp	vatd_prop;
+	vatd_prop.set_description("Turn by turn data: Va");
+	vatd_prop.set_label("TD Va");
+	vatd_prop.set_unit("a.u.");
+	vatd_prop.set_standard_unit("a.u.");
+	vatd_prop.set_display_unit("a.u.");
+	vatd_prop.set_format("%10.0f");
+	//	max_value	not set for VaTD
+	//	min_value	not set for VaTD
+	//	max_alarm	not set for VaTD
+	//	min_alarm	not set for VaTD
+	//	max_warning	not set for VaTD
+	//	min_warning	not set for VaTD
+	//	delta_t	not set for VaTD
+	//	delta_val	not set for VaTD
+	
+	vatd->set_default_properties(vatd_prop);
+	//	Not Polled
+	vatd->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vatd);
+
+	//	Attribute : VbTD
+	VbTDAttrib	*vbtd = new VbTDAttrib();
+	Tango::UserDefaultAttrProp	vbtd_prop;
+	vbtd_prop.set_description("Turn by turn data: Vb");
+	vbtd_prop.set_label("TD Vb");
+	vbtd_prop.set_unit("a.u.");
+	vbtd_prop.set_standard_unit("a.u.");
+	vbtd_prop.set_display_unit("a.u.");
+	vbtd_prop.set_format("%10.0f");
+	//	max_value	not set for VbTD
+	//	min_value	not set for VbTD
+	//	max_alarm	not set for VbTD
+	//	min_alarm	not set for VbTD
+	//	max_warning	not set for VbTD
+	//	min_warning	not set for VbTD
+	//	delta_t	not set for VbTD
+	//	delta_val	not set for VbTD
+	
+	vbtd->set_default_properties(vbtd_prop);
+	//	Not Polled
+	vbtd->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vbtd);
+
+	//	Attribute : VcTD
+	VcTDAttrib	*vctd = new VcTDAttrib();
+	Tango::UserDefaultAttrProp	vctd_prop;
+	vctd_prop.set_description("Turn by turn data: Vc");
+	vctd_prop.set_label("TD Vc");
+	vctd_prop.set_unit("a.u.");
+	vctd_prop.set_standard_unit("a.u.");
+	vctd_prop.set_display_unit("a.u.");
+	vctd_prop.set_format("%10.0f");
+	//	max_value	not set for VcTD
+	//	min_value	not set for VcTD
+	//	max_alarm	not set for VcTD
+	//	min_alarm	not set for VcTD
+	//	max_warning	not set for VcTD
+	//	min_warning	not set for VcTD
+	//	delta_t	not set for VcTD
+	//	delta_val	not set for VcTD
+	
+	vctd->set_default_properties(vctd_prop);
+	//	Not Polled
+	vctd->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vctd);
+
+	//	Attribute : VdTD
+	VdTDAttrib	*vdtd = new VdTDAttrib();
+	Tango::UserDefaultAttrProp	vdtd_prop;
+	vdtd_prop.set_description("Turn by turn data: Vd");
+	vdtd_prop.set_label("TD Vd");
+	vdtd_prop.set_unit("a.u.");
+	vdtd_prop.set_standard_unit("a.u.");
+	vdtd_prop.set_display_unit("a.u.");
+	vdtd_prop.set_format("%10.0f");
+	//	max_value	not set for VdTD
+	//	min_value	not set for VdTD
+	//	max_alarm	not set for VdTD
+	//	min_alarm	not set for VdTD
+	//	max_warning	not set for VdTD
+	//	min_warning	not set for VdTD
+	//	delta_t	not set for VdTD
+	//	delta_val	not set for VdTD
+	
+	vdtd->set_default_properties(vdtd_prop);
+	//	Not Polled
+	vdtd->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vdtd);
+
+	//	Attribute : VaSP
+	VaSPAttrib	*vasp = new VaSPAttrib();
+	Tango::UserDefaultAttrProp	vasp_prop;
+	vasp_prop.set_description("Single Pass data: Va");
+	vasp_prop.set_label("SP Va");
+	vasp_prop.set_unit("a.u.");
+	vasp_prop.set_standard_unit("a.u.");
+	vasp_prop.set_display_unit("a.u.");
+	vasp_prop.set_format("%10.0f");
+	//	max_value	not set for VaSP
+	//	min_value	not set for VaSP
+	//	max_alarm	not set for VaSP
+	//	min_alarm	not set for VaSP
+	//	max_warning	not set for VaSP
+	//	min_warning	not set for VaSP
+	//	delta_t	not set for VaSP
+	//	delta_val	not set for VaSP
+	
+	vasp->set_default_properties(vasp_prop);
+	//	Not Polled
+	vasp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vasp);
+
+	//	Attribute : VbSP
+	VbSPAttrib	*vbsp = new VbSPAttrib();
+	Tango::UserDefaultAttrProp	vbsp_prop;
+	vbsp_prop.set_description("Single Pass data: Vb");
+	vbsp_prop.set_label("SP Vb");
+	vbsp_prop.set_unit("a.u.");
+	vbsp_prop.set_standard_unit("a.u.");
+	vbsp_prop.set_display_unit("a.u.");
+	vbsp_prop.set_format("%10.0f");
+	//	max_value	not set for VbSP
+	//	min_value	not set for VbSP
+	//	max_alarm	not set for VbSP
+	//	min_alarm	not set for VbSP
+	//	max_warning	not set for VbSP
+	//	min_warning	not set for VbSP
+	//	delta_t	not set for VbSP
+	//	delta_val	not set for VbSP
+	
+	vbsp->set_default_properties(vbsp_prop);
+	//	Not Polled
+	vbsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vbsp);
+
+	//	Attribute : VcSP
+	VcSPAttrib	*vcsp = new VcSPAttrib();
+	Tango::UserDefaultAttrProp	vcsp_prop;
+	vcsp_prop.set_description("Single Pass data: Vc");
+	vcsp_prop.set_label("SP Vc");
+	vcsp_prop.set_unit("a.u.");
+	vcsp_prop.set_standard_unit("a.u.");
+	vcsp_prop.set_display_unit("a.u.");
+	vcsp_prop.set_format("%10.0f");
+	//	max_value	not set for VcSP
+	//	min_value	not set for VcSP
+	//	max_alarm	not set for VcSP
+	//	min_alarm	not set for VcSP
+	//	max_warning	not set for VcSP
+	//	min_warning	not set for VcSP
+	//	delta_t	not set for VcSP
+	//	delta_val	not set for VcSP
+	
+	vcsp->set_default_properties(vcsp_prop);
+	//	Not Polled
+	vcsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vcsp);
+
+	//	Attribute : VdSP
+	VdSPAttrib	*vdsp = new VdSPAttrib();
+	Tango::UserDefaultAttrProp	vdsp_prop;
+	vdsp_prop.set_description("Single Pass data: Vd");
+	vdsp_prop.set_label("SP Vd");
+	vdsp_prop.set_unit("a.u.");
+	vdsp_prop.set_standard_unit("a.u.");
+	vdsp_prop.set_display_unit("a.u.");
+	vdsp_prop.set_format("%10.0f");
+	//	max_value	not set for VdSP
+	//	min_value	not set for VdSP
+	//	max_alarm	not set for VdSP
+	//	min_alarm	not set for VdSP
+	//	max_warning	not set for VdSP
+	//	min_warning	not set for VdSP
+	//	delta_t	not set for VdSP
+	//	delta_val	not set for VdSP
+	
+	vdsp->set_default_properties(vdsp_prop);
+	//	Not Polled
+	vdsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vdsp);
+
+	//	Attribute : SumSP
+	SumSPAttrib	*sumsp = new SumSPAttrib();
+	Tango::UserDefaultAttrProp	sumsp_prop;
+	sumsp_prop.set_description("Single Pass data: Sum");
+	sumsp_prop.set_label("SP Sum");
+	sumsp_prop.set_unit("mm");
+	sumsp_prop.set_standard_unit("mm");
+	sumsp_prop.set_display_unit("mm");
+	sumsp_prop.set_format("%10.0f");
+	//	max_value	not set for SumSP
+	//	min_value	not set for SumSP
+	//	max_alarm	not set for SumSP
+	//	min_alarm	not set for SumSP
+	//	max_warning	not set for SumSP
+	//	min_warning	not set for SumSP
+	//	delta_t	not set for SumSP
+	//	delta_val	not set for SumSP
+	
+	sumsp->set_default_properties(sumsp_prop);
+	//	Not Polled
+	sumsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(sumsp);
+
+	//	Attribute : XPosSP
+	XPosSPAttrib	*xpossp = new XPosSPAttrib();
+	Tango::UserDefaultAttrProp	xpossp_prop;
+	xpossp_prop.set_description("Single Pass data: X Pos.");
+	xpossp_prop.set_label("SP X Pos.");
+	xpossp_prop.set_unit("mm");
+	xpossp_prop.set_standard_unit("mm");
+	xpossp_prop.set_display_unit("mm");
+	xpossp_prop.set_format("%8.4f");
+	//	max_value	not set for XPosSP
+	//	min_value	not set for XPosSP
+	//	max_alarm	not set for XPosSP
+	//	min_alarm	not set for XPosSP
+	//	max_warning	not set for XPosSP
+	//	min_warning	not set for XPosSP
+	//	delta_t	not set for XPosSP
+	//	delta_val	not set for XPosSP
+	
+	xpossp->set_default_properties(xpossp_prop);
+	//	Not Polled
+	xpossp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(xpossp);
+
+	//	Attribute : YPosSP
+	YPosSPAttrib	*ypossp = new YPosSPAttrib();
+	Tango::UserDefaultAttrProp	ypossp_prop;
+	ypossp_prop.set_description("Single Pass data: Y Pos.");
+	ypossp_prop.set_label("SP Y Pos.");
+	ypossp_prop.set_unit("mm");
+	ypossp_prop.set_standard_unit("mm");
+	ypossp_prop.set_display_unit("mm");
+	ypossp_prop.set_format("%8.4f");
+	//	max_value	not set for YPosSP
+	//	min_value	not set for YPosSP
+	//	max_alarm	not set for YPosSP
+	//	min_alarm	not set for YPosSP
+	//	max_warning	not set for YPosSP
+	//	min_warning	not set for YPosSP
+	//	delta_t	not set for YPosSP
+	//	delta_val	not set for YPosSP
+	
+	ypossp->set_default_properties(ypossp_prop);
+	//	Not Polled
+	ypossp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ypossp);
+
+	//	Attribute : ThdrId
+	ThdrIdAttrib	*thdrid = new ThdrIdAttrib();
+	Tango::UserDefaultAttrProp	thdrid_prop;
+	thdrid_prop.set_description("Indicates the ADC sample in the ADC buffer where the threshold was exceeded");
+	thdrid_prop.set_label("SP Thr_Idx");
+	thdrid_prop.set_unit("a.u.");
+	thdrid_prop.set_standard_unit("a.u.");
+	thdrid_prop.set_display_unit("a.u.");
+	thdrid_prop.set_format("%10.0f");
+	//	max_value	not set for ThdrId
+	//	min_value	not set for ThdrId
+	//	max_alarm	not set for ThdrId
+	//	min_alarm	not set for ThdrId
+	//	max_warning	not set for ThdrId
+	//	min_warning	not set for ThdrId
+	//	delta_t	not set for ThdrId
+	//	delta_val	not set for ThdrId
+	
+	thdrid->set_default_properties(thdrid_prop);
+	//	Not Polled
+	thdrid->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(thdrid);
+
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::attribute_factory_after) ENABLED START -----*/
@@ -4418,6 +6680,69 @@ void LiberaBrilliancePlusClass::command_factory()
 			"value of specified node(s)",
 			Tango::EXPERT);
 	command_list.push_back(pMagicCommandCmd);
+
+	//	Command EnableTDBufferFreezing
+	EnableTDBufferFreezingClass	*pEnableTDBufferFreezingCmd =
+		new EnableTDBufferFreezingClass("EnableTDBufferFreezing",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pEnableTDBufferFreezingCmd);
+
+	//	Command DisableTDBufferFreezing
+	DisableTDBufferFreezingClass	*pDisableTDBufferFreezingCmd =
+		new DisableTDBufferFreezingClass("DisableTDBufferFreezing",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pDisableTDBufferFreezingCmd);
+
+	//	Command EnableTD
+	EnableTDClass	*pEnableTDCmd =
+		new EnableTDClass("EnableTD",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pEnableTDCmd);
+
+	//	Command DisableTD
+	DisableTDClass	*pDisableTDCmd =
+		new DisableTDClass("DisableTD",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pDisableTDCmd);
+
+	//	Command UnfreezeTDBuffer
+	UnfreezeTDBufferClass	*pUnfreezeTDBufferCmd =
+		new UnfreezeTDBufferClass("UnfreezeTDBuffer",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pUnfreezeTDBufferCmd);
+
+	//	Command EnableSP
+	EnableSPClass	*pEnableSPCmd =
+		new EnableSPClass("EnableSP",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pEnableSPCmd);
+
+	//	Command DisableSP
+	DisableSPClass	*pDisableSPCmd =
+		new DisableSPClass("DisableSP",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pDisableSPCmd);
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::command_factory_after) ENABLED START -----*/
 	
