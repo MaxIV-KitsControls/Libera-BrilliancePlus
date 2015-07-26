@@ -648,6 +648,60 @@ CORBA::Any *DisableSPClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(cons
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		StartSynchronizationClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *StartSynchronizationClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "StartSynchronizationClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->start_synchronization());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		AnnounceSynchronizationClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *AnnounceSynchronizationClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "AnnounceSynchronizationClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->announce_synchronization());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		ForceInitSettingsClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *ForceInitSettingsClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "ForceInitSettingsClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->force_init_settings());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -1757,9 +1811,9 @@ void LiberaBrilliancePlusClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "DefaultPMBufferSize";
 	prop_desc = "PM buffer capacity";
-	prop_def  = "﻿524288";
+	prop_def  = "524288";
 	vect_data.clear();
-	vect_data.push_back("﻿524288");
+	vect_data.push_back("524288");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -5301,6 +5355,30 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(t2direction);
 
+	//	Attribute : SynchronizeLMT
+	SynchronizeLMTAttrib	*synchronizelmt = new SynchronizeLMTAttrib();
+	Tango::UserDefaultAttrProp	synchronizelmt_prop;
+	synchronizelmt_prop.set_description("The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]");
+	synchronizelmt_prop.set_label("Sync LMT");
+	//	unit	not set for SynchronizeLMT
+	//	standard_unit	not set for SynchronizeLMT
+	//	display_unit	not set for SynchronizeLMT
+	//	format	not set for SynchronizeLMT
+	//	max_value	not set for SynchronizeLMT
+	//	min_value	not set for SynchronizeLMT
+	//	max_alarm	not set for SynchronizeLMT
+	//	min_alarm	not set for SynchronizeLMT
+	//	max_warning	not set for SynchronizeLMT
+	//	min_warning	not set for SynchronizeLMT
+	//	delta_t	not set for SynchronizeLMT
+	//	delta_val	not set for SynchronizeLMT
+	
+	synchronizelmt->set_default_properties(synchronizelmt_prop);
+	//	Not Polled
+	synchronizelmt->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(synchronizelmt);
+
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
 	Tango::UserDefaultAttrProp	xposdd_prop;
@@ -6743,6 +6821,33 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pDisableSPCmd);
+
+	//	Command StartSynchronization
+	StartSynchronizationClass	*pStartSynchronizationCmd =
+		new StartSynchronizationClass("StartSynchronization",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pStartSynchronizationCmd);
+
+	//	Command AnnounceSynchronization
+	AnnounceSynchronizationClass	*pAnnounceSynchronizationCmd =
+		new AnnounceSynchronizationClass("AnnounceSynchronization",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pAnnounceSynchronizationCmd);
+
+	//	Command ForceInitSettings
+	ForceInitSettingsClass	*pForceInitSettingsCmd =
+		new ForceInitSettingsClass("ForceInitSettings",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pForceInitSettingsCmd);
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::command_factory_after) ENABLED START -----*/
 	

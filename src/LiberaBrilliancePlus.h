@@ -96,6 +96,9 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
         void TDCallback();
         static void _TDCallback(void *data);
         
+        bool initFlag;
+        void init_settings();
+
         Tango::DevState m_state;
         std::string m_status;
 
@@ -267,13 +270,13 @@ public:
 	//	T2Direction:	t2 port direction -  (Input,Output)
 	Tango::DevShort	t2Direction;
 	//	XminLimit:	X interlock min limit
-	Tango::DevLong	xminLimit;
+	Tango::DevDouble	xminLimit;
 	//	YminLimit:	Y interlock min limit
-	Tango::DevLong	yminLimit;
+	Tango::DevDouble	yminLimit;
 	//	XmaxLimit:	X interlock max limit
-	Tango::DevLong	xmaxLimit;
+	Tango::DevDouble	xmaxLimit;
 	//	YmaxLimit:	Y interlock max limit
-	Tango::DevLong	ymaxLimit;
+	Tango::DevDouble	ymaxLimit;
 	//	InterlockEnable:	Specifies whether or not the Interlock should be enabled at startup.
 	Tango::DevBoolean	interlockEnable;
 	//	T1ID:	T1 Optical event ID
@@ -412,6 +415,7 @@ public:
 	Tango::DevShort	*attr_PMSource_read;
 	Tango::DevShort	*attr_T1Direction_read;
 	Tango::DevShort	*attr_T2Direction_read;
+	Tango::DevLong	*attr_SynchronizeLMT_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -1804,6 +1808,16 @@ public:
 	virtual void write_T2Direction(Tango::WAttribute &attr);
 	virtual bool is_T2Direction_allowed(Tango::AttReqType type);
 /**
+ *	Attribute SynchronizeLMT related methods
+ *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_SynchronizeLMT(Tango::Attribute &attr);
+	virtual void write_SynchronizeLMT(Tango::WAttribute &attr);
+	virtual bool is_SynchronizeLMT_allowed(Tango::AttReqType type);
+/**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
  *
@@ -2472,6 +2486,33 @@ public:
 	 */
 	virtual void disable_sp();
 	virtual bool is_DisableSP_allowed(const CORBA::Any &any);
+	/**
+	 *	Command StartSynchronization related method
+	 *	Description: Starts synchronization procedure:
+	 *               * Synchronization State Machine (MUST be Tracking)
+	 *               * Start the Trigger (t2source=Pulse and then t2source=RTC)
+	 *               * Synchronization State Machine (MUST be Synchronized)
+	 *
+	 */
+	virtual void start_synchronization();
+	virtual bool is_StartSynchronization_allowed(const CORBA::Any &any);
+	/**
+	 *	Command AnnounceSynchronization related method
+	 *	Description: Announce synchronization procedure:
+	 *               * Stop the Trigger (t2source=off)
+	 *               *  MC PLL (MUST be locked)
+	 *               * Synchronization State Machine (MUST be Tracking)
+	 *
+	 */
+	virtual void announce_synchronization();
+	virtual bool is_AnnounceSynchronization_allowed(const CORBA::Any &any);
+	/**
+	 *	Command ForceInitSettings related method
+	 *	Description: Initializing Libera Default Settings (Based to the properties) without performing init_device
+	 *
+	 */
+	virtual void force_init_settings();
+	virtual bool is_ForceInitSettings_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

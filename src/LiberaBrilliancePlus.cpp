@@ -87,6 +87,9 @@ static const char *RcsId = "$Id:  $";
 //  UnfreezeTDBuffer            |  unfreeze_tdbuffer
 //  EnableSP                    |  enable_sp
 //  DisableSP                   |  disable_sp
+//  StartSynchronization        |  start_synchronization
+//  AnnounceSynchronization     |  announce_synchronization
+//  ForceInitSettings           |  force_init_settings
 //================================================================
 
 //================================================================
@@ -221,6 +224,7 @@ static const char *RcsId = "$Id:  $";
 //  PMSource                         |  Tango::DevShort	Scalar
 //  T1Direction                      |  Tango::DevShort	Scalar
 //  T2Direction                      |  Tango::DevShort	Scalar
+//  SynchronizeLMT                   |  Tango::DevLong	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  YPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  QuadDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -479,6 +483,8 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar("", attr_SystemTime_read); // n.a.
     m_libera->AddScalar("", attr_SCPLLStatus_read); // n.a.
     m_libera->AddScalar(tim + "pll.locked", attr_MCPLLStatus_read);
+    m_libera->AddScalar("application.synchronize_lmt",
+    		attr_SynchronizeLMT_read, LiberaAttr::ULONGLONG2LONG, LiberaAttr::LONG2ULONGLONG);
 
     m_libera->AddScalarPM("boards." + liberaBoard + ".sensors.ID_2.value",
         attr_Temp1_read, LiberaAttr::DBL2SHORT);
@@ -488,6 +494,7 @@ void LiberaBrilliancePlus::init_device()
         attr_Temp3_read, LiberaAttr::DBL2SHORT);
     m_libera->AddScalarPM("fans.left_", attr_Fan1Speed_read, LiberaAttr::FAN2SHORT);
     m_libera->AddScalarPM("fans.right_", attr_Fan2Speed_read, LiberaAttr::FAN2SHORT);
+
 
     //n.a.
     m_libera->AddScalar("", attr_Incoherence_read);
@@ -528,7 +535,6 @@ void LiberaBrilliancePlus::init_device()
 
     m_libera->AddScalar("",attr_Ks_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
     m_libera->AddScalar("", attr_QOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-    m_libera->AddScalar("", attr_SynchronizationStatus_read);
 
     //Tdp Signal
     m_libera->AddScalar("", attr_TDDecimationFactor_read); //n.a.
@@ -551,7 +557,7 @@ void LiberaBrilliancePlus::init_device()
 
 
     //MC-CONFIG
-    m_libera->AddScalar(tim + ".rtc.decoder_switch", attr_RtcDecoderSwitch_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
+    m_libera->AddScalar(tim + ".rtc.decoder_switch", attr_RtcDecoderSwitch_read);
     m_libera->AddScalar(tim + ".triggers.mc.source",attr_McSource_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
     m_libera->AddScalar(tim + ".rtc.mc.in_mask",attr_MCinMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
     //m_libera->AddScalar("",attr_MCinMask_read);
@@ -610,21 +616,22 @@ void LiberaBrilliancePlus::init_device()
     		attr_YLow_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
     m_libera->AddScalar(m_raf + "interlock.limits.position.max.y",
     		attr_YHigh_read,LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-    //m_libera->AddScalar("",attr_YLow_read);
-    //m_libera->AddScalar("",attr_XLow_read);
-    //m_libera->AddScalar("",attr_YHigh_read);
-    //m_libera->AddScalar("",attr_XHigh_read);
 
     //POST MORTEM
     m_libera->AddScalar(m_raf + "postmortem.source_select", attr_PMSource_read);
     m_libera->AddScalar(m_raf + "postmortem.capacity", attr_PMBufferSize_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
     m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
-    m_libera->AddScalar(m_raf + "postmortem.capture",
-        attr_PMNotified_read, LiberaAttr::NEGATE, LiberaAttr::NEGATE);
+
+    //Why PMNotified NEGATE type?
+    //m_libera->AddScalar(m_raf + "postmortem.capture",
+    //    attr_PMNotified_read, LiberaAttr::NEGATE, LiberaAttr::NEGATE);
+    m_libera->AddScalar(m_raf + "postmortem.capture",attr_PMNotified_read);
     m_libera->AddScalar(tim + "events.t1.count",
         attr_PMNotificationCounter_read, LiberaAttr::ULL2SHORT);
 
 
+    //m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, mCDecoderSwitch);
+    //*attr_RtcDecoderSwitch_read=mCDecoderSwitch;
 
 //    // Add signals //TODO single_pass
     m_signalSP = m_libera->AddSignal<Tango::DevDouble>(
@@ -789,63 +796,7 @@ void LiberaBrilliancePlus::init_device()
     set_change_event("YPosSP",  true, false);
     try
     {
-        //Update Values from the Properties
-        //MC
-        //*attr_RtcDecoderSwitch_read = mCDecoderSwitch;
 
-        //TODO Strange behaviour here sending value to node and updating Tango value.
-        m_libera->UpdateScalar(attr_McSource_read, mCSource);
-        //*attr_McSource_read = mCSource;
-
-        //*attr_MCinMask_read = mCinMask;
-
-        m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, mCDecoderSwitch);
-        m_libera->UpdateScalar(attr_McSource_read, mCSource);
-        m_libera->UpdateScalar(attr_MCinMask_read, mCinMask);
-        m_libera->UpdateScalar(attr_MCinFunction_read, mCinFunction);
-        //T0
-        m_libera->UpdateScalar(attr_T0Direction_read, t0Direction);
-        //*attr_T0Direction_read = t0Direction;
-        m_libera->UpdateScalar(attr_T0OutputType_read, t0OutType);
-        //*attr_T0OutputType_read = t0OutType
-        m_libera->UpdateScalar(attr_T0Duration_read, t0Duration);
-        m_libera->UpdateScalar(attr_T0Delay_read, t0Delay);
-        m_libera->UpdateScalar(attr_T0State_read, t0State);
-        m_libera->UpdateScalar(attr_T0inMask_read, t0inMask);
-        m_libera->UpdateScalar(attr_T0inFunction_read, t0inFunction);
-        //T1
-        m_libera->UpdateScalar(attr_T1Source_read, t1Source);
-        m_libera->UpdateScalar(attr_T1inMask_read, t1inMask);
-        m_libera->UpdateScalar(attr_T1inFunction_read, t1inFunction);
-        m_libera->UpdateScalar(attr_T1ID_read, t1ID); //**
-        m_libera->UpdateScalar(attr_T1Direction_read, t1Direction);
-        m_libera->UpdateScalar(attr_T1EdgeFalling_read, t1EdgeFalling);
-        m_libera->UpdateScalar(attr_T1EdgeRising_read, t1EdgeRising);
-        //T2
-        m_libera->UpdateScalar(attr_T2Source_read, t2Source);
-        m_libera->UpdateScalar(attr_T2inMask_read, t2inMask);
-        m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
-        m_libera->UpdateScalar(attr_T2ID_read, t2ID); //**
-        m_libera->UpdateScalar(attr_T2Direction_read, t2Direction);
-        m_libera->UpdateScalar(attr_T2EdgeFalling_read, t2EdgeFalling);
-        m_libera->UpdateScalar(attr_T2EdgeRising_read, t2EdgeRising);
-        //Interlock
-        m_libera->UpdateScalar(attr_MgtOut_read, mgtOut); //**
-        m_libera->UpdateScalar(attr_XHigh_read, (double)ymaxLimit); //TODO Later Fix
-        m_libera->UpdateScalar(attr_XLow_read, (double)xminLimit);//TODO Later Fix
-        m_libera->UpdateScalar(attr_YHigh_read, (double)ymaxLimit);//TODO Later Fix
-        m_libera->UpdateScalar(attr_YLow_read, (double)yminLimit);//TODO Later Fix
-        //m_libera->UpdateScalar(attr_MgtOut_read, mgtOut); //**
-        //m_libera->UpdateScalar(attr_XHigh_read, (long)999936); //TODO Later Fix
-        //m_libera->UpdateScalar(attr_XLow_read, -1000064);//TODO Later Fix
-        //Reset Interlock during the init
-    	  m_libera->UpdateScalar(attr_InterlockEnabled_read, false);
-    	  m_libera->UpdateScalar(attr_InterlockEnabled_read, true);
-    	  	  //post Portem Property Settings
-  	  m_libera->UpdateScalar(attr_PMOffset_read, pMOffset);
-  	  m_libera->UpdateScalar(attr_PMNotified_read, pMCapture);
-  	  m_libera->UpdateScalar(attr_PMBufferSize_read, (long)524288);
-  	  m_libera->UpdateScalar(attr_PMSource_read, pMSource);
   	  //Enable PM Signal
   	  //m_signalPM->Enable();
 
@@ -1806,8 +1757,13 @@ void LiberaBrilliancePlus::always_executed_hook()
 	if (m_libera != NULL)
  {
     if (m_libera->IsConnected()) {
-          // call GetData also all attributes from here?
 
+    	//Call init settings function to set the property settings of the libera, *TODO add this function somewhere else
+    	if(initFlag) {
+    		init_settings();
+    		initFlag=false;
+    	}
+          // call GetData also all attributes from here?
     	if(m_signalSP->IsUpdated()) { //TODO just testing, remove later
     		cout << "Single pass signal UPDATE!" << endl;
         	m_signalSP->GetData();
@@ -4719,7 +4675,7 @@ void LiberaBrilliancePlus::write_RtcDecoderSwitch(Tango::WAttribute &attr)
 	Tango::DevShort	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_RtcDecoderSwitch) ENABLED START -----*/
-	
+	//m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, w_val);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_RtcDecoderSwitch
 }
@@ -4947,7 +4903,7 @@ void LiberaBrilliancePlus::write_T2Source(Tango::WAttribute &attr)
 	Tango::DevShort	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2Source) ENABLED START -----*/
-	
+	//m_libera->UpdateScalar(attr_T2Source_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2Source
 }
@@ -5024,7 +4980,7 @@ void LiberaBrilliancePlus::write_SPThreshold(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_SPThreshold) ENABLED START -----*/
 	
-	
+	//m_libera->UpdateScalar(attr_SPThreshold_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SPThreshold
 }
 //--------------------------------------------------------
@@ -5062,7 +5018,7 @@ void LiberaBrilliancePlus::write_SPnBefore(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_SPnBefore) ENABLED START -----*/
 	
-	
+	//m_libera->UpdateScalar(attr_SPnBefore_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SPnBefore
 }
 //--------------------------------------------------------
@@ -5099,7 +5055,7 @@ void LiberaBrilliancePlus::write_SPnAfter(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_SPnAfter) ENABLED START -----*/
-	
+	//m_libera->UpdateScalar(attr_SPnAfter_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SPnAfter
 }
@@ -5943,6 +5899,44 @@ void LiberaBrilliancePlus::write_T2Direction(Tango::WAttribute &attr)
 	
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2Direction
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute SynchronizeLMT related method
+ *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_SynchronizeLMT(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_SynchronizeLMT(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_SynchronizeLMT) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_SynchronizeLMT_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SynchronizeLMT
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute SynchronizeLMT related method
+ *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::write_SynchronizeLMT(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::write_SynchronizeLMT(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevLong	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_SynchronizeLMT) ENABLED START -----*/
+	m_libera->UpdateScalar(attr_SynchronizeLMT_read, w_val);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SynchronizeLMT
 }
 //--------------------------------------------------------
 /**
@@ -6880,7 +6874,7 @@ Tango::ConstDevString LiberaBrilliancePlus::dev_status()
 	DEBUG_STREAM << "LiberaBrilliancePlus::Status()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_status) ENABLED START -----*/
 	//	Add your own code
-	set_status(m_status);  
+	set_status(m_status);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status       // Give the status to Tango.
 	return DeviceImpl::dev_status();
 }
@@ -7375,6 +7369,78 @@ void LiberaBrilliancePlus::disable_sp()
 	m_signalSP->Disable();
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_sp
 }
+//--------------------------------------------------------
+/**
+ *	Command StartSynchronization related method
+ *	Description: Starts synchronization procedure:
+ *               * Synchronization State Machine (MUST be Tracking)
+ *               * Start the Trigger (t2source=Pulse and then t2source=RTC)
+ *               * Synchronization State Machine (MUST be Synchronized)
+ *
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::start_synchronization()
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::StartSynchronization()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::start_synchronization) ENABLED START -----*/
+	
+	//Sync State should be in Tracking (=1) before Start
+//	if(*attr_SynchronizationStatus_read != 1 ) {
+//		//Set Trigger to Pulse == 3
+//		//*attr_T2Source_read=3;
+//		m_libera->UpdateScalar(attr_T2Source_read, (short)3);
+//		//Set Trigger to PTC == 5
+//		m_libera->UpdateScalar(attr_T2Source_read, (short)3);
+//		//*attr_T2Source_read=5;
+//	}
+//	else {
+//		ERROR_STREAM << "Synchronization State Machine is not in TRACKING! Cant start Synchronizations." << endl; //TODO Maybe warn user with a exception?
+//	}
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::start_synchronization
+}
+//--------------------------------------------------------
+/**
+ *	Command AnnounceSynchronization related method
+ *	Description: Announce synchronization procedure:
+ *               * Stop the Trigger (t2source=off)
+ *               *  MC PLL (MUST be locked)
+ *               * Synchronization State Machine (MUST be Tracking)
+ *
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::announce_synchronization()
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::AnnounceSynchronization()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::announce_synchronization) ENABLED START -----*/
+//	if(*attr_MCPLLStatus_read) {
+//		//Stop Trigger
+//		//*attr_T2Source_read=0;
+//		m_libera->UpdateScalar(attr_T2Source_read, (short)0);
+//		//Announce Synchronization
+//		//attr_SynchronizeLMT_read=0;
+//		m_libera->UpdateScalar(attr_SynchronizeLMT_read, (long)0);
+//	}
+//	else {
+//		ERROR_STREAM << "MC Pll is not locked! Cant Announce Synchronizations." << endl; //TODO Maybe warn user with a exception?
+//	}
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::announce_synchronization
+}
+//--------------------------------------------------------
+/**
+ *	Command ForceInitSettings related method
+ *	Description: Initializing Libera Default Settings (Based to the properties) without performing init_device
+ *
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::force_init_settings()
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::ForceInitSettings()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::force_init_settings) ENABLED START -----*/
+	//init_settings();
+
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::force_init_settings
+}
 
 /*----- PROTECTED REGION ID(LiberaBrilliancePlus::namespace_ending) ENABLED START -----*/
 
@@ -7591,5 +7657,150 @@ void LiberaBrilliancePlus::set_lib_error()
     m_state = Tango::OFF;
     m_status = "Error while reading from a node. Please reinit the device";
 }
+
+void LiberaBrilliancePlus::init_settings()
+{
+    //Update Values from the Properties
+    //MC
+	*attr_RtcDecoderSwitch_read = mCDecoderSwitch;
+	m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, mCDecoderSwitch);
+    //TODO Strange behaviour here sending value to node and updating Tango value.
+    *attr_McSource_read = mCSource;
+	m_libera->UpdateScalar(attr_McSource_read, mCSource);
+    *attr_MCinMask_read = mCinMask;
+    m_libera->UpdateScalar(attr_MCinMask_read, mCinMask);
+    *attr_MCinFunction_read = mCinFunction;
+    m_libera->UpdateScalar(attr_MCinFunction_read, mCinFunction);
+    //T0
+    *attr_T0Direction_read = t0Direction;
+    m_libera->UpdateScalar(attr_T0Direction_read, t0Direction);
+    *attr_T0OutputType_read = t0OutType;
+    m_libera->UpdateScalar(attr_T0OutputType_read, t0OutType);
+    *attr_T0Duration_read = t0Duration;
+    m_libera->UpdateScalar(attr_T0Duration_read, t0Duration);
+    *attr_T0Delay_read = t0Delay;
+    m_libera->UpdateScalar(attr_T0Delay_read, t0Delay);
+    *attr_T0State_read = t0State;
+    m_libera->UpdateScalar(attr_T0State_read, t0State);
+    *attr_T0inMask_read = t0inMask;
+    m_libera->UpdateScalar(attr_T0inMask_read, t0inMask);
+    *attr_T0inFunction_read = t0inFunction;
+    m_libera->UpdateScalar(attr_T0inFunction_read, t0inFunction);
+//    //T1
+    m_libera->UpdateScalar(attr_T1Source_read, t1Source);
+    *attr_T1Source_read = t1Source;
+    m_libera->UpdateScalar(attr_T1inMask_read, t1inMask);
+    *attr_T1inMask_read = t1inMask;
+    m_libera->UpdateScalar(attr_T1inFunction_read, t1inFunction);
+    *attr_T1inFunction_read = t1inFunction;
+    m_libera->UpdateScalar(attr_T1ID_read, t1ID); //**
+    *attr_T1ID_read = t1ID;
+    m_libera->UpdateScalar(attr_T1Direction_read, t1Direction);
+    *attr_T1Direction_read = t1Direction;
+    m_libera->UpdateScalar(attr_T1EdgeFalling_read, t1EdgeFalling);
+    *attr_T1EdgeFalling_read = t1EdgeFalling;
+    m_libera->UpdateScalar(attr_T1EdgeRising_read, t1EdgeRising);
+    *attr_T1EdgeRising_read = t1EdgeRising;
+    //T2
+    *attr_T2Source_read = t2Source;
+    m_libera->UpdateScalar(attr_T2Source_read, t2Source);
+    *attr_T2inMask_read = t2inMask;
+    m_libera->UpdateScalar(attr_T2inMask_read, t2inMask);
+    *attr_T2inFunction_read = t2inFunction;
+    m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
+    *attr_T2ID_read = t2ID;
+    m_libera->UpdateScalar(attr_T2ID_read, t2ID); //**
+    *attr_T2Direction_read = t2Direction;
+    m_libera->UpdateScalar(attr_T2Direction_read, t2Direction);
+    *attr_T2EdgeFalling_read = t2EdgeFalling;
+    m_libera->UpdateScalar(attr_T2EdgeFalling_read, t2EdgeFalling);
+    *attr_T2EdgeRising_read = t2EdgeRising;
+    m_libera->UpdateScalar(attr_T2EdgeRising_read, t2EdgeRising);
+    //Interlock
+    *attr_MgtOut_read = mgtOut;
+    m_libera->UpdateScalar(attr_MgtOut_read, mgtOut); //**
+    *attr_XHigh_read = ymaxLimit;
+    m_libera->UpdateScalar(attr_XHigh_read, xmaxLimit); //TODO Later Fix
+    *attr_XLow_read = xminLimit;
+    m_libera->UpdateScalar(attr_XLow_read, xminLimit);//TODO Later Fix
+    *attr_YHigh_read = ymaxLimit;
+    m_libera->UpdateScalar(attr_YHigh_read, ymaxLimit);//TODO Later Fix
+    *attr_YLow_read = yminLimit;
+    m_libera->UpdateScalar(attr_YLow_read, yminLimit);//TODO Later Fix
+    //Reset Interlock during the init
+    *attr_InterlockEnabled_read = false;
+	m_libera->UpdateScalar(attr_InterlockEnabled_read, false);
+	*attr_InterlockEnabled_read = true;
+	m_libera->UpdateScalar(attr_InterlockEnabled_read, true);
+	//post Portem Property Settings
+	//Disable PostMortem
+	m_libera->UpdateScalar(attr_PMNotified_read, false);
+	*attr_PMSource_read = false;
+
+	*attr_PMBufferSize_read = (long)524288;// TODO is not accepting the property value?? temp solution
+	m_libera->UpdateScalar(attr_PMBufferSize_read, (long)524288);
+
+	*attr_PMOffset_read = pMOffset;
+	m_libera->UpdateScalar(attr_PMOffset_read, pMOffset);
+	*attr_PMSource_read = pMSource;
+	m_libera->UpdateScalar(attr_PMSource_read, pMSource);
+	*attr_PMNotified_read = pMCapture;
+	m_libera->UpdateScalar(attr_PMNotified_read, pMCapture);
+
+}
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute SynchronizeLMT related method
+//  *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_SynchronizeLMT(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_SynchronizeLMT(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_SynchronizeLMT_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute SynchronizeLMT related method
+//  *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_SynchronizeLMT(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_SynchronizeLMT(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	m_libera->UpdateScalar(attr_SynchronizeLMT_read, w_val);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MCPll related method
+//  *	Description: MAchine' Phase Locked Loop
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MCPll(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCPll(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MCPll_read);
+// 	
+// }
+
+
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::namespace_ending
 } //	namespace

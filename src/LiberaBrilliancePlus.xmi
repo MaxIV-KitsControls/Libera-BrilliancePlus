@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
   <classes name="LiberaBrilliancePlus" pogoRevision="8.4">
-    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/LiberaBrilliancePlus/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
+    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/LiberaBrilliancePlusTiming/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="Device_4Impl" sourcePath=""/>
       <identification contact="at maxlab.lu.se - kitscontrols" author="kitscontrols" emailDomain="maxlab.lu.se" classFamily="BeamDiag" siteSpecific="" platform="Unix Like" bus="Ethernet" manufacturer="I-Tech" reference="Libera Brilliance Plus"/>
     </description>
@@ -333,7 +333,7 @@
     <deviceProperties name="DefaultPMBufferSize" description="PM buffer capacity">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>&#xfeff;524288</DefaultPropValue>
+      <DefaultPropValue>524288</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="T1EdgeFalling" description="T1 Edge Falling">
       <type xsi:type="pogoDsl:BooleanType"/>
@@ -371,22 +371,22 @@
       <DefaultPropValue>1</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="XminLimit" description="X interlock min limit">
-      <type xsi:type="pogoDsl:IntType"/>
+      <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>-1</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="YminLimit" description="Y interlock min limit">
-      <type xsi:type="pogoDsl:IntType"/>
+      <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>-1</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="XmaxLimit" description="X interlock max limit">
-      <type xsi:type="pogoDsl:IntType"/>
+      <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>1</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="YmaxLimit" description="Y interlock max limit">
-      <type xsi:type="pogoDsl:IntType"/>
+      <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>1</DefaultPropValue>
     </deviceProperties>
@@ -708,6 +708,39 @@
       <excludedStates>FAULT</excludedStates>
     </commands>
     <commands name="DisableSP" description="Disables the Single Pass data source" execMethod="disable_sp" displayLevel="OPERATOR" polledPeriod="0">
+      <argin description="n/a">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argin>
+      <argout description="n/a">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argout>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <excludedStates>UNKNOWN</excludedStates>
+      <excludedStates>FAULT</excludedStates>
+    </commands>
+    <commands name="StartSynchronization" description="Starts synchronization procedure:&#xA;* Synchronization State Machine (MUST be Tracking)&#xA;* Start the Trigger (t2source=Pulse and then t2source=RTC)&#xA;* Synchronization State Machine (MUST be Synchronized)" execMethod="start_synchronization" displayLevel="OPERATOR" polledPeriod="0">
+      <argin description="n/a">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argin>
+      <argout description="n/a">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argout>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <excludedStates>UNKNOWN</excludedStates>
+      <excludedStates>FAULT</excludedStates>
+    </commands>
+    <commands name="AnnounceSynchronization" description="Announce synchronization procedure:&#xA;* Stop the Trigger (t2source=off)&#xA;*  MC PLL (MUST be locked)&#xA;* Synchronization State Machine (MUST be Tracking)" execMethod="announce_synchronization" displayLevel="OPERATOR" polledPeriod="0">
+      <argin description="n/a">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argin>
+      <argout description="n/a">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argout>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <excludedStates>UNKNOWN</excludedStates>
+      <excludedStates>FAULT</excludedStates>
+    </commands>
+    <commands name="ForceInitSettings" description="Initializing Libera Default Settings (Based to the properties) without performing init_device" execMethod="force_init_settings" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="n/a">
         <type xsi:type="pogoDsl:VoidType"/>
       </argin>
@@ -1801,6 +1834,14 @@
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="t2 port direction" label="t2 Direction" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+    </attributes>
+    <attributes name="SynchronizeLMT" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:IntType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]" label="Sync LMT" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="XPosDD" attType="Spectrum" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="250000" maxY="0">
       <dataType xsi:type="pogoDsl:DoubleType"/>

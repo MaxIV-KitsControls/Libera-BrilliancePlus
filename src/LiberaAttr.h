@@ -242,6 +242,18 @@ public:
         int64_t val = a_val > 0 ? a_val : 0;
         a_root.GetNode(mci::Tokenize(a_path)).Set(val);
     }
+    static Tango::DevLong ULONGLONG2LONG(mci::Node &a_root, const std::string &a_path) {
+        istd_FTRC();
+        uint64_t val;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        return val < UINT64_MAX  ? val : UINT64_MAX ;
+    }
+    static void LONG2ULONGLONG(mci::Node &a_root, const std::string &a_path, const Tango::DevLong a_val) {
+        istd_FTRC();
+        uint64_t val = a_val > 0 ? a_val : 0;
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
+    }
+
 private:
     LiberaClient *m_client; // only needed when notification enabled
 };

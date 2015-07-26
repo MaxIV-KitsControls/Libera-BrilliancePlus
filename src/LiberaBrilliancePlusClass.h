@@ -1902,6 +1902,21 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_T2Direction_allowed(ty);}
 };
 
+//	Attribute SynchronizeLMT class definition
+class SynchronizeLMTAttrib: public Tango::Attr
+{
+public:
+	SynchronizeLMTAttrib():Attr("SynchronizeLMT",
+			Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~SynchronizeLMTAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_SynchronizeLMT(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_SynchronizeLMT(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SynchronizeLMT_allowed(ty);}
+};
+
 //	Attribute XPosDD class definition
 class XPosDDAttrib: public Tango::SpectrumAttr
 {
@@ -3162,6 +3177,75 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DisableSP_allowed(any);}
+};
+
+//	Command StartSynchronization class definition
+class StartSynchronizationClass : public Tango::Command
+{
+public:
+	StartSynchronizationClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	StartSynchronizationClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~StartSynchronizationClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_StartSynchronization_allowed(any);}
+};
+
+//	Command AnnounceSynchronization class definition
+class AnnounceSynchronizationClass : public Tango::Command
+{
+public:
+	AnnounceSynchronizationClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	AnnounceSynchronizationClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~AnnounceSynchronizationClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_AnnounceSynchronization_allowed(any);}
+};
+
+//	Command ForceInitSettings class definition
+class ForceInitSettingsClass : public Tango::Command
+{
+public:
+	ForceInitSettingsClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	ForceInitSettingsClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~ForceInitSettingsClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ForceInitSettings_allowed(any);}
 };
 
 
