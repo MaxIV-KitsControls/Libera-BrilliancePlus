@@ -130,6 +130,16 @@ public:
     }
 
     /**
+     *  writer function puts value to registry node  with Validator Types.//TODO Under Testing used for the types with the Validator expression
+
+    static void DoWrite(mci::Node &a_root, const std::string &a_path, const TangoType a_val, const TangoType min_val, const TangoType max_val) {
+        istd_FTRC();
+        LiberaType val(a_val);
+        a_root.GetNode(mci::Tokenize(a_path)).Set(val);
+    }
+     */
+
+    /**
      * Call the writer function.
      */
     void Write(mci::Node &a_root, const TangoType a_val) {

@@ -253,7 +253,18 @@ public:
         uint64_t val = a_val > 0 ? a_val : 0;
         a_root.GetNode(mci::Tokenize(a_path)).Set(val);
     }
-
+    //TODO Refactoring ASAP
+    static Tango::DevLong ULONG2LONGTHRSP(mci::Node &a_root, const std::string &a_path) { //, const Tango::DevLong min_val, const Tango::DevLong max_val) { //TODO Later make a template READER/WRITER Funct for different types
+        istd_FTRC();
+        uint32_t val;
+//        cout << "Less: " << min_val << ", Greater: " << max_val << endl;
+        a_root.GetNode(mci::Tokenize(a_path)).Get(val);
+        //std::string valid;
+        //if(a_root.GetNode(mci::Tokenize(a_path)).GetValidatorExpression(valid)) {
+        //    cout << "Validator Expression: " << valid << endl;
+        //}
+        return val < (long)32768 ? val : (long)32768;
+    }
 private:
     LiberaClient *m_client; // only needed when notification enabled
 };

@@ -4727,7 +4727,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	t2source->set_default_properties(t2source_prop);
 	//	Not Polled
-	t2source->set_disp_level(Tango::EXPERT);
+	t2source->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(t2source);
 
@@ -5378,6 +5378,30 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	synchronizelmt->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(synchronizelmt);
+
+	//	Attribute : RTCTimestamp
+	RTCTimestampAttrib	*rtctimestamp = new RTCTimestampAttrib();
+	Tango::UserDefaultAttrProp	rtctimestamp_prop;
+	rtctimestamp_prop.set_description("Timestamp which is be taken by receiving optical events over SFP when reception is enabled");
+	rtctimestamp_prop.set_label("RTC Timestamp");
+	//	unit	not set for RTCTimestamp
+	//	standard_unit	not set for RTCTimestamp
+	//	display_unit	not set for RTCTimestamp
+	//	format	not set for RTCTimestamp
+	//	max_value	not set for RTCTimestamp
+	//	min_value	not set for RTCTimestamp
+	//	max_alarm	not set for RTCTimestamp
+	//	min_alarm	not set for RTCTimestamp
+	//	max_warning	not set for RTCTimestamp
+	//	min_warning	not set for RTCTimestamp
+	//	delta_t	not set for RTCTimestamp
+	//	delta_val	not set for RTCTimestamp
+	
+	rtctimestamp->set_default_properties(rtctimestamp_prop);
+	//	Not Polled
+	rtctimestamp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(rtctimestamp);
 
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();

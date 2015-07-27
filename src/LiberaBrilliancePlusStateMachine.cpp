@@ -2921,6 +2921,22 @@ bool LiberaBrilliancePlus::is_SynchronizeLMT_allowed(TANGO_UNUSED(Tango::AttReqT
 
 //--------------------------------------------------------
 /**
+ *	Method      : LiberaBrilliancePlus::is_RTCTimestamp_allowed()
+ *	Description : Execution allowed for RTCTimestamp attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_RTCTimestamp_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Not any excluded states for RTCTimestamp attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::RTCTimestampStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::RTCTimestampStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
  *	Method      : LiberaBrilliancePlus::is_XPosDD_allowed()
  *	Description : Execution allowed for XPosDD attribute
  */
