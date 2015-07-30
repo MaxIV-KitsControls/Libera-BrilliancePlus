@@ -1,14 +1,15 @@
-tangods-liberabrillianceplus (1.1.0) unstable; urgency=low
+tangods-liberabrillianceplus (1.2.0) unstable; urgency=low
 
-  * Change dependencies version to 2.9
+  * Added new attributes for the timing module.
 
- -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Sun, 28 June 2015 17:00:00 +0200
-tangods-liberabrillianceplus (1.0.1) unstable; urgency=low
+  * Added Single mode Signal.
 
-  * Fix State Machine (merge request #14 NexeyaSGara)
+  * Added TDP signal
 
- -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Sun, 28 June 2015 15:00:00 +0200
-tangods-liberabrillianceplus (1.0.0) unstable; urgency=low
+  * Added Announce Synchronization and Start Synchronization Commands.
+
+ -- Vasileios Martos <vasileios.martos@maxiv.lu.se>  Tue, 28 July 2015 15:00:00 +0200
+tangods-liberabrillianceplus (1.2.0) unstable; urgency=low
 
   * Initial debian packaging
 

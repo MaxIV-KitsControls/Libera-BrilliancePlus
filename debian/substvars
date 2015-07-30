@@ -1,0 +1,2 @@
+shlibs:Depends=libc6 (>= 2.3.6-6~), libc6 (>= 2.4), libcos4-1 (>= 4.1.2), libera-mci2.9, libgcc1 (>= 1:4.1.1), liblog4tango5, libomniorb4-1 (>= 4.1.2), libomnithread3c2 (>= 4.0.6), libstdc++6 (>= 4.4.0), libtango8
+misc:Depends=

@@ -382,6 +382,9 @@ void LiberaBrilliancePlus::init_device()
 	//	Initialize device
     m_libera = new LiberaClient(this, liberaIpAddr);
 
+    try
+    {
+
     // Add scalar values
     m_libera->AddScalar("", attr_DDDecimationFactor_read); //n.a.
 
@@ -442,16 +445,6 @@ void LiberaBrilliancePlus::init_device()
         attr_YLow_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
     m_libera->AddScalar(m_raf + "interlock.limits.position.max.y",
         attr_YHigh_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-
-    m_libera->AddScalar(m_raf + "signal_processing.position.Kx",
-        attr_Kx_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
-    m_libera->AddScalar(m_raf + "signal_processing.position.Ky",
-        attr_Ky_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
-    m_libera->AddScalar(m_raf + "signal_processing.position.off_x",
-        attr_XOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-    m_libera->AddScalar(m_raf + "signal_processing.position.off_y",
-        attr_YOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-
 
     m_libera->AddScalar(m_raf + "conditioning.switching", attr_AutoSwitchingEnabled_read);
     m_libera->AddScalar("", attr_Switches_read); // n.a.
@@ -522,6 +515,8 @@ void LiberaBrilliancePlus::init_device()
 
 
     //Timing Settings
+    m_libera->AddScalar(tim + ".rtc.ts_timestamp",
+    		attr_RTCTimestamp_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
 
     m_libera->AddScalar(m_raf + "signal_processing.position.Ks",
     		attr_Ks_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
@@ -529,13 +524,19 @@ void LiberaBrilliancePlus::init_device()
     		attr_QOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
     m_libera->AddScalar(m_raf + "signal_processing.position.off_s",
     		attr_SOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
+    m_libera->AddScalar(m_raf + "signal_processing.position.Kx",
+        attr_Kx_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
+    m_libera->AddScalar(m_raf + "signal_processing.position.Ky",
+        attr_Ky_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
+    m_libera->AddScalar(m_raf + "signal_processing.position.off_x",
+        attr_XOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
+    m_libera->AddScalar(m_raf + "signal_processing.position.off_y",
+        attr_YOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
+
 
     m_libera->AddScalar(m_raf + "local_timing.sync_state_machine", attr_SynchronizationStatus_read);
     m_libera->AddScalar(m_raf + "conf.second_max_reset", attr_MaxADC_read); //Retrieve wrong Value? Check string.
     //m_libera->AddScalar("", attr_MaxADC_read); //Retrieve wrong Value? Check string.
-
-    m_libera->AddScalar("",attr_Ks_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
-    m_libera->AddScalar("", attr_QOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
 
     //Tdp Signal
     m_libera->AddScalar("", attr_TDDecimationFactor_read); //n.a.
@@ -548,7 +549,7 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar("", attr_TDBufferFreezingEnabled_read); // no ireg node
     *attr_TDBufferFreezingEnabled_read = false;
 
-    //Single Pass Mode Settings
+    //Single Pass Mode Settings //TODO refactor read/write functions
     m_libera->AddScalar(m_raf + ".single_pass.threshold",
     		attr_SPThreshold_read, LiberaAttr::ULONG2LONGTHRSP, LiberaAttr::LONG2ULONG);
     m_libera->AddScalar(m_raf + ".single_pass.n_before",
@@ -628,6 +629,13 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar(m_raf + "postmortem.capture",attr_PMNotified_read);
     m_libera->AddScalar(tim + "events.t1.count",
         attr_PMNotificationCounter_read, LiberaAttr::ULL2SHORT);
+    }
+    catch (...)
+    {
+    	m_state = Tango::FAULT;
+    	//m_state = Tango::UNKNOWN;
+    	return;
+    }
 
 
     //m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, mCDecoderSwitch);
@@ -636,7 +644,7 @@ void LiberaBrilliancePlus::init_device()
 //    // Add signals //TODO single_pass
     m_signalSP = m_libera->AddSignal<Tango::DevDouble>(
         m_raf + "single_pass.signal",
-        10,
+        1,
         attr_SPEnabled_read,
         attr_SPBufferSize_read,
         attr_VaSP_read,
@@ -794,6 +802,7 @@ void LiberaBrilliancePlus::init_device()
     set_change_event("ThdrId",  true, false);
     set_change_event("XPosSP",  true, false);
     set_change_event("YPosSP",  true, false);
+
     try
     {
 
@@ -4477,7 +4486,7 @@ void LiberaBrilliancePlus::write_Ks(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_Ks) ENABLED START -----*/
 	
-	
+	//m_libera->UpdateScalar(attr_Ks_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_Ks
 }
 //--------------------------------------------------------
@@ -5737,7 +5746,6 @@ void LiberaBrilliancePlus::write_T1ID(Tango::WAttribute &attr)
 /**
  *	Read attribute PMBufferSize related method
  *	Description: The number of samples to be read on PM data source.
- *               
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5756,7 +5764,6 @@ void LiberaBrilliancePlus::read_PMBufferSize(Tango::Attribute &attr)
 /**
  *	Write attribute PMBufferSize related method
  *	Description: The number of samples to be read on PM data source.
- *               
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5941,7 +5948,7 @@ void LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_RTCTimestamp) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_SynchronizeLMT_read);
+	attr.set_value(attr_RTCTimestamp_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RTCTimestamp
 }
@@ -7419,7 +7426,7 @@ void LiberaBrilliancePlus::announce_synchronization()
 	DEBUG_STREAM << "LiberaBrilliancePlus::AnnounceSynchronization()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::announce_synchronization) ENABLED START -----*/
 	if(*attr_MCPLLStatus_read) {
-		cout << *attr_MCPLLStatus_read << endl;
+		//cout << *attr_MCPLLStatus_read << endl;
 		//Stop Trigger
 		m_libera->UpdateScalar(attr_T2Source_read, (short)0);
 		//Announce Synchronization
@@ -7616,16 +7623,16 @@ void LiberaBrilliancePlus::SPCallback() //TODO doesnt receive Data
     INFO_STREAM << "SP CALLBACK " << endl;
 
     // call GetData also all attributes from here?
-	if(m_signalSP->IsUpdated()) { //TODO just testing, remove later
-		cout << "Single pass signal UPDATE!" << endl;
+	//if(m_signalSP->IsUpdated()) { //TODO just testing, remove later
+		//cout << "Single pass signal UPDATE!" << endl;
 		m_signalSP->GetData();
 		push_change_event("SumSP", attr_SumSP_read);
-		push_change_event("ThdrId", attr_ThdrId_read);
+		//push_change_event("ThdrId", attr_ThdrId_read);
 		push_change_event("XPosSP", attr_XPosSP_read);
 		push_change_event("YPosSP", attr_YPosSP_read);
-		}
-		else
-			cout << "Single pass signal not updated" << endl;
+		//}
+		//else
+			//cout << "Single pass signal not updated" << endl;
 
 }
 
@@ -7662,14 +7669,17 @@ void LiberaBrilliancePlus::_SPCallback(void *data)
 }
 
 
-void LiberaBrilliancePlus::set_lib_error()
+void LiberaBrilliancePlus::set_lib_error(std::string nodeinfo)
 {
-    m_state = Tango::OFF;
-    m_status = "Error while reading from a node. Please reinit the device";
+	m_state = Tango::FAULT;
+    m_status = "Error while reading from a node:: "+ nodeinfo +". Please reinit the device";
+    //throw nodeinfo;
 }
 
 void LiberaBrilliancePlus::init_settings()
 {
+	try
+	{
     //Update Values from the Properties
     //MC
 	//*attr_RtcDecoderSwitch_read = mCDecoderSwitch;
@@ -7763,7 +7773,13 @@ void LiberaBrilliancePlus::init_settings()
 	m_libera->UpdateScalar(attr_PMSource_read, pMSource);
 	//*attr_PMNotified_read = pMCapture;
 	m_libera->UpdateScalar(attr_PMNotified_read, pMCapture);
-
+	}
+	catch (...)
+	{
+		m_state = Tango::FAULT;
+//		m_status = Tango::UNKNOWN;
+		return;
+	}
 }
 // //--------------------------------------------------------
 // /**

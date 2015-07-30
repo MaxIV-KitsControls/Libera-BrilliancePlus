@@ -84,7 +84,7 @@ void LiberaClient::UpdateAttr()
         istd_TRC(istd::eTrcLow, "Exception thrown while reading from node!");
         istd_TRC(istd::eTrcLow, e.what());
         // let the server know it
-        m_deviceServer->set_lib_error();
+        m_deviceServer->set_lib_error(e.what());
         m_connected = false;
     }
 }

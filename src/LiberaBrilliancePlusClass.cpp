@@ -4607,7 +4607,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	mcsource->set_default_properties(mcsource_prop);
 	//	Not Polled
-	mcsource->set_disp_level(Tango::EXPERT);
+	mcsource->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(mcsource);
 
@@ -4703,7 +4703,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	t1source->set_default_properties(t1source_prop);
 	//	Not Polled
-	t1source->set_disp_level(Tango::EXPERT);
+	t1source->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(t1source);
 
@@ -5087,7 +5087,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	spenabled->set_default_properties(spenabled_prop);
 	//	Not Polled
-	spenabled->set_disp_level(Tango::EXPERT);
+	spenabled->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(spenabled);
 
@@ -5111,7 +5111,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	spbuffersize->set_default_properties(spbuffersize_prop);
 	//	Not Polled
-	spbuffersize->set_disp_level(Tango::EXPERT);
+	spbuffersize->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(spbuffersize);
 
@@ -5262,7 +5262,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : PMBufferSize
 	PMBufferSizeAttrib	*pmbuffersize = new PMBufferSizeAttrib();
 	Tango::UserDefaultAttrProp	pmbuffersize_prop;
-	pmbuffersize_prop.set_description("The number of samples to be read on PM data source.\n");
+	pmbuffersize_prop.set_description("The number of samples to be read on PM data source.");
 	pmbuffersize_prop.set_label("PM Buffer Size");
 	//	unit	not set for PMBufferSize
 	//	standard_unit	not set for PMBufferSize
@@ -5279,7 +5279,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	pmbuffersize->set_default_properties(pmbuffersize_prop);
 	//	Not Polled
-	pmbuffersize->set_disp_level(Tango::EXPERT);
+	pmbuffersize->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(pmbuffersize);
 

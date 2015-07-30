@@ -1769,7 +1769,6 @@ public:
 /**
  *	Attribute PMBufferSize related methods
  *	Description: The number of samples to be read on PM data source.
- *               
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -2538,7 +2537,7 @@ public:
 	//	Additional Method prototypes
 	void UpdatePM();
  
-  void set_lib_error();
+  void set_lib_error(std::string nodeinfo);
 
 /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Additional Method prototypes
 };
