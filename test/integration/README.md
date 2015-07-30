@@ -40,6 +40,9 @@ Examples:
 
         $ ﻿fab ﻿allReadWriteTests -H liberaIp -u liberaSshUsername -p liberaPassword
 
+   * |Under Developement| Test Signals (Only Single Pass signal, no assertion just sends events from "LAB/TIM/EVG-01" device in the lab and libera receives the Attrs). Later on assert them with the signal in the physical device. 
+   
+        $ ﻿fab ﻿testSPSignal -H liberaIp -u liberaSshUsername -p liberaPassword
 
 Known Issues
 ------------

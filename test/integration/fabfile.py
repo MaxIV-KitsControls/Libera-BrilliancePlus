@@ -3,6 +3,7 @@ import PyTango
 import re
 from fabric.api import run, local
 import itertools
+import numpy as np
 import time
 
 def enum(*sequential, **named):
@@ -21,8 +22,14 @@ MgtOut = enum(off=0,sfp_in=1,debug=2,connectors=3)
 PMSource = enum(external=0,interlock=1,limits=2)
 #myBoolean = enum(False=0,True=1)
 
+
+
+#used for SP test
+oldval = ""
 #Physical device to Test
-device = PyTango.DeviceProxy("kitslab/dia/bpm-01")
+#device = PyTango.DeviceProxy("kitslab/dia/bpm-01")
+device = PyTango.DeviceProxy("test/libera/1")
+event = PyTango.DeviceProxy("LAB/TIM/EVG-01")
 
 # AttributeName, Node, EnumType, DefaultPropertyValue(used for testing and compare), RandomSetValue(used for test write)
 enumAttrs = [
@@ -61,13 +68,16 @@ scalarAttrs = [
 
 # AttributeName, Node, DefaultPropertyValue(used for testing and compare), RandomSetValue to write and compare
 booleanAttr = [
-	#('InterlockEnabled','boards.raf3.interlock.enabled', "true", "false"),
+	('InterlockEnabled','boards.raf3.interlock.enabled', "true", False),
 	('T1EdgeRising','boards.evrx2.rtc.connectors.t1.edge.rising', "false", True),
-	#('T1EdgeFalling','boards.evrx2.rtc.connectors.t1.edge.falling', "true", False),
-	#('T2EdgeRising','boards.evrx2.rtc.connectors.t2.edge.rising', "false", True),
+	('T1EdgeFalling','boards.evrx2.rtc.connectors.t1.edge.falling', "true", False),
+	('T2EdgeRising','boards.evrx2.rtc.connectors.t2.edge.rising', "false", True),
 	('T2EdgeFalling','boards.evrx2.rtc.connectors.t2.edge.falling', "true", False),
- 	('PMNotified','boards.raf3.postmortem.capture', "true", "false")
+ 	('PMNotified','boards.raf3.postmortem.capture', "true", False)
  	]
+
+
+
 
 #Test if the nodevalue == tangoAttr then RandomSetValue and check again.
 def enumTests():
@@ -166,10 +176,14 @@ def propertyTests():
 		assert (nodevalue==node[2]),\
 			"Error on Attribute: {0} NodeValue:{1} != Property Value:{2}".format(node[0],
 																				 nodevalue,
-																				 node[2])
+																					 																		 																															 node[2])
+#Write all attributes
+def attributeWriteTests():
+	for attr in itertools.chain(enumAttrs,scalarAttrs,booleanAttr):
+		print device.write_attribute(attr[0],bool(node[3]))
 
 # Read all attributes in order to find the Segmentation faults
-def attributeTests():
+def attributeReadTests():
 	for attr in itertools.chain(enumAttrs,scalarAttrs,booleanAttr):
 		print device.read_attribute(attr[0]).value
 
@@ -185,6 +199,37 @@ def resetNodeSettings():
 		write_node_value(attr[1],attr[3])
 	for attr in booleanAttr:
 		write_node_value(attr[1],str(attr[3]).lower())
+
+
+
+def eventcallback(e):
+	global oldval
+	val=str(device.read_attribute("XPosSP").value)
+	if oldval!=str(val):
+		oldval = val
+		print "Injection Id: {0}, Injection Frequency: {1}, XPosSP value: {2}, YPosSP value{3}, SumPosSP value{4}".format(
+			event.read_attribute("Inj1Event").value,
+			event.read_attribute("InjFreq").value,
+			str(device.read_attribute("XPosSP").value),
+			str(device.read_attribute("YPosSP").value),
+			str(device.read_attribute("SumSP").value))
+
+def testSPSignal():
+    freqlist = np.arange(0.1,15.01,0.1)
+    #global oldval
+    val = str(device.read_attribute("XPosSP").value)
+    for freq in freqlist:
+        for ev in xrange(1,177):
+            #print freq,ev
+            event.write_attribute("InjFreq", freq)
+            event.write_attribute("Inj1Event", ev)
+            event.command_inout("Inject",1)
+            time.sleep(0.01)
+            #If Libera has event execute arg callback
+            device.subscribe_event("XPosSP",PyTango.EventType.CHANGE_EVENT, eventcallback)
+            #if oldval != str(val):
+            #    oldval = val
+            #    print event.read_attribute("Inj1Event").value, event.read_attribute("InjFreq").value, val
 
 
 def get_node_value(node):
