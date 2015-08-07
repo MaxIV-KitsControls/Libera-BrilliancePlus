@@ -268,7 +268,7 @@
     <deviceProperties name="T0inMask" description="T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>51</DefaultPropValue>
+      <DefaultPropValue>255</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="T1inMask" description="T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system.">
       <type xsi:type="pogoDsl:IntType"/>
@@ -283,7 +283,7 @@
     <deviceProperties name="T0inFunction" description="T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>255</DefaultPropValue>
+      <DefaultPropValue>51</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="T1inFunction" description="T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.">
       <type xsi:type="pogoDsl:IntType"/>

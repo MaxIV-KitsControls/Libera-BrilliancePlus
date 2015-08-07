@@ -1600,7 +1600,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "MCinMask";
-	prop_desc = "MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_desc = "MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator's timing system.";
 	prop_def  = "256";
 	vect_data.clear();
 	vect_data.push_back("256");
@@ -1628,10 +1628,10 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T0inMask";
-	prop_desc = "T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
-	prop_def  = "51";
+	prop_desc = "T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator's timing system.";
+	prop_def  = "255";
 	vect_data.clear();
-	vect_data.push_back("51");
+	vect_data.push_back("255");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1642,7 +1642,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T1inMask";
-	prop_desc = "T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_desc = "T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator's timing system.";
 	prop_def  = "255";
 	vect_data.clear();
 	vect_data.push_back("255");
@@ -1656,7 +1656,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T2inMask";
-	prop_desc = "T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_desc = "T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator's timing system.";
 	prop_def  = "255";
 	vect_data.clear();
 	vect_data.push_back("255");
@@ -1671,9 +1671,9 @@ void LiberaBrilliancePlusClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T0inFunction";
 	prop_desc = "T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
-	prop_def  = "255";
+	prop_def  = "51";
 	vect_data.clear();
-	vect_data.push_back("255");
+	vect_data.push_back("51");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1880,7 +1880,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "PMSource";
-	prop_desc = "source of the PM event (﻿external,interlock,limits)";
+	prop_desc = "source of the PM event (external,interlock,limits)";
 	prop_def  = "0";
 	vect_data.clear();
 	vect_data.push_back("0");
@@ -3316,7 +3316,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : ExternalSwitching
 	ExternalSwitchingAttrib	*externalswitching = new ExternalSwitchingAttrib();
 	Tango::UserDefaultAttrProp	externalswitching_prop;
-	externalswitching_prop.set_description("Sets the source of switching clock – MC (external) or from the \noscillator (internal). Default value is internal. ");
+	//externalswitching_prop.set_description("Sets the source of switching clock - MC (external) or from the \noscillator (internal). Default value is internal. ");
 	externalswitching_prop.set_label("External Switching");
 	//	unit	not set for ExternalSwitching
 	//	standard_unit	not set for ExternalSwitching
@@ -3391,7 +3391,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : CompensateTune
 	CompensateTuneAttrib	*compensatetune = new CompensateTuneAttrib();
 	Tango::UserDefaultAttrProp	compensatetune_prop;
-	compensatetune_prop.set_description("To enable double offset-tune, issue the following command \n(to disable it, just use “false” instead of “true”).");
+	compensatetune_prop.set_description("To enable double offset-tune, issue the following command \n(to disable it, just use <false> instead of <true>).");
 	compensatetune_prop.set_label("Compensate Tune");
 	//	unit	not set for CompensateTune
 	//	standard_unit	not set for CompensateTune
@@ -3416,7 +3416,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : DSCMode
 	DSCModeAttrib	*dscmode = new DSCModeAttrib();
 	Tango::UserDefaultAttrProp	dscmode_prop;
-	dscmode_prop.set_description("Sets the adjustment (learning) of the amplitude and \nphase coefficients true or false. Set the \ncoefficients' type – adjusted or unity. Combination of \nthese two nodes is necessary to achieve backward \ncompatiblity.");
+	dscmode_prop.set_description("Sets the adjustment (learning) of the amplitude and \nphase coefficients true or false. Set the \ncoefficients' type - adjusted or unity. Combination of \nthese two nodes is necessary to achieve backward \ncompatiblity.");
 	dscmode_prop.set_label("DSC Mode");
 	dscmode_prop.set_unit("[0:OFF, 1:UNITY, 2:AUTO]");
 	//	standard_unit	not set for DSCMode
@@ -3756,7 +3756,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Fan1Speed
 	Fan1SpeedAttrib	*fan1speed = new Fan1SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan1speed_prop;
-	fan1speed_prop.set_description("Provides minimal fan speed reading of all three  fans on \nthe left side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken – returned value \n0 means that at least one fan has stopped.");
+	fan1speed_prop.set_description("Provides minimal fan speed reading of all three fans on \nthe left side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken - returned value \n0 means that at least one fan has stopped.");
 	fan1speed_prop.set_label("Fan.1");
 	fan1speed_prop.set_unit("rpm");
 	//	standard_unit	not set for Fan1Speed
@@ -3780,7 +3780,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Fan2Speed
 	Fan2SpeedAttrib	*fan2speed = new Fan2SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan2speed_prop;
-	fan2speed_prop.set_description("Provides minimal fan speed reading of all three  fans on \nthe right side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken – returned value \n0 means that at least one fan has stopped.");
+	fan2speed_prop.set_description("Provides minimal fan speed reading of all three fans on \nthe right side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken - returned value \n0 means that at least one fan has stopped.");
 	fan2speed_prop.set_label("Fan.2");
 	fan2speed_prop.set_unit("rpm");
 	//	standard_unit	not set for Fan2Speed
@@ -4419,7 +4419,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Ks
 	KsAttrib	*ks = new KsAttrib();
 	Tango::UserDefaultAttrProp	ks_prop;
-	ks_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2ˆ26)");
+	ks_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2^26)");
 	ks_prop.set_label("SUM value coefficient");
 	//	unit	not set for Ks
 	//	standard_unit	not set for Ks
@@ -4469,7 +4469,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : SOffset
 	SOffsetAttrib	*soffset = new SOffsetAttrib();
 	Tango::UserDefaultAttrProp	soffset_prop;
-	soffset_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2ˆ26)");
+	soffset_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2^26)");
 	soffset_prop.set_label("Coefficient for SUM value.");
 	//	unit	not set for SOffset
 	//	standard_unit	not set for SOffset
@@ -4494,7 +4494,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : SynchronizationStatus
 	SynchronizationStatusAttrib	*synchronizationstatus = new SynchronizationStatusAttrib();
 	Tango::UserDefaultAttrProp	synchronizationstatus_prop;
-	synchronizationstatus_prop.set_description("﻿The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.");
+	synchronizationstatus_prop.set_description("The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.");
 	synchronizationstatus_prop.set_label("Synchronization state machine status");
 	//	unit	not set for SynchronizationStatus
 	//	standard_unit	not set for SynchronizationStatus
@@ -4830,7 +4830,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : T0inMask
 	T0inMaskAttrib	*t0inmask = new T0inMaskAttrib();
 	Tango::UserDefaultAttrProp	t0inmask_prop;
-	t0inmask_prop.set_description("T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t0inmask_prop.set_description("T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator's timing system.");
 	t0inmask_prop.set_label("T0 Masking Array");
 	//	unit	not set for T0inMask
 	//	standard_unit	not set for T0inMask
@@ -4854,7 +4854,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : T1inMask
 	T1inMaskAttrib	*t1inmask = new T1inMaskAttrib();
 	Tango::UserDefaultAttrProp	t1inmask_prop;
-	t1inmask_prop.set_description("T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t1inmask_prop.set_description("T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator's timing system.");
 	t1inmask_prop.set_label("T1 Masking Array");
 	//	unit	not set for T1inMask
 	//	standard_unit	not set for T1inMask
@@ -4878,7 +4878,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : T2inMask
 	T2inMaskAttrib	*t2inmask = new T2inMaskAttrib();
 	Tango::UserDefaultAttrProp	t2inmask_prop;
-	t2inmask_prop.set_description("T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t2inmask_prop.set_description("T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator's timing system.");
 	t2inmask_prop.set_label("T2 Masking Array");
 	//	unit	not set for T2inMask
 	//	standard_unit	not set for T2inMask
@@ -4974,7 +4974,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : MCinMask
 	MCinMaskAttrib	*mcinmask = new MCinMaskAttrib();
 	Tango::UserDefaultAttrProp	mcinmask_prop;
-	mcinmask_prop.set_description("MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	mcinmask_prop.set_description("MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator's timing system.");
 	mcinmask_prop.set_label("MC Masking Array");
 	//	unit	not set for MCinMask
 	//	standard_unit	not set for MCinMask
@@ -5286,7 +5286,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : PMSource
 	PMSourceAttrib	*pmsource = new PMSourceAttrib();
 	Tango::UserDefaultAttrProp	pmsource_prop;
-	pmsource_prop.set_description("source of the PM event (﻿external,interlock,limits)\n");
+	pmsource_prop.set_description("source of the PM event (external,interlock,limits)\n");
 	pmsource_prop.set_label("PM Source");
 	//	unit	not set for PMSource
 	//	standard_unit	not set for PMSource
