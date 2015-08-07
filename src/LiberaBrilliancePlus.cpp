@@ -5281,6 +5281,11 @@ void LiberaBrilliancePlus::write_T2inFunction(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2inFunction) ENABLED START -----*/
+        //m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
+        m_libera->UpdateScalar(attr_T2inFunction_read, w_val);
+        //std::vector<uint32_t> value = std::vector<uint32_t>();
+        //value.push_back(109);
+        //m_libera->m_root.GetNode(mci::Tokenize("boards."+c_timingBoard+".rtc.t2.in_function")).SetValue(value);
 	
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2inFunction
@@ -7399,11 +7404,14 @@ void LiberaBrilliancePlus::start_synchronization()
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::start_synchronization) ENABLED START -----*/
 	
 	//Sync State should be in Tracking (=1) before Start
-	if(*attr_SynchronizationStatus_read == 1 ) {
+	if(*attr_SynchronizationStatus_read == 2 ) {
 		//Set Trigger to Pulse == 3
-		m_libera->UpdateScalar(attr_T2Source_read, (short)3);
-		//Set Trigger to PTC == 5
-		m_libera->UpdateScalar(attr_T2Source_read, (short)5);
+		//m_libera->UpdateScalar(attr_T2Source_read, (short)3);
+		//Set Trigger to RTC == 5
+		//m_libera->UpdateScalar(attr_T2Source_read, (short)5);
+		//m_libera->UpdateScalar(attr_T2inFunction_read, 80);
+                m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
+
 	}
 	else {
 		ERROR_STREAM << "Synchronization State Machine is not in TRACKING! Cant start Synchronizations." << endl; //TODO Maybe warn user with a exception?
@@ -7428,7 +7436,12 @@ void LiberaBrilliancePlus::announce_synchronization()
 	if(*attr_MCPLLStatus_read) {
 		//cout << *attr_MCPLLStatus_read << endl;
 		//Stop Trigger
-		m_libera->UpdateScalar(attr_T2Source_read, (short)0);
+		//m_libera->UpdateScalar(attr_T2Source_read, (short)0);
+                //*t2_in_function_save = *attr_T2inFunction;
+                //Tango::DevLong sync_id = new Tango::DevLong(109);
+		//m_libera->UpdateScalar(attr_T2inFunction_read, sync_id);
+		m_libera->UpdateScalar(attr_T2inFunction_read, (long)109);
+                //delete sync_id;
 		//Announce Synchronization
 		m_libera->UpdateScalar(attr_SynchronizeLMT_read, (long)0);
 	}
