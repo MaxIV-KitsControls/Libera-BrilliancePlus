@@ -225,7 +225,7 @@ static const char *RcsId = "$Id:  $";
 //  T2Direction                      |  Tango::DevShort	Scalar
 //  SynchronizeLMT                   |  Tango::DevLong	Scalar
 //  RTCTimestamp                     |  Tango::DevLong	Scalar
-//  RTCTimestampState                |  Tango::DevBoolean	Scalar
+//  RTCTimestampState                |  Tango::DevLong	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  YPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  QuadDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -5911,7 +5911,7 @@ void LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr)
  *	Read attribute RTCTimestampState related method
  *	Description: State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled
  *
- *	Data type:	Tango::DevBoolean
+ *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
  */
 //--------------------------------------------------------
@@ -6837,16 +6837,13 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 	if (*attr_InterlockXNotified_read == true || *attr_InterlockYNotified_read == true ||
 	 *attr_InterlockAttnNotified_read == true || *attr_InterlockADCPreFilterNotified_read == true ||
         *attr_InterlockADCPostFilterNotified_read == true || *attr_MCPLLStatus_read == false
-		*attr_RTCTimestampState_read == true)
+		|| *attr_RTCTimestampState_read != 0 || *attr_SynchronizationStatus_read != 2)
 	{
 		set_state(Tango::ALARM);
 	}
 	//	Add your own code
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_state
-	set_state(m_state);    // Give the state to Tango.
-	if (m_state!=Tango::ALARM)
-		DeviceImpl::dev_state();
-	return get_state();  // Return it after Tango management.
+	return DeviceImpl::dev_state();  // Return it after Tango management.
 }
 //--------------------------------------------------------
 /**
@@ -6863,7 +6860,6 @@ Tango::ConstDevString LiberaBrilliancePlus::dev_status()
 	//	Add your own code
 	set_status(m_status);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status
-
 	return DeviceImpl::dev_status();  // Return it.
 }
 //--------------------------------------------------------
@@ -7522,7 +7518,7 @@ void LiberaBrilliancePlus::UpdatePM()
  */
 void LiberaBrilliancePlus::DDCallback()
 {
-    INFO_STREAM << "DD CALLBACK " << endl;
+    DEBUG_STREAM << "DD CALLBACK " << endl;
         m_signalDdc->GetData();
 
         push_change_event("XPosDD", attr_XPosDD_read);
@@ -7544,7 +7540,7 @@ void LiberaBrilliancePlus::_DDCallback(void *data)
  */
 void LiberaBrilliancePlus::SACallback()
 {
-    INFO_STREAM << "SA CALLBACK " << endl;
+    DEBUG_STREAM << "SA CALLBACK " << endl;
         m_signalSA->GetData();
 
         push_change_event("XPosSA", attr_XPosSA_read);
@@ -7566,7 +7562,7 @@ void LiberaBrilliancePlus::_SACallback(void *data)
  */
 void LiberaBrilliancePlus::PMCallback()
 {
-    INFO_STREAM << "PM CALLBACK " << endl;
+    DEBUG_STREAM << "PM CALLBACK " << endl;
         m_signalPM->GetData();
 		
         push_change_event("XPosPM", attr_XPosPM_read);
@@ -7586,7 +7582,7 @@ void LiberaBrilliancePlus::_PMCallback(void *data)
 
 void LiberaBrilliancePlus::SPCallback() //TODO doesnt receive Data
 {
-    INFO_STREAM << "SP CALLBACK " << endl;
+    DEBUG_STREAM << "SP CALLBACK " << endl;
 
     // call GetData also all attributes from here?
 	//if(m_signalSP->IsUpdated()) { //TODO just testing, remove later
@@ -7607,7 +7603,7 @@ void LiberaBrilliancePlus::SPCallback() //TODO doesnt receive Data
  */
 void LiberaBrilliancePlus::TDCallback()
 {
-    INFO_STREAM << "TD CALLBACK " << endl;
+    DEBUG_STREAM << "TD CALLBACK " << endl;
         m_signalTdp->GetData();
 
         push_change_event("XPosTD", attr_XPosTD_read);

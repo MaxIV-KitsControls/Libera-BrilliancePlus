@@ -1935,7 +1935,7 @@ class RTCTimestampStateAttrib: public Tango::Attr
 {
 public:
 	RTCTimestampStateAttrib():Attr("RTCTimestampState",
-			Tango::DEV_BOOLEAN, Tango::READ) {};
+			Tango::DEV_LONG, Tango::READ) {};
 	~RTCTimestampStateAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_RTCTimestampState(att);}

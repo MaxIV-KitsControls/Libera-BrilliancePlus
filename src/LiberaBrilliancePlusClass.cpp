@@ -5166,7 +5166,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	T1EdgeFallingAttrib	*t1edgefalling = new T1EdgeFallingAttrib();
 	Tango::UserDefaultAttrProp	t1edgefalling_prop;
 	//	description	not set for T1EdgeFalling
-	t1edgefalling_prop.set_label("T2 Edge Falling");
+	t1edgefalling_prop.set_label("T1 Edge Falling");
 	t1edgefalling_prop.set_unit("n/a");
 	t1edgefalling_prop.set_standard_unit("n/a");
 	t1edgefalling_prop.set_display_unit("n/a");

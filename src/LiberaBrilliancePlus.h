@@ -387,7 +387,7 @@ public:
 	Tango::DevShort	*attr_T2Direction_read;
 	Tango::DevLong	*attr_SynchronizeLMT_read;
 	Tango::DevLong	*attr_RTCTimestamp_read;
-	Tango::DevBoolean	*attr_RTCTimestampState_read;
+	Tango::DevLong	*attr_RTCTimestampState_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -1772,7 +1772,7 @@ public:
  *	Attribute RTCTimestampState related methods
  *	Description: State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled
  *
- *	Data type:	Tango::DevBoolean
+ *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
  */
 	virtual void read_RTCTimestampState(Tango::Attribute &attr);
