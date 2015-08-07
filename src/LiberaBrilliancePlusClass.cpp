@@ -889,7 +889,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 
 	//	Set Default Class Properties
 	prop_name = "InterlockConfiguration";
-	prop_desc = "The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`\nthe Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configuration\ncan also be applied using the dedicated ``SetInterlockConfiguration`` expert command.\nParameters mapping:\n[0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency\n[1] Interlock : threshold : X low in mm\n[2] Interlock : threshold : X high in mm\n[3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)\n[4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)\n[5] Interlock : overflow limit (ADC threshold)\n[6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)\n[7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0]";
+	prop_desc = "The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`the Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configurationcan also be applied using the dedicated ``SetInterlockConfiguration`` expert command.Parameters mapping:[0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency[1] Interlock : threshold : X low in mm[2] Interlock : threshold : X high in mm[3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)[4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)[5] Interlock : overflow limit (ADC threshold)[6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)[7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0]";
 	prop_def  = "";
 	vect_data.clear();
 	if (prop_def.length()>0)
@@ -958,7 +958,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_class_prop(prop_name, prop_desc);
 	prop_name = "Institute";
-	prop_desc = "0: TANGO_INSTITUTE (GENERIC)\n1: ALBA\n2: ESRF\n3: ELETTRA\n4: SOLEIL";
+	prop_desc = "0: TANGO_INSTITUTE (GENERIC)1: ALBA2: ESRF3: ELETTRA4: SOLEIL";
 	prop_def  = "0";
 	vect_data.clear();
 	vect_data.push_back("0");
@@ -1070,7 +1070,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "EnableExternalTrigger";
-	prop_desc = "Enables (or not) the external trigger source.\nInlfuences the TANGO device behaviour not the Libera itself. Defaults to false.";
+	prop_desc = "Enables (or not) the external trigger source.Inlfuences the TANGO device behaviour not the Libera itself. Defaults to false.";
 	prop_def  = "false";
 	vect_data.clear();
 	vect_data.push_back("false");
@@ -1084,7 +1084,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "DDTaskActivityPeriod";
-	prop_desc = "Specify the watch-dog (1) or data reading period (2) in ms.\nMust be in the rangec [500, 25000] ms. Defaults to 1000.\n(1) : external trigger enabled - (2) : external trigger disabled.";
+	prop_desc = "Specify the watch-dog (1) or data reading period (2) in ms.Must be in the rangec [500, 25000] ms. Defaults to 1000.(1) : external trigger enabled - (2) : external trigger disabled.";
 	prop_def  = "1000";
 	vect_data.clear();
 	vect_data.push_back("1000");
@@ -1098,7 +1098,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "SATaskActivityPeriod";
-	prop_desc = "Specify the watch-dog (1) or data reading period (2) in ms.\nMust be in the range [100, 25000] ms. Defaults to 100.";
+	prop_desc = "Specify the watch-dog (1) or data reading period (2) in ms.Must be in the range [100, 25000] ms. Defaults to 100.";
 	prop_def  = "100";
 	vect_data.clear();
 	vect_data.push_back("100");
@@ -1154,7 +1154,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "DDDecimationFactor";
-	prop_desc = "The DD decimation factor.\nAllowed values : 1 (no decimation) or 64 (for the so called booster normal mode)";
+	prop_desc = "The DD decimation factor.Allowed values : 1 (no decimation) or 64 (for the so called booster normal mode)";
 	prop_def  = "1";
 	vect_data.clear();
 	vect_data.push_back("1");
@@ -1196,7 +1196,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "DefaultSAStatNumSamples";
-	prop_desc = "Default number of SA history samples to use form RMS pos. computation.\nDefaults to 10 (last second in the SA history).";
+	prop_desc = "Default number of SA history samples to use form RMS pos. computation.Defaults to 10 (last second in the SA history).";
 	prop_def  = "256";
 	vect_data.clear();
 	vect_data.push_back("256");
@@ -1224,7 +1224,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "ADCTaskActivityPeriod";
-	prop_desc = "Specifies the data reading period in ms.\nMust be in the range [500, 25000] ms. Defaults to 1000.";
+	prop_desc = "Specifies the data reading period in ms.Must be in the range [500, 25000] ms. Defaults to 1000.";
 	prop_def  = "1000";
 	vect_data.clear();
 	vect_data.push_back("1000");
@@ -1252,7 +1252,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "DefaultTimePhaseValue";
-	prop_desc = "Default value for the machine time phase. Its valid range is [0, RfSfRatio - 1] where\nRfSfRatio is a machine dependent system property.";
+	prop_desc = "Default value for the machine time phase. Its valid range is [0, RfSfRatio - 1] whereRfSfRatio is a machine dependent system property.";
 	prop_def  = "";
 	vect_data.clear();
 	if (prop_def.length()>0)
@@ -1265,7 +1265,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "InterlockConfiguration";
-	prop_desc = "The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`\nthe Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configuration\ncan also be applied using the dedicated `SetInterlockConfiguration` expert command.\nParameters mapping:\n[0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency\n[1] Interlock : threshold : X low in mm\n[2] Interlock : threshold : X high in mm\n[3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)\n[4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)\n[5] Interlock : overflow limit (ADC threshold)\n[6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)\n[7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0]";
+	prop_desc = "The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`the Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configurationcan also be applied using the dedicated `SetInterlockConfiguration` expert command.Parameters mapping:[0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency[1] Interlock : threshold : X low in mm[2] Interlock : threshold : X high in mm[3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)[4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)[5] Interlock : overflow limit (ADC threshold)[6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)[7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0]";
 	prop_def  = "";
 	vect_data.clear();
 	if (prop_def.length()>0)
@@ -1334,7 +1334,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "Institute";
-	prop_desc = "0: TANGO_INSTITUTE (GENERIC)\n1: ALBA\n2: ESRF\n3: ELETTRA\n4: SOLEIL";
+	prop_desc = "0: TANGO_INSTITUTE (GENERIC)1: ALBA2: ESRF3: ELETTRA4: SOLEIL";
 	prop_def  = "0";
 	vect_data.clear();
 	vect_data.push_back("0");
@@ -1348,7 +1348,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "MaxDDBufferSizeWhenDecimationEnabled";
-	prop_desc = "Max. DD buffer size when decimation enabled on DD data source.\nDefaults to 10000";
+	prop_desc = "Max. DD buffer size when decimation enabled on DD data source.Defaults to 10000";
 	prop_def  = "16384";
 	vect_data.clear();
 	vect_data.push_back("16384");
@@ -1376,7 +1376,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "FADataCacheRefreshPeriod";
-	prop_desc = "The <FA Data> cache refresh period in msecs.\nDefaults to 500 ms (2Hz).";
+	prop_desc = "The <FA Data> cache refresh period in msecs.Defaults to 500 ms (2Hz).";
 	prop_def  = "500";
 	vect_data.clear();
 	vect_data.push_back("500");
@@ -1446,7 +1446,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "TDTaskActivityPeriod";
-	prop_desc = "Specify the watch-dog (1) or data reading period (2) in ms.\nMust be in the rangec [500, 25000] ms. Defaults to 1000.\n(1) : external trigger enabled - (2) : external trigger disabled.";
+	prop_desc = "Specify the watch-dog (1) or data reading period (2) in ms.Must be in the rangec [500, 25000] ms. Defaults to 1000.(1) : external trigger enabled - (2) : external trigger disabled.";
 	prop_def  = "1000";
 	vect_data.clear();
 	vect_data.push_back("1000");
@@ -1460,7 +1460,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "TDDecimationFactor";
-	prop_desc = "The DD decimation factor.\nAllowed values : 1 (no decimation) or 64 (for the so called booster normal mode)";
+	prop_desc = "The DD decimation factor.Allowed values : 1 (no decimation) or 64 (for the so called booster normal mode)";
 	prop_def  = "1";
 	vect_data.clear();
 	vect_data.push_back("1");
@@ -1474,7 +1474,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "MaxTDBufferSizeWhenDecimationEnabled";
-	prop_desc = "Max. TD buffer size when decimation enabled on DD data source.\nDefaults to 10000";
+	prop_desc = "Max. TD buffer size when decimation enabled on DD data source.Defaults to 10000";
 	prop_def  = "16384";
 	vect_data.clear();
 	vect_data.push_back("16384");
@@ -1600,7 +1600,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "MCinMask";
-	prop_desc = "MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_desc = "MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.";
 	prop_def  = "256";
 	vect_data.clear();
 	vect_data.push_back("256");
@@ -1628,7 +1628,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T0inMask";
-	prop_desc = "T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_desc = "T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.";
 	prop_def  = "51";
 	vect_data.clear();
 	vect_data.push_back("51");
@@ -1642,7 +1642,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T1inMask";
-	prop_desc = "T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_desc = "T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.";
 	prop_def  = "255";
 	vect_data.clear();
 	vect_data.push_back("255");
@@ -1656,7 +1656,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T2inMask";
-	prop_desc = "T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.";
+	prop_desc = "T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.";
 	prop_def  = "255";
 	vect_data.clear();
 	vect_data.push_back("255");
@@ -1880,7 +1880,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "PMSource";
-	prop_desc = "source of the PM event (﻿external,interlock,limits)";
+	prop_desc = "source of the PM event (?external,interlock,limits)";
 	prop_def  = "0";
 	vect_data.clear();
 	vect_data.push_back("0");
@@ -2047,8 +2047,7 @@ void LiberaBrilliancePlusClass::write_class_property()
 	//	Put Description
 	Tango::DbDatum	description("Description");
 	vector<string>	str_desc;
-	str_desc.push_back("IT Libera BPM Device Server.");
-	str_desc.push_back("The interface should be the same as for the Brillance model.");
+	str_desc.push_back("IT Libera BPM Device Server.The interface should be the same as for the Brillance model.");
 	description << str_desc;
 	data.push_back(description);
 
@@ -2184,7 +2183,7 @@ void LiberaBrilliancePlusClass::device_factory(const Tango::DevVarStringArray *d
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
 	{
 		cout4 << "Device name : " << (*devlist_ptr)[i].in() << endl;
-		device_list.push_back(new LiberaBrilliancePlus(this, (*devlist_ptr)[i]));
+		device_list.push_back(new LiberaBrilliancePlus(this, (*devlist_ptr)[i]));							 
 	}
 
 	//	Manage dynamic attributes if any
@@ -2447,7 +2446,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : ExternalTriggerDelay
 	ExternalTriggerDelayAttrib	*externaltriggerdelay = new ExternalTriggerDelayAttrib();
 	Tango::UserDefaultAttrProp	externaltriggerdelay_prop;
-	externaltriggerdelay_prop.set_description("Sets the delay on the external trigger arrival. \nThe delay is set in steps of ADC samples (~ 9 ns).");
+	externaltriggerdelay_prop.set_description("Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples (~ 9 ns).");
 	externaltriggerdelay_prop.set_label("External Trigger Delay");
 	externaltriggerdelay_prop.set_unit("ADC samples");
 	//	standard_unit	not set for ExternalTriggerDelay
@@ -2979,7 +2978,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : PMOffset
 	PMOffsetAttrib	*pmoffset = new PMOffsetAttrib();
 	Tango::UserDefaultAttrProp	pmoffset_prop;
-	pmoffset_prop.set_description("Offset relative to the post mortem event setting. \nSet value is in turns, e.g. 1024 would mean that post mortem \nacquisition is starting 1024 turns after the post mortem trigger \nwas received.");
+	pmoffset_prop.set_description("Offset relative to the post mortem event setting. Set value is in turns, e.g. 1024 would mean that post mortem acquisition is starting 1024 turns after the post mortem trigger was received.");
 	pmoffset_prop.set_label("Post Mortem Offset");
 	pmoffset_prop.set_unit("samples");
 	//	standard_unit	not set for PMOffset
@@ -3099,7 +3098,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : InterlockAttnNotified
 	InterlockAttnNotifiedAttrib	*interlockattnnotified = new InterlockAttnNotifiedAttrib();
 	Tango::UserDefaultAttrProp	interlockattnnotified_prop;
-	interlockattnnotified_prop.set_description("Sets to 1 if the attenuator's value is higher than gain \ndependence threshold");
+	interlockattnnotified_prop.set_description("Sets to 1 if the attenuator's value is higher than gain dependence threshold");
 	//	label	not set for InterlockAttnNotified
 	//	unit	not set for InterlockAttnNotified
 	//	standard_unit	not set for InterlockAttnNotified
@@ -3316,7 +3315,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : ExternalSwitching
 	ExternalSwitchingAttrib	*externalswitching = new ExternalSwitchingAttrib();
 	Tango::UserDefaultAttrProp	externalswitching_prop;
-	externalswitching_prop.set_description("Sets the source of switching clock – MC (external) or from the \noscillator (internal). Default value is internal. ");
+	externalswitching_prop.set_description("Sets the source of switching clock ? MC (external) or from the oscillator (internal). Default value is internal. ");
 	externalswitching_prop.set_label("External Switching");
 	//	unit	not set for ExternalSwitching
 	//	standard_unit	not set for ExternalSwitching
@@ -3341,7 +3340,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : SwitchingDelay
 	SwitchingDelayAttrib	*switchingdelay = new SwitchingDelayAttrib();
 	Tango::UserDefaultAttrProp	switchingdelay_prop;
-	switchingdelay_prop.set_description("Sets the delay of the switch position change relative to the \nswitching source clock.");
+	switchingdelay_prop.set_description("Sets the delay of the switch position change relative to the switching source clock.");
 	switchingdelay_prop.set_label("Switching Delay");
 	switchingdelay_prop.set_unit("a.u.");
 	//	standard_unit	not set for SwitchingDelay
@@ -3366,7 +3365,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : OffsetTune
 	OffsetTuneAttrib	*offsettune = new OffsetTuneAttrib();
 	Tango::UserDefaultAttrProp	offsettune_prop;
-	offsettune_prop.set_description("Sets the offset tune value, 1 unit is approximately 40 Hz. \nDefault value is 0 (precisely tuned).");
+	offsettune_prop.set_description("Sets the offset tune value, 1 unit is approximately 40 Hz. Default value is 0 (precisely tuned).");
 	offsettune_prop.set_label("OffsetTune");
 	offsettune_prop.set_unit("x 40Hz");
 	//	standard_unit	not set for OffsetTune
@@ -3391,7 +3390,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : CompensateTune
 	CompensateTuneAttrib	*compensatetune = new CompensateTuneAttrib();
 	Tango::UserDefaultAttrProp	compensatetune_prop;
-	compensatetune_prop.set_description("To enable double offset-tune, issue the following command \n(to disable it, just use “false” instead of “true”).");
+	compensatetune_prop.set_description("To enable double offset-tune, issue the following command (to disable it, just use ?false? instead of ?true?).");
 	compensatetune_prop.set_label("Compensate Tune");
 	//	unit	not set for CompensateTune
 	//	standard_unit	not set for CompensateTune
@@ -3416,7 +3415,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : DSCMode
 	DSCModeAttrib	*dscmode = new DSCModeAttrib();
 	Tango::UserDefaultAttrProp	dscmode_prop;
-	dscmode_prop.set_description("Sets the adjustment (learning) of the amplitude and \nphase coefficients true or false. Set the \ncoefficients' type – adjusted or unity. Combination of \nthese two nodes is necessary to achieve backward \ncompatiblity.");
+	dscmode_prop.set_description("Sets the adjustment (learning) of the amplitude and phase coefficients true or false. Set the coefficients' type ? adjusted or unity. Combination of these two nodes is necessary to achieve backward compatiblity.");
 	dscmode_prop.set_label("DSC Mode");
 	dscmode_prop.set_unit("[0:OFF, 1:UNITY, 2:AUTO]");
 	//	standard_unit	not set for DSCMode
@@ -3465,7 +3464,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Gain
 	GainAttrib	*gain = new GainAttrib();
 	Tango::UserDefaultAttrProp	gain_prop;
-	gain_prop.set_description("Sets the power_level. Attenuation at chosen level \ndepends on the gain scheme configuration. AGC \nmust be disabled to use manual Gain setting.");
+	gain_prop.set_description("Sets the power_level. Attenuation at chosen level depends on the gain scheme configuration. AGC must be disabled to use manual Gain setting.");
 	gain_prop.set_label("Gain");
 	gain_prop.set_unit("dBm");
 	gain_prop.set_standard_unit("dBm");
@@ -3684,7 +3683,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Temp1
 	Temp1Attrib	*temp1 = new Temp1Attrib();
 	Tango::UserDefaultAttrProp	temp1_prop;
-	temp1_prop.set_description("Temperature of the hottest component on the BPM \nmodule is returned.");
+	temp1_prop.set_description("Temperature of the hottest component on the BPM module is returned.");
 	temp1_prop.set_label("Temperature 1");
 	temp1_prop.set_unit("deg.C");
 	//	standard_unit	not set for Temp1
@@ -3708,7 +3707,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Temp2
 	Temp2Attrib	*temp2 = new Temp2Attrib();
 	Tango::UserDefaultAttrProp	temp2_prop;
-	temp2_prop.set_description("Temperature of the hottest component on the chassis \ninterconnection board is returned.");
+	temp2_prop.set_description("Temperature of the hottest component on the chassis interconnection board is returned.");
 	temp2_prop.set_label("Temperature 2");
 	temp2_prop.set_unit("deg.C");
 	//	standard_unit	not set for Temp2
@@ -3732,7 +3731,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Temp3
 	Temp3Attrib	*temp3 = new Temp3Attrib();
 	Tango::UserDefaultAttrProp	temp3_prop;
-	temp3_prop.set_description("Temperature of the hottest component on the timing \nmodule is returned.");
+	temp3_prop.set_description("Temperature of the hottest component on the timing module is returned.");
 	temp3_prop.set_label("Temperature 3");
 	temp3_prop.set_unit("deg.C");
 	//	standard_unit	not set for Temp3
@@ -3756,7 +3755,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Fan1Speed
 	Fan1SpeedAttrib	*fan1speed = new Fan1SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan1speed_prop;
-	fan1speed_prop.set_description("Provides minimal fan speed reading of all three  fans on \nthe left side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken – returned value \n0 means that at least one fan has stopped.");
+	fan1speed_prop.set_description("Provides minimal fan speed reading of all three fans on the left side of the chassis in order to identify if the fan module (consisting of 3 fans) is broken ? returned value 0 means that at least one fan has stopped.");
 	fan1speed_prop.set_label("Fan.1");
 	fan1speed_prop.set_unit("rpm");
 	//	standard_unit	not set for Fan1Speed
@@ -3780,7 +3779,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Fan2Speed
 	Fan2SpeedAttrib	*fan2speed = new Fan2SpeedAttrib();
 	Tango::UserDefaultAttrProp	fan2speed_prop;
-	fan2speed_prop.set_description("Provides minimal fan speed reading of all three  fans on \nthe right side of the chassis in order to identify if the fan \nmodule (consisting of 3 fans) is broken – returned value \n0 means that at least one fan has stopped.");
+	fan2speed_prop.set_description("Provides minimal fan speed reading of all three fans on the right side of the chassis in order to identify if the fan module (consisting of 3 fans) is broken ? returned value 0 means that at least one fan has stopped.");
 	fan2speed_prop.set_label("Fan.2");
 	fan2speed_prop.set_unit("rpm");
 	//	standard_unit	not set for Fan2Speed
@@ -4122,7 +4121,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : InterlockGainDependentThreshold
 	InterlockGainDependentThresholdAttrib	*interlockgaindependentthreshold = new InterlockGainDependentThresholdAttrib();
 	Tango::UserDefaultAttrProp	interlockgaindependentthreshold_prop;
-	interlockgaindependentthreshold_prop.set_description("Sets the threshold for gain dependent mode of Interlock \noperation.");
+	interlockgaindependentthreshold_prop.set_description("Sets the threshold for gain dependent mode of Interlock operation.");
 	interlockgaindependentthreshold_prop.set_label("interlock gain limit");
 	interlockgaindependentthreshold_prop.set_unit("a.u.");
 	//	standard_unit	not set for InterlockGainDependentThreshold
@@ -4147,7 +4146,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Kx
 	KxAttrib	*kx = new KxAttrib();
 	Tango::UserDefaultAttrProp	kx_prop;
-	kx_prop.set_description("Sets the Kx for X position calculation. Default setting is 10 mm \n(=10000000 nm).");
+	kx_prop.set_description("Sets the Kx for X position calculation. Default setting is 10 mm (=10000000 nm).");
 	kx_prop.set_label("X position coefficient");
 	kx_prop.set_unit("a.u.");
 	//	standard_unit	not set for Kx
@@ -4172,7 +4171,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Ky
 	KyAttrib	*ky = new KyAttrib();
 	Tango::UserDefaultAttrProp	ky_prop;
-	ky_prop.set_description("Sets the Ky for Y position calculation. Default setting is 10 mm \n(=10000000 nm).");
+	ky_prop.set_description("Sets the Ky for Y position calculation. Default setting is 10 mm (=10000000 nm).");
 	ky_prop.set_label("Y position coefficient");
 	ky_prop.set_unit("a.u.");
 	//	standard_unit	not set for Ky
@@ -4272,7 +4271,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : TDBufferSize
 	TDBufferSizeAttrib	*tdbuffersize = new TDBufferSizeAttrib();
 	Tango::UserDefaultAttrProp	tdbuffersize_prop;
-	tdbuffersize_prop.set_description("The number of samples to be read on TD data source.\nInfluences the size of the associated attributes [such as XPosTD for instance].");
+	tdbuffersize_prop.set_description("The number of samples to be read on TD data source.Influences the size of the associated attributes [such as XPosTD for instance].");
 	tdbuffersize_prop.set_label("TD Buffer Size");
 	tdbuffersize_prop.set_unit("turns");
 	//	standard_unit	not set for TDBufferSize
@@ -4419,7 +4418,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : Ks
 	KsAttrib	*ks = new KsAttrib();
 	Tango::UserDefaultAttrProp	ks_prop;
-	ks_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2ˆ26)");
+	ks_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2?26)");
 	ks_prop.set_label("SUM value coefficient");
 	//	unit	not set for Ks
 	//	standard_unit	not set for Ks
@@ -4469,7 +4468,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : SOffset
 	SOffsetAttrib	*soffset = new SOffsetAttrib();
 	Tango::UserDefaultAttrProp	soffset_prop;
-	soffset_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2ˆ26)");
+	soffset_prop.set_description("Coefficient for SUM value. Default setting is 67108864. (2?26)");
 	soffset_prop.set_label("Coefficient for SUM value.");
 	//	unit	not set for SOffset
 	//	standard_unit	not set for SOffset
@@ -4494,7 +4493,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : SynchronizationStatus
 	SynchronizationStatusAttrib	*synchronizationstatus = new SynchronizationStatusAttrib();
 	Tango::UserDefaultAttrProp	synchronizationstatus_prop;
-	synchronizationstatus_prop.set_description("﻿The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.");
+	synchronizationstatus_prop.set_description("?The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.");
 	synchronizationstatus_prop.set_label("Synchronization state machine status");
 	//	unit	not set for SynchronizationStatus
 	//	standard_unit	not set for SynchronizationStatus
@@ -4830,7 +4829,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : T0inMask
 	T0inMaskAttrib	*t0inmask = new T0inMaskAttrib();
 	Tango::UserDefaultAttrProp	t0inmask_prop;
-	t0inmask_prop.set_description("T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t0inmask_prop.set_description("T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.");
 	t0inmask_prop.set_label("T0 Masking Array");
 	//	unit	not set for T0inMask
 	//	standard_unit	not set for T0inMask
@@ -4854,7 +4853,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : T1inMask
 	T1inMaskAttrib	*t1inmask = new T1inMaskAttrib();
 	Tango::UserDefaultAttrProp	t1inmask_prop;
-	t1inmask_prop.set_description("T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t1inmask_prop.set_description("T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.");
 	t1inmask_prop.set_label("T1 Masking Array");
 	//	unit	not set for T1inMask
 	//	standard_unit	not set for T1inMask
@@ -4878,7 +4877,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : T2inMask
 	T2inMaskAttrib	*t2inmask = new T2inMaskAttrib();
 	Tango::UserDefaultAttrProp	t2inmask_prop;
-	t2inmask_prop.set_description("T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	t2inmask_prop.set_description("T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.");
 	t2inmask_prop.set_label("T2 Masking Array");
 	//	unit	not set for T2inMask
 	//	standard_unit	not set for T2inMask
@@ -4974,7 +4973,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : MCinMask
 	MCinMaskAttrib	*mcinmask = new MCinMaskAttrib();
 	Tango::UserDefaultAttrProp	mcinmask_prop;
-	mcinmask_prop.set_description("MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.");
+	mcinmask_prop.set_description("MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.");
 	mcinmask_prop.set_label("MC Masking Array");
 	//	unit	not set for MCinMask
 	//	standard_unit	not set for MCinMask
@@ -5286,7 +5285,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : PMSource
 	PMSourceAttrib	*pmsource = new PMSourceAttrib();
 	Tango::UserDefaultAttrProp	pmsource_prop;
-	pmsource_prop.set_description("source of the PM event (﻿external,interlock,limits)\n");
+	pmsource_prop.set_description("source of the PM event (?external,interlock,limits)");
 	pmsource_prop.set_label("PM Source");
 	//	unit	not set for PMSource
 	//	standard_unit	not set for PMSource
@@ -5402,6 +5401,30 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	rtctimestamp->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(rtctimestamp);
+
+	//	Attribute : RTCTimestampState
+	RTCTimestampStateAttrib	*rtctimestampstate = new RTCTimestampStateAttrib();
+	Tango::UserDefaultAttrProp	rtctimestampstate_prop;
+	rtctimestampstate_prop.set_description("State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled");
+	rtctimestampstate_prop.set_label("RTC Timestamp State");
+	//	unit	not set for RTCTimestampState
+	//	standard_unit	not set for RTCTimestampState
+	//	display_unit	not set for RTCTimestampState
+	//	format	not set for RTCTimestampState
+	//	max_value	not set for RTCTimestampState
+	//	min_value	not set for RTCTimestampState
+	//	max_alarm	not set for RTCTimestampState
+	//	min_alarm	not set for RTCTimestampState
+	//	max_warning	not set for RTCTimestampState
+	//	min_warning	not set for RTCTimestampState
+	//	delta_t	not set for RTCTimestampState
+	//	delta_val	not set for RTCTimestampState
+	
+	rtctimestampstate->set_default_properties(rtctimestampstate_prop);
+	//	Not Polled
+	rtctimestampstate->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(rtctimestampstate);
 
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
@@ -5598,7 +5621,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : XPosSAHistory
 	XPosSAHistoryAttrib	*xpossahistory = new XPosSAHistoryAttrib();
 	Tango::UserDefaultAttrProp	xpossahistory_prop;
-	xpossahistory_prop.set_description("Slow Acquisition: X scrolling window of last NumSamples \n(512) sa samples");
+	xpossahistory_prop.set_description("Slow Acquisition: X scrolling window of last NumSamples (512) sa samples");
 	xpossahistory_prop.set_label("SA X Pos. History");
 	xpossahistory_prop.set_unit("mm");
 	xpossahistory_prop.set_standard_unit("mm");
@@ -5622,7 +5645,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : YPosSAHistory
 	YPosSAHistoryAttrib	*ypossahistory = new YPosSAHistoryAttrib();
 	Tango::UserDefaultAttrProp	ypossahistory_prop;
-	ypossahistory_prop.set_description("Slow Acquisition: Y scrolling window of last NumSamples \n(512) sa samples");
+	ypossahistory_prop.set_description("Slow Acquisition: Y scrolling window of last NumSamples (512) sa samples");
 	ypossahistory_prop.set_label("SA Y Pos. History");
 	ypossahistory_prop.set_unit("mm");
 	ypossahistory_prop.set_standard_unit("mm");
@@ -5646,7 +5669,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : SumSAHistory
 	SumSAHistoryAttrib	*sumsahistory = new SumSAHistoryAttrib();
 	Tango::UserDefaultAttrProp	sumsahistory_prop;
-	sumsahistory_prop.set_description("Slow Acquisition: Sum scrolling window of last \nNumSamples (512) sa samples");
+	sumsahistory_prop.set_description("Slow Acquisition: Sum scrolling window of last NumSamples (512) sa samples");
 	sumsahistory_prop.set_label("SA Sum. History");
 	sumsahistory_prop.set_unit("a.u.");
 	sumsahistory_prop.set_standard_unit("a.u.");

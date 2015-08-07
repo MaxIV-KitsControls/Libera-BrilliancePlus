@@ -48,8 +48,7 @@ static const char *RcsId = "$Id:  $";
 
 /**
  *  LiberaBrilliancePlus class description:
- *    IT Libera BPM Device Server.
- *    The interface should be the same as for the Brillance model.
+ *    IT Libera BPM Device Server.The interface should be the same as for the Brillance model.
  */
 
 //================================================================
@@ -226,6 +225,7 @@ static const char *RcsId = "$Id:  $";
 //  T2Direction                      |  Tango::DevShort	Scalar
 //  SynchronizeLMT                   |  Tango::DevLong	Scalar
 //  RTCTimestamp                     |  Tango::DevLong	Scalar
+//  RTCTimestampState                |  Tango::DevBoolean	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  YPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  QuadDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -362,6 +362,7 @@ void LiberaBrilliancePlus::init_device()
 	//	Get the device properties from database
 	get_device_property();
 	
+
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::init_device) ENABLED START -----*/
 
     if (liberaBoard.empty())
@@ -517,6 +518,7 @@ void LiberaBrilliancePlus::init_device()
     //Timing Settings
     m_libera->AddScalar(tim + ".rtc.ts_timestamp",
     		attr_RTCTimestamp_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    m_libera->AddScalar(tim + ".rtc.ts_timestamp.state", attr_RTCTimestampState_read);
 
     m_libera->AddScalar(m_raf + "signal_processing.position.Ks",
     		attr_Ks_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
@@ -2101,8 +2103,7 @@ void LiberaBrilliancePlus::write_ExternalTriggerEnabled(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ExternalTriggerDelay related method
- *	Description: Sets the delay on the external trigger arrival. 
- *               The delay is set in steps of ADC samples (~ 9 ns).
+ *	Description: Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples (~ 9 ns).
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -2120,8 +2121,7 @@ void LiberaBrilliancePlus::read_ExternalTriggerDelay(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ExternalTriggerDelay related method
- *	Description: Sets the delay on the external trigger arrival. 
- *               The delay is set in steps of ADC samples (~ 9 ns).
+ *	Description: Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples (~ 9 ns).
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -2604,10 +2604,7 @@ void LiberaBrilliancePlus::write_ADCBufferSize(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute PMOffset related method
- *	Description: Offset relative to the post mortem event setting. 
- *               Set value is in turns, e.g. 1024 would mean that post mortem 
- *               acquisition is starting 1024 turns after the post mortem trigger 
- *               was received.
+ *	Description: Offset relative to the post mortem event setting. Set value is in turns, e.g. 1024 would mean that post mortem acquisition is starting 1024 turns after the post mortem trigger was received.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -2625,10 +2622,7 @@ void LiberaBrilliancePlus::read_PMOffset(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute PMOffset related method
- *	Description: Offset relative to the post mortem event setting. 
- *               Set value is in turns, e.g. 1024 would mean that post mortem 
- *               acquisition is starting 1024 turns after the post mortem trigger 
- *               was received.
+ *	Description: Offset relative to the post mortem event setting. Set value is in turns, e.g. 1024 would mean that post mortem acquisition is starting 1024 turns after the post mortem trigger was received.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -2741,8 +2735,7 @@ void LiberaBrilliancePlus::read_InterlockYNotified(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute InterlockAttnNotified related method
- *	Description: Sets to 1 if the attenuator's value is higher than gain 
- *               dependence threshold
+ *	Description: Sets to 1 if the attenuator's value is higher than gain dependence threshold
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -3030,8 +3023,7 @@ void LiberaBrilliancePlus::write_Switches(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ExternalSwitching related method
- *	Description: Sets the source of switching clock – MC (external) or from the 
- *               oscillator (internal). Default value is internal. 
+ *	Description: Sets the source of switching clock ? MC (external) or from the oscillator (internal). Default value is internal. 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -3049,8 +3041,7 @@ void LiberaBrilliancePlus::read_ExternalSwitching(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ExternalSwitching related method
- *	Description: Sets the source of switching clock – MC (external) or from the 
- *               oscillator (internal). Default value is internal. 
+ *	Description: Sets the source of switching clock ? MC (external) or from the oscillator (internal). Default value is internal. 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -3071,8 +3062,7 @@ void LiberaBrilliancePlus::write_ExternalSwitching(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute SwitchingDelay related method
- *	Description: Sets the delay of the switch position change relative to the 
- *               switching source clock.
+ *	Description: Sets the delay of the switch position change relative to the switching source clock.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -3090,8 +3080,7 @@ void LiberaBrilliancePlus::read_SwitchingDelay(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute SwitchingDelay related method
- *	Description: Sets the delay of the switch position change relative to the 
- *               switching source clock.
+ *	Description: Sets the delay of the switch position change relative to the switching source clock.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -3112,8 +3101,7 @@ void LiberaBrilliancePlus::write_SwitchingDelay(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute OffsetTune related method
- *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. 
- *               Default value is 0 (precisely tuned).
+ *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. Default value is 0 (precisely tuned).
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -3131,8 +3119,7 @@ void LiberaBrilliancePlus::read_OffsetTune(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute OffsetTune related method
- *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. 
- *               Default value is 0 (precisely tuned).
+ *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. Default value is 0 (precisely tuned).
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -3153,8 +3140,7 @@ void LiberaBrilliancePlus::write_OffsetTune(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute CompensateTune related method
- *	Description: To enable double offset-tune, issue the following command 
- *               (to disable it, just use “false” instead of “true”).
+ *	Description: To enable double offset-tune, issue the following command (to disable it, just use ?false? instead of ?true?).
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -3172,8 +3158,7 @@ void LiberaBrilliancePlus::read_CompensateTune(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute CompensateTune related method
- *	Description: To enable double offset-tune, issue the following command 
- *               (to disable it, just use “false” instead of “true”).
+ *	Description: To enable double offset-tune, issue the following command (to disable it, just use ?false? instead of ?true?).
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -3194,11 +3179,7 @@ void LiberaBrilliancePlus::write_CompensateTune(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute DSCMode related method
- *	Description: Sets the adjustment (learning) of the amplitude and 
- *               phase coefficients true or false. Set the 
- *               coefficients' type – adjusted or unity. Combination of 
- *               these two nodes is necessary to achieve backward 
- *               compatiblity.
+ *	Description: Sets the adjustment (learning) of the amplitude and phase coefficients true or false. Set the coefficients' type ? adjusted or unity. Combination of these two nodes is necessary to achieve backward compatiblity.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -3216,11 +3197,7 @@ void LiberaBrilliancePlus::read_DSCMode(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute DSCMode related method
- *	Description: Sets the adjustment (learning) of the amplitude and 
- *               phase coefficients true or false. Set the 
- *               coefficients' type – adjusted or unity. Combination of 
- *               these two nodes is necessary to achieve backward 
- *               compatiblity.
+ *	Description: Sets the adjustment (learning) of the amplitude and phase coefficients true or false. Set the coefficients' type ? adjusted or unity. Combination of these two nodes is necessary to achieve backward compatiblity.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -3280,9 +3257,7 @@ void LiberaBrilliancePlus::write_AGCEnabled(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute Gain related method
- *	Description: Sets the power_level. Attenuation at chosen level 
- *               depends on the gain scheme configuration. AGC 
- *               must be disabled to use manual Gain setting.
+ *	Description: Sets the power_level. Attenuation at chosen level depends on the gain scheme configuration. AGC must be disabled to use manual Gain setting.
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -3300,9 +3275,7 @@ void LiberaBrilliancePlus::read_Gain(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute Gain related method
- *	Description: Sets the power_level. Attenuation at chosen level 
- *               depends on the gain scheme configuration. AGC 
- *               must be disabled to use manual Gain setting.
+ *	Description: Sets the power_level. Attenuation at chosen level depends on the gain scheme configuration. AGC must be disabled to use manual Gain setting.
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -3569,8 +3542,7 @@ void LiberaBrilliancePlus::read_MCPLLStatus(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute Temp1 related method
- *	Description: Temperature of the hottest component on the BPM 
- *               module is returned.
+ *	Description: Temperature of the hottest component on the BPM module is returned.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -3588,8 +3560,7 @@ void LiberaBrilliancePlus::read_Temp1(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute Temp2 related method
- *	Description: Temperature of the hottest component on the chassis 
- *               interconnection board is returned.
+ *	Description: Temperature of the hottest component on the chassis interconnection board is returned.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -3607,8 +3578,7 @@ void LiberaBrilliancePlus::read_Temp2(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute Temp3 related method
- *	Description: Temperature of the hottest component on the timing 
- *               module is returned.
+ *	Description: Temperature of the hottest component on the timing module is returned.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -3626,10 +3596,7 @@ void LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute Fan1Speed related method
- *	Description: Provides minimal fan speed reading of all three  fans on 
- *               the left side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken – returned value 
- *               0 means that at least one fan has stopped.
+ *	Description: Provides minimal fan speed reading of all three fans on the left side of the chassis in order to identify if the fan module (consisting of 3 fans) is broken ? returned value 0 means that at least one fan has stopped.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -3647,10 +3614,7 @@ void LiberaBrilliancePlus::read_Fan1Speed(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute Fan2Speed related method
- *	Description: Provides minimal fan speed reading of all three  fans on 
- *               the right side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken – returned value 
- *               0 means that at least one fan has stopped.
+ *	Description: Provides minimal fan speed reading of all three fans on the right side of the chassis in order to identify if the fan module (consisting of 3 fans) is broken ? returned value 0 means that at least one fan has stopped.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -4046,8 +4010,7 @@ void LiberaBrilliancePlus::write_InterlockOverflowDuration(Tango::WAttribute &at
 //--------------------------------------------------------
 /**
  *	Read attribute InterlockGainDependentThreshold related method
- *	Description: Sets the threshold for gain dependent mode of Interlock 
- *               operation.
+ *	Description: Sets the threshold for gain dependent mode of Interlock operation.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -4065,8 +4028,7 @@ void LiberaBrilliancePlus::read_InterlockGainDependentThreshold(Tango::Attribute
 //--------------------------------------------------------
 /**
  *	Write attribute InterlockGainDependentThreshold related method
- *	Description: Sets the threshold for gain dependent mode of Interlock 
- *               operation.
+ *	Description: Sets the threshold for gain dependent mode of Interlock operation.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -4087,8 +4049,7 @@ void LiberaBrilliancePlus::write_InterlockGainDependentThreshold(Tango::WAttribu
 //--------------------------------------------------------
 /**
  *	Read attribute Kx related method
- *	Description: Sets the Kx for X position calculation. Default setting is 10 mm 
- *               (=10000000 nm).
+ *	Description: Sets the Kx for X position calculation. Default setting is 10 mm (=10000000 nm).
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -4106,8 +4067,7 @@ void LiberaBrilliancePlus::read_Kx(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute Kx related method
- *	Description: Sets the Kx for X position calculation. Default setting is 10 mm 
- *               (=10000000 nm).
+ *	Description: Sets the Kx for X position calculation. Default setting is 10 mm (=10000000 nm).
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -4128,8 +4088,7 @@ void LiberaBrilliancePlus::write_Kx(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute Ky related method
- *	Description: Sets the Ky for Y position calculation. Default setting is 10 mm 
- *               (=10000000 nm).
+ *	Description: Sets the Ky for Y position calculation. Default setting is 10 mm (=10000000 nm).
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -4147,8 +4106,7 @@ void LiberaBrilliancePlus::read_Ky(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute Ky related method
- *	Description: Sets the Ky for Y position calculation. Default setting is 10 mm 
- *               (=10000000 nm).
+ *	Description: Sets the Ky for Y position calculation. Default setting is 10 mm (=10000000 nm).
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -4284,8 +4242,7 @@ void LiberaBrilliancePlus::write_TDEnabled(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute TDBufferSize related method
- *	Description: The number of samples to be read on TD data source.
- *               Influences the size of the associated attributes [such as XPosTD for instance].
+ *	Description: The number of samples to be read on TD data source.Influences the size of the associated attributes [such as XPosTD for instance].
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -4303,8 +4260,7 @@ void LiberaBrilliancePlus::read_TDBufferSize(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute TDBufferSize related method
- *	Description: The number of samples to be read on TD data source.
- *               Influences the size of the associated attributes [such as XPosTD for instance].
+ *	Description: The number of samples to be read on TD data source.Influences the size of the associated attributes [such as XPosTD for instance].
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -4454,7 +4410,7 @@ void LiberaBrilliancePlus::read_TDTriggerCounter(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute Ks related method
- *	Description: Coefficient for SUM value. Default setting is 67108864. (2ˆ26)
+ *	Description: Coefficient for SUM value. Default setting is 67108864. (2?26)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -4472,7 +4428,7 @@ void LiberaBrilliancePlus::read_Ks(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute Ks related method
- *	Description: Coefficient for SUM value. Default setting is 67108864. (2ˆ26)
+ *	Description: Coefficient for SUM value. Default setting is 67108864. (2?26)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -4530,7 +4486,7 @@ void LiberaBrilliancePlus::write_QOffset(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute SOffset related method
- *	Description: Coefficient for SUM value. Default setting is 67108864. (2ˆ26)
+ *	Description: Coefficient for SUM value. Default setting is 67108864. (2?26)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -4548,7 +4504,7 @@ void LiberaBrilliancePlus::read_SOffset(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute SOffset related method
- *	Description: Coefficient for SUM value. Default setting is 67108864. (2ˆ26)
+ *	Description: Coefficient for SUM value. Default setting is 67108864. (2?26)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -4568,7 +4524,7 @@ void LiberaBrilliancePlus::write_SOffset(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute SynchronizationStatus related method
- *	Description: ﻿The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.
+ *	Description: ?The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -5060,7 +5016,7 @@ void LiberaBrilliancePlus::write_SPnAfter(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute T0inMask related method
- *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5078,7 +5034,7 @@ void LiberaBrilliancePlus::read_T0inMask(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute T0inMask related method
- *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5098,7 +5054,7 @@ void LiberaBrilliancePlus::write_T0inMask(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute T1inMask related method
- *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5116,7 +5072,7 @@ void LiberaBrilliancePlus::read_T1inMask(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute T1inMask related method
- *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5136,7 +5092,7 @@ void LiberaBrilliancePlus::write_T1inMask(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute T2inMask related method
- *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5154,7 +5110,7 @@ void LiberaBrilliancePlus::read_T2inMask(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute T2inMask related method
- *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5288,7 +5244,7 @@ void LiberaBrilliancePlus::write_T2inFunction(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute MCinMask related method
- *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5306,7 +5262,7 @@ void LiberaBrilliancePlus::read_MCinMask(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute MCinMask related method
- *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator?s timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5783,8 +5739,7 @@ void LiberaBrilliancePlus::write_PMBufferSize(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute PMSource related method
- *	Description: source of the PM event (﻿external,interlock,limits)
- *               
+ *	Description: source of the PM event (?external,interlock,limits)
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -5802,8 +5757,7 @@ void LiberaBrilliancePlus::read_PMSource(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute PMSource related method
- *	Description: source of the PM event (﻿external,interlock,limits)
- *               
+ *	Description: source of the PM event (?external,interlock,limits)
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -5954,6 +5908,24 @@ void LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
+ *	Read attribute RTCTimestampState related method
+ *	Description: State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_RTCTimestampState(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_RTCTimestampState(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_RTCTimestampState) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_RTCTimestampState_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RTCTimestampState
+}
+//--------------------------------------------------------
+/**
  *	Read attribute XPosDD related method
  *	Description: Turn by turn data: X Pos.
  *
@@ -6099,8 +6071,7 @@ void LiberaBrilliancePlus::read_VdDD(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute XPosSAHistory related method
- *	Description: Slow Acquisition: X scrolling window of last NumSamples 
- *               (512) sa samples
+ *	Description: Slow Acquisition: X scrolling window of last NumSamples (512) sa samples
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 16384
@@ -6118,8 +6089,7 @@ void LiberaBrilliancePlus::read_XPosSAHistory(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute YPosSAHistory related method
- *	Description: Slow Acquisition: Y scrolling window of last NumSamples 
- *               (512) sa samples
+ *	Description: Slow Acquisition: Y scrolling window of last NumSamples (512) sa samples
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 16384
@@ -6137,8 +6107,7 @@ void LiberaBrilliancePlus::read_YPosSAHistory(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute SumSAHistory related method
- *	Description: Slow Acquisition: Sum scrolling window of last 
- *               NumSamples (512) sa samples
+ *	Description: Slow Acquisition: Sum scrolling window of last NumSamples (512) sa samples
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 16384
@@ -6867,13 +6836,17 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 	set_state(m_state);    // Give the state to Tango.; // replace by your own algorithm
 	if (*attr_InterlockXNotified_read == true || *attr_InterlockYNotified_read == true ||
 	 *attr_InterlockAttnNotified_read == true || *attr_InterlockADCPreFilterNotified_read == true ||
-        *attr_InterlockADCPostFilterNotified_read == true)
+        *attr_InterlockADCPostFilterNotified_read == true || *attr_MCPLLStatus_read == false
+		*attr_RTCTimestampState_read == true)
 	{
 		set_state(Tango::ALARM);
 	}
 	//	Add your own code
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_state
-	return DeviceImpl::dev_state();
+	set_state(m_state);    // Give the state to Tango.
+	if (m_state!=Tango::ALARM)
+		DeviceImpl::dev_state();
+	return get_state();  // Return it after Tango management.
 }
 //--------------------------------------------------------
 /**
@@ -6889,8 +6862,9 @@ Tango::ConstDevString LiberaBrilliancePlus::dev_status()
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_status) ENABLED START -----*/
 	//	Add your own code
 	set_status(m_status);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status       // Give the status to Tango.
-	return DeviceImpl::dev_status();
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status
+
+	return DeviceImpl::dev_status();  // Return it.
 }
 //--------------------------------------------------------
 /**
@@ -7082,8 +7056,7 @@ void LiberaBrilliancePlus::reset_interlock_notification()
 //--------------------------------------------------------
 /**
  *	Command SetInterlockConfiguration related method
- *	Description: Change interlock configuration using the InterlockConfiguration class (or device) property.
- *               Only  modify  the interlock configuration, the remaining env. parameters remain unchanged.
+ *	Description: Change interlock configuration using the InterlockConfiguration class (or device) property.Only  modify  the interlock configuration, the remaining env. parameters remain unchanged.
  *
  */
 //--------------------------------------------------------
@@ -7175,8 +7148,7 @@ Tango::DevVarLongArray *LiberaBrilliancePlus::read_fadata(const Tango::DevVarLon
 //--------------------------------------------------------
 /**
  *	Command WriteFAData related method
- *	Description: Starting from [offset] in Fa data block, writes [size of elems * num of elems].
- *               The actual data to be written starts at index [4] in the input array.
+ *	Description: Starting from [offset] in Fa data block, writes [size of elems * num of elems].The actual data to be written starts at index [4] in the input array.
  *
  *	@param argin The writting parameters: [0]:offset in FA data block, bytes[1]:size of elems, [2]:num of elems, [3, ...]: actual to data to be written
  */
@@ -7386,10 +7358,7 @@ void LiberaBrilliancePlus::disable_sp()
 //--------------------------------------------------------
 /**
  *	Command StartSynchronization related method
- *	Description: Starts synchronization procedure:
- *               * Synchronization State Machine (MUST be Tracking)
- *               * Start the Trigger (t2source=Pulse and then t2source=RTC)
- *               * Synchronization State Machine (MUST be Synchronized)
+ *	Description: Starts synchronization procedure:* Synchronization State Machine (MUST be Tracking)* Start the Trigger (t2source=Pulse and then t2source=RTC)* Synchronization State Machine (MUST be Synchronized)
  *
  */
 //--------------------------------------------------------
@@ -7414,10 +7383,7 @@ void LiberaBrilliancePlus::start_synchronization()
 //--------------------------------------------------------
 /**
  *	Command AnnounceSynchronization related method
- *	Description: Announce synchronization procedure:
- *               * Stop the Trigger (t2source=off)
- *               *  MC PLL (MUST be locked)
- *               * Synchronization State Machine (MUST be Tracking)
+ *	Description: Announce synchronization procedure:* Stop the Trigger (t2source=off)*  MC PLL (MUST be locked)* Synchronization State Machine (MUST be Tracking)
  *
  */
 //--------------------------------------------------------

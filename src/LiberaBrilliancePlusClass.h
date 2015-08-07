@@ -1930,6 +1930,19 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_RTCTimestamp_allowed(ty);}
 };
 
+//	Attribute RTCTimestampState class definition
+class RTCTimestampStateAttrib: public Tango::Attr
+{
+public:
+	RTCTimestampStateAttrib():Attr("RTCTimestampState",
+			Tango::DEV_BOOLEAN, Tango::READ) {};
+	~RTCTimestampStateAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_RTCTimestampState(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_RTCTimestampState_allowed(ty);}
+};
+
 //	Attribute XPosDD class definition
 class XPosDDAttrib: public Tango::SpectrumAttr
 {
@@ -3279,18 +3292,7 @@ class LiberaBrilliancePlusClass : public Tango::DeviceClass
 
 	//	Class properties data members
 	public:
-		//	InterlockConfiguration:	The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`
-		//  the Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configuration
-		//  can also be applied using the dedicated ``SetInterlockConfiguration`` expert command.
-		//  Parameters mapping:
-		//  [0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency
-		//  [1] Interlock : threshold : X low in mm
-		//  [2] Interlock : threshold : X high in mm
-		//  [3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)
-		//  [4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)
-		//  [5] Interlock : overflow limit (ADC threshold)
-		//  [6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)
-		//  [7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0]
+		//	InterlockConfiguration:	The user defined interlock configuration. This is the configuration that should be applied on the Libera in case the device `finds`the Libera in its default startup configuration when it is itself starting up or executing its Init TANGO command. This configurationcan also be applied using the dedicated ``SetInterlockConfiguration`` expert command.Parameters mapping:[0] Interlock : mode - [0]: disabled, [1]: enabled, [3]: enabled with gain dependency[1] Interlock : threshold : X low in mm[2] Interlock : threshold : X high in mm[3] Interlock : threshold : Z low in mm (i.e. Y low in the Libera terminology)[4] Interlock : threshold : Z high in mm (i.e. Y high in the Libera terminology)[5] Interlock : overflow limit (ADC threshold)[6] Interlock : overflow duration (num of overloaded ADC samples before raising intlck)[7] Interlock : gain limit in dBm  (intlck not active under this limit) - valid range is [-60, 0]
 		vector<Tango::DevDouble>	interlockConfiguration;
 		//	EnableDDOptionalData:	Enables/Disables  DD optional data (IxDD and QxDD)
 		Tango::DevBoolean	enableDDOptionalData;
@@ -3300,11 +3302,7 @@ class LiberaBrilliancePlusClass : public Tango::DeviceClass
 		Tango::DevBoolean	enableSAHistoryOptionalData;
 		//	EnableADCOptionalData:	Enables/disables ADC optional data (currently not used)
 		Tango::DevBoolean	enableADCOptionalData;
-		//	Institute:	0: TANGO_INSTITUTE (GENERIC)
-		//  1: ALBA
-		//  2: ESRF
-		//  3: ELETTRA
-		//  4: SOLEIL
+		//	Institute:	0: TANGO_INSTITUTE (GENERIC)1: ALBA2: ESRF3: ELETTRA4: SOLEIL
 		Tango::DevShort	institute;
 		//	EnableTDOptionalData:	Enables/Disables  TD optional data (IxDD and QxDD)
 		Tango::DevBoolean	enableTDOptionalData;
