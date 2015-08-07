@@ -28,7 +28,7 @@ MAKE_ENV = /usr/share/pogo/preferences
 #
 PACKAGE_NAME = LiberaBrilliancePlus
 MAJOR_VERS   = 1
-MINOR_VERS   = 2
+MINOR_VERS   = 3
 RELEASE      = Release_$(MAJOR_VERS)_$(MINOR_VERS)
 LIBERA_VERSION = 2.9
 
