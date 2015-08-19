@@ -1930,6 +1930,19 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_RTCTimestamp_allowed(ty);}
 };
 
+//	Attribute RTCTimestampState class definition
+class RTCTimestampStateAttrib: public Tango::Attr
+{
+public:
+	RTCTimestampStateAttrib():Attr("RTCTimestampState",
+			Tango::DEV_LONG, Tango::READ) {};
+	~RTCTimestampStateAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_RTCTimestampState(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_RTCTimestampState_allowed(ty);}
+};
+
 //	Attribute XPosDD class definition
 class XPosDDAttrib: public Tango::SpectrumAttr
 {
