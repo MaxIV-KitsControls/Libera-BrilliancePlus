@@ -226,6 +226,7 @@ static const char *RcsId = "$Id:  $";
 //  T2Direction                      |  Tango::DevShort	Scalar
 //  SynchronizeLMT                   |  Tango::DevLong	Scalar
 //  RTCTimestamp                     |  Tango::DevLong	Scalar
+//  RTCTimestampState                |  Tango::DevLong	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  YPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  QuadDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -517,6 +518,7 @@ void LiberaBrilliancePlus::init_device()
     //Timing Settings
     m_libera->AddScalar(tim + ".rtc.ts_timestamp",
     		attr_RTCTimestamp_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    m_libera->AddScalar(tim + ".rtc.ts_timestamp.state", attr_RTCTimestampState_read);
 
     m_libera->AddScalar(m_raf + "signal_processing.position.Ks",
     		attr_Ks_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
@@ -4162,7 +4164,7 @@ void LiberaBrilliancePlus::write_Ky(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_Ky) ENABLED START -----*/
 	
-	
+	m_libera->UpdateScalar(attr_Ky_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_Ky
 }
 //--------------------------------------------------------
@@ -5959,6 +5961,24 @@ void LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
+ *	Read attribute RTCTimestampState related method
+ *	Description: State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_RTCTimestampState(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_RTCTimestampState(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_RTCTimestampState) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_RTCTimestampState_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RTCTimestampState
+}
+//--------------------------------------------------------
+/**
  *	Read attribute XPosDD related method
  *	Description: Turn by turn data: X Pos.
  *
@@ -6872,7 +6892,8 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 	set_state(m_state);    // Give the state to Tango.; // replace by your own algorithm
 	if (*attr_InterlockXNotified_read == true || *attr_InterlockYNotified_read == true ||
 	 *attr_InterlockAttnNotified_read == true || *attr_InterlockADCPreFilterNotified_read == true ||
-        *attr_InterlockADCPostFilterNotified_read == true)
+        *attr_InterlockADCPostFilterNotified_read == true || *attr_MCPLLStatus_read == false
+		|| *attr_RTCTimestampState_read != 0 || *attr_SynchronizationStatus_read != 2)
 	{
 		set_state(Tango::ALARM);
 	}

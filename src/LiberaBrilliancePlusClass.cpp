@@ -5167,7 +5167,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	T1EdgeFallingAttrib	*t1edgefalling = new T1EdgeFallingAttrib();
 	Tango::UserDefaultAttrProp	t1edgefalling_prop;
 	//	description	not set for T1EdgeFalling
-	t1edgefalling_prop.set_label("T2 Edge Falling");
+	t1edgefalling_prop.set_label("T1 Edge Falling");
 	t1edgefalling_prop.set_unit("n/a");
 	t1edgefalling_prop.set_standard_unit("n/a");
 	t1edgefalling_prop.set_display_unit("n/a");
@@ -5402,6 +5402,30 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	rtctimestamp->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(rtctimestamp);
+
+	//	Attribute : RTCTimestampState
+	RTCTimestampStateAttrib	*rtctimestampstate = new RTCTimestampStateAttrib();
+	Tango::UserDefaultAttrProp	rtctimestampstate_prop;
+	rtctimestampstate_prop.set_description("State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled");
+	rtctimestampstate_prop.set_label("RTC Timestamp State");
+	//	unit	not set for RTCTimestampState
+	//	standard_unit	not set for RTCTimestampState
+	//	display_unit	not set for RTCTimestampState
+	//	format	not set for RTCTimestampState
+	//	max_value	not set for RTCTimestampState
+	//	min_value	not set for RTCTimestampState
+	//	max_alarm	not set for RTCTimestampState
+	//	min_alarm	not set for RTCTimestampState
+	//	max_warning	not set for RTCTimestampState
+	//	min_warning	not set for RTCTimestampState
+	//	delta_t	not set for RTCTimestampState
+	//	delta_val	not set for RTCTimestampState
+	
+	rtctimestampstate->set_default_properties(rtctimestampstate_prop);
+	//	Not Polled
+	rtctimestampstate->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(rtctimestampstate);
 
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
