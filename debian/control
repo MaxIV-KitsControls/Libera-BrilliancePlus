@@ -1,0 +1,18 @@
+Source: tangods-liberabrillianceplus
+Standards-Version: 1.2.1
+Section: utils
+Maintainer: MAXIV Laboratory <kits@maxlab.lu.se>, Cosylab d.o.o. <info@cosylab.com>
+Homepage: https://github.com/MaxIV-KitsControls/Libera-BrilliancePlus
+Vcs-Git: https://github.com/MaxIV-KitsControls/Libera-BrilliancePlus.git
+Vcs-Browser: https://github.com/MaxIV-KitsControls/Libera-BrilliancePlus
+Priority: optional
+Build-Depends: debhelper (>= 7.0.0),
+               libtango8-dev,
+               libera-base2.9-dev,
+               libera-mci2.9-dev
+
+Package: tangods-liberabrillianceplus
+Architecture: i386
+Depends: libtango8, libera-base2.9, libera-mci2.9
+Description: Tango Device Server for Libera Brilliance Plus
+

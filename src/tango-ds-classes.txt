@@ -1,0 +1,129 @@
+
+Copyright (c) 2012 Instrumentation Technologies
+All Rights Reserved.
+
+$Id: tango-ds-classes.txt 18407 2013-01-07 13:53:29Z tomaz.beltram $
+
+Class diagram can be generated from this text file using PlantUML avalable from:
+http://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+
+java -jar plantuml.jar tango-ds-classes.txt
+
+@startuml
+
+class LiberaBrilliancePlus {
+  +init_device()
+  +always_executed_hook()
+  +read_attr()
+  +write_attr()
+  +command()
+  -m_libera
+  -m_signalDdc
+  -m_signalDdcRaw
+  -m_signalSA
+  -m_signalADC
+  -m_signalPM
+}
+note left : POGO generated code,\nextended to use LiebraClient.
+
+"Tango::Device_4Impl" <|-- LiberaBrilliancePlus
+
+class LiberaClient {
+  +AddAttr()
+  +AddSignal()
+  +Connect()
+  +Disconnect()
+  +UpdateAttr()
+  -m_attr
+  -m_signals
+  -m_thread
+}
+
+LiberaBrilliancePlus "1" *-- "1" LiberaClient
+
+class LiberaAttr {
+  {abstract} +Read()
+  -m_client
+}
+
+class LiberaScalarAttr {
+  +Read()
+  +Write()
+  -m_attr
+  -m_reader
+  -m_writer
+  -m_path
+}
+note top : Holds a reference\nof the attribute pointer.
+
+LiberaAttr <|-- LiberaScalarAttr
+
+class LiberaSignal {
+  +Realloc()
+  +Update()
+  {abstract} #GetData()
+  {abstract} -UpdateSignal()
+  -m_thread
+  -m_path
+}
+
+class LiberaSignalAttr {
+  +GetData()
+  -m_columns
+  -m_stream
+  -m_dod
+  -m_buf
+}
+note top : Holds several references of\nspectrum attribute pointers\nfor the same signal.
+
+LiberaSignal <|-- LiberaSignalAttr
+
+class LiberaSignalSAHistory {
+  -Realloc()
+  -GetData()
+  -UpdateSignal()
+  -Refill()
+  -Statistics()
+}
+note top : References to SA History statistics\nand spectrum attributes pointers.
+
+LiberaSignalAttr <|-- LiberaSignalSAHistory
+
+LiberaBrilliancePlus o-- "*" LiberaSignal
+
+LiberaClient *-- "*" LiberaAttr
+LiberaClient --o LiberaAttr
+
+LiberaClient *-- "*" LiberaSignal
+
+package libmci {
+  class "mci::RootNode" {
+    +Connect()
+    +Disconnect()
+  }
+  class "mci::Node" {
+    +Get()
+    +Set()
+    +Notify()
+  }
+}
+
+package libisig {  
+  class "isig::Stream" {
+    +Open()
+    +Read()
+    +Close()
+  }
+  class "isig::DataOnDemand" {
+    +Open()
+    +Read()
+    +Close()
+  }
+}
+
+LiberaClient o-- "2" "mci::RootNode"
+LiberaScalarAttr o-- "*" "mci::Node"
+LiberaSignalSAHistory "1" o-- "1" "isig::Stream"
+LiberaSignalAttr o-- "isig::DataOnDemand"
+
+@enduml

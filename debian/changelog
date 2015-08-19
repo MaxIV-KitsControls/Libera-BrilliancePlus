@@ -1,0 +1,35 @@
+tangods-liberabrillianceplus (1.2.1) unstable; urgency=low
+
+  * Fixed weird utf-8 characters in the description of the attribute that prevent to run client on it
+  * updated the synchronisation method
+  * fixed the writing of t2 in function
+
+ -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Fri, 07 August 2015 17:00:00 +0200
+
+tangods-liberabrillianceplus (1.2.0) unstable; urgency=low
+
+  * Added new attributes for the timing module.
+
+  * Added Single mode Signal.
+
+  * Added TDP signal
+
+  * Added Announce Synchronization and Start Synchronization Commands.
+
+ -- Vasileios Martos <vasileios.martos@maxiv.lu.se>  Tue, 28 July 2015 15:00:00 +0200
+
+tangods-liberabrillianceplus (1.1.0) unstable; urgency=low
+
+  * Change dependencies version to 2.9
+
+ -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Sun, 28 June 2015 17:00:00 +0200
+tangods-liberabrillianceplus (1.0.1) unstable; urgency=low
+
+  * Fix State Machine (merge request #14 NexeyaSGara)
+
+ -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Sun, 28 June 2015 15:00:00 +0200
+tangods-liberabrillianceplus (1.0.0) unstable; urgency=low
+
+  * Initial debian packaging
+
+ -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Mon, 11 May 2015 21:48:19 +0200
