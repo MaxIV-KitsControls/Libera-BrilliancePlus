@@ -1,3 +1,10 @@
+tangods-liberabrillianceplus (1.2.2) unstable; urgency=high
+
+  * Fixed Ky write
+  * updated the state machine to reflect if the libera is synchronised
+
+ -- Sebastien Gara <sebastien.gara@nexeya.com> Wed, 19 August 2015 16:00:00 +0000
+
 tangods-liberabrillianceplus (1.2.1) unstable; urgency=low
 
   * Fixed weird utf-8 characters in the description of the attribute that prevent to run client on it
