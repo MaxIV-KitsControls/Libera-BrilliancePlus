@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
   <classes name="LiberaBrilliancePlus" pogoRevision="8.4">
-    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/LiberaBrilliancePlusTiming/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
+    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/encLiberaNext/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="Device_4Impl" sourcePath=""/>
       <identification contact="at maxlab.lu.se - kitscontrols" author="kitscontrols" emailDomain="maxlab.lu.se" classFamily="BeamDiag" siteSpecific="" platform="Unix Like" bus="Ethernet" manufacturer="I-Tech" reference="Libera Brilliance Plus"/>
     </description>
@@ -117,10 +117,10 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>256</DefaultPropValue>
     </deviceProperties>
-    <deviceProperties name="DefaultADCBufferSize" description="Default [or initial] value for attribute ADCBufferSize [in samples]. Defaults to 1024.">
+    <deviceProperties name="DefaultADCBufferSize" description="Default [or initial] value for attribute ADCBufferSize [in samples]. Defaults to 1000.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>1024</DefaultPropValue>
+      <DefaultPropValue>1000</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="ADCTaskActivityPeriod" description="Specifies the data reading period in ms.&#xA;Must be in the range [500, 25000] ms. Defaults to 1000.">
       <type xsi:type="pogoDsl:UIntType"/>
@@ -255,7 +255,7 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>3</DefaultPropValue>
     </deviceProperties>
-    <deviceProperties name="MCinMask" description="MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system.">
+    <deviceProperties name="MCinMask" description="MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>256</DefaultPropValue>
@@ -265,17 +265,17 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>256</DefaultPropValue>
     </deviceProperties>
-    <deviceProperties name="T0inMask" description="T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system.">
+    <deviceProperties name="T0inMask" description="T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>255</DefaultPropValue>
     </deviceProperties>
-    <deviceProperties name="T1inMask" description="T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system.">
+    <deviceProperties name="T1inMask" description="T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>255</DefaultPropValue>
     </deviceProperties>
-    <deviceProperties name="T2inMask" description="T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system.">
+    <deviceProperties name="T2inMask" description="T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>255</DefaultPropValue>
@@ -293,7 +293,7 @@
     <deviceProperties name="T2inFunction" description="T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>80</DefaultPropValue>
+      <DefaultPropValue>81</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="T0Duration" description="Duration of signal active pulse">
       <type xsi:type="pogoDsl:IntType"/>
@@ -355,7 +355,7 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>false</DefaultPropValue>
     </deviceProperties>
-    <deviceProperties name="PMSource" description="source of the PM event (&#xfeff;external,interlock,limits)">
+    <deviceProperties name="PMSource" description="source of the PM event External,Interlock,Limits">
       <type xsi:type="pogoDsl:ShortType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>0</DefaultPropValue>
@@ -373,22 +373,22 @@
     <deviceProperties name="XminLimit" description="X interlock min limit">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>-1</DefaultPropValue>
+      <DefaultPropValue>-5</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="YminLimit" description="Y interlock min limit">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>-1</DefaultPropValue>
+      <DefaultPropValue>-5</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="XmaxLimit" description="X interlock max limit">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>1</DefaultPropValue>
+      <DefaultPropValue>5</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="YmaxLimit" description="Y interlock max limit">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>1</DefaultPropValue>
+      <DefaultPropValue>5</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="InterlockEnable" description="Specifies whether or not the Interlock should be enabled at startup.">
       <type xsi:type="pogoDsl:BooleanType"/>
@@ -404,6 +404,56 @@
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>62</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="SPThreshold" description="Specifies the threshold for start of calculation (in ADC counts)">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>200</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="SPnBefore" description="Specifies the number of samples to take before the threshold (in ADC samples)">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>1</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="SPnAfter" description="Specifies the number of samples to take after the threshold (in ADC samples)">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>100</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="ExternalTriggerDelay" description="Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>9750</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="DSCMode" description="">
+      <type xsi:type="pogoDsl:ShortType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="InterlockFilterOverflow" description="ADC filter overflow">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>6</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="InterlockFilterPosition" description="ADC filter position">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>15</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="KxCoefficient" description="Position calculation Kx coefficient">
+      <type xsi:type="pogoDsl:DoubleType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0.8671523</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="KyCoefficient" description="Position calculation Ky coefficient">
+      <type xsi:type="pogoDsl:DoubleType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0.8671523</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="Gain" description="Power level Gain Control (Set it only when AGC is Disabled)">
+      <type xsi:type="pogoDsl:DoubleType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>-80</DefaultPropValue>
     </deviceProperties>
     <commands name="State" description="This command gets the device state (stored in its &lt;i>device_state&lt;/i> data member) and returns it to the caller." execMethod="dev_state" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="none.">
@@ -829,7 +879,7 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="External trigger activation flag" label="Ext. Trig. Enabled" unit="n/a" standardUnit="n/a" displayUnit="n/a" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="ExternalTriggerDelay" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false">
+    <attributes name="ExternalTriggerDelay" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:IntType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
@@ -1138,13 +1188,13 @@
       <readExcludedStates>UNKNOWN</readExcludedStates>
       <readExcludedStates>FAULT</readExcludedStates>
     </attributes>
-    <attributes name="ExternalSwitching" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false">
+    <attributes name="ExternalSwitching" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:BooleanType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Sets the source of switching clock &#x2013; MC (external) or from the &#xA;oscillator (internal). Default value is internal. " label="External Switching" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Sets the source of switching clock MC (external) or from the &#xA;oscillator (internal). Default value is internal." label="External Switching" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="SwitchingDelay" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false">
       <dataType xsi:type="pogoDsl:IntType"/>
@@ -1162,38 +1212,39 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="Sets the offset tune value, 1 unit is approximately 40 Hz. &#xA;Default value is 0 (precisely tuned)." label="OffsetTune" unit="x 40Hz" standardUnit="" displayUnit="" format="%3d" maxValue="500" minValue="-500" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="CompensateTune" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false">
+    <attributes name="CompensateTune" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:BooleanType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="To enable double offset-tune, issue the following command &#xA;(to disable it, just use &#x201c;false&#x201d; instead of &#x201c;true&#x201d;)." label="Compensate Tune" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="To enable double offset-tune, issue the following command &#xA;(to disable it, just use false instead of true)." label="Compensate Tune" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="DSCMode" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false">
+    <attributes name="DSCMode" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:ShortType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Sets the adjustment (learning) of the amplitude and &#xA;phase coefficients true or false. Set the &#xA;coefficients' type &#x2013; adjusted or unity. Combination of &#xA;these two nodes is necessary to achieve backward &#xA;compatiblity." label="DSC Mode" unit="[0:OFF, 1:UNITY, 2:AUTO]" standardUnit="" displayUnit="" format="%1d" maxValue="2" minValue="0" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Sets the adjustment (learning) of the amplitude and phase coefficients true or false. Set the coefficients type, adjusted or unity. Combination of these two nodes is necessary to achieve backward compatiblity." label="DSC Mode" unit="[0:OFF, 1:AUTO, 2:Unity]" standardUnit="" displayUnit="" format="%1d" maxValue="2" minValue="0" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="AGCEnabled" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true">
+    <attributes name="AGCEnabled" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:BooleanType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="Enables/disables the Automatic Gain Control" label="AGC" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
       <readExcludedStates>UNKNOWN</readExcludedStates>
       <readExcludedStates>FAULT</readExcludedStates>
     </attributes>
-    <attributes name="Gain" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false">
+    <attributes name="Gain" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:DoubleType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Sets the power_level. Attenuation at chosen level &#xA;depends on the gain scheme configuration. AGC &#xA;must be disabled to use manual Gain setting." label="Gain" unit="dBm" standardUnit="dBm" displayUnit="dBm" format="%2.0f" maxValue="0" minValue="-60" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Sets the power_level. Attenuation at chosen level &#xA;depends on the gain scheme configuration. AGC &#xA;must be disabled to use manual Gain setting." label="Gain" unit="dBm" standardUnit="dBm" displayUnit="dBm" format="%2.0f" maxValue="0" minValue="-80" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="HasMAFSupport" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0">
       <dataType xsi:type="pogoDsl:BooleanType"/>
@@ -1287,21 +1338,21 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="Temperature of the hottest component on the timing &#xA;module is returned." label="Temperature 3" unit="deg.C" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="65" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="Fan1Speed" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false">
+    <attributes name="Fan1Speed" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:ShortType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Provides minimal fan speed reading of all three&#xa0; fans on &#xA;the left side of the chassis in order to identify if the fan &#xA;module (consisting of 3 fans) is broken &#x2013; returned value &#xA;0 means that at least one fan has stopped." label="Fan.1" unit="rpm" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="" minAlarm="1000" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Provides minimal fan speed reading of all three fans on &#xA;the left side of the chassis in order to identify if the fan &#xA;module (consisting of 3 fans) is broken returned value &#xA;0 means that at least one fan has stopped." label="Fan.1" unit="rpm" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="" minAlarm="1000" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="Fan2Speed" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false">
+    <attributes name="Fan2Speed" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:ShortType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Provides minimal fan speed reading of all three&#xa0; fans on &#xA;the right side of the chassis in order to identify if the fan &#xA;module (consisting of 3 fans) is broken &#x2013; returned value &#xA;0 means that at least one fan has stopped." label="Fan.2" unit="rpm" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="" minAlarm="1000" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Provides minimal fan speed reading of all three fans on &#xA;the right side of the chassis in order to identify if the fan &#xA;module (consisting of 3 fans) is broken returned value &#xA;0 means that at least one fan has stopped." label="Fan.2" unit="rpm" standardUnit="" displayUnit="" format="%8d" maxValue="" minValue="" maxAlarm="" minAlarm="1000" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="Incoherence" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0">
       <dataType xsi:type="pogoDsl:DoubleType"/>
@@ -1421,7 +1472,7 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="Sets the threshold for gain dependent mode of Interlock &#xA;operation." label="interlock gain limit" unit="a.u." standardUnit="" displayUnit="%5d" format="" maxValue="0" minValue="-80" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="Kx" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" memorized="true" memorizedAtInit="true" allocReadMember="false">
+    <attributes name="Kx" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:DoubleType"/>
       <changeEvent fire="false" libCheckCriteria="true"/>
       <archiveEvent fire="false" libCheckCriteria="true"/>
@@ -1429,7 +1480,7 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="Sets the Kx for X position calculation. Default setting is 10 mm &#xA;(=10000000 nm)." label="X position coefficient" unit="a.u." standardUnit="" displayUnit="" format="%8.2f" maxValue="50" minValue="0.0000001" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="Ky" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" memorized="true" memorizedAtInit="true" allocReadMember="false" isDynamic="false">
+    <attributes name="Ky" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:DoubleType"/>
       <changeEvent fire="false" libCheckCriteria="true"/>
       <archiveEvent fire="false" libCheckCriteria="true"/>
@@ -1529,7 +1580,7 @@
       <archiveEvent fire="false" libCheckCriteria="true"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Coefficient for SUM value. Default setting is 67108864. (2&#x2c6;26)" label="SUM value coefficient" unit="" standardUnit="" displayUnit="" format="%8.2f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Coefficient for SUM value. Default setting is 67108864." label="SUM value coefficient" unit="" standardUnit="" displayUnit="" format="%8.2f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="QOffset" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" memorized="true" memorizedAtInit="true" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:DoubleType"/>
@@ -1545,7 +1596,7 @@
       <archiveEvent fire="false" libCheckCriteria="true"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Coefficient for SUM value. Default setting is 67108864. (2&#x2c6;26)" label="Coefficient for SUM value." unit="" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Coefficient for SUM value. Default setting is 67108864." label="Coefficient for SUM value." unit="" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="SynchronizationStatus" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:ShortType"/>
@@ -1553,7 +1604,7 @@
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="&#xfeff;The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+." label="Synchronization state machine status" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+." label="Synchronization state machine status" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="T0Delay" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:IntType"/>
@@ -1665,7 +1716,7 @@
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system." label="T0 Masking Array" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system." label="T0 Masking Array" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="T1inMask" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:IntType"/>
@@ -1673,7 +1724,7 @@
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system." label="T1 Masking Array" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system." label="T1 Masking Array" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="T2inMask" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:IntType"/>
@@ -1681,7 +1732,7 @@
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system." label="T2 Masking Array" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system." label="T2 Masking Array" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="T0inFunction" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:IntType"/>
@@ -1713,7 +1764,7 @@
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator&#x2019;s timing system." label="MC Masking Array" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system." label="MC Masking Array" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="MCinFunction" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:IntType"/>
@@ -1817,7 +1868,7 @@
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="source of the PM event (&#xfeff;external,interlock,limits)&#xA;" label="PM Source" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="source of the PM event external interlock limits" label="PM Source" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="T1Direction" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:ShortType"/>
@@ -1858,6 +1909,22 @@
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled" label="RTC Timestamp State" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+    </attributes>
+    <attributes name="InterlockFilterOverflow" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:IntType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="boards.rafX.interlock.filter.overflow" label="ADC overflow limit" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+    </attributes>
+    <attributes name="InterlockFilterPosition" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
+      <dataType xsi:type="pogoDsl:IntType"/>
+      <changeEvent fire="false" libCheckCriteria="false"/>
+      <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <properties description="boards.rafX.interlock.filter.position" label="ADC filter position" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="XPosDD" attType="Spectrum" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="250000" maxY="0">
       <dataType xsi:type="pogoDsl:DoubleType"/>

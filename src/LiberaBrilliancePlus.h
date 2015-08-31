@@ -144,7 +144,7 @@ public:
 	//	DefaultSAStatNumSamples:	Default number of SA history samples to use form RMS pos. computation.
 	//  Defaults to 10 (last second in the SA history).
 	Tango::DevULong	defaultSAStatNumSamples;
-	//	DefaultADCBufferSize:	Default [or initial] value for attribute ADCBufferSize [in samples]. Defaults to 1024.
+	//	DefaultADCBufferSize:	Default [or initial] value for attribute ADCBufferSize [in samples]. Defaults to 1000.
 	Tango::DevLong	defaultADCBufferSize;
 	//	ADCTaskActivityPeriod:	Specifies the data reading period in ms.
 	//  Must be in the range [500, 25000] ms. Defaults to 1000.
@@ -223,15 +223,15 @@ public:
 	Tango::DevShort	t2Source;
 	//	MgtOut:	Enumeration Value (off,sfp_in,debug,connectors)
 	Tango::DevShort	mgtOut;
-	//	MCinMask:	MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+	//	MCinMask:	MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
 	Tango::DevLong	mCinMask;
 	//	MCinFunction:	MC Function array (in_function) contains 16-bit entries that define the value of masked bits.
 	Tango::DevLong	mCinFunction;
-	//	T0inMask:	T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+	//	T0inMask:	T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
 	Tango::DevLong	t0inMask;
-	//	T1inMask:	T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+	//	T1inMask:	T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
 	Tango::DevLong	t1inMask;
-	//	T2inMask:	T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+	//	T2inMask:	T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
 	Tango::DevLong	t2inMask;
 	//	T0inFunction:	T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
 	Tango::DevLong	t0inFunction;
@@ -263,7 +263,7 @@ public:
 	Tango::DevBoolean	t1EdgeRising;
 	//	T2EdgeRising:	T2 Edge Falling
 	Tango::DevBoolean	t2EdgeRising;
-	//	PMSource:	source of the PM event (﻿external,interlock,limits)
+	//	PMSource:	source of the PM event External,Interlock,Limits
 	Tango::DevShort	pMSource;
 	//	T1Direction:	t1 port direction -  (Input,Output)
 	Tango::DevShort	t1Direction;
@@ -283,6 +283,26 @@ public:
 	Tango::DevLong	t1ID;
 	//	T2ID:	T2 Optical event ID
 	Tango::DevLong	t2ID;
+	//	SPThreshold:	Specifies the threshold for start of calculation (in ADC counts)
+	Tango::DevLong	sPThreshold;
+	//	SPnBefore:	Specifies the number of samples to take before the threshold (in ADC samples)
+	Tango::DevLong	sPnBefore;
+	//	SPnAfter:	Specifies the number of samples to take after the threshold (in ADC samples)
+	Tango::DevLong	sPnAfter;
+	//	ExternalTriggerDelay:	Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples
+	Tango::DevLong	externalTriggerDelay;
+	//	DSCMode:	
+	Tango::DevShort	dSCMode;
+	//	InterlockFilterOverflow:	ADC filter overflow
+	Tango::DevLong	interlockFilterOverflow;
+	//	InterlockFilterPosition:	ADC filter position
+	Tango::DevLong	interlockFilterPosition;
+	//	KxCoefficient:	Position calculation Kx coefficient
+	Tango::DevDouble	kxCoefficient;
+	//	KyCoefficient:	Position calculation Ky coefficient
+	Tango::DevDouble	kyCoefficient;
+	//	Gain:	Power level Gain Control (Set it only when AGC is Disabled)
+	Tango::DevDouble	gain;
 
 //	Attribute data members
 public:
@@ -418,6 +438,8 @@ public:
 	Tango::DevLong	*attr_SynchronizeLMT_read;
 	Tango::DevLong	*attr_RTCTimestamp_read;
 	Tango::DevLong	*attr_RTCTimestampState_read;
+	Tango::DevLong	*attr_InterlockFilterOverflow_read;
+	Tango::DevLong	*attr_InterlockFilterPosition_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -965,8 +987,8 @@ public:
 	virtual bool is_Switches_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalSwitching related methods
- *	Description: Sets the source of switching clock – MC (external) or from the 
- *               oscillator (internal). Default value is internal. 
+ *	Description: Sets the source of switching clock MC (external) or from the 
+ *               oscillator (internal). Default value is internal.
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -999,7 +1021,7 @@ public:
 /**
  *	Attribute CompensateTune related methods
  *	Description: To enable double offset-tune, issue the following command 
- *               (to disable it, just use “false” instead of “true”).
+ *               (to disable it, just use false instead of true).
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -1009,11 +1031,7 @@ public:
 	virtual bool is_CompensateTune_allowed(Tango::AttReqType type);
 /**
  *	Attribute DSCMode related methods
- *	Description: Sets the adjustment (learning) of the amplitude and 
- *               phase coefficients true or false. Set the 
- *               coefficients' type – adjusted or unity. Combination of 
- *               these two nodes is necessary to achieve backward 
- *               compatiblity.
+ *	Description: Sets the adjustment (learning) of the amplitude and phase coefficients true or false. Set the coefficients type, adjusted or unity. Combination of these two nodes is necessary to achieve backward compatiblity.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1152,9 +1170,9 @@ public:
 	virtual bool is_Temp3_allowed(Tango::AttReqType type);
 /**
  *	Attribute Fan1Speed related methods
- *	Description: Provides minimal fan speed reading of all three  fans on 
+ *	Description: Provides minimal fan speed reading of all three fans on 
  *               the left side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken – returned value 
+ *               module (consisting of 3 fans) is broken returned value 
  *               0 means that at least one fan has stopped.
  *
  *	Data type:	Tango::DevShort
@@ -1164,9 +1182,9 @@ public:
 	virtual bool is_Fan1Speed_allowed(Tango::AttReqType type);
 /**
  *	Attribute Fan2Speed related methods
- *	Description: Provides minimal fan speed reading of all three  fans on 
+ *	Description: Provides minimal fan speed reading of all three fans on 
  *               the right side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken – returned value 
+ *               module (consisting of 3 fans) is broken returned value 
  *               0 means that at least one fan has stopped.
  *
  *	Data type:	Tango::DevShort
@@ -1421,7 +1439,7 @@ public:
 	virtual bool is_TDTriggerCounter_allowed(Tango::AttReqType type);
 /**
  *	Attribute Ks related methods
- *	Description: Coefficient for SUM value. Default setting is 67108864. (2ˆ26)
+ *	Description: Coefficient for SUM value. Default setting is 67108864.
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1441,7 +1459,7 @@ public:
 	virtual bool is_QOffset_allowed(Tango::AttReqType type);
 /**
  *	Attribute SOffset related methods
- *	Description: Coefficient for SUM value. Default setting is 67108864. (2ˆ26)
+ *	Description: Coefficient for SUM value. Default setting is 67108864.
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1451,7 +1469,7 @@ public:
 	virtual bool is_SOffset_allowed(Tango::AttReqType type);
 /**
  *	Attribute SynchronizationStatus related methods
- *	Description: ﻿The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.
+ *	Description: Synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1589,7 +1607,7 @@ public:
 	virtual bool is_SPnAfter_allowed(Tango::AttReqType type);
 /**
  *	Attribute T0inMask related methods
- *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1599,7 +1617,7 @@ public:
 	virtual bool is_T0inMask_allowed(Tango::AttReqType type);
 /**
  *	Attribute T1inMask related methods
- *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1609,7 +1627,7 @@ public:
 	virtual bool is_T1inMask_allowed(Tango::AttReqType type);
 /**
  *	Attribute T2inMask related methods
- *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1649,7 +1667,7 @@ public:
 	virtual bool is_T2inFunction_allowed(Tango::AttReqType type);
 /**
  *	Attribute MCinMask related methods
- *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
+ *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1779,8 +1797,7 @@ public:
 	virtual bool is_PMBufferSize_allowed(Tango::AttReqType type);
 /**
  *	Attribute PMSource related methods
- *	Description: source of the PM event (﻿external,interlock,limits)
- *               
+ *	Description: source of the PM event external interlock limits
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1836,6 +1853,26 @@ public:
  */
 	virtual void read_RTCTimestampState(Tango::Attribute &attr);
 	virtual bool is_RTCTimestampState_allowed(Tango::AttReqType type);
+/**
+ *	Attribute InterlockFilterOverflow related methods
+ *	Description: boards.rafX.interlock.filter.overflow
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_InterlockFilterOverflow(Tango::Attribute &attr);
+	virtual void write_InterlockFilterOverflow(Tango::WAttribute &attr);
+	virtual bool is_InterlockFilterOverflow_allowed(Tango::AttReqType type);
+/**
+ *	Attribute InterlockFilterPosition related methods
+ *	Description: boards.rafX.interlock.filter.position
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_InterlockFilterPosition(Tango::Attribute &attr);
+	virtual void write_InterlockFilterPosition(Tango::WAttribute &attr);
+	virtual bool is_InterlockFilterPosition_allowed(Tango::AttReqType type);
 /**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
