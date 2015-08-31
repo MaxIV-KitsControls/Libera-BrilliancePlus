@@ -153,10 +153,12 @@ public:
     }
     /**
      * DSCMode specific conversion for adjust and type subnodes.
-     * 0 : disabled => adjust = false
-     * 1 : unity    => adjust = true, type = unity(0)
-     * 2 : auto     => adjust = true, type = adjusted(1)
+     * 0 : type = unity(0), adjust = false
+     * 1 : type = adjusted(1), adjust = true (AUTO)
+     * 2 : type = unity(0), adjust = true
      */
+
+    //TODO create 8 combinations of 3 nodes (Switching, Adjust, Type) see Manual 2.4.3.4 Table 4
     static Tango::DevShort DSC2SHORT(mci::Node &a_root, const std::string &a_path) {
         istd_FTRC();
         bool enabled;
@@ -172,13 +174,15 @@ public:
         }
         return res;
     }
+
     static void SHORT2DSC(mci::Node &a_root, const std::string &a_path, const Tango::DevShort a_val) {
         istd_FTRC();
         bool enabled(a_val != 0);
         a_root.GetNode(mci::Tokenize(a_path+".adjust")).Set(enabled);
-        int64_t type(a_val == 1 ? 0 : 1);
+        int64_t type(!(a_val == 1) ? 0 : 1);
         a_root.GetNode(mci::Tokenize(a_path+".type")).Set(type);
     }
+
     static Tango::DevShort FAN2SHORT(mci::Node &a_root, const std::string &a_path) {
         istd_FTRC();
         double min;
