@@ -535,11 +535,11 @@ void LiberaBrilliancePlus::init_device()
     *attr_TDBufferFreezingEnabled_read = false;
 
     //Single Pass Mode Settings //TODO refactor read/write functions
-    m_libera->AddScalar(m_raf + ".single_pass.threshold",
+    m_libera->AddScalar(m_raf + "single_pass.threshold",
     		attr_SPThreshold_read, LiberaAttr::ULONG2LONGTHRSP, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(m_raf + ".single_pass.n_before",
+    m_libera->AddScalar(m_raf + "single_pass.n_before",
     		attr_SPnBefore_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(m_raf + ".single_pass.n_after",
+    m_libera->AddScalar(m_raf + "single_pass.n_after",
     		attr_SPnAfter_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
 
     //MC-CONFIG
