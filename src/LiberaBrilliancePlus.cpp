@@ -429,9 +429,7 @@ void LiberaBrilliancePlus::init_device()
 
     //n.a.
     m_libera->AddScalar("", attr_CxSA_read);
-m_libera->AddScalar("", attr_CySA_read);
-
-
+    m_libera->AddScalar("", attr_CySA_read);
 
     m_libera->AddScalar(m_raf + "conditioning.switching", attr_AutoSwitchingEnabled_read);
     m_libera->AddScalar("", attr_Switches_read); // n.a.
@@ -536,18 +534,20 @@ m_libera->AddScalar("", attr_CySA_read);
     *attr_TDBufferFreezingEnabled_read = false;
 
     //Single Pass Mode Settings //TODO refactor read/write functions
-    m_libera->AddScalar(m_raf + ".single_pass.threshold",
+    m_libera->AddScalar(m_raf + "single_pass.threshold",
     		attr_SPThreshold_read, LiberaAttr::ULONG2LONGTHRSP, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(m_raf + ".single_pass.n_before",
+    m_libera->AddScalar(m_raf + "single_pass.n_before",
     		attr_SPnBefore_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(m_raf + ".single_pass.n_after",
+    m_libera->AddScalar(m_raf + "single_pass.n_after",
     		attr_SPnAfter_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
 
     //MC-CONFIG
-    m_libera->AddScalar(tim + ".rtc.decoder_switch", attr_RtcDecoderSwitch_read);
-    m_libera->AddScalar(tim + ".triggers.mc.source",attr_McSource_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + ".rtc.mc.in_mask",attr_MCinMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
-    m_libera->AddScalar(tim + ".rtc.mc.in_function",attr_MCinFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
+    m_libera->AddScalar(tim + "rtc.decoder_switch", attr_RtcDecoderSwitch_read);
+    m_libera->AddScalar(tim + "triggers.mc.source",attr_McSource_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
+    m_libera->AddScalar(tim + "rtc.mc.in_mask",attr_MCinMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
+    //m_libera->AddScalar("",attr_MCinMask_read);
+    m_libera->AddScalar(tim + "rtc.mc.in_function",attr_MCinFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
+    //m_libera->AddScalar("",attr_MCinFunction_read);
 
     //T0-CONFIG
     m_libera->AddScalar(tim + "connectors.t0.direction",
@@ -587,7 +587,6 @@ m_libera->AddScalar("", attr_CySA_read);
     		LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
     m_libera->AddScalar(tim + "rtc.connectors.t2.edge.falling", attr_T2EdgeFalling_read);
     m_libera->AddScalar(tim + "rtc.connectors.t2.edge.rising", attr_T2EdgeRising_read);
-
 
     //ILK-CONFIG
     m_libera->AddScalar(tim + "rtc.mgt_out", attr_MgtOut_read,
