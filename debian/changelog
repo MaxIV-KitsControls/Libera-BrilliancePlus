@@ -6,6 +6,13 @@ tangods-liberabrillianceplus (1.3.1) unstable; urgency=low
 
  -- Vasileios Martos <vasileios.martos> Wed, 7 September 2015 08:00:00 +0000
 
+tangods-liberabrillianceplus (1.3.0) unstable; urgency=high
+
+  * Added several Properties and default values
+  * Ask me for the rest
+
+ -- Vasileios Martos <vasileios.martos@maxiv.lu.se>  Mon, 31 August 2015 12:00:00 +0200
+
 tangods-liberabrillianceplus (1.2.2) unstable; urgency=high
 
   * Fixed Ky write
