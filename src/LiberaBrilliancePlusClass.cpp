@@ -702,6 +702,26 @@ CORBA::Any *ForceInitSettingsClass::execute(Tango::DeviceImpl *device, TANGO_UNU
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		SetTraceLevelClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *SetTraceLevelClass::execute(Tango::DeviceImpl *device, const CORBA::Any &in_any)
+{
+	cout2 << "SetTraceLevelClass::execute(): arrived" << endl;
+	Tango::DevUShort argin;
+	extract(in_any, argin);
+	((static_cast<LiberaBrilliancePlus *>(device))->set_trace_level(argin));
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -1169,9 +1189,9 @@ void LiberaBrilliancePlusClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "EnableAutoSwitchingIfSAEnabled";
 	prop_desc = "When set to TRUE, auto-switching is automattically enabled when the SA data source is itself enabled";
-	prop_def  = "true";
+	prop_def  = "false";
 	vect_data.clear();
-	vect_data.push_back("true");
+	vect_data.push_back("false");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1699,9 +1719,9 @@ void LiberaBrilliancePlusClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T2inFunction";
 	prop_desc = "T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
-	prop_def  = "80";
+	prop_def  = "161";
 	vect_data.clear();
-	vect_data.push_back("80");
+	vect_data.push_back("161");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1782,10 +1802,10 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "PMCapture";
-	prop_desc = "PM functionality Enable/Disable";
-	prop_def  = "true";
+	prop_desc = "PM functionality capture: Set True to Disable, False to Enable";
+	prop_def  = "false";
 	vect_data.clear();
-	vect_data.push_back("true");
+	vect_data.push_back("false");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -2010,6 +2030,187 @@ void LiberaBrilliancePlusClass::set_default_property()
 	prop_def  = "62";
 	vect_data.clear();
 	vect_data.push_back("62");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "SPThreshold";
+	prop_desc = "Specifies the threshold for start of calculation (in ADC counts)";
+	prop_def  = "200";
+	vect_data.clear();
+	vect_data.push_back("200");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "SPnBefore";
+	prop_desc = "Specifies the number of samples to take before the threshold (in ADC samples)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "SPnAfter";
+	prop_desc = "Specifies the number of samples to take after the threshold (in ADC samples)";
+	prop_def  = "100";
+	vect_data.clear();
+	vect_data.push_back("100");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "ExternalTriggerDelay";
+	prop_desc = "Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples";
+	prop_def  = "9800";
+	vect_data.clear();
+	vect_data.push_back("9800");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "DSCMode";
+	prop_desc = "";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "InterlockFilterOverflow";
+	prop_desc = "ADC filter overflow";
+	prop_def  = "6";
+	vect_data.clear();
+	vect_data.push_back("6");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "InterlockFilterPosition";
+	prop_desc = "ADC filter position";
+	prop_def  = "15";
+	vect_data.clear();
+	vect_data.push_back("15");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "KxCoefficient";
+	prop_desc = "Position calculation Kx coefficient";
+	prop_def  = "0.8671523";
+	vect_data.clear();
+	vect_data.push_back("0.8671523");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "KyCoefficient";
+	prop_desc = "Position calculation Ky coefficient";
+	prop_def  = "0.8671523";
+	vect_data.clear();
+	vect_data.push_back("0.8671523");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "Gain";
+	prop_desc = "Power level Gain Control (Set it only when AGC is Disabled)";
+	prop_def  = "-80";
+	vect_data.clear();
+	vect_data.push_back("-80");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "EnableAGC";
+	prop_desc = "Enables/disables the Automatic Gain Control";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "InterlockGainDependent";
+	prop_desc = "Enables / disables gain dependent mode of Interlock operation.";
+	prop_def  = "true";
+	vect_data.clear();
+	vect_data.push_back("true");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "ErrorTrace";
+	prop_desc = "Trace Error functionality for the Libera, by default is Disabled:\n * Value: OutPut ,  TraceLevel\n	* Output[0] :  OutPut on Screen = 0\n	                         OutPut on File = 0 (﻿/var/tmp/ds.log/LiberaMciTrace.log)\n	* TraceLevel[1] : ﻿   Off     = 0,\n        		      Low     = 1,\n		      Med     = 2,\n		      High    = 3,\n		      Detail  = 4";
+	prop_def  = "";
+	vect_data.clear();
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -3020,7 +3221,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	pmnotified->set_default_properties(pmnotified_prop);
 	//	Not Polled
-	pmnotified->set_disp_level(Tango::EXPERT);
+	pmnotified->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(pmnotified);
 
@@ -4040,7 +4241,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	interlockenabled->set_default_properties(interlockenabled_prop);
 	//	Not Polled
-	interlockenabled->set_disp_level(Tango::EXPERT);
+	interlockenabled->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(interlockenabled);
 
@@ -4065,8 +4266,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	interlockgaindependentenabled->set_default_properties(interlockgaindependentenabled_prop);
 	//	Not Polled
 	interlockgaindependentenabled->set_disp_level(Tango::OPERATOR);
-	interlockgaindependentenabled->set_memorized();
-	interlockgaindependentenabled->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(interlockgaindependentenabled);
 
 	//	Attribute : InterlockOverflowThreshold
@@ -6896,6 +7096,15 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pForceInitSettingsCmd);
+
+	//	Command SetTraceLevel
+	SetTraceLevelClass	*pSetTraceLevelCmd =
+		new SetTraceLevelClass("SetTraceLevel",
+			Tango::DEV_USHORT, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pSetTraceLevelCmd);
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::command_factory_after) ENABLED START -----*/
 	

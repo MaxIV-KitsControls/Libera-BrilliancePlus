@@ -56,6 +56,8 @@ int main(int argc,char *argv[])
 		istd::TraceInit("LSPE-TDS.log", "/var/tmp/ds.log");
 		istd::TraceSetLevel(istd::eTrcDetail);
 		mci::Init();
+		istd::TraceInit();
+		istd::TraceSetLevel(istd::eTrcOff);
 	} catch (istd::Exception &e) {
 		cout << "Received a MCI Exception" << endl;
 		cout << "Exiting" << endl;

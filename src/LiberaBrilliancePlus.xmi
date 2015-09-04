@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
   <classes name="LiberaBrilliancePlus" pogoRevision="8.4">
-    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/LiberaBrilliancePlusTiming/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
+    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/Libera/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="Device_4Impl" sourcePath=""/>
       <identification contact="at maxlab.lu.se - kitscontrols" author="kitscontrols" emailDomain="maxlab.lu.se" classFamily="BeamDiag" siteSpecific="" platform="Unix Like" bus="Ethernet" manufacturer="I-Tech" reference="Libera Brilliance Plus"/>
     </description>
@@ -105,7 +105,7 @@
     <deviceProperties name="EnableAutoSwitchingIfSAEnabled" description="When set to TRUE, auto-switching is automattically enabled when the SA data source is itself enabled">
       <type xsi:type="pogoDsl:BooleanType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>true</DefaultPropValue>
+      <DefaultPropValue>false</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="EnableDSCIfAutoSwitchingEnabled" description="When set to TRUE, the Digital Signal Conditioning is automattically enabled when the auto-switching is itself enabled">
       <type xsi:type="pogoDsl:BooleanType"/>
@@ -293,7 +293,7 @@
     <deviceProperties name="T2inFunction" description="T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>80</DefaultPropValue>
+      <DefaultPropValue>161</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="T0Duration" description="Duration of signal active pulse">
       <type xsi:type="pogoDsl:IntType"/>
@@ -320,10 +320,10 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>1024</DefaultPropValue>
     </deviceProperties>
-    <deviceProperties name="PMCapture" description="PM functionality Enable/Disable">
+    <deviceProperties name="PMCapture" description="PM functionality capture: Set True to Disable, False to Enable">
       <type xsi:type="pogoDsl:BooleanType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>true</DefaultPropValue>
+      <DefaultPropValue>false</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="PMOffset" description="PM Offset">
       <type xsi:type="pogoDsl:IntType"/>
@@ -404,6 +404,70 @@
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <DefaultPropValue>62</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="SPThreshold" description="Specifies the threshold for start of calculation (in ADC counts)">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>200</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="SPnBefore" description="Specifies the number of samples to take before the threshold (in ADC samples)">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>1</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="SPnAfter" description="Specifies the number of samples to take after the threshold (in ADC samples)">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>100</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="ExternalTriggerDelay" description="Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>9800</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="DSCMode" description="">
+      <type xsi:type="pogoDsl:ShortType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="InterlockFilterOverflow" description="ADC filter overflow">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>6</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="InterlockFilterPosition" description="ADC filter position">
+      <type xsi:type="pogoDsl:IntType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>15</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="KxCoefficient" description="Position calculation Kx coefficient">
+      <type xsi:type="pogoDsl:DoubleType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0.8671523</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="KyCoefficient" description="Position calculation Ky coefficient">
+      <type xsi:type="pogoDsl:DoubleType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>0.8671523</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="Gain" description="Power level Gain Control (Set it only when AGC is Disabled)">
+      <type xsi:type="pogoDsl:DoubleType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>-80</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="EnableAGC" description="Enables/disables the Automatic Gain Control">
+      <type xsi:type="pogoDsl:BooleanType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>false</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="InterlockGainDependent" description="Enables / disables gain dependent mode of Interlock operation.">
+      <type xsi:type="pogoDsl:BooleanType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <DefaultPropValue>true</DefaultPropValue>
+    </deviceProperties>
+    <deviceProperties name="ErrorTrace" description="Trace Error functionality for the Libera, by default is Disabled:&#xA; * Value: OutPut ,  TraceLevel&#xA;&#x9;* Output[0] :  OutPut on Screen = 0&#xA;&#x9;                         OutPut on File = 0 (&#xfeff;/var/tmp/ds.log/LiberaMciTrace.log)&#xA;&#x9;* TraceLevel[1] : &#xfeff;   Off     = 0,&#xA;        &#x9;&#x9;      Low     = 1,&#xA;&#x9;&#x9;      Med     = 2,&#xA;&#x9;&#x9;      High    = 3,&#xA;&#x9;&#x9;      Detail  = 4">
+      <type xsi:type="pogoDsl:ShortVectorType"/>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
     </deviceProperties>
     <commands name="State" description="This command gets the device state (stored in its &lt;i>device_state&lt;/i> data member) and returns it to the caller." execMethod="dev_state" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="none.">
@@ -751,6 +815,17 @@
       <excludedStates>UNKNOWN</excludedStates>
       <excludedStates>FAULT</excludedStates>
     </commands>
+    <commands name="SetTraceLevel" description="Sets the Trace Error Level:  &#x9;Off     = 0,&#xA;        &#x9;&#x9;Low     = 1,&#xA;&#x9;&#x9;Med     = 2,&#xA;&#x9;&#x9;High    = 3,&#xA;&#x9;&#x9;Detail  = 4" execMethod="set_trace_level" displayLevel="OPERATOR" polledPeriod="0">
+      <argin description="">
+        <type xsi:type="pogoDsl:UShortType"/>
+      </argin>
+      <argout description="">
+        <type xsi:type="pogoDsl:VoidType"/>
+      </argout>
+      <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
+      <excludedStates>UNKNOWN</excludedStates>
+      <excludedStates>FAULT</excludedStates>
+    </commands>
     <attributes name="LiberaModel" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0">
       <dataType xsi:type="pogoDsl:UShortType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
@@ -1030,7 +1105,7 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="Offset relative to the post mortem event setting. &#xA;Set value is in turns, e.g. 1024 would mean that post mortem &#xA;acquisition is starting 1024 turns after the post mortem trigger &#xA;was received." label="Post Mortem Offset" unit="samples" standardUnit="" displayUnit="" format="%3d" maxValue="10000" minValue="-10000" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="PMNotified" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
+    <attributes name="PMNotified" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:BooleanType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
@@ -1381,7 +1456,7 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="If set to true, the X &amp; Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.\n " label="Use Libera SA Data" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="InterlockEnabled" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
+    <attributes name="InterlockEnabled" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:BooleanType"/>
       <changeEvent fire="false" libCheckCriteria="true"/>
       <archiveEvent fire="false" libCheckCriteria="true"/>
@@ -1389,7 +1464,7 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="Enables / disables the Interlock detection." label="Interlock Enabled" unit="n/a" standardUnit="n/a" displayUnit="n/a" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="InterlockGainDependentEnabled" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" memorized="true" memorizedAtInit="true" allocReadMember="false">
+    <attributes name="InterlockGainDependentEnabled" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="" maxY="" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:BooleanType"/>
       <changeEvent fire="false" libCheckCriteria="true"/>
       <archiveEvent fire="false" libCheckCriteria="true"/>

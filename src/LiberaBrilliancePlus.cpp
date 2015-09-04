@@ -90,6 +90,7 @@ static const char *RcsId = "$Id:  $";
 //  StartSynchronization        |  start_synchronization
 //  AnnounceSynchronization     |  announce_synchronization
 //  ForceInitSettings           |  force_init_settings
+//  SetTraceLevel               |  set_trace_level
 //================================================================
 
 //================================================================
@@ -365,6 +366,27 @@ void LiberaBrilliancePlus::init_device()
 	
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::init_device) ENABLED START -----*/
 
+	//Set Trace Level Options //TODO refactor.
+
+	//Stop before Set the new values.
+	istd::TraceStop();
+	//Set Level
+	if (errorTrace.empty()) {
+    	istd::TraceInit();
+    	//Set Trace to Off
+    	istd::TraceSetLevel(istd::eTrcOff);
+    }
+    else {
+    	if(errorTrace[0] == 1) {
+        	istd::TraceInit();
+        	istd::TraceSetLevel(static_cast<istd::TraceLevel_e>(errorTrace[1]));
+    	}
+    	else {
+    		istd::TraceInit("LiberaMciTrace.log", "/var/tmp/ds.log");
+        	istd::TraceSetLevel(static_cast<istd::TraceLevel_e>(errorTrace[1]));
+    	}
+    }
+
     if (liberaBoard.empty())
     {
         m_state = Tango::FAULT;
@@ -413,43 +435,6 @@ m_libera->AddScalar("", attr_CySA_read);
 catch(...)
 
 
-    m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
-    m_libera->AddScalar(m_raf + "postmortem.capture",
-        attr_PMNotified_read, LiberaAttr::NEGATE, LiberaAttr::NEGATE);
-    m_libera->AddScalar(tim + "events.t1.count",
-        attr_PMNotificationCounter_read, LiberaAttr::ULL2SHORT);
-
-    m_libera->AddScalar(m_raf + "interlock.status.il_status.x",
-        attr_InterlockXNotified_read);
-    m_libera->AddScalar(m_raf + "interlock.status.il_status.y",
-        attr_InterlockYNotified_read);
-    m_libera->AddScalar(m_raf + "interlock.status.il_status.attenuator",
-        attr_InterlockAttnNotified_read);
-    m_libera->AddScalar(m_raf + "interlock.status.il_status.adc_overflow",
-        attr_InterlockADCPreFilterNotified_read);
-    m_libera->AddScalar(m_raf + "interlock.status.il_status.adc_overflow_filtered",
-        attr_InterlockADCPostFilterNotified_read);
-
-    m_libera->AddScalar(m_raf + "interlock.enabled", attr_InterlockEnabled_read);
-    // Can't use Tango::DevULong directly because of a bug in Tango
-    m_libera->AddScalar(m_raf + "interlock.limits.overflow.threshold",
-        attr_InterlockOverflowThreshold_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    // Can't use Tango::DevULong directly because of a bug in Tango
-    m_libera->AddScalar(m_raf + "interlock.limits.overflow.duration",
-        attr_InterlockOverflowDuration_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(m_raf + "interlock.gain_dependent.enabled",
-        attr_InterlockGainDependentEnabled_read);
-    m_libera->AddScalar(m_raf + "interlock.gain_dependent.threshold",
-        attr_InterlockGainDependentThreshold_read);
-
-    m_libera->AddScalar(m_raf + "interlock.limits.position.min.x",
-        attr_XLow_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-    m_libera->AddScalar(m_raf + "interlock.limits.position.max.x",
-        attr_XHigh_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-    m_libera->AddScalar(m_raf + "interlock.limits.position.min.y",
-        attr_YLow_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-    m_libera->AddScalar(m_raf + "interlock.limits.position.max.y",
-        attr_YHigh_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
 
     m_libera->AddScalar(m_raf + "conditioning.switching", attr_AutoSwitchingEnabled_read);
     m_libera->AddScalar("", attr_Switches_read); // n.a.
@@ -473,8 +458,11 @@ catch(...)
     m_libera->AddScalar("", attr_MAFLength_read);
     m_libera->AddScalar("", attr_MAFDelay_read);
 
+    //TODO or or the other
     m_libera->AddScalar("application.synchronize_lmt", attr_MachineTime_read,
         LiberaAttr::ULL2DBL, LiberaAttr::DBL2ULL);
+    m_libera->AddScalar("application.synchronize_lmt",
+    		attr_SynchronizeLMT_read, LiberaAttr::ULONGLONG2LONG, LiberaAttr::LONG2ULONGLONG);
 
     // Can't use Tango::DevULong directly because of a bug in Tango
     m_libera->AddScalar(m_raf + "tbt.phase_offset",
@@ -482,8 +470,7 @@ catch(...)
     m_libera->AddScalar("", attr_SystemTime_read); // n.a.
     m_libera->AddScalar("", attr_SCPLLStatus_read); // n.a.
     m_libera->AddScalar(tim + "pll.locked", attr_MCPLLStatus_read);
-    m_libera->AddScalar("application.synchronize_lmt",
-    		attr_SynchronizeLMT_read, LiberaAttr::ULONGLONG2LONG, LiberaAttr::LONG2ULONGLONG);
+
 
     m_libera->AddScalarPM("boards." + liberaBoard + ".sensors.ID_2.value",
         attr_Temp1_read, LiberaAttr::DBL2SHORT);
@@ -509,10 +496,8 @@ catch(...)
         attr_CpuUsage_read, LiberaAttr::CPU2LONG);
     m_libera->AddScalarPM("boards.os.sensors",
         attr_FreeMemory_read, LiberaAttr::MEM2LONG);
-
     //n.a.
     m_libera->AddScalar("", attr_UseLiberaSAData_read);
-
     //n.a.
     m_libera->AddScalar("", attr_UserData_read);
 
@@ -520,9 +505,9 @@ catch(...)
 
 
     //Timing Settings
-    m_libera->AddScalar(tim + ".rtc.ts_timestamp",
+    m_libera->AddScalar(tim + "rtc.ts_timestamp",
     		attr_RTCTimestamp_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + ".rtc.ts_timestamp.state", attr_RTCTimestampState_read);
+    m_libera->AddScalar(tim + "rtc.ts_timestamp.state", attr_RTCTimestampState_read);
 
     m_libera->AddScalar(m_raf + "signal_processing.position.Ks",
     		attr_Ks_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
@@ -538,7 +523,6 @@ catch(...)
         attr_XOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
     m_libera->AddScalar(m_raf + "signal_processing.position.off_y",
         attr_YOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
-
 
     m_libera->AddScalar(m_raf + "local_timing.sync_state_machine", attr_SynchronizationStatus_read);
     m_libera->AddScalar(m_raf + "conf.second_max_reset", attr_MaxADC_read); //Retrieve wrong Value? Check string.
@@ -569,50 +553,64 @@ catch(...)
     m_libera->AddScalar(tim + ".rtc.mc.in_function",attr_MCinFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
 
     //T0-CONFIG
-    m_libera->AddScalar(tim + ".connectors.t0.direction",
+    m_libera->AddScalar(tim + "connectors.t0.direction",
     		attr_T0Direction_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + ".connectors.t0.out_type",
+    m_libera->AddScalar(tim + "connectors.t0.out_type",
     		attr_T0OutputType_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + ".rtc.sfp_2_connectors.t0.duration",
+    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.duration",
     		attr_T0Duration_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + ".rtc.sfp_2_connectors.t0.delay",
+    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.delay",
     		attr_T0Delay_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + ".rtc.sfp_2_connectors.t0.state",
+    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.state",
     		attr_T0State_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + ".rtc.sfp_2_connectors.t0.in_mask",
+    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.in_mask",
     		attr_T0inMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + ".rtc.sfp_2_connectors.t0.in_function",
+    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.in_function",
     		attr_T0inFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
 
     //T1-CONFIG
-    m_libera->AddScalar(tim + ".triggers.t1.source", attr_T1Source_read);
-    m_libera->AddScalar(tim + ".rtc.t1.in_mask",
+    m_libera->AddScalar(tim + "triggers.t1.source", attr_T1Source_read);
+    m_libera->AddScalar(tim + "rtc.t1.in_mask",
     		attr_T1inMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + ".rtc.t1.in_function",
+    m_libera->AddScalar(tim + "rtc.t1.in_function",
     		attr_T1inFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + ".rtc.connectors.t1.id", attr_T1ID_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + ".connectors.t1.direction",
+    m_libera->AddScalar(tim + "rtc.connectors.t1.id", attr_T1ID_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    m_libera->AddScalar(tim + "connectors.t1.direction",
     		attr_T1Direction_read,LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + ".rtc.connectors.t1.edge.falling", attr_T1EdgeFalling_read);
-    m_libera->AddScalar(tim + ".rtc.connectors.t1.edge.rising", attr_T1EdgeRising_read);
+    m_libera->AddScalar(tim + "rtc.connectors.t1.edge.falling", attr_T1EdgeFalling_read);
+    m_libera->AddScalar(tim + "rtc.connectors.t1.edge.rising", attr_T1EdgeRising_read);
     //T2-CONFIG
-    m_libera->AddScalar(tim + ".triggers.t2.source", attr_T2Source_read);
-    m_libera->AddScalar(tim + ".rtc.t2.in_mask",
+    m_libera->AddScalar(tim + "triggers.t2.source", attr_T2Source_read);
+    m_libera->AddScalar(tim + "rtc.t2.in_mask",
     		attr_T2inMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + ".rtc.t2.in_function",
+    m_libera->AddScalar(tim + "rtc.t2.in_function",
     		attr_T2inFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + ".rtc.connectors.t2.id", attr_T2ID_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + ".connectors.t2.direction", attr_T2Direction_read,
+    m_libera->AddScalar(tim + "rtc.connectors.t2.id", attr_T2ID_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    m_libera->AddScalar(tim + "connectors.t2.direction", attr_T2Direction_read,
     		LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + ".rtc.connectors.t2.edge.falling", attr_T2EdgeFalling_read);
-    m_libera->AddScalar(tim + ".rtc.connectors.t2.edge.rising", attr_T2EdgeRising_read);
+    m_libera->AddScalar(tim + "rtc.connectors.t2.edge.falling", attr_T2EdgeFalling_read);
+    m_libera->AddScalar(tim + "rtc.connectors.t2.edge.rising", attr_T2EdgeRising_read);
 
 
     //ILK-CONFIG
-    m_libera->AddScalar(tim + ".rtc.mgt_out", attr_MgtOut_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT); //TODO
+    m_libera->AddScalar(tim + "rtc.mgt_out", attr_MgtOut_read,
+    		LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT); //TODO
     //m_libera->AddScalar("", attr_MgtOut_read);
     m_libera->AddScalar(m_raf + "interlock.enabled", attr_InterlockEnabled_read);
-    m_libera->AddScalar(tim + ".rtc.sfp_tx.interlock.id", attr_InterlockID_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    //Status
+    m_libera->AddScalar(m_raf + "interlock.status.il_status.x",
+        attr_InterlockXNotified_read);
+    m_libera->AddScalar(m_raf + "interlock.status.il_status.y",
+        attr_InterlockYNotified_read);
+    m_libera->AddScalar(m_raf + "interlock.status.il_status.attenuator",
+        attr_InterlockAttnNotified_read);
+    m_libera->AddScalar(m_raf + "interlock.status.il_status.adc_overflow",
+        attr_InterlockADCPreFilterNotified_read);
+    m_libera->AddScalar(m_raf + "interlock.status.il_status.adc_overflow_filtered",
+        attr_InterlockADCPostFilterNotified_read);
+
+    m_libera->AddScalar(tim + "rtc.sfp_tx.interlock.id", attr_InterlockID_read,
+    		LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
     m_libera->AddScalar(m_raf + "interlock.limits.position.min.x",
     		attr_XLow_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
     m_libera->AddScalar(m_raf + "interlock.limits.position.max.x",
@@ -621,16 +619,31 @@ catch(...)
     		attr_YLow_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
     m_libera->AddScalar(m_raf + "interlock.limits.position.max.y",
     		attr_YHigh_read,LiberaAttr::NM2MM, LiberaAttr::MM2NM);
+    // Can't use Tango::DevULong directly because of a bug in Tango
+    m_libera->AddScalar(m_raf + "interlock.limits.overflow.threshold",
+        attr_InterlockOverflowThreshold_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    // Can't use Tango::DevULong directly because of a bug in Tango
+    m_libera->AddScalar(m_raf + "interlock.limits.overflow.duration",
+        attr_InterlockOverflowDuration_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    m_libera->AddScalar(m_raf + "interlock.gain_dependent.enabled",
+        attr_InterlockGainDependentEnabled_read);
+    m_libera->AddScalar(m_raf + "interlock.gain_dependent.threshold",
+        attr_InterlockGainDependentThreshold_read);
+    m_libera->AddScalar(m_raf + "interlock.filter.overflow",
+    		attr_InterlockFilterOverflow_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    m_libera->AddScalar(m_raf + "interlock.filter.position",
+    		attr_InterlockFilterPosition_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
 
     //POST MORTEM
+    m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
     m_libera->AddScalar(m_raf + "postmortem.source_select", attr_PMSource_read);
     m_libera->AddScalar(m_raf + "postmortem.capacity", attr_PMBufferSize_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
     m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
 
     //Why PMNotified NEGATE type?
-    //m_libera->AddScalar(m_raf + "postmortem.capture",
-    //    attr_PMNotified_read, LiberaAttr::NEGATE, LiberaAttr::NEGATE);
-    m_libera->AddScalar(m_raf + "postmortem.capture",attr_PMNotified_read);
+    m_libera->AddScalar(m_raf + "postmortem.capture",
+        attr_PMNotified_read, LiberaAttr::NEGATE, LiberaAttr::NEGATE); //TODO one or the other fix
+    //m_libera->AddScalar(m_raf + "postmortem.capture",attr_PMNotified_read);
     m_libera->AddScalar(tim + "events.t1.count",
         attr_PMNotificationCounter_read, LiberaAttr::ULL2SHORT);
 
@@ -748,12 +761,10 @@ catch(...)
         attr_QuadPM_read,
         attr_XPosPM_read,
         attr_YPosPM_read);
-
     m_signalPM->SetPeriod(0); // stream waits in read
     m_signalPM->Enable();
     m_signalPM->SetNotifier(&LiberaBrilliancePlus::_PMCallback,
             reinterpret_cast<void*>(this));
-
     m_libera->SetNotifier(attr_PMNotified_read, &LiberaBrilliancePlus::UpdatePM);
 
     m_signalADC  = m_libera->AddSignal<Tango::DevShort>(
@@ -921,6 +932,19 @@ void LiberaBrilliancePlus::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("InterlockEnable"));
 	dev_prop.push_back(Tango::DbDatum("T1ID"));
 	dev_prop.push_back(Tango::DbDatum("T2ID"));
+	dev_prop.push_back(Tango::DbDatum("SPThreshold"));
+	dev_prop.push_back(Tango::DbDatum("SPnBefore"));
+	dev_prop.push_back(Tango::DbDatum("SPnAfter"));
+	dev_prop.push_back(Tango::DbDatum("ExternalTriggerDelay"));
+	dev_prop.push_back(Tango::DbDatum("DSCMode"));
+	dev_prop.push_back(Tango::DbDatum("InterlockFilterOverflow"));
+	dev_prop.push_back(Tango::DbDatum("InterlockFilterPosition"));
+	dev_prop.push_back(Tango::DbDatum("KxCoefficient"));
+	dev_prop.push_back(Tango::DbDatum("KyCoefficient"));
+	dev_prop.push_back(Tango::DbDatum("Gain"));
+	dev_prop.push_back(Tango::DbDatum("EnableAGC"));
+	dev_prop.push_back(Tango::DbDatum("InterlockGainDependent"));
+	dev_prop.push_back(Tango::DbDatum("ErrorTrace"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -1748,6 +1772,149 @@ void LiberaBrilliancePlus::get_device_property()
 		}
 		//	And try to extract T2ID value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  t2ID;
+
+		//	Try to initialize SPThreshold from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  sPThreshold;
+		else {
+			//	Try to initialize SPThreshold from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  sPThreshold;
+		}
+		//	And try to extract SPThreshold value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  sPThreshold;
+
+		//	Try to initialize SPnBefore from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  sPnBefore;
+		else {
+			//	Try to initialize SPnBefore from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  sPnBefore;
+		}
+		//	And try to extract SPnBefore value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  sPnBefore;
+
+		//	Try to initialize SPnAfter from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  sPnAfter;
+		else {
+			//	Try to initialize SPnAfter from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  sPnAfter;
+		}
+		//	And try to extract SPnAfter value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  sPnAfter;
+
+		//	Try to initialize ExternalTriggerDelay from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  externalTriggerDelay;
+		else {
+			//	Try to initialize ExternalTriggerDelay from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  externalTriggerDelay;
+		}
+		//	And try to extract ExternalTriggerDelay value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  externalTriggerDelay;
+
+		//	Try to initialize DSCMode from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  dSCMode;
+		else {
+			//	Try to initialize DSCMode from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  dSCMode;
+		}
+		//	And try to extract DSCMode value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  dSCMode;
+
+		//	Try to initialize InterlockFilterOverflow from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  interlockFilterOverflow;
+		else {
+			//	Try to initialize InterlockFilterOverflow from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  interlockFilterOverflow;
+		}
+		//	And try to extract InterlockFilterOverflow value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  interlockFilterOverflow;
+
+		//	Try to initialize InterlockFilterPosition from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  interlockFilterPosition;
+		else {
+			//	Try to initialize InterlockFilterPosition from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  interlockFilterPosition;
+		}
+		//	And try to extract InterlockFilterPosition value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  interlockFilterPosition;
+
+		//	Try to initialize KxCoefficient from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  kxCoefficient;
+		else {
+			//	Try to initialize KxCoefficient from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  kxCoefficient;
+		}
+		//	And try to extract KxCoefficient value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  kxCoefficient;
+
+		//	Try to initialize KyCoefficient from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  kyCoefficient;
+		else {
+			//	Try to initialize KyCoefficient from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  kyCoefficient;
+		}
+		//	And try to extract KyCoefficient value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  kyCoefficient;
+
+		//	Try to initialize Gain from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  gain;
+		else {
+			//	Try to initialize Gain from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  gain;
+		}
+		//	And try to extract Gain value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  gain;
+
+		//	Try to initialize EnableAGC from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  enableAGC;
+		else {
+			//	Try to initialize EnableAGC from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  enableAGC;
+		}
+		//	And try to extract EnableAGC value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  enableAGC;
+
+		//	Try to initialize InterlockGainDependent from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  interlockGainDependent;
+		else {
+			//	Try to initialize InterlockGainDependent from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  interlockGainDependent;
+		}
+		//	And try to extract InterlockGainDependent value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  interlockGainDependent;
+
+		//	Try to initialize ErrorTrace from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  errorTrace;
+		else {
+			//	Try to initialize ErrorTrace from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  errorTrace;
+		}
+		//	And try to extract ErrorTrace value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  errorTrace;
 
 	}
 
@@ -7437,7 +7604,7 @@ void LiberaBrilliancePlus::start_synchronization()
 
 	}
 	else {
-		ERROR_STREAM << "Synchronization State Machine is not in TRACKING! Cant start Synchronizations." << endl; //TODO Maybe warn user with a exception?
+		ERROR_STREAM << "Synchronization State Machine is not in TRACKING! Cant start Synchronizations." << endl;
 	}
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::start_synchronization
@@ -7469,7 +7636,7 @@ void LiberaBrilliancePlus::announce_synchronization()
 		m_libera->UpdateScalar(attr_SynchronizeLMT_read, (long)0);
 	}
 	else {
-		ERROR_STREAM << "MC Pll is not locked! Cant Announce Synchronizations." << endl; //TODO Maybe warn user with a exception?
+		ERROR_STREAM << "MC Pll is not locked! Cant Announce Synchronizations." << endl;
 	}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::announce_synchronization
 }
@@ -7487,6 +7654,27 @@ void LiberaBrilliancePlus::force_init_settings()
 	//init_settings();
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::force_init_settings
+}
+//--------------------------------------------------------
+/**
+ *	Command SetTraceLevel related method
+ *	Description: Sets the Trace Error Level:  	Off     = 0,
+ *                       		Low     = 1,
+ *               		Med     = 2,
+ *               		High    = 3,
+ *               		Detail  = 4
+ *
+ *	@param argin 
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::set_trace_level(Tango::DevUShort argin)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::SetTraceLevel()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::set_trace_level) ENABLED START -----*/
+	
+	//	Add your own code
+	istd::TraceSetLevel(static_cast<istd::TraceLevel_e>(argin));
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::set_trace_level
 }
 
 /*----- PROTECTED REGION ID(LiberaBrilliancePlus::namespace_ending) ENABLED START -----*/
@@ -7654,21 +7842,16 @@ void LiberaBrilliancePlus::_PMCallback(void *data)
         device->PMCallback();
 }
 
-void LiberaBrilliancePlus::SPCallback() //TODO doesnt receive Data
+void LiberaBrilliancePlus::SPCallback()
 {
     INFO_STREAM << "SP CALLBACK " << endl;
 
     // call GetData also all attributes from here?
-	//if(m_signalSP->IsUpdated()) { //TODO just testing, remove later
-		//cout << "Single pass signal UPDATE!" << endl;
 		m_signalSP->GetData();
 		push_change_event("SumSP", attr_SumSP_read);
-		//push_change_event("ThdrId", attr_ThdrId_read);
 		push_change_event("XPosSP", attr_XPosSP_read);
 		push_change_event("YPosSP", attr_YPosSP_read);
-		//}
-		//else
-			//cout << "Single pass signal not updated" << endl;
+
 
 }
 
@@ -7720,8 +7903,6 @@ void LiberaBrilliancePlus::init_settings()
     //MC
 	//*attr_RtcDecoderSwitch_read = mCDecoderSwitch;
 	m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, mCDecoderSwitch);
-    //TODO Strange behaviour here sending value to node and updating Tango value.
-    //*attr_McSource_read = mCSource;
 	m_libera->UpdateScalar(attr_McSource_read, mCSource);
     //*attr_MCinMask_read = mCinMask;
     m_libera->UpdateScalar(attr_MCinMask_read, mCinMask);
@@ -7779,36 +7960,62 @@ void LiberaBrilliancePlus::init_settings()
     m_libera->UpdateScalar(attr_T2EdgeFalling_read, t2EdgeFalling);
     //*attr_T2EdgeRising_read = t2EdgeRising;
     m_libera->UpdateScalar(attr_T2EdgeRising_read, t2EdgeRising);
-    //Interlock
+    //Interlock (Hardcoded value here always False before set values during init)
+    m_libera->UpdateScalar(attr_InterlockEnabled_read, false);
     //*attr_MgtOut_read = mgtOut;
     m_libera->UpdateScalar(attr_MgtOut_read, mgtOut); //**
     //*attr_XHigh_read = ymaxLimit;
-    m_libera->UpdateScalar(attr_XHigh_read, xmaxLimit); //TODO Later Fix
+    m_libera->UpdateScalar(attr_XHigh_read, xmaxLimit);
     //*attr_XLow_read = xminLimit;
-    m_libera->UpdateScalar(attr_XLow_read, xminLimit);//TODO Later Fix
+    m_libera->UpdateScalar(attr_XLow_read, xminLimit);
     //*attr_YHigh_read = ymaxLimit;
-    m_libera->UpdateScalar(attr_YHigh_read, ymaxLimit);//TODO Later Fix
+    m_libera->UpdateScalar(attr_YHigh_read, ymaxLimit);
     //*attr_YLow_read = yminLimit;
-    m_libera->UpdateScalar(attr_YLow_read, yminLimit);//TODO Later Fix
-    //Reset Interlock during the init
-    //*attr_InterlockEnabled_read = false;
-	m_libera->UpdateScalar(attr_InterlockEnabled_read, false);
-	//*attr_InterlockEnabled_read = true;
-	m_libera->UpdateScalar(attr_InterlockEnabled_read, true);
-	//post Portem Property Settings
-	//Disable PostMortem
-	m_libera->UpdateScalar(attr_PMNotified_read, false);
-	//*attr_PMSource_read = false;
+    m_libera->UpdateScalar(attr_YLow_read, yminLimit);
+    //ADC Overflow filter
+    m_libera->UpdateScalar(attr_InterlockFilterOverflow_read, interlockFilterOverflow);
+    //ADC position filter
+    m_libera->UpdateScalar(attr_InterlockFilterPosition_read, interlockFilterPosition);
 
-	//*attr_PMBufferSize_read = (long)524288;// TODO is not accepting the property value?? temp solution
-	m_libera->UpdateScalar(attr_PMBufferSize_read, (long)524288);
+    //Enable Gain dependent
+	m_libera->UpdateScalar(attr_InterlockGainDependentEnabled_read, interlockGainDependent);
+	//Enable/Disable Interlock Depends Property (Property Default = True)
+	m_libera->UpdateScalar(attr_InterlockEnabled_read, interlockEnable);
+
+	//post Portem Property Settings
+	//PostMortem (Hardcoded value here always False before set values during init)
+	//m_libera->UpdateScalar(attr_PMNotified_read, false);
+
+	m_libera->UpdateScalar(attr_PMBufferSize_read, defaultPMBufferSize);
 
 	//*attr_PMOffset_read = pMOffset;
 	m_libera->UpdateScalar(attr_PMOffset_read, pMOffset);
 	//*attr_PMSource_read = pMSource;
 	m_libera->UpdateScalar(attr_PMSource_read, pMSource);
-	//*attr_PMNotified_read = pMCapture;
+	//Enable/Disable PM Depends Property (Property Default = True)
 	m_libera->UpdateScalar(attr_PMNotified_read, pMCapture);
+
+	//SP
+	m_libera->UpdateScalar(attr_SPThreshold_read, sPThreshold);
+	m_libera->UpdateScalar(attr_SPnAfter_read, sPnAfter);
+	m_libera->UpdateScalar(attr_SPnBefore_read, sPnBefore);
+
+
+	//General
+	m_libera->UpdateScalar(attr_ExternalTriggerDelay_read, externalTriggerDelay);
+	m_libera->UpdateScalar(attr_DSCMode_read, dSCMode);
+	m_libera->UpdateScalar(attr_AGCEnabled_read, enableAGC);
+	m_libera->UpdateScalar(attr_Gain_read, gain);
+	m_libera->UpdateScalar(attr_AutoSwitchingEnabled_read, enableAutoSwitchingIfSAEnabled);
+	m_libera->UpdateScalar(attr_Kx_read, kxCoefficient);
+	m_libera->UpdateScalar(attr_Ky_read, kyCoefficient);
+
+	if(enableADC) {
+		m_signalADC->Enable();
+		}
+	else
+		m_signalADC->Disable(); //TODO refactor later, now if is already disabled it doesnt affect
+
 	}
 	catch (...)
 	{
@@ -7867,6 +8074,21 @@ void LiberaBrilliancePlus::init_settings()
 // 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCPll(Tango::Attribute &attr) entering... " << endl;
 // 	//	Set the attribute value
 // 	attr.set_value(attr_MCPll_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Command SetRefIncoherence related method
+//  *	Description: Set the actual incoherence value as refeference value for the drift alarm calculation.
+//  *
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::set_ref_incoherence()
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::SetRefIncoherence()  - " << device_name << endl;
+// 	
+// 	//	Add your own code
 // 	
 // }
 

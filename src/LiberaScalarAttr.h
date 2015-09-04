@@ -144,6 +144,7 @@ public:
      */
     void Write(mci::Node &a_root, const TangoType a_val) {
         if (!m_path.empty()) {
+        	istd_TRC(istd::eTrcDetail, "Write to node: " << m_path);
             m_writer(a_root, m_path, a_val);
             *m_attr = a_val;
         }

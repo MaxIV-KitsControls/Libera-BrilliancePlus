@@ -4784,4 +4784,24 @@ bool LiberaBrilliancePlus::is_ForceInitSettings_allowed(TANGO_UNUSED(const CORBA
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_SetTraceLevel_allowed()
+ *	Description : Execution allowed for SetTraceLevel attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_SetTraceLevel_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::UNKNOWN ||
+		get_state()==Tango::FAULT)
+	{
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SetTraceLevelStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SetTraceLevelStateAllowed
+		return false;
+	}
+	return true;
+}
+
 }	//	End of namespace
