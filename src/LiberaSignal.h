@@ -53,7 +53,6 @@ protected:
     size_t GetLength();
     void   SetLength(size_t a_length);
     void   Stop();
-
 private:
     virtual void Initialize(mci::Node &a_node) = 0;
     virtual void UpdateSignal() = 0;
@@ -71,6 +70,7 @@ private:
 
     SignalCallback m_callback;
     void *m_callback_arg;
+
 };
 
 #endif //LIBERA_SIGNAL_H
