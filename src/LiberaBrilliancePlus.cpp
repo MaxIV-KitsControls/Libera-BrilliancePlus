@@ -408,7 +408,11 @@ void LiberaBrilliancePlus::init_device()
 
     //n.a.
     m_libera->AddScalar("", attr_CxSA_read);
-    m_libera->AddScalar("", attr_CySA_read);
+    try{
+m_libera->AddScalar("", attr_CySA_read);
+}
+catch(...)
+
 
     m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
     m_libera->AddScalar(m_raf + "postmortem.capture",
@@ -545,7 +549,6 @@ void LiberaBrilliancePlus::init_device()
 
     m_libera->AddScalar(m_raf + "local_timing.sync_state_machine", attr_SynchronizationStatus_read);
     m_libera->AddScalar(m_raf + "conf.second_max_reset", attr_MaxADC_read); //Retrieve wrong Value? Check string.
-    //m_libera->AddScalar("", attr_MaxADC_read); //Retrieve wrong Value? Check string.
 
     //Tdp Signal
     m_libera->AddScalar("", attr_TDDecimationFactor_read); //n.a.
@@ -570,9 +573,7 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar(tim + ".rtc.decoder_switch", attr_RtcDecoderSwitch_read);
     m_libera->AddScalar(tim + ".triggers.mc.source",attr_McSource_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
     m_libera->AddScalar(tim + ".rtc.mc.in_mask",attr_MCinMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
-    //m_libera->AddScalar("",attr_MCinMask_read);
     m_libera->AddScalar(tim + ".rtc.mc.in_function",attr_MCinFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
-    //m_libera->AddScalar("",attr_MCinFunction_read);
 
     //T0-CONFIG
     m_libera->AddScalar(tim + ".connectors.t0.direction",
@@ -613,6 +614,7 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar(tim + ".rtc.connectors.t2.edge.falling", attr_T2EdgeFalling_read);
     m_libera->AddScalar(tim + ".rtc.connectors.t2.edge.rising", attr_T2EdgeRising_read);
 
+
     //ILK-CONFIG
     m_libera->AddScalar(tim + ".rtc.mgt_out", attr_MgtOut_read,
     		LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT); //TODO
@@ -640,6 +642,7 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar(m_raf + "postmortem.capture",attr_PMNotified_read);
     m_libera->AddScalar(tim + "events.t1.count",
         attr_PMNotificationCounter_read, LiberaAttr::ULL2SHORT);
+
     }
     catch (...)
     {
@@ -822,7 +825,7 @@ void LiberaBrilliancePlus::init_device()
       m_status = "Connected to Libera";
 
       //Initiliaze Libera Setting-Attributes
-      init_settings();
+      //init_settings();
 
     }
     catch (...)
@@ -1894,7 +1897,7 @@ void LiberaBrilliancePlus::always_executed_hook()
 {
 	INFO_STREAM << "LiberaBrilliancePlus::always_executed_hook()  " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::always_executed_hook) ENABLED START -----*/
-
+/*
 	//	code always executed before all requests
 	if (m_libera != NULL)
  {
@@ -1915,7 +1918,7 @@ void LiberaBrilliancePlus::always_executed_hook()
           }
   	}
  }
-
+*/
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::always_executed_hook
 }
 
@@ -8021,7 +8024,7 @@ void LiberaBrilliancePlus::init_settings()
 	//General
 	m_libera->UpdateScalar(attr_ExternalTriggerDelay_read, externalTriggerDelay);
 	m_libera->UpdateScalar(attr_DSCMode_read, dSCMode);
-	m_libera->UpdateScalar(attr_AGCEnabled_read, false);
+	m_libera->UpdateScalar(attr_AGCEnabled_read, false); //TODO add property
 	m_libera->UpdateScalar(attr_Gain_read, gain);
 	//m_libera->UpdateScalar(attr_AGCEnabled_read, true);
 	m_libera->UpdateScalar(attr_AutoSwitchingEnabled_read, false);
