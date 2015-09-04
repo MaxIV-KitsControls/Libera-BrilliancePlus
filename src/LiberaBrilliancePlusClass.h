@@ -3304,6 +3304,29 @@ public:
 	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ForceInitSettings_allowed(any);}
 };
 
+//	Command SetTraceLevel class definition
+class SetTraceLevelClass : public Tango::Command
+{
+public:
+	SetTraceLevelClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	SetTraceLevelClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~SetTraceLevelClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SetTraceLevel_allowed(any);}
+};
+
 
 /**
  *	The LiberaBrilliancePlusClass singleton definition

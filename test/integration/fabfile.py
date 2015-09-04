@@ -56,7 +56,7 @@ scalarAttrs = [
 	('T1inFunction','boards.evrx2.rtc.t1.in_function[0]', 51, 50),
 	('T1ID', 'boards.evrx2.rtc.connectors.t1.id', 21, 20),
 	('T2inMask','boards.evrx2.rtc.t2.in_mask[0]', 255, 254),
-	('T2inFunction','boards.evrx2.rtc.t2.in_function[0]', 81, 79), # property 81 for the commisioning else 80
+	('T2inFunction','boards.evrx2.rtc.t2.in_function[0]', 161, 79), # property 81 for the commisioning else 80
 	('T2ID','boards.evrx2.rtc.connectors.t2.id', 62, 61),
 	('PMBufferSize','boards.raf3.postmortem.capacity', 524288, 500000),
 	('PMOffset','boards.raf3.postmortem.offset', 0, 1),
@@ -64,7 +64,7 @@ scalarAttrs = [
 	('SPThreshold','boards.raf3.single_pass.threshold', 200, 50),
 	('SPnBefore','boards.raf3.single_pass.n_before', 1, 10),
 	('SPnAfter','boards.raf3.single_pass.n_after', 100, 60),
-	('ExternalTriggerDelay','boards.raf3.local_timing.trigger_delay', 9750, 9700)
+	('ExternalTriggerDelay','boards.raf3.local_timing.trigger_delay', 9800, 9700)
 	#('XHigh','boards.raf3.interlock.limits.position.max.x', 999936, 9999 ), #TODO, They fail on the ReadWrite Tests,
 	#('XLow','boards.raf3.interlock.limits.position.min.x', -1000064, 9999),# TODO need to convert the tangovalue.
 	#('YHigh','boards.raf3.interlock.limits.position.max.y', 999936, 9999), # TODO multiply it with *1e6
@@ -74,6 +74,7 @@ scalarAttrs = [
 # AttributeName, Node, DefaultPropertyValue(used for testing and compare), RandomSetValue to write and compare
 booleanAttr = [
 	('InterlockEnabled','boards.raf3.interlock.enabled', "true", False),
+	('AutoSwitchingEnabled','boards.raf3.conditioning.switching', "false", True),
 	('T1EdgeRising','boards.evrx2.rtc.connectors.t1.edge.rising', "false", True),
 	('T1EdgeFalling','boards.evrx2.rtc.connectors.t1.edge.falling', "true", False),
 	('T2EdgeRising','boards.evrx2.rtc.connectors.t2.edge.rising', "false", True),

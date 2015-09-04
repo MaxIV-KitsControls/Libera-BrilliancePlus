@@ -249,7 +249,7 @@ public:
 	Tango::DevBoolean	enableSP;
 	//	DefaultSPBufferSize:	Default [or initial] value for attribute Single Pass BufferSize [in samples]. Defaults to 1024.
 	Tango::DevLong	defaultSPBufferSize;
-	//	PMCapture:	PM functionality Enable/Disable
+	//	PMCapture:	PM functionality capture: Set True to Disable, False to Enable
 	Tango::DevBoolean	pMCapture;
 	//	PMOffset:	PM Offset
 	Tango::DevLong	pMOffset;
@@ -303,6 +303,20 @@ public:
 	Tango::DevDouble	kyCoefficient;
 	//	Gain:	Power level Gain Control (Set it only when AGC is Disabled)
 	Tango::DevDouble	gain;
+	//	EnableAGC:	Enables/disables the Automatic Gain Control
+	Tango::DevBoolean	enableAGC;
+	//	InterlockGainDependent:	Enables / disables gain dependent mode of Interlock operation.
+	Tango::DevBoolean	interlockGainDependent;
+	//	ErrorTrace:	Trace Error functionality for the Libera, by default is Disabled:
+	//   * Value: OutPut ,  TraceLevel
+	//  	* Output[0] :  OutPut on Screen = 0
+	//  	                         OutPut on File = 0 (﻿/var/tmp/ds.log/LiberaMciTrace.log)
+	//  	* TraceLevel[1] : ﻿   Off     = 0,
+	//          		      Low     = 1,
+	//  		      Med     = 2,
+	//  		      High    = 3,
+	//  		      Detail  = 4
+	vector<Tango::DevShort>	errorTrace;
 
 //	Attribute data members
 public:
@@ -2569,6 +2583,18 @@ public:
 	 */
 	virtual void force_init_settings();
 	virtual bool is_ForceInitSettings_allowed(const CORBA::Any &any);
+	/**
+	 *	Command SetTraceLevel related method
+	 *	Description: Sets the Trace Error Level:  	Off     = 0,
+	 *                       		Low     = 1,
+	 *               		Med     = 2,
+	 *               		High    = 3,
+	 *               		Detail  = 4
+	 *
+	 *	@param argin 
+	 */
+	virtual void set_trace_level(Tango::DevUShort argin);
+	virtual bool is_SetTraceLevel_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------
