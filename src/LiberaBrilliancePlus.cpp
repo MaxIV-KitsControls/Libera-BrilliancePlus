@@ -429,10 +429,7 @@ void LiberaBrilliancePlus::init_device()
 
     //n.a.
     m_libera->AddScalar("", attr_CxSA_read);
-    try{
 m_libera->AddScalar("", attr_CySA_read);
-}
-catch(...)
 
 
 
