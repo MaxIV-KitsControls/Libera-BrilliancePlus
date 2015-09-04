@@ -53,9 +53,9 @@ int main(int argc,char *argv[])
 	
 	// Initialize MCI layer
 	try {
+		istd::TraceInit("LSPE-TDS.log", "/var/tmp/ds.log");
+		istd::TraceSetLevel(istd::eTrcDetail);
 		mci::Init();
-		istd::TraceInit("+", "LSPE-TDS.log");
-		istd::TraceSetLevel(istd::eTrcHigh);
 	} catch (istd::Exception &e) {
 		cout << "Received a MCI Exception" << endl;
 		cout << "Exiting" << endl;
