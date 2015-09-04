@@ -1943,36 +1943,6 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_RTCTimestampState_allowed(ty);}
 };
 
-//	Attribute InterlockFilterOverflow class definition
-class InterlockFilterOverflowAttrib: public Tango::Attr
-{
-public:
-	InterlockFilterOverflowAttrib():Attr("InterlockFilterOverflow",
-			Tango::DEV_LONG, Tango::READ_WRITE) {};
-	~InterlockFilterOverflowAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockFilterOverflow(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockFilterOverflow(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockFilterOverflow_allowed(ty);}
-};
-
-//	Attribute InterlockFilterPosition class definition
-class InterlockFilterPositionAttrib: public Tango::Attr
-{
-public:
-	InterlockFilterPositionAttrib():Attr("InterlockFilterPosition",
-			Tango::DEV_LONG, Tango::READ_WRITE) {};
-	~InterlockFilterPositionAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockFilterPosition(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockFilterPosition(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockFilterPosition_allowed(ty);}
-};
-
 //	Attribute XPosDD class definition
 class XPosDDAttrib: public Tango::SpectrumAttr
 {

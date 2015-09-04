@@ -2953,46 +2953,6 @@ bool LiberaBrilliancePlus::is_RTCTimestampState_allowed(TANGO_UNUSED(Tango::AttR
 
 //--------------------------------------------------------
 /**
- *	Method      : LiberaBrilliancePlus::is_InterlockFilterOverflow_allowed()
- *	Description : Execution allowed for InterlockFilterOverflow attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_InterlockFilterOverflow_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-	//	Not any excluded states for InterlockFilterOverflow attribute in Write access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockFilterOverflowStateAllowed_WRITE) ENABLED START -----*/
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::InterlockFilterOverflowStateAllowed_WRITE
-
-	//	Not any excluded states for InterlockFilterOverflow attribute in read access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockFilterOverflowStateAllowed_READ) ENABLED START -----*/
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::InterlockFilterOverflowStateAllowed_READ
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_InterlockFilterPosition_allowed()
- *	Description : Execution allowed for InterlockFilterPosition attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_InterlockFilterPosition_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-	//	Not any excluded states for InterlockFilterPosition attribute in Write access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockFilterPositionStateAllowed_WRITE) ENABLED START -----*/
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::InterlockFilterPositionStateAllowed_WRITE
-
-	//	Not any excluded states for InterlockFilterPosition attribute in read access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockFilterPositionStateAllowed_READ) ENABLED START -----*/
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::InterlockFilterPositionStateAllowed_READ
-	return true;
-}
-
-//--------------------------------------------------------
-/**
  *	Method      : LiberaBrilliancePlus::is_XPosDD_allowed()
  *	Description : Execution allowed for XPosDD attribute
  */
