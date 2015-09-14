@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
   <classes name="LiberaBrilliancePlus" pogoRevision="8.4">
-    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/Libera/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
+    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/liberaremoveme/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="Device_4Impl" sourcePath=""/>
       <identification contact="at maxlab.lu.se - kitscontrols" author="kitscontrols" emailDomain="maxlab.lu.se" classFamily="BeamDiag" siteSpecific="" platform="Unix Like" bus="Ethernet" manufacturer="I-Tech" reference="Libera Brilliance Plus"/>
     </description>
@@ -283,12 +283,12 @@
     <deviceProperties name="T0inFunction" description="T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>51</DefaultPropValue>
+      <DefaultPropValue>144</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="T1inFunction" description="T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.">
       <type xsi:type="pogoDsl:IntType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>51</DefaultPropValue>
+      <DefaultPropValue>145</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="T2inFunction" description="T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.">
       <type xsi:type="pogoDsl:IntType"/>
@@ -453,7 +453,7 @@
     <deviceProperties name="Gain" description="Power level Gain Control (Set it only when AGC is Disabled)">
       <type xsi:type="pogoDsl:DoubleType"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <DefaultPropValue>-80</DefaultPropValue>
+      <DefaultPropValue>0</DefaultPropValue>
     </deviceProperties>
     <deviceProperties name="EnableAGC" description="Enables/disables the Automatic Gain Control">
       <type xsi:type="pogoDsl:BooleanType"/>

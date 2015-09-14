@@ -1,3 +1,10 @@
+tangods-liberabrillianceplus (1.3.2) unstable; urgency=low
+
+  * Fix AGC mode during init
+  * Update default properties for Gain, T0inFunction, T1inFunction
+
+ -- Vasileios Martos <vasileios.martos> Mon, 7 September 2015 08:00:00 +0000
+
 tangods-liberabrillianceplus (1.3.1) unstable; urgency=low
 
   * Added Properties KxCoefficient, KyCoefficient, Gain, EnableAGC, InterlockGainIndependent and ErrorTrace.

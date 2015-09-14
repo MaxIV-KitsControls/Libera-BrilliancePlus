@@ -1691,9 +1691,9 @@ void LiberaBrilliancePlusClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T0inFunction";
 	prop_desc = "T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
-	prop_def  = "51";
+	prop_def  = "144";
 	vect_data.clear();
-	vect_data.push_back("51");
+	vect_data.push_back("144");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1705,9 +1705,9 @@ void LiberaBrilliancePlusClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T1inFunction";
 	prop_desc = "T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
-	prop_def  = "51";
+	prop_def  = "145";
 	vect_data.clear();
-	vect_data.push_back("51");
+	vect_data.push_back("145");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -2167,9 +2167,9 @@ void LiberaBrilliancePlusClass::set_default_property()
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "Gain";
 	prop_desc = "Power level Gain Control (Set it only when AGC is Disabled)";
-	prop_def  = "-80";
+	prop_def  = "0";
 	vect_data.clear();
-	vect_data.push_back("-80");
+	vect_data.push_back("0");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);

@@ -8069,8 +8069,10 @@ void LiberaBrilliancePlus::init_settings()
 	//General
 	m_libera->UpdateScalar(attr_ExternalTriggerDelay_read, externalTriggerDelay);
 	m_libera->UpdateScalar(attr_DSCMode_read, dSCMode);
-	m_libera->UpdateScalar(attr_AGCEnabled_read, enableAGC);
+        //Always set AGC to false before Set Gain, or enable/Disable autoAGC
+	m_libera->UpdateScalar(attr_AGCEnabled_read, false);
 	m_libera->UpdateScalar(attr_Gain_read, gain);
+        m_libera->UpdateScalar(attr_AGCEnabled_read, enableAGC);
 	m_libera->UpdateScalar(attr_AutoSwitchingEnabled_read, enableAutoSwitchingIfSAEnabled);
 	m_libera->UpdateScalar(attr_Kx_read, kxCoefficient);
 	m_libera->UpdateScalar(attr_Ky_read, kyCoefficient);
