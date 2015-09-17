@@ -46,11 +46,10 @@ int main(int argc,char *argv[])
 {
     /*istd::TraceInit("-");
     istd::TraceStart(istd::eTrcLow);
-
     // need to initialize CORBA from mci before Tango does it
     mci::Init(argc, argv);*/
-	
-	
+
+
 	// Initialize MCI layer
 	try {
 		mci::Init();
@@ -91,8 +90,8 @@ int main(int argc,char *argv[])
 		cout << "Exiting" << endl;
 	}
 	Tango::Util::instance()->server_cleanup();
-	
-	
+
+
 	// Destroy MCI layer
 	try {
 		istd::TraceStop();
