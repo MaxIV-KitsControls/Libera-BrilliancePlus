@@ -1,4 +1,4 @@
-tangods-timingliberabrillianceplus (1.0.0) unstable; urgency=low
+tangods-liberabrillianceplustiming (1.0.0) unstable; urgency=low
 
   * Initial debian packaging
   * Fix State Machine
