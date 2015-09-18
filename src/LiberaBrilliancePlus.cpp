@@ -1035,7 +1035,7 @@ void LiberaBrilliancePlus::write_RtcDecoderSwitch(Tango::WAttribute &attr)
 	Tango::DevShort	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_RtcDecoderSwitch) ENABLED START -----*/
-	//m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, w_val);
+	m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, w_val);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_RtcDecoderSwitch
 }
@@ -1073,7 +1073,7 @@ void LiberaBrilliancePlus::write_McSource(Tango::WAttribute &attr)
 	Tango::DevShort	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_McSource) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_McSource_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_McSource
 }
@@ -1226,7 +1226,7 @@ void LiberaBrilliancePlus::write_T1Source(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1Source) ENABLED START -----*/
 	
-	
+	m_libera->UpdateScalar(attr_T1Source_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1Source
 }
 //--------------------------------------------------------
@@ -1263,7 +1263,7 @@ void LiberaBrilliancePlus::write_T2Source(Tango::WAttribute &attr)
 	Tango::DevShort	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2Source) ENABLED START -----*/
-	//m_libera->UpdateScalar(attr_T2Source_read, w_val);
+	m_libera->UpdateScalar(attr_T2Source_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2Source
 }
@@ -1301,7 +1301,7 @@ void LiberaBrilliancePlus::write_MgtOut(Tango::WAttribute &attr)
 	Tango::DevShort	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MgtOut) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_MgtOut_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MgtOut
 }
@@ -1339,7 +1339,7 @@ void LiberaBrilliancePlus::write_T0inMask(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0inMask) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_T0inMask_read, t0inMask);
+	m_libera->UpdateScalar(attr_T0inMask_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0inMask
 }
@@ -1378,7 +1378,7 @@ void LiberaBrilliancePlus::write_T1inMask(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1inMask) ENABLED START -----*/
 	
-	
+	m_libera->UpdateScalar(attr_T1inMask_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1inMask
 }
 //--------------------------------------------------------
@@ -1415,7 +1415,7 @@ void LiberaBrilliancePlus::write_T2inMask(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2inMask) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_T2inMask_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2inMask
 }
@@ -1454,7 +1454,7 @@ void LiberaBrilliancePlus::write_T0idOut(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0idOut) ENABLED START -----*/
 	
-	//m_libera->UpdateScalar(attr_T0idOut_read, t0inFunction);
+	m_libera->UpdateScalar(attr_T0idOut_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0idOut
 }
 //--------------------------------------------------------
@@ -1491,7 +1491,7 @@ void LiberaBrilliancePlus::write_T1inFunction(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1inFunction) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_T1inFunction_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1inFunction
 }
@@ -1573,7 +1573,7 @@ void LiberaBrilliancePlus::write_MCinMask(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MCinMask) ENABLED START -----*/
 	
-	
+	m_libera->UpdateScalar(attr_MCinMask_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MCinMask
 }
 //--------------------------------------------------------
@@ -1610,7 +1610,7 @@ void LiberaBrilliancePlus::write_MCinFunction(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MCinFunction) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_MCinFunction_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MCinFunction
 }
@@ -1648,7 +1648,7 @@ void LiberaBrilliancePlus::write_T0Duration(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0Duration) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_T0Duration_read, t0Duration);
+	m_libera->UpdateScalar(attr_T0Duration_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0Duration
 }
@@ -1686,7 +1686,7 @@ void LiberaBrilliancePlus::write_InterlockID(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockID) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_InterlockID_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockID
 }
@@ -1724,7 +1724,7 @@ void LiberaBrilliancePlus::write_T2EdgeFalling(Tango::WAttribute &attr)
 	Tango::DevBoolean	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2EdgeFalling) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_T2EdgeFalling_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2EdgeFalling
 }
@@ -1763,7 +1763,7 @@ void LiberaBrilliancePlus::write_T2EdgeRising(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2EdgeRising) ENABLED START -----*/
 	
-	
+	m_libera->UpdateScalar(attr_T2EdgeRising_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2EdgeRising
 }
 //--------------------------------------------------------
@@ -1800,7 +1800,7 @@ void LiberaBrilliancePlus::write_T1EdgeFalling(Tango::WAttribute &attr)
 	Tango::DevBoolean	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1EdgeFalling) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_T1EdgeFalling_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1EdgeFalling
 }
@@ -1838,7 +1838,7 @@ void LiberaBrilliancePlus::write_T1EdgeRising(Tango::WAttribute &attr)
 	Tango::DevBoolean	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1EdgeRising) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_T1EdgeRising_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1EdgeRising
 }
@@ -1876,7 +1876,7 @@ void LiberaBrilliancePlus::write_T2ID(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2ID) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_T2ID_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2ID
 }
@@ -1914,7 +1914,7 @@ void LiberaBrilliancePlus::write_T1ID(Tango::WAttribute &attr)
 	Tango::DevLong	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1ID) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_T1ID_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1ID
 }
@@ -1952,7 +1952,7 @@ void LiberaBrilliancePlus::write_T1Direction(Tango::WAttribute &attr)
 	Tango::DevShort	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1Direction) ENABLED START -----*/
-	
+	m_libera->UpdateScalar(attr_T1Direction_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1Direction
 }
@@ -1991,7 +1991,7 @@ void LiberaBrilliancePlus::write_T2Direction(Tango::WAttribute &attr)
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2Direction) ENABLED START -----*/
 	
-	
+	m_libera->UpdateScalar(attr_T2Direction_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2Direction
 }
 //--------------------------------------------------------
@@ -2121,7 +2121,7 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 	if (m_state == Tango::FAULT) {
 		//Add logic here..
 	}
-	else if (*attr_MCPLLStatus_read == false)// || *attr_RTCTimestampState_read != 0)
+	else if (*attr_MCPLLStatus_read == false || *attr_RTCTimestampState_read != 1)
 	{
 		m_state = Tango::ALARM;
 	}
@@ -2157,10 +2157,10 @@ Tango::ConstDevString LiberaBrilliancePlus::dev_status()
 		m_status = "MC Pll not locked";
 		cout << "Inside dev status: " << m_status << endl;
 	}
-//	else if (*attr_RTCTimestampState_read != 0)
-//	{
-//		m_status = "RTC TimeStamp not progress";
-//	}
+	else if (*attr_RTCTimestampState_read != 1)
+	{
+		m_status = "RTC TimeStamp not progress";
+	}
 
 	//set_status(m_status);
 	status = m_status;

@@ -1,5 +1,5 @@
-Source: tangods-liberabrillianceplus
-Standards-Version: 1.3.2
+Source: tangods-timingliberabrillianceplus
+Standards-Version: 1.0.0
 Section: utils
 Maintainer: MAXIV Laboratory <kits@maxlab.lu.se>, Cosylab d.o.o. <info@cosylab.com>
 Homepage: https://github.com/MaxIV-KitsControls/Libera-BrilliancePlus
@@ -11,8 +11,8 @@ Build-Depends: debhelper (>= 7.0.0),
                libera-base2.9-dev,
                libera-mci2.9-dev
 
-Package: tangods-liberabrillianceplus
+Package: tangods-timingliberabrillianceplus
 Architecture: i386
 Depends: libtango8, libera-base2.9, libera-mci2.9
-Description: Tango Device Server for Libera Brilliance Plus
+Description: Tango Device Server for Libera Brilliance Plus timing module
 

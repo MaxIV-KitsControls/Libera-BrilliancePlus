@@ -1,64 +1,6 @@
-tangods-liberabrillianceplus (1.3.2) unstable; urgency=low
-
-  * Fix AGC mode during init
-  * Update default properties for Gain, T0inFunction, T1inFunction
-
- -- Vasileios Martos <vasileios.martos> Mon, 7 September 2015 08:00:00 +0000
-
-tangods-liberabrillianceplus (1.3.1) unstable; urgency=low
-
-  * Added Properties KxCoefficient, KyCoefficient, Gain, EnableAGC, InterlockGainIndependent and ErrorTrace.
-  * Removed redundant Attributes.
-  * Fixed nodes for Timing Attributes.
-
- -- Vasileios Martos <vasileios.martos> Mon, 7 September 2015 08:00:00 +0000
-
-tangods-liberabrillianceplus (1.3.0) unstable; urgency=high
-
-  * Added several Properties and default values
-  * Ask me for the rest
-
- -- Vasileios Martos <vasileios.martos@maxiv.lu.se>  Mon, 31 August 2015 12:00:00 +0200
-
-tangods-liberabrillianceplus (1.2.2) unstable; urgency=high
-
-  * Fixed Ky write
-  * updated the state machine to reflect if the libera is synchronised
-
- -- Sebastien Gara <sebastien.gara@nexeya.com> Wed, 19 August 2015 16:00:00 +0000
-
-tangods-liberabrillianceplus (1.2.1) unstable; urgency=low
-
-  * Fixed weird utf-8 characters in the description of the attribute that prevent to run client on it
-  * updated the synchronisation method
-  * fixed the writing of t2 in function
-
- -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Fri, 07 August 2015 17:00:00 +0200
-
-tangods-liberabrillianceplus (1.2.0) unstable; urgency=low
-
-  * Added new attributes for the timing module.
-
-  * Added Single mode Signal.
-
-  * Added TDP signal
-
-  * Added Announce Synchronization and Start Synchronization Commands.
-
- -- Vasileios Martos <vasileios.martos@maxiv.lu.se>  Tue, 28 July 2015 15:00:00 +0200
-
-tangods-liberabrillianceplus (1.1.0) unstable; urgency=low
-
-  * Change dependencies version to 2.9
-
- -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Sun, 28 June 2015 17:00:00 +0200
-tangods-liberabrillianceplus (1.0.1) unstable; urgency=low
-
-  * Fix State Machine (merge request #14 NexeyaSGara)
-
- -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Sun, 28 June 2015 15:00:00 +0200
-tangods-liberabrillianceplus (1.0.0) unstable; urgency=low
+tangods-timingliberabrillianceplus (1.0.0) unstable; urgency=low
 
   * Initial debian packaging
+  * Fix State Machine
 
- -- Vincent Hardion <vincent.hardion@maxiv.lu.se>  Mon, 11 May 2015 21:48:19 +0200
+ -- Vasileios Martos <vasileios.martos> Mon, 20 September 2015 08:00:00 +0000
