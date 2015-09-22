@@ -209,6 +209,8 @@ public:
 	Tango::DevLong	maxTDBufferSizeWhenDecimationEnabled;
 	//	MCDecoderSwitch:	MC-Config property - MC decoder switch: Enumeration (off,on,debug)
 	Tango::DevShort	mCDecoderSwitch;
+	//	MCSource:	Trigger line source selection - (Off,External,Internal,Pulse,LXI,RTC)
+	Tango::DevShort	mCSource;
 	//	T0Direction:	t0 port direction -  (Input,Output)
 	Tango::DevShort	t0Direction;
 	//	T0OutType:	t0 port type -  (Off,Trigger,T3,SFP)
@@ -303,7 +305,7 @@ public:
 	Tango::DevDouble	gain;
 	//	EnableAGC:	Enables/disables the Automatic Gain Control
 	Tango::DevBoolean	enableAGC;
-	//	InterlockGainDependent:	Enables / disables gain dependent mode of Interlock operation.
+	//	InterlockGainDependent:	Enables-disables gain dependent mode of Interlock operation.
 	Tango::DevBoolean	interlockGainDependent;
 	//	ErrorTrace:	Trace Error functionality for the Libera, by default is Disabled:
 	//   * Value: OutPut ,  TraceLevel
@@ -321,7 +323,11 @@ public:
 	Tango::DevUShort	*attr_LiberaModel_read;
 	Tango::DevBoolean	*attr_DDEnabled_read;
 	Tango::DevLong	*attr_DDBufferSize_read;
-	Tango::DevLong	*attr_DDTriggerCounter_read;
+	Tango::DevUShort	*attr_DDDecimationFactor_read;
+	Tango::DevLong	*attr_DDTriggerOffset_read;
+	Tango::DevBoolean	*attr_DDBufferFreezingEnabled_read;
+	Tango::DevBoolean	*attr_DDBufferFrozen_read;
+	Tango::DevBoolean	*attr_ExternalTriggerEnabled_read;
 	Tango::DevLong	*attr_ExternalTriggerDelay_read;
 	Tango::DevBoolean	*attr_SAEnabled_read;
 	Tango::DevDouble	*attr_VaSA_read;
@@ -344,7 +350,6 @@ public:
 	Tango::DevLong	*attr_ADCBufferSize_read;
 	Tango::DevLong	*attr_PMOffset_read;
 	Tango::DevBoolean	*attr_PMNotified_read;
-	Tango::DevShort	*attr_PMNotificationCounter_read;
 	Tango::DevBoolean	*attr_InterlockXNotified_read;
 	Tango::DevBoolean	*attr_InterlockYNotified_read;
 	Tango::DevBoolean	*attr_InterlockAttnNotified_read;
@@ -357,19 +362,18 @@ public:
 	Tango::DevBoolean	*attr_AutoSwitchingEnabled_read;
 	Tango::DevBoolean	*attr_ExternalSwitching_read;
 	Tango::DevLong	*attr_SwitchingDelay_read;
-	Tango::DevLong	*attr_OffsetTune_read;
-	Tango::DevBoolean	*attr_CompensateTune_read;
 	Tango::DevShort	*attr_DSCMode_read;
 	Tango::DevBoolean	*attr_AGCEnabled_read;
 	Tango::DevDouble	*attr_Gain_read;
+	Tango::DevDouble	*attr_MachineTime_read;
 	Tango::DevLong	*attr_TimePhase_read;
-	Tango::DevBoolean	*attr_MCPLLStatus_read;
 	Tango::DevShort	*attr_Temp1_read;
 	Tango::DevShort	*attr_Temp2_read;
 	Tango::DevShort	*attr_Fan1Speed_read;
 	Tango::DevShort	*attr_Fan2Speed_read;
 	Tango::DevLong	*attr_CpuUsage_read;
 	Tango::DevLong	*attr_FreeMemory_read;
+	Tango::DevBoolean	*attr_UseLiberaSAData_read;
 	Tango::DevBoolean	*attr_InterlockEnabled_read;
 	Tango::DevBoolean	*attr_InterlockGainDependentEnabled_read;
 	Tango::DevLong	*attr_InterlockOverflowThreshold_read;
@@ -381,6 +385,11 @@ public:
 	Tango::DevDouble	*attr_YOffset_read;
 	Tango::DevBoolean	*attr_TDEnabled_read;
 	Tango::DevLong	*attr_TDBufferSize_read;
+	Tango::DevUShort	*attr_TDDecimationFactor_read;
+	Tango::DevLong	*attr_TDTriggerOffset_read;
+	Tango::DevBoolean	*attr_TDBufferFreezingEnabled_read;
+	Tango::DevBoolean	*attr_TDBufferFrozen_read;
+	Tango::DevLong	*attr_TDTriggerCounter_read;
 	Tango::DevDouble	*attr_Ks_read;
 	Tango::DevDouble	*attr_QOffset_read;
 	Tango::DevDouble	*attr_SOffset_read;
@@ -392,10 +401,10 @@ public:
 	Tango::DevBoolean	*attr_SPEnabled_read;
 	Tango::DevLong	*attr_SPBufferSize_read;
 	Tango::DevLong	*attr_PMBufferSize_read;
+	Tango::DevShort	*attr_PMSource_read;
 	Tango::DevLong	*attr_SynchronizeLMT_read;
 	Tango::DevLong	*attr_InterlockFilterOverflow_read;
 	Tango::DevLong	*attr_InterlockFilterPosition_read;
-	Tango::DevShort	*attr_PMSource_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -427,6 +436,7 @@ public:
 	Tango::DevDouble	*attr_QbDD_read;
 	Tango::DevDouble	*attr_QcDD_read;
 	Tango::DevDouble	*attr_QdDD_read;
+	Tango::DevShort	*attr_UserData_read;
 	Tango::DevString	*attr_logs_read;
 	Tango::DevDouble	*attr_XPosTD_read;
 	Tango::DevDouble	*attr_YPosTD_read;
@@ -542,14 +552,53 @@ public:
 	virtual void write_DDBufferSize(Tango::WAttribute &attr);
 	virtual bool is_DDBufferSize_allowed(Tango::AttReqType type);
 /**
- *	Attribute DDTriggerCounter related methods
- *	Description: Number of trigger notifications received since last device <init> 
+ *	Attribute DDDecimationFactor related methods
+ *	Description: The DD decimation factor
+ *
+ *	Data type:	Tango::DevUShort
+ *	Attr type:	Scalar
+ */
+	virtual void read_DDDecimationFactor(Tango::Attribute &attr);
+	virtual void write_DDDecimationFactor(Tango::WAttribute &attr);
+	virtual bool is_DDDecimationFactor_allowed(Tango::AttReqType type);
+/**
+ *	Attribute DDTriggerOffset related methods
+ *	Description: DD data offset in num. of turns
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
  */
-	virtual void read_DDTriggerCounter(Tango::Attribute &attr);
-	virtual bool is_DDTriggerCounter_allowed(Tango::AttReqType type);
+	virtual void read_DDTriggerOffset(Tango::Attribute &attr);
+	virtual void write_DDTriggerOffset(Tango::WAttribute &attr);
+	virtual bool is_DDTriggerOffset_allowed(Tango::AttReqType type);
+/**
+ *	Attribute DDBufferFreezingEnabled related methods
+ *	Description: DD buffer freezing activation flag
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_DDBufferFreezingEnabled(Tango::Attribute &attr);
+	virtual bool is_DDBufferFreezingEnabled_allowed(Tango::AttReqType type);
+/**
+ *	Attribute DDBufferFrozen related methods
+ *	Description: DD buffer status
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_DDBufferFrozen(Tango::Attribute &attr);
+	virtual bool is_DDBufferFrozen_allowed(Tango::AttReqType type);
+/**
+ *	Attribute ExternalTriggerEnabled related methods
+ *	Description: External trigger activation flag
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_ExternalTriggerEnabled(Tango::Attribute &attr);
+	virtual void write_ExternalTriggerEnabled(Tango::WAttribute &attr);
+	virtual bool is_ExternalTriggerEnabled_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalTriggerDelay related methods
  *	Description: Sets the delay on the external trigger arrival. 
@@ -760,15 +809,6 @@ public:
 	virtual void write_PMNotified(Tango::WAttribute &attr);
 	virtual bool is_PMNotified_allowed(Tango::AttReqType type);
 /**
- *	Attribute PMNotificationCounter related methods
- *	Description: Number a PM event recieved since last Init
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_PMNotificationCounter(Tango::Attribute &attr);
-	virtual bool is_PMNotificationCounter_allowed(Tango::AttReqType type);
-/**
  *	Attribute InterlockXNotified related methods
  *	Description: Sets to 1 if X position trip caused the Interlock event.
  *
@@ -887,28 +927,6 @@ public:
 	virtual void write_SwitchingDelay(Tango::WAttribute &attr);
 	virtual bool is_SwitchingDelay_allowed(Tango::AttReqType type);
 /**
- *	Attribute OffsetTune related methods
- *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. 
- *               Default value is 0 (precisely tuned).
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_OffsetTune(Tango::Attribute &attr);
-	virtual void write_OffsetTune(Tango::WAttribute &attr);
-	virtual bool is_OffsetTune_allowed(Tango::AttReqType type);
-/**
- *	Attribute CompensateTune related methods
- *	Description: To enable double offset-tune, issue the following command 
- *               (to disable it, just use false instead of true).
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_CompensateTune(Tango::Attribute &attr);
-	virtual void write_CompensateTune(Tango::WAttribute &attr);
-	virtual bool is_CompensateTune_allowed(Tango::AttReqType type);
-/**
  *	Attribute DSCMode related methods
  *	Description: Sets the adjustment (learning) of the amplitude and phase coefficients true or false. Set the coefficients type, adjusted or unity. Combination of these two nodes is necessary to achieve backward compatiblity.
  *
@@ -941,6 +959,16 @@ public:
 	virtual void write_Gain(Tango::WAttribute &attr);
 	virtual bool is_Gain_allowed(Tango::AttReqType type);
 /**
+ *	Attribute MachineTime related methods
+ *	Description: Machine Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_MachineTime(Tango::Attribute &attr);
+	virtual void write_MachineTime(Tango::WAttribute &attr);
+	virtual bool is_MachineTime_allowed(Tango::AttReqType type);
+/**
  *	Attribute TimePhase related methods
  *	Description: The Machine Time Phase
  *
@@ -950,15 +978,6 @@ public:
 	virtual void read_TimePhase(Tango::Attribute &attr);
 	virtual void write_TimePhase(Tango::WAttribute &attr);
 	virtual bool is_TimePhase_allowed(Tango::AttReqType type);
-/**
- *	Attribute MCPLLStatus related methods
- *	Description: Indicates the MC PLL status (1=locked, 0=unlocked)
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_MCPLLStatus(Tango::Attribute &attr);
-	virtual bool is_MCPLLStatus_allowed(Tango::AttReqType type);
 /**
  *	Attribute Temp1 related methods
  *	Description: Temperature of the hottest component on the BPM 
@@ -1021,6 +1040,17 @@ public:
  */
 	virtual void read_FreeMemory(Tango::Attribute &attr);
 	virtual bool is_FreeMemory_allowed(Tango::AttReqType type);
+/**
+ *	Attribute UseLiberaSAData related methods
+ *	Description: If set to true, the X & Z SA postions are retreived from the Libera FPGA.
+ *               Otherwise, they are computed by the Tango device using the button values.
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_UseLiberaSAData(Tango::Attribute &attr);
+	virtual void write_UseLiberaSAData(Tango::WAttribute &attr);
+	virtual bool is_UseLiberaSAData_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockEnabled related methods
  *	Description: Enables / disables the Interlock detection.
@@ -1136,6 +1166,53 @@ public:
 	virtual void write_TDBufferSize(Tango::WAttribute &attr);
 	virtual bool is_TDBufferSize_allowed(Tango::AttReqType type);
 /**
+ *	Attribute TDDecimationFactor related methods
+ *	Description: The TD decimation factor
+ *
+ *	Data type:	Tango::DevUShort
+ *	Attr type:	Scalar
+ */
+	virtual void read_TDDecimationFactor(Tango::Attribute &attr);
+	virtual void write_TDDecimationFactor(Tango::WAttribute &attr);
+	virtual bool is_TDDecimationFactor_allowed(Tango::AttReqType type);
+/**
+ *	Attribute TDTriggerOffset related methods
+ *	Description: TD data offset in num. of turns
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_TDTriggerOffset(Tango::Attribute &attr);
+	virtual void write_TDTriggerOffset(Tango::WAttribute &attr);
+	virtual bool is_TDTriggerOffset_allowed(Tango::AttReqType type);
+/**
+ *	Attribute TDBufferFreezingEnabled related methods
+ *	Description: TD buffer freezing activation flag
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_TDBufferFreezingEnabled(Tango::Attribute &attr);
+	virtual bool is_TDBufferFreezingEnabled_allowed(Tango::AttReqType type);
+/**
+ *	Attribute TDBufferFrozen related methods
+ *	Description: TD buffer status
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_TDBufferFrozen(Tango::Attribute &attr);
+	virtual bool is_TDBufferFrozen_allowed(Tango::AttReqType type);
+/**
+ *	Attribute TDTriggerCounter related methods
+ *	Description: Number of trigger notifications received since last device <init>
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_TDTriggerCounter(Tango::Attribute &attr);
+	virtual bool is_TDTriggerCounter_allowed(Tango::AttReqType type);
+/**
  *	Attribute Ks related methods
  *	Description: Coefficient for SUM value. Default setting is 67108864.
  *
@@ -1244,6 +1321,16 @@ public:
 	virtual void write_PMBufferSize(Tango::WAttribute &attr);
 	virtual bool is_PMBufferSize_allowed(Tango::AttReqType type);
 /**
+ *	Attribute PMSource related methods
+ *	Description: source of the PM event external interlock limits
+ *
+ *	Data type:	Tango::DevShort
+ *	Attr type:	Scalar
+ */
+	virtual void read_PMSource(Tango::Attribute &attr);
+	virtual void write_PMSource(Tango::WAttribute &attr);
+	virtual bool is_PMSource_allowed(Tango::AttReqType type);
+/**
  *	Attribute SynchronizeLMT related methods
  *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
  *
@@ -1273,16 +1360,6 @@ public:
 	virtual void read_InterlockFilterPosition(Tango::Attribute &attr);
 	virtual void write_InterlockFilterPosition(Tango::WAttribute &attr);
 	virtual bool is_InterlockFilterPosition_allowed(Tango::AttReqType type);
-/**
- *	Attribute PMSource related methods
- *	Description: source of the PM event (﻿external,interlock,limits)
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_PMSource(Tango::Attribute &attr);
-	virtual void write_PMSource(Tango::WAttribute &attr);
-	virtual bool is_PMSource_allowed(Tango::AttReqType type);
 /**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
@@ -1565,6 +1642,15 @@ public:
  */
 	virtual void read_QdDD(Tango::Attribute &attr);
 	virtual bool is_QdDD_allowed(Tango::AttReqType type);
+/**
+ *	Attribute UserData related methods
+ *	Description: User defined data
+ *
+ *	Data type:	Tango::DevShort
+ *	Attr type:	Spectrum max = 256
+ */
+	virtual void read_UserData(Tango::Attribute &attr);
+	virtual bool is_UserData_allowed(Tango::AttReqType type);
 /**
  *	Attribute logs related methods
  *	Description: 

@@ -1485,6 +1485,20 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "MCSource";
+	prop_desc = "Trigger line source selection - (Off,External,Internal,Pulse,LXI,RTC)";
+	prop_def  = "5";
+	vect_data.clear();
+	vect_data.push_back("5");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "T0Direction";
 	prop_desc = "t0 port direction -  (Input,Output)";
 	prop_def  = "1";
@@ -2144,7 +2158,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "InterlockGainDependent";
-	prop_desc = "Enables / disables gain dependent mode of Interlock operation.";
+	prop_desc = "Enables-disables gain dependent mode of Interlock operation.";
 	prop_def  = "true";
 	vect_data.clear();
 	vect_data.push_back("true");
@@ -2449,29 +2463,127 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	ddbuffersize->set_memorized_init(true);
 	att_list.push_back(ddbuffersize);
 
-	//	Attribute : DDTriggerCounter
-	DDTriggerCounterAttrib	*ddtriggercounter = new DDTriggerCounterAttrib();
-	Tango::UserDefaultAttrProp	ddtriggercounter_prop;
-	ddtriggercounter_prop.set_description("Number of trigger notifications received since last device <init> ");
-	ddtriggercounter_prop.set_label("Trig.Counter");
-	ddtriggercounter_prop.set_unit("a.u.");
-	ddtriggercounter_prop.set_standard_unit("a.u.");
-	ddtriggercounter_prop.set_display_unit("a.u.");
-	ddtriggercounter_prop.set_format("%8d");
-	//	max_value	not set for DDTriggerCounter
-	//	min_value	not set for DDTriggerCounter
-	//	max_alarm	not set for DDTriggerCounter
-	//	min_alarm	not set for DDTriggerCounter
-	//	max_warning	not set for DDTriggerCounter
-	//	min_warning	not set for DDTriggerCounter
-	//	delta_t	not set for DDTriggerCounter
-	//	delta_val	not set for DDTriggerCounter
+	//	Attribute : DDDecimationFactor
+	DDDecimationFactorAttrib	*dddecimationfactor = new DDDecimationFactorAttrib();
+	Tango::UserDefaultAttrProp	dddecimationfactor_prop;
+	dddecimationfactor_prop.set_description("The DD decimation factor");
+	dddecimationfactor_prop.set_label("DD Decim. Factor");
+	dddecimationfactor_prop.set_unit("samples");
+	//	standard_unit	not set for DDDecimationFactor
+	//	display_unit	not set for DDDecimationFactor
+	dddecimationfactor_prop.set_format("%3d");
+	dddecimationfactor_prop.set_max_value("256");
+	dddecimationfactor_prop.set_min_value("1");
+	//	max_alarm	not set for DDDecimationFactor
+	//	min_alarm	not set for DDDecimationFactor
+	//	max_warning	not set for DDDecimationFactor
+	//	min_warning	not set for DDDecimationFactor
+	//	delta_t	not set for DDDecimationFactor
+	//	delta_val	not set for DDDecimationFactor
 	
-	ddtriggercounter->set_default_properties(ddtriggercounter_prop);
+	dddecimationfactor->set_default_properties(dddecimationfactor_prop);
 	//	Not Polled
-	ddtriggercounter->set_disp_level(Tango::OPERATOR);
+	dddecimationfactor->set_disp_level(Tango::OPERATOR);
+	dddecimationfactor->set_memorized();
+	dddecimationfactor->set_memorized_init(true);
+	att_list.push_back(dddecimationfactor);
+
+	//	Attribute : DDTriggerOffset
+	DDTriggerOffsetAttrib	*ddtriggeroffset = new DDTriggerOffsetAttrib();
+	Tango::UserDefaultAttrProp	ddtriggeroffset_prop;
+	ddtriggeroffset_prop.set_description("DD data offset in num. of turns");
+	ddtriggeroffset_prop.set_label("DD Trigger Offset");
+	ddtriggeroffset_prop.set_unit("turns");
+	//	standard_unit	not set for DDTriggerOffset
+	//	display_unit	not set for DDTriggerOffset
+	ddtriggeroffset_prop.set_format("%6d");
+	//	max_value	not set for DDTriggerOffset
+	//	min_value	not set for DDTriggerOffset
+	//	max_alarm	not set for DDTriggerOffset
+	//	min_alarm	not set for DDTriggerOffset
+	//	max_warning	not set for DDTriggerOffset
+	//	min_warning	not set for DDTriggerOffset
+	//	delta_t	not set for DDTriggerOffset
+	//	delta_val	not set for DDTriggerOffset
+	
+	ddtriggeroffset->set_default_properties(ddtriggeroffset_prop);
+	//	Not Polled
+	ddtriggeroffset->set_disp_level(Tango::OPERATOR);
+	ddtriggeroffset->set_memorized();
+	ddtriggeroffset->set_memorized_init(true);
+	att_list.push_back(ddtriggeroffset);
+
+	//	Attribute : DDBufferFreezingEnabled
+	DDBufferFreezingEnabledAttrib	*ddbufferfreezingenabled = new DDBufferFreezingEnabledAttrib();
+	Tango::UserDefaultAttrProp	ddbufferfreezingenabled_prop;
+	ddbufferfreezingenabled_prop.set_description("DD buffer freezing activation flag");
+	ddbufferfreezingenabled_prop.set_label("DD Buffer Freezing Enabled");
+	ddbufferfreezingenabled_prop.set_unit("n/a");
+	ddbufferfreezingenabled_prop.set_standard_unit("n/a");
+	ddbufferfreezingenabled_prop.set_display_unit("n/a");
+	//	format	not set for DDBufferFreezingEnabled
+	//	max_value	not set for DDBufferFreezingEnabled
+	//	min_value	not set for DDBufferFreezingEnabled
+	//	max_alarm	not set for DDBufferFreezingEnabled
+	//	min_alarm	not set for DDBufferFreezingEnabled
+	//	max_warning	not set for DDBufferFreezingEnabled
+	//	min_warning	not set for DDBufferFreezingEnabled
+	//	delta_t	not set for DDBufferFreezingEnabled
+	//	delta_val	not set for DDBufferFreezingEnabled
+	
+	ddbufferfreezingenabled->set_default_properties(ddbufferfreezingenabled_prop);
+	//	Not Polled
+	ddbufferfreezingenabled->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
-	att_list.push_back(ddtriggercounter);
+	att_list.push_back(ddbufferfreezingenabled);
+
+	//	Attribute : DDBufferFrozen
+	DDBufferFrozenAttrib	*ddbufferfrozen = new DDBufferFrozenAttrib();
+	Tango::UserDefaultAttrProp	ddbufferfrozen_prop;
+	ddbufferfrozen_prop.set_description("DD buffer status");
+	ddbufferfrozen_prop.set_label("DD Buffer Frozen");
+	ddbufferfrozen_prop.set_unit("n/a");
+	ddbufferfrozen_prop.set_standard_unit("n/a");
+	ddbufferfrozen_prop.set_display_unit("n/a");
+	//	format	not set for DDBufferFrozen
+	//	max_value	not set for DDBufferFrozen
+	//	min_value	not set for DDBufferFrozen
+	//	max_alarm	not set for DDBufferFrozen
+	//	min_alarm	not set for DDBufferFrozen
+	//	max_warning	not set for DDBufferFrozen
+	//	min_warning	not set for DDBufferFrozen
+	//	delta_t	not set for DDBufferFrozen
+	//	delta_val	not set for DDBufferFrozen
+	
+	ddbufferfrozen->set_default_properties(ddbufferfrozen_prop);
+	//	Not Polled
+	ddbufferfrozen->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ddbufferfrozen);
+
+	//	Attribute : ExternalTriggerEnabled
+	ExternalTriggerEnabledAttrib	*externaltriggerenabled = new ExternalTriggerEnabledAttrib();
+	Tango::UserDefaultAttrProp	externaltriggerenabled_prop;
+	externaltriggerenabled_prop.set_description("External trigger activation flag");
+	externaltriggerenabled_prop.set_label("Ext. Trig. Enabled");
+	externaltriggerenabled_prop.set_unit("n/a");
+	externaltriggerenabled_prop.set_standard_unit("n/a");
+	externaltriggerenabled_prop.set_display_unit("n/a");
+	//	format	not set for ExternalTriggerEnabled
+	//	max_value	not set for ExternalTriggerEnabled
+	//	min_value	not set for ExternalTriggerEnabled
+	//	max_alarm	not set for ExternalTriggerEnabled
+	//	min_alarm	not set for ExternalTriggerEnabled
+	//	max_warning	not set for ExternalTriggerEnabled
+	//	min_warning	not set for ExternalTriggerEnabled
+	//	delta_t	not set for ExternalTriggerEnabled
+	//	delta_val	not set for ExternalTriggerEnabled
+	
+	externaltriggerenabled->set_default_properties(externaltriggerenabled_prop);
+	//	Not Polled
+	externaltriggerenabled->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(externaltriggerenabled);
 
 	//	Attribute : ExternalTriggerDelay
 	ExternalTriggerDelayAttrib	*externaltriggerdelay = new ExternalTriggerDelayAttrib();
@@ -3004,30 +3116,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(pmnotified);
 
-	//	Attribute : PMNotificationCounter
-	PMNotificationCounterAttrib	*pmnotificationcounter = new PMNotificationCounterAttrib();
-	Tango::UserDefaultAttrProp	pmnotificationcounter_prop;
-	pmnotificationcounter_prop.set_description("Number a PM event recieved since last Init");
-	pmnotificationcounter_prop.set_label("PM Notif. Counter");
-	//	unit	not set for PMNotificationCounter
-	//	standard_unit	not set for PMNotificationCounter
-	//	display_unit	not set for PMNotificationCounter
-	pmnotificationcounter_prop.set_format("%8d");
-	//	max_value	not set for PMNotificationCounter
-	//	min_value	not set for PMNotificationCounter
-	//	max_alarm	not set for PMNotificationCounter
-	//	min_alarm	not set for PMNotificationCounter
-	//	max_warning	not set for PMNotificationCounter
-	//	min_warning	not set for PMNotificationCounter
-	//	delta_t	not set for PMNotificationCounter
-	//	delta_val	not set for PMNotificationCounter
-	
-	pmnotificationcounter->set_default_properties(pmnotificationcounter_prop);
-	//	Not Polled
-	pmnotificationcounter->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(pmnotificationcounter);
-
 	//	Attribute : InterlockXNotified
 	InterlockXNotifiedAttrib	*interlockxnotified = new InterlockXNotifiedAttrib();
 	Tango::UserDefaultAttrProp	interlockxnotified_prop;
@@ -3318,56 +3406,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	switchingdelay->set_memorized_init(true);
 	att_list.push_back(switchingdelay);
 
-	//	Attribute : OffsetTune
-	OffsetTuneAttrib	*offsettune = new OffsetTuneAttrib();
-	Tango::UserDefaultAttrProp	offsettune_prop;
-	offsettune_prop.set_description("Sets the offset tune value, 1 unit is approximately 40 Hz. \nDefault value is 0 (precisely tuned).");
-	offsettune_prop.set_label("OffsetTune");
-	offsettune_prop.set_unit("x 40Hz");
-	//	standard_unit	not set for OffsetTune
-	//	display_unit	not set for OffsetTune
-	offsettune_prop.set_format("%3d");
-	offsettune_prop.set_max_value("500");
-	offsettune_prop.set_min_value("-500");
-	//	max_alarm	not set for OffsetTune
-	//	min_alarm	not set for OffsetTune
-	//	max_warning	not set for OffsetTune
-	//	min_warning	not set for OffsetTune
-	//	delta_t	not set for OffsetTune
-	//	delta_val	not set for OffsetTune
-	
-	offsettune->set_default_properties(offsettune_prop);
-	//	Not Polled
-	offsettune->set_disp_level(Tango::OPERATOR);
-	offsettune->set_memorized();
-	offsettune->set_memorized_init(true);
-	att_list.push_back(offsettune);
-
-	//	Attribute : CompensateTune
-	CompensateTuneAttrib	*compensatetune = new CompensateTuneAttrib();
-	Tango::UserDefaultAttrProp	compensatetune_prop;
-	compensatetune_prop.set_description("To enable double offset-tune, issue the following command \n(to disable it, just use false instead of true).");
-	compensatetune_prop.set_label("Compensate Tune");
-	//	unit	not set for CompensateTune
-	//	standard_unit	not set for CompensateTune
-	//	display_unit	not set for CompensateTune
-	//	format	not set for CompensateTune
-	//	max_value	not set for CompensateTune
-	//	min_value	not set for CompensateTune
-	//	max_alarm	not set for CompensateTune
-	//	min_alarm	not set for CompensateTune
-	//	max_warning	not set for CompensateTune
-	//	min_warning	not set for CompensateTune
-	//	delta_t	not set for CompensateTune
-	//	delta_val	not set for CompensateTune
-	
-	compensatetune->set_default_properties(compensatetune_prop);
-	//	Not Polled
-	compensatetune->set_disp_level(Tango::OPERATOR);
-	compensatetune->set_memorized();
-	compensatetune->set_memorized_init(true);
-	att_list.push_back(compensatetune);
-
 	//	Attribute : DSCMode
 	DSCModeAttrib	*dscmode = new DSCModeAttrib();
 	Tango::UserDefaultAttrProp	dscmode_prop;
@@ -3440,6 +3478,30 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(gain);
 
+	//	Attribute : MachineTime
+	MachineTimeAttrib	*machinetime = new MachineTimeAttrib();
+	Tango::UserDefaultAttrProp	machinetime_prop;
+	machinetime_prop.set_description("Machine Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed");
+	machinetime_prop.set_label("Machine Time");
+	machinetime_prop.set_unit("a.u.");
+	//	standard_unit	not set for MachineTime
+	//	display_unit	not set for MachineTime
+	machinetime_prop.set_format("%9d");
+	//	max_value	not set for MachineTime
+	machinetime_prop.set_min_value("0");
+	//	max_alarm	not set for MachineTime
+	//	min_alarm	not set for MachineTime
+	//	max_warning	not set for MachineTime
+	//	min_warning	not set for MachineTime
+	//	delta_t	not set for MachineTime
+	//	delta_val	not set for MachineTime
+	
+	machinetime->set_default_properties(machinetime_prop);
+	//	Not Polled
+	machinetime->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(machinetime);
+
 	//	Attribute : TimePhase
 	TimePhaseAttrib	*timephase = new TimePhaseAttrib();
 	Tango::UserDefaultAttrProp	timephase_prop;
@@ -3464,30 +3526,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	timephase->set_memorized();
 	timephase->set_memorized_init(true);
 	att_list.push_back(timephase);
-
-	//	Attribute : MCPLLStatus
-	MCPLLStatusAttrib	*mcpllstatus = new MCPLLStatusAttrib();
-	Tango::UserDefaultAttrProp	mcpllstatus_prop;
-	mcpllstatus_prop.set_description("Indicates the MC PLL status (1=locked, 0=unlocked)");
-	mcpllstatus_prop.set_label("MC PLL Locked");
-	//	unit	not set for MCPLLStatus
-	//	standard_unit	not set for MCPLLStatus
-	//	display_unit	not set for MCPLLStatus
-	mcpllstatus_prop.set_format("%8d");
-	//	max_value	not set for MCPLLStatus
-	//	min_value	not set for MCPLLStatus
-	//	max_alarm	not set for MCPLLStatus
-	//	min_alarm	not set for MCPLLStatus
-	//	max_warning	not set for MCPLLStatus
-	//	min_warning	not set for MCPLLStatus
-	//	delta_t	not set for MCPLLStatus
-	//	delta_val	not set for MCPLLStatus
-	
-	mcpllstatus->set_default_properties(mcpllstatus_prop);
-	//	Not Polled
-	mcpllstatus->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(mcpllstatus);
 
 	//	Attribute : Temp1
 	Temp1Attrib	*temp1 = new Temp1Attrib();
@@ -3632,6 +3670,30 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	freememory->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(freememory);
+
+	//	Attribute : UseLiberaSAData
+	UseLiberaSADataAttrib	*useliberasadata = new UseLiberaSADataAttrib();
+	Tango::UserDefaultAttrProp	useliberasadata_prop;
+	useliberasadata_prop.set_description("If set to true, the X & Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.");
+	useliberasadata_prop.set_label("Use Libera SA Data");
+	//	unit	not set for UseLiberaSAData
+	//	standard_unit	not set for UseLiberaSAData
+	//	display_unit	not set for UseLiberaSAData
+	//	format	not set for UseLiberaSAData
+	//	max_value	not set for UseLiberaSAData
+	//	min_value	not set for UseLiberaSAData
+	//	max_alarm	not set for UseLiberaSAData
+	//	min_alarm	not set for UseLiberaSAData
+	//	max_warning	not set for UseLiberaSAData
+	//	min_warning	not set for UseLiberaSAData
+	//	delta_t	not set for UseLiberaSAData
+	//	delta_val	not set for UseLiberaSAData
+	
+	useliberasadata->set_default_properties(useliberasadata_prop);
+	//	Not Polled
+	useliberasadata->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(useliberasadata);
 
 	//	Attribute : InterlockEnabled
 	InterlockEnabledAttrib	*interlockenabled = new InterlockEnabledAttrib();
@@ -3904,6 +3966,128 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	tdbuffersize->set_memorized_init(true);
 	att_list.push_back(tdbuffersize);
 
+	//	Attribute : TDDecimationFactor
+	TDDecimationFactorAttrib	*tddecimationfactor = new TDDecimationFactorAttrib();
+	Tango::UserDefaultAttrProp	tddecimationfactor_prop;
+	tddecimationfactor_prop.set_description("The TD decimation factor");
+	tddecimationfactor_prop.set_label("TD Decim. Factor");
+	tddecimationfactor_prop.set_unit("samples");
+	//	standard_unit	not set for TDDecimationFactor
+	//	display_unit	not set for TDDecimationFactor
+	tddecimationfactor_prop.set_format("%3d");
+	tddecimationfactor_prop.set_max_value("256");
+	tddecimationfactor_prop.set_min_value("1");
+	//	max_alarm	not set for TDDecimationFactor
+	//	min_alarm	not set for TDDecimationFactor
+	//	max_warning	not set for TDDecimationFactor
+	//	min_warning	not set for TDDecimationFactor
+	//	delta_t	not set for TDDecimationFactor
+	//	delta_val	not set for TDDecimationFactor
+	
+	tddecimationfactor->set_default_properties(tddecimationfactor_prop);
+	//	Not Polled
+	tddecimationfactor->set_disp_level(Tango::OPERATOR);
+	tddecimationfactor->set_memorized();
+	tddecimationfactor->set_memorized_init(true);
+	att_list.push_back(tddecimationfactor);
+
+	//	Attribute : TDTriggerOffset
+	TDTriggerOffsetAttrib	*tdtriggeroffset = new TDTriggerOffsetAttrib();
+	Tango::UserDefaultAttrProp	tdtriggeroffset_prop;
+	tdtriggeroffset_prop.set_description("TD data offset in num. of turns");
+	tdtriggeroffset_prop.set_label("TD Trigger Offset");
+	tdtriggeroffset_prop.set_unit("turns");
+	//	standard_unit	not set for TDTriggerOffset
+	//	display_unit	not set for TDTriggerOffset
+	tdtriggeroffset_prop.set_format("%6d");
+	//	max_value	not set for TDTriggerOffset
+	//	min_value	not set for TDTriggerOffset
+	//	max_alarm	not set for TDTriggerOffset
+	//	min_alarm	not set for TDTriggerOffset
+	//	max_warning	not set for TDTriggerOffset
+	//	min_warning	not set for TDTriggerOffset
+	//	delta_t	not set for TDTriggerOffset
+	//	delta_val	not set for TDTriggerOffset
+	
+	tdtriggeroffset->set_default_properties(tdtriggeroffset_prop);
+	//	Not Polled
+	tdtriggeroffset->set_disp_level(Tango::OPERATOR);
+	tdtriggeroffset->set_memorized();
+	tdtriggeroffset->set_memorized_init(true);
+	att_list.push_back(tdtriggeroffset);
+
+	//	Attribute : TDBufferFreezingEnabled
+	TDBufferFreezingEnabledAttrib	*tdbufferfreezingenabled = new TDBufferFreezingEnabledAttrib();
+	Tango::UserDefaultAttrProp	tdbufferfreezingenabled_prop;
+	tdbufferfreezingenabled_prop.set_description("TD buffer freezing activation flag");
+	tdbufferfreezingenabled_prop.set_label("TD Buffer Freezing Enabled");
+	tdbufferfreezingenabled_prop.set_unit("n/a");
+	tdbufferfreezingenabled_prop.set_standard_unit("n/a");
+	tdbufferfreezingenabled_prop.set_display_unit("n/a");
+	//	format	not set for TDBufferFreezingEnabled
+	//	max_value	not set for TDBufferFreezingEnabled
+	//	min_value	not set for TDBufferFreezingEnabled
+	//	max_alarm	not set for TDBufferFreezingEnabled
+	//	min_alarm	not set for TDBufferFreezingEnabled
+	//	max_warning	not set for TDBufferFreezingEnabled
+	//	min_warning	not set for TDBufferFreezingEnabled
+	//	delta_t	not set for TDBufferFreezingEnabled
+	//	delta_val	not set for TDBufferFreezingEnabled
+	
+	tdbufferfreezingenabled->set_default_properties(tdbufferfreezingenabled_prop);
+	//	Not Polled
+	tdbufferfreezingenabled->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(tdbufferfreezingenabled);
+
+	//	Attribute : TDBufferFrozen
+	TDBufferFrozenAttrib	*tdbufferfrozen = new TDBufferFrozenAttrib();
+	Tango::UserDefaultAttrProp	tdbufferfrozen_prop;
+	tdbufferfrozen_prop.set_description("TD buffer status");
+	tdbufferfrozen_prop.set_label("TD Buffer Frozen");
+	tdbufferfrozen_prop.set_unit("n/a");
+	tdbufferfrozen_prop.set_standard_unit("n/a");
+	tdbufferfrozen_prop.set_display_unit("n/a");
+	//	format	not set for TDBufferFrozen
+	//	max_value	not set for TDBufferFrozen
+	//	min_value	not set for TDBufferFrozen
+	//	max_alarm	not set for TDBufferFrozen
+	//	min_alarm	not set for TDBufferFrozen
+	//	max_warning	not set for TDBufferFrozen
+	//	min_warning	not set for TDBufferFrozen
+	//	delta_t	not set for TDBufferFrozen
+	//	delta_val	not set for TDBufferFrozen
+	
+	tdbufferfrozen->set_default_properties(tdbufferfrozen_prop);
+	//	Not Polled
+	tdbufferfrozen->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(tdbufferfrozen);
+
+	//	Attribute : TDTriggerCounter
+	TDTriggerCounterAttrib	*tdtriggercounter = new TDTriggerCounterAttrib();
+	Tango::UserDefaultAttrProp	tdtriggercounter_prop;
+	tdtriggercounter_prop.set_description("Number of trigger notifications received since last device <init>");
+	tdtriggercounter_prop.set_label("Trig.Counter");
+	tdtriggercounter_prop.set_unit("a.u.");
+	tdtriggercounter_prop.set_standard_unit("a.u.");
+	tdtriggercounter_prop.set_display_unit("a.u.");
+	tdtriggercounter_prop.set_format("%8d");
+	//	max_value	not set for TDTriggerCounter
+	//	min_value	not set for TDTriggerCounter
+	//	max_alarm	not set for TDTriggerCounter
+	//	min_alarm	not set for TDTriggerCounter
+	//	max_warning	not set for TDTriggerCounter
+	//	min_warning	not set for TDTriggerCounter
+	//	delta_t	not set for TDTriggerCounter
+	//	delta_val	not set for TDTriggerCounter
+	
+	tdtriggercounter->set_default_properties(tdtriggercounter_prop);
+	//	Not Polled
+	tdtriggercounter->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(tdtriggercounter);
+
 	//	Attribute : Ks
 	KsAttrib	*ks = new KsAttrib();
 	Tango::UserDefaultAttrProp	ks_prop;
@@ -4171,6 +4355,30 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(pmbuffersize);
 
+	//	Attribute : PMSource
+	PMSourceAttrib	*pmsource = new PMSourceAttrib();
+	Tango::UserDefaultAttrProp	pmsource_prop;
+	pmsource_prop.set_description("source of the PM event external interlock limits");
+	pmsource_prop.set_label("PM Source");
+	//	unit	not set for PMSource
+	//	standard_unit	not set for PMSource
+	//	display_unit	not set for PMSource
+	//	format	not set for PMSource
+	//	max_value	not set for PMSource
+	//	min_value	not set for PMSource
+	//	max_alarm	not set for PMSource
+	//	min_alarm	not set for PMSource
+	//	max_warning	not set for PMSource
+	//	min_warning	not set for PMSource
+	//	delta_t	not set for PMSource
+	//	delta_val	not set for PMSource
+	
+	pmsource->set_default_properties(pmsource_prop);
+	//	Not Polled
+	pmsource->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(pmsource);
+
 	//	Attribute : SynchronizeLMT
 	SynchronizeLMTAttrib	*synchronizelmt = new SynchronizeLMTAttrib();
 	Tango::UserDefaultAttrProp	synchronizelmt_prop;
@@ -4242,30 +4450,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	interlockfilterposition->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(interlockfilterposition);
-
-	//	Attribute : PMSource
-	PMSourceAttrib	*pmsource = new PMSourceAttrib();
-	Tango::UserDefaultAttrProp	pmsource_prop;
-	pmsource_prop.set_description("source of the PM event (﻿external,interlock,limits)");
-	pmsource_prop.set_label("PM Source");
-	//	unit	not set for PMSource
-	//	standard_unit	not set for PMSource
-	//	display_unit	not set for PMSource
-	//	format	not set for PMSource
-	//	max_value	not set for PMSource
-	//	min_value	not set for PMSource
-	//	max_alarm	not set for PMSource
-	//	min_alarm	not set for PMSource
-	//	max_warning	not set for PMSource
-	//	min_warning	not set for PMSource
-	//	delta_t	not set for PMSource
-	//	delta_val	not set for PMSource
-	
-	pmsource->set_default_properties(pmsource_prop);
-	//	Not Polled
-	pmsource->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(pmsource);
 
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
@@ -5010,6 +5194,30 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	qddd->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(qddd);
+
+	//	Attribute : UserData
+	UserDataAttrib	*userdata = new UserDataAttrib();
+	Tango::UserDefaultAttrProp	userdata_prop;
+	userdata_prop.set_description("User defined data");
+	//	label	not set for UserData
+	//	unit	not set for UserData
+	//	standard_unit	not set for UserData
+	//	display_unit	not set for UserData
+	//	format	not set for UserData
+	//	max_value	not set for UserData
+	//	min_value	not set for UserData
+	//	max_alarm	not set for UserData
+	//	min_alarm	not set for UserData
+	//	max_warning	not set for UserData
+	//	min_warning	not set for UserData
+	//	delta_t	not set for UserData
+	//	delta_val	not set for UserData
+	
+	userdata->set_default_properties(userdata_prop);
+	//	Not Polled
+	userdata->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(userdata);
 
 	//	Attribute : logs
 	logsAttrib	*logs = new logsAttrib();

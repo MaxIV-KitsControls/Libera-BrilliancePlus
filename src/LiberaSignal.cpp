@@ -166,6 +166,11 @@ size_t LiberaSignal::GetLength()
     return *m_length;
 }
 
+std::string LiberaSignal::GetPath()
+{
+    return m_path;
+}
+
 void LiberaSignal::SetLength(size_t a_length)
 {
     *m_length = a_length;

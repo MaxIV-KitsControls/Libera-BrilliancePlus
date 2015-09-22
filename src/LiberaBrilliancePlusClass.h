@@ -102,17 +102,75 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DDBufferSize_allowed(ty);}
 };
 
-//	Attribute DDTriggerCounter class definition
-class DDTriggerCounterAttrib: public Tango::Attr
+//	Attribute DDDecimationFactor class definition
+class DDDecimationFactorAttrib: public Tango::Attr
 {
 public:
-	DDTriggerCounterAttrib():Attr("DDTriggerCounter",
-			Tango::DEV_LONG, Tango::READ) {};
-	~DDTriggerCounterAttrib() {};
+	DDDecimationFactorAttrib():Attr("DDDecimationFactor",
+			Tango::DEV_USHORT, Tango::READ_WRITE) {};
+	~DDDecimationFactorAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_DDTriggerCounter(att);}
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_DDDecimationFactor(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_DDDecimationFactor(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DDTriggerCounter_allowed(ty);}
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DDDecimationFactor_allowed(ty);}
+};
+
+//	Attribute DDTriggerOffset class definition
+class DDTriggerOffsetAttrib: public Tango::Attr
+{
+public:
+	DDTriggerOffsetAttrib():Attr("DDTriggerOffset",
+			Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~DDTriggerOffsetAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_DDTriggerOffset(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_DDTriggerOffset(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DDTriggerOffset_allowed(ty);}
+};
+
+//	Attribute DDBufferFreezingEnabled class definition
+class DDBufferFreezingEnabledAttrib: public Tango::Attr
+{
+public:
+	DDBufferFreezingEnabledAttrib():Attr("DDBufferFreezingEnabled",
+			Tango::DEV_BOOLEAN, Tango::READ) {};
+	~DDBufferFreezingEnabledAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_DDBufferFreezingEnabled(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DDBufferFreezingEnabled_allowed(ty);}
+};
+
+//	Attribute DDBufferFrozen class definition
+class DDBufferFrozenAttrib: public Tango::Attr
+{
+public:
+	DDBufferFrozenAttrib():Attr("DDBufferFrozen",
+			Tango::DEV_BOOLEAN, Tango::READ) {};
+	~DDBufferFrozenAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_DDBufferFrozen(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DDBufferFrozen_allowed(ty);}
+};
+
+//	Attribute ExternalTriggerEnabled class definition
+class ExternalTriggerEnabledAttrib: public Tango::Attr
+{
+public:
+	ExternalTriggerEnabledAttrib():Attr("ExternalTriggerEnabled",
+			Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~ExternalTriggerEnabledAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ExternalTriggerEnabled(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_ExternalTriggerEnabled(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ExternalTriggerEnabled_allowed(ty);}
 };
 
 //	Attribute ExternalTriggerDelay class definition
@@ -415,19 +473,6 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_PMNotified_allowed(ty);}
 };
 
-//	Attribute PMNotificationCounter class definition
-class PMNotificationCounterAttrib: public Tango::Attr
-{
-public:
-	PMNotificationCounterAttrib():Attr("PMNotificationCounter",
-			Tango::DEV_SHORT, Tango::READ) {};
-	~PMNotificationCounterAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_PMNotificationCounter(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_PMNotificationCounter_allowed(ty);}
-};
-
 //	Attribute InterlockXNotified class definition
 class InterlockXNotifiedAttrib: public Tango::Attr
 {
@@ -598,36 +643,6 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SwitchingDelay_allowed(ty);}
 };
 
-//	Attribute OffsetTune class definition
-class OffsetTuneAttrib: public Tango::Attr
-{
-public:
-	OffsetTuneAttrib():Attr("OffsetTune",
-			Tango::DEV_LONG, Tango::READ_WRITE) {};
-	~OffsetTuneAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_OffsetTune(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_OffsetTune(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_OffsetTune_allowed(ty);}
-};
-
-//	Attribute CompensateTune class definition
-class CompensateTuneAttrib: public Tango::Attr
-{
-public:
-	CompensateTuneAttrib():Attr("CompensateTune",
-			Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
-	~CompensateTuneAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_CompensateTune(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_CompensateTune(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_CompensateTune_allowed(ty);}
-};
-
 //	Attribute DSCMode class definition
 class DSCModeAttrib: public Tango::Attr
 {
@@ -673,6 +688,21 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_Gain_allowed(ty);}
 };
 
+//	Attribute MachineTime class definition
+class MachineTimeAttrib: public Tango::Attr
+{
+public:
+	MachineTimeAttrib():Attr("MachineTime",
+			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+	~MachineTimeAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_MachineTime(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_MachineTime(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_MachineTime_allowed(ty);}
+};
+
 //	Attribute TimePhase class definition
 class TimePhaseAttrib: public Tango::Attr
 {
@@ -686,19 +716,6 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->write_TimePhase(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_TimePhase_allowed(ty);}
-};
-
-//	Attribute MCPLLStatus class definition
-class MCPLLStatusAttrib: public Tango::Attr
-{
-public:
-	MCPLLStatusAttrib():Attr("MCPLLStatus",
-			Tango::DEV_BOOLEAN, Tango::READ) {};
-	~MCPLLStatusAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_MCPLLStatus(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_MCPLLStatus_allowed(ty);}
 };
 
 //	Attribute Temp1 class definition
@@ -777,6 +794,21 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_FreeMemory(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_FreeMemory_allowed(ty);}
+};
+
+//	Attribute UseLiberaSAData class definition
+class UseLiberaSADataAttrib: public Tango::Attr
+{
+public:
+	UseLiberaSADataAttrib():Attr("UseLiberaSAData",
+			Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~UseLiberaSADataAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_UseLiberaSAData(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_UseLiberaSAData(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_UseLiberaSAData_allowed(ty);}
 };
 
 //	Attribute InterlockEnabled class definition
@@ -944,6 +976,75 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_TDBufferSize_allowed(ty);}
 };
 
+//	Attribute TDDecimationFactor class definition
+class TDDecimationFactorAttrib: public Tango::Attr
+{
+public:
+	TDDecimationFactorAttrib():Attr("TDDecimationFactor",
+			Tango::DEV_USHORT, Tango::READ_WRITE) {};
+	~TDDecimationFactorAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_TDDecimationFactor(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_TDDecimationFactor(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_TDDecimationFactor_allowed(ty);}
+};
+
+//	Attribute TDTriggerOffset class definition
+class TDTriggerOffsetAttrib: public Tango::Attr
+{
+public:
+	TDTriggerOffsetAttrib():Attr("TDTriggerOffset",
+			Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~TDTriggerOffsetAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_TDTriggerOffset(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_TDTriggerOffset(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_TDTriggerOffset_allowed(ty);}
+};
+
+//	Attribute TDBufferFreezingEnabled class definition
+class TDBufferFreezingEnabledAttrib: public Tango::Attr
+{
+public:
+	TDBufferFreezingEnabledAttrib():Attr("TDBufferFreezingEnabled",
+			Tango::DEV_BOOLEAN, Tango::READ) {};
+	~TDBufferFreezingEnabledAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_TDBufferFreezingEnabled(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_TDBufferFreezingEnabled_allowed(ty);}
+};
+
+//	Attribute TDBufferFrozen class definition
+class TDBufferFrozenAttrib: public Tango::Attr
+{
+public:
+	TDBufferFrozenAttrib():Attr("TDBufferFrozen",
+			Tango::DEV_BOOLEAN, Tango::READ) {};
+	~TDBufferFrozenAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_TDBufferFrozen(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_TDBufferFrozen_allowed(ty);}
+};
+
+//	Attribute TDTriggerCounter class definition
+class TDTriggerCounterAttrib: public Tango::Attr
+{
+public:
+	TDTriggerCounterAttrib():Attr("TDTriggerCounter",
+			Tango::DEV_LONG, Tango::READ) {};
+	~TDTriggerCounterAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_TDTriggerCounter(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_TDTriggerCounter_allowed(ty);}
+};
+
 //	Attribute Ks class definition
 class KsAttrib: public Tango::Attr
 {
@@ -1105,6 +1206,21 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_PMBufferSize_allowed(ty);}
 };
 
+//	Attribute PMSource class definition
+class PMSourceAttrib: public Tango::Attr
+{
+public:
+	PMSourceAttrib():Attr("PMSource",
+			Tango::DEV_SHORT, Tango::READ_WRITE) {};
+	~PMSourceAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_PMSource(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_PMSource(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_PMSource_allowed(ty);}
+};
+
 //	Attribute SynchronizeLMT class definition
 class SynchronizeLMTAttrib: public Tango::Attr
 {
@@ -1148,21 +1264,6 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockFilterPosition(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockFilterPosition_allowed(ty);}
-};
-
-//	Attribute PMSource class definition
-class PMSourceAttrib: public Tango::Attr
-{
-public:
-	PMSourceAttrib():Attr("PMSource",
-			Tango::DEV_SHORT, Tango::READ_WRITE) {};
-	~PMSourceAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_PMSource(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_PMSource(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_PMSource_allowed(ty);}
 };
 
 //	Attribute XPosDD class definition
@@ -1566,6 +1667,19 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_QdDD(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_QdDD_allowed(ty);}
+};
+
+//	Attribute UserData class definition
+class UserDataAttrib: public Tango::SpectrumAttr
+{
+public:
+	UserDataAttrib():SpectrumAttr("UserData",
+			Tango::DEV_SHORT, Tango::READ, 256) {};
+	~UserDataAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_UserData(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_UserData_allowed(ty);}
 };
 
 //	Attribute logs class definition
