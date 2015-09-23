@@ -2115,18 +2115,19 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::State()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_state) ENABLED START -----*/
-	Tango::DevState	argout;
-	//set_state(m_state);    // Give the state to Tango.;
-	// replace by your own algorithm
-	if (m_state == Tango::FAULT) {
-		//Add logic here..
+	Tango::DevState argout = m_state;
+
+	if (argout == Tango::FAULT) {
+		//m_status is set from Set lib error method.
 	}
-	else if (*attr_MCPLLStatus_read == false || *attr_RTCTimestampState_read != 1)
+	else if (*attr_MCPLLStatus_read == false || *attr_RTCTimestampState_read != 0) //TODO ask Jerz about the correct state
 	{
 		m_state = Tango::ALARM;
+		//Set status logic in dev_status func
 	}
-	//cout << "Inside dev state: " << m_state << endl;
-	argout = m_state;
+	else if (argout == Tango::ON) {
+		m_status = "OK";
+	}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_state
 	set_state(argout);    // Give the state to Tango.
 	if (argout!=Tango::ALARM)
@@ -2150,16 +2151,19 @@ Tango::ConstDevString LiberaBrilliancePlus::dev_status()
 	std::string status;
 	if(argout == Tango::FAULT)
 	{
-
+		//m_status is set from Set lib error method.
 	}
 	else if (*attr_MCPLLStatus_read == false)
 	{
 		m_status = "MC Pll not locked";
-		cout << "Inside dev status: " << m_status << endl;
+		//cout << "Inside dev status: " << m_status << endl;
 	}
-	else if (*attr_RTCTimestampState_read != 1)
+	else if (*attr_RTCTimestampState_read != 0) //TODO ask Jerz about the correct state
 	{
 		m_status = "RTC TimeStamp not progress";
+	}
+	else if (argout == Tango::ON) { //TODO Redu code remove later
+		m_status = "OK";
 	}
 
 	//set_status(m_status);

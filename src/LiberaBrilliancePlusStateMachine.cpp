@@ -156,8 +156,7 @@ bool LiberaBrilliancePlus::is_Temperature_allowed(TANGO_UNUSED(Tango::AttReqType
 	{
 		//	Compare device state with not allowed states for READ 
 		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT ||
-			get_state()==Tango::ALARM)
+			get_state()==Tango::FAULT)
 		{
 		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TemperatureStateAllowed_READ) ENABLED START -----*/
 		
