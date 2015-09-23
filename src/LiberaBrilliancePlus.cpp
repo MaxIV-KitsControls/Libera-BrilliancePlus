@@ -44,6 +44,11 @@ static const char *RcsId = "$Id:  $";
 #include <LiberaBrilliancePlusClass.h>
 
 #include "LiberaClient.h"
+
+#include <istd/trace.h>
+#include <mci/mci.h>
+#include <mci/mci_util.h>
+#include <isig/signal_source.h>
 /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus.cpp
 
 /**
@@ -87,8 +92,6 @@ static const char *RcsId = "$Id:  $";
 //  UnfreezeTDBuffer            |  unfreeze_tdbuffer
 //  EnableSP                    |  enable_sp
 //  DisableSP                   |  disable_sp
-//  StartSynchronization        |  start_synchronization
-//  AnnounceSynchronization     |  announce_synchronization
 //  ForceInitSettings           |  force_init_settings
 //  SetTraceLevel               |  set_trace_level
 //================================================================
@@ -103,7 +106,6 @@ static const char *RcsId = "$Id:  $";
 //  DDTriggerOffset                  |  Tango::DevLong	Scalar
 //  DDBufferFreezingEnabled          |  Tango::DevBoolean	Scalar
 //  DDBufferFrozen                   |  Tango::DevBoolean	Scalar
-//  DDTriggerCounter                 |  Tango::DevLong	Scalar
 //  ExternalTriggerEnabled           |  Tango::DevBoolean	Scalar
 //  ExternalTriggerDelay             |  Tango::DevLong	Scalar
 //  SAEnabled                        |  Tango::DevBoolean	Scalar
@@ -115,8 +117,6 @@ static const char *RcsId = "$Id:  $";
 //  YPosSA                           |  Tango::DevDouble	Scalar
 //  SumSA                            |  Tango::DevDouble	Scalar
 //  QuadSA                           |  Tango::DevDouble	Scalar
-//  CxSA                             |  Tango::DevLong	Scalar
-//  CySA                             |  Tango::DevLong	Scalar
 //  SAStatNumSamples                 |  Tango::DevLong	Scalar
 //  XMeanPosSA                       |  Tango::DevDouble	Scalar
 //  YMeanPosSA                       |  Tango::DevDouble	Scalar
@@ -129,7 +129,6 @@ static const char *RcsId = "$Id:  $";
 //  ADCBufferSize                    |  Tango::DevLong	Scalar
 //  PMOffset                         |  Tango::DevLong	Scalar
 //  PMNotified                       |  Tango::DevBoolean	Scalar
-//  PMNotificationCounter            |  Tango::DevShort	Scalar
 //  InterlockXNotified               |  Tango::DevBoolean	Scalar
 //  InterlockYNotified               |  Tango::DevBoolean	Scalar
 //  InterlockAttnNotified            |  Tango::DevBoolean	Scalar
@@ -140,35 +139,19 @@ static const char *RcsId = "$Id:  $";
 //  YLow                             |  Tango::DevDouble	Scalar
 //  YHigh                            |  Tango::DevDouble	Scalar
 //  AutoSwitchingEnabled             |  Tango::DevBoolean	Scalar
-//  Switches                         |  Tango::DevShort	Scalar
 //  ExternalSwitching                |  Tango::DevBoolean	Scalar
 //  SwitchingDelay                   |  Tango::DevLong	Scalar
-//  OffsetTune                       |  Tango::DevLong	Scalar
-//  CompensateTune                   |  Tango::DevBoolean	Scalar
 //  DSCMode                          |  Tango::DevShort	Scalar
 //  AGCEnabled                       |  Tango::DevBoolean	Scalar
 //  Gain                             |  Tango::DevDouble	Scalar
-//  HasMAFSupport                    |  Tango::DevBoolean	Scalar
-//  MAFLength                        |  Tango::DevLong	Scalar
-//  MAFDelay                         |  Tango::DevLong	Scalar
 //  MachineTime                      |  Tango::DevDouble	Scalar
 //  TimePhase                        |  Tango::DevLong	Scalar
-//  SystemTime                       |  Tango::DevDouble	Scalar
-//  SCPLLStatus                      |  Tango::DevBoolean	Scalar
-//  MCPLLStatus                      |  Tango::DevBoolean	Scalar
 //  Temp1                            |  Tango::DevShort	Scalar
 //  Temp2                            |  Tango::DevShort	Scalar
-//  Temp3                            |  Tango::DevShort	Scalar
 //  Fan1Speed                        |  Tango::DevShort	Scalar
 //  Fan2Speed                        |  Tango::DevShort	Scalar
-//  Incoherence                      |  Tango::DevDouble	Scalar
-//  RefIncoherence                   |  Tango::DevDouble	Scalar
-//  MaxIncoherence                   |  Tango::DevDouble	Scalar
-//  MaxIncoherenceDrift              |  Tango::DevDouble	Scalar
-//  UpTime                           |  Tango::DevLong	Scalar
 //  CpuUsage                         |  Tango::DevLong	Scalar
 //  FreeMemory                       |  Tango::DevLong	Scalar
-//  RamFsUsage                       |  Tango::DevLong	Scalar
 //  UseLiberaSAData                  |  Tango::DevBoolean	Scalar
 //  InterlockEnabled                 |  Tango::DevBoolean	Scalar
 //  InterlockGainDependentEnabled    |  Tango::DevBoolean	Scalar
@@ -190,44 +173,15 @@ static const char *RcsId = "$Id:  $";
 //  QOffset                          |  Tango::DevDouble	Scalar
 //  SOffset                          |  Tango::DevDouble	Scalar
 //  SynchronizationStatus            |  Tango::DevShort	Scalar
-//  T0Delay                          |  Tango::DevLong	Scalar
 //  MaxADC                           |  Tango::DevLong	Scalar
-//  RtcDecoderSwitch                 |  Tango::DevShort	Scalar
-//  McSource                         |  Tango::DevShort	Scalar
-//  T0Direction                      |  Tango::DevShort	Scalar
-//  T0OutputType                     |  Tango::DevShort	Scalar
-//  T0State                          |  Tango::DevShort	Scalar
-//  T1Source                         |  Tango::DevShort	Scalar
-//  T2Source                         |  Tango::DevShort	Scalar
-//  MgtOut                           |  Tango::DevShort	Scalar
 //  SPThreshold                      |  Tango::DevLong	Scalar
 //  SPnBefore                        |  Tango::DevLong	Scalar
 //  SPnAfter                         |  Tango::DevLong	Scalar
-//  T0inMask                         |  Tango::DevLong	Scalar
-//  T1inMask                         |  Tango::DevLong	Scalar
-//  T2inMask                         |  Tango::DevLong	Scalar
-//  T0inFunction                     |  Tango::DevLong	Scalar
-//  T1inFunction                     |  Tango::DevLong	Scalar
-//  T2inFunction                     |  Tango::DevLong	Scalar
-//  MCinMask                         |  Tango::DevLong	Scalar
-//  MCinFunction                     |  Tango::DevLong	Scalar
-//  T0Duration                       |  Tango::DevLong	Scalar
-//  InterlockID                      |  Tango::DevLong	Scalar
 //  SPEnabled                        |  Tango::DevBoolean	Scalar
 //  SPBufferSize                     |  Tango::DevLong	Scalar
-//  T2EdgeFalling                    |  Tango::DevBoolean	Scalar
-//  T2EdgeRising                     |  Tango::DevBoolean	Scalar
-//  T1EdgeFalling                    |  Tango::DevBoolean	Scalar
-//  T1EdgeRising                     |  Tango::DevBoolean	Scalar
-//  T2ID                             |  Tango::DevLong	Scalar
-//  T1ID                             |  Tango::DevLong	Scalar
 //  PMBufferSize                     |  Tango::DevLong	Scalar
 //  PMSource                         |  Tango::DevShort	Scalar
-//  T1Direction                      |  Tango::DevShort	Scalar
-//  T2Direction                      |  Tango::DevShort	Scalar
 //  SynchronizeLMT                   |  Tango::DevLong	Scalar
-//  RTCTimestamp                     |  Tango::DevLong	Scalar
-//  RTCTimestampState                |  Tango::DevLong	Scalar
 //  InterlockFilterOverflow          |  Tango::DevLong	Scalar
 //  InterlockFilterPosition          |  Tango::DevLong	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -355,10 +309,10 @@ void LiberaBrilliancePlus::init_device()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::init_device() create device " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::init_device_before) ENABLED START -----*/
-	
+    //istd_FTRC();
 	//	Initialization before get_device_property() call
 	attr_LiberaModel_read = &c_liberaModel;
-  m_libera = NULL;
+	m_libera = NULL;
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::init_device_before
 	
 
@@ -367,10 +321,10 @@ void LiberaBrilliancePlus::init_device()
 	
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::init_device) ENABLED START -----*/
 
-	//Set Trace Level Options //TODO refactor.
+	//Set Trace Level Options
 
 	//Stop before Set the new values.
-	istd::TraceStop();
+	//istd::TraceStop();
 	//Set Level
 	if (errorTrace.empty()) {
     	istd::TraceInit();
@@ -406,8 +360,6 @@ void LiberaBrilliancePlus::init_device()
 	//	Initialize device
     m_libera = new LiberaClient(this, liberaIpAddr);
 
-    try
-    {
 
     // Add scalar values
     m_libera->AddScalar("", attr_DDDecimationFactor_read); //n.a.
@@ -419,79 +371,45 @@ void LiberaBrilliancePlus::init_device()
     *attr_DDBufferFreezingEnabled_read = false;
     m_libera->AddScalar("", attr_DDBufferFrozen_read); // no ireg node
     *attr_DDBufferFrozen_read = false;
-
-    m_libera->AddScalar(tim + "events.t2.count",
-        attr_DDTriggerCounter_read, LiberaAttr::ULL2LONG);
-
     m_libera->AddScalar("", attr_ExternalTriggerEnabled_read); // no ireg node
+    *attr_DDBufferFrozen_read = false;
+    *attr_DDEnabled_read_added = false;
+
 
     m_libera->AddScalar(m_raf + "local_timing.trigger_delay",
         attr_ExternalTriggerDelay_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-
-    //n.a.
-    m_libera->AddScalar("", attr_CxSA_read);
-    m_libera->AddScalar("", attr_CySA_read);
-
-    m_libera->AddScalar(m_raf + "conditioning.switching", attr_AutoSwitchingEnabled_read);
-    m_libera->AddScalar("", attr_Switches_read); // n.a.
+    m_libera->AddScalar(m_raf + "local_timing.sync_state_machine", attr_SynchronizationStatus_read);
+    m_libera->AddScalar(m_raf + "conf.second_max_reset", attr_MaxADC_read); //Retrieve wrong Value? Check string.
     m_libera->AddScalar(m_raf + "conf.switching_source",
         attr_ExternalSwitching_read, LiberaAttr::ENUM2BOOL, LiberaAttr::BOOL2ENUM);
-    // Can't use Tango::DevULong directly because of a bug in Tango
     m_libera->AddScalar(m_raf + "conf.switching_delay",
         attr_SwitchingDelay_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
+    m_libera->AddScalar("application.synchronize_lmt",
+    		attr_SynchronizeLMT_read, LiberaAttr::ULONGLONG2LONG, LiberaAttr::LONG2ULONGLONG);
+    // Can't use Tango::DevULong directly because of a bug in Tango
+    m_libera->AddScalar(m_raf + "tbt.phase_offset",
+        attr_TimePhase_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
 
-    m_libera->AddScalar(tim + "pll.vcxo_offset", attr_OffsetTune_read);
-    m_libera->AddScalar(tim + "pll.compensate_offset", attr_CompensateTune_read);
-
+    //Conditioning
+    m_libera->AddScalar(m_raf + "conditioning.switching", attr_AutoSwitchingEnabled_read);
     m_libera->AddScalar(m_raf + "conditioning.tuning.dsc.coefficients",
         attr_DSCMode_read, LiberaAttr::DSC2SHORT, LiberaAttr::SHORT2DSC);
     m_libera->AddScalar(m_raf + "conditioning.tuning.agc.enabled", attr_AGCEnabled_read);
     m_libera->AddScalar(m_raf + "conditioning.tuning.agc.power_level",
         attr_Gain_read, LiberaAttr::INT2DBL, LiberaAttr::DBL2INT);
 
-    //n.a.
-    m_libera->AddScalar("", attr_HasMAFSupport_read);
-    m_libera->AddScalar("", attr_MAFLength_read);
-    m_libera->AddScalar("", attr_MAFDelay_read);
-
-    //TODO or or the other
-    m_libera->AddScalar("application.synchronize_lmt", attr_MachineTime_read,
-        LiberaAttr::ULL2DBL, LiberaAttr::DBL2ULL);
-    m_libera->AddScalar("application.synchronize_lmt",
-    		attr_SynchronizeLMT_read, LiberaAttr::ULONGLONG2LONG, LiberaAttr::LONG2ULONGLONG);
-
-    // Can't use Tango::DevULong directly because of a bug in Tango
-    m_libera->AddScalar(m_raf + "tbt.phase_offset",
-        attr_TimePhase_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar("", attr_SystemTime_read); // n.a.
-    m_libera->AddScalar("", attr_SCPLLStatus_read); // n.a.
-    m_libera->AddScalar(tim + "pll.locked", attr_MCPLLStatus_read);
-
-
+    //Platform nodes
     m_libera->AddScalarPM("boards." + liberaBoard + ".sensors.ID_2.value",
         attr_Temp1_read, LiberaAttr::DBL2SHORT);
     m_libera->AddScalarPM("boards.icb0.sensors.ID_1.value",
         attr_Temp2_read, LiberaAttr::DBL2SHORT);
-    m_libera->AddScalarPM("boards." + c_timingBoard + ".sensors.ID_6.value",
-        attr_Temp3_read, LiberaAttr::DBL2SHORT);
     m_libera->AddScalarPM("fans.left_", attr_Fan1Speed_read, LiberaAttr::FAN2SHORT);
     m_libera->AddScalarPM("fans.right_", attr_Fan2Speed_read, LiberaAttr::FAN2SHORT);
-
-
-    //n.a.
-    m_libera->AddScalar("", attr_Incoherence_read);
-    m_libera->AddScalar("", attr_RefIncoherence_read);
-    m_libera->AddScalar("", attr_MaxIncoherence_read);
-    m_libera->AddScalar("", attr_MaxIncoherenceDrift_read);
-
-    //n.a.
-    m_libera->AddScalarPM("", attr_UpTime_read);
-    m_libera->AddScalarPM("", attr_RamFsUsage_read);
-
     m_libera->AddScalarPM("boards.os.sensors",
         attr_CpuUsage_read, LiberaAttr::CPU2LONG);
     m_libera->AddScalarPM("boards.os.sensors",
         attr_FreeMemory_read, LiberaAttr::MEM2LONG);
+
     //n.a.
     m_libera->AddScalar("", attr_UseLiberaSAData_read);
     //n.a.
@@ -499,12 +417,7 @@ void LiberaBrilliancePlus::init_device()
 
     m_libera->AddLogsRead(attr_logs_read, 2048);
 
-
-    //Timing Settings
-    m_libera->AddScalar(tim + "rtc.ts_timestamp",
-    		attr_RTCTimestamp_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + "rtc.ts_timestamp.state", attr_RTCTimestampState_read);
-
+    //Signal Proc
     m_libera->AddScalar(m_raf + "signal_processing.position.Ks",
     		attr_Ks_read, LiberaAttr::K2MM, LiberaAttr::MM2K);
     m_libera->AddScalar(m_raf + "signal_processing.position.off_q",
@@ -520,9 +433,6 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar(m_raf + "signal_processing.position.off_y",
         attr_YOffset_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
 
-    m_libera->AddScalar(m_raf + "local_timing.sync_state_machine", attr_SynchronizationStatus_read);
-    m_libera->AddScalar(m_raf + "conf.second_max_reset", attr_MaxADC_read); //Retrieve wrong Value? Check string.
-
     //Tdp Signal
     m_libera->AddScalar("", attr_TDDecimationFactor_read); //n.a.
     m_libera->AddScalar("", attr_TDTriggerOffset_read); // no ireg node
@@ -534,7 +444,7 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar("", attr_TDBufferFreezingEnabled_read); // no ireg node
     *attr_TDBufferFreezingEnabled_read = false;
 
-    //Single Pass Mode Settings //TODO refactor read/write functions
+    //Single Pass Mode Settings
     m_libera->AddScalar(m_raf + "single_pass.threshold",
     		attr_SPThreshold_read, LiberaAttr::ULONG2LONGTHRSP, LiberaAttr::LONG2ULONG);
     m_libera->AddScalar(m_raf + "single_pass.n_before",
@@ -542,59 +452,9 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar(m_raf + "single_pass.n_after",
     		attr_SPnAfter_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
 
-    //MC-CONFIG
-    m_libera->AddScalar(tim + "rtc.decoder_switch", attr_RtcDecoderSwitch_read);
-    m_libera->AddScalar(tim + "triggers.mc.source",attr_McSource_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + "rtc.mc.in_mask",attr_MCinMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
-    //m_libera->AddScalar("",attr_MCinMask_read);
-    m_libera->AddScalar(tim + "rtc.mc.in_function",attr_MCinFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC); //TODO
-    //m_libera->AddScalar("",attr_MCinFunction_read);
-
-    //T0-CONFIG
-    m_libera->AddScalar(tim + "connectors.t0.direction",
-    		attr_T0Direction_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + "connectors.t0.out_type",
-    		attr_T0OutputType_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.duration",
-    		attr_T0Duration_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.delay",
-    		attr_T0Delay_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.state",
-    		attr_T0State_read, LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.in_mask",
-    		attr_T0inMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + "rtc.sfp_2_connectors.t0.in_function",
-    		attr_T0inFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-
-    //T1-CONFIG
-    m_libera->AddScalar(tim + "triggers.t1.source", attr_T1Source_read);
-    m_libera->AddScalar(tim + "rtc.t1.in_mask",
-    		attr_T1inMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + "rtc.t1.in_function",
-    		attr_T1inFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + "rtc.connectors.t1.id", attr_T1ID_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + "connectors.t1.direction",
-    		attr_T1Direction_read,LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + "rtc.connectors.t1.edge.falling", attr_T1EdgeFalling_read);
-    m_libera->AddScalar(tim + "rtc.connectors.t1.edge.rising", attr_T1EdgeRising_read);
-    //T2-CONFIG
-    m_libera->AddScalar(tim + "triggers.t2.source", attr_T2Source_read);
-    m_libera->AddScalar(tim + "rtc.t2.in_mask",
-    		attr_T2inMask_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + "rtc.t2.in_function",
-    		attr_T2inFunction_read, LiberaAttr::SPEC2LONG,LiberaAttr::LONG2SPEC);
-    m_libera->AddScalar(tim + "rtc.connectors.t2.id", attr_T2ID_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(tim + "connectors.t2.direction", attr_T2Direction_read,
-    		LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT);
-    m_libera->AddScalar(tim + "rtc.connectors.t2.edge.falling", attr_T2EdgeFalling_read);
-    m_libera->AddScalar(tim + "rtc.connectors.t2.edge.rising", attr_T2EdgeRising_read);
-
     //ILK-CONFIG
-    m_libera->AddScalar(tim + "rtc.mgt_out", attr_MgtOut_read,
-    		LiberaAttr::USHORT2SHORT, LiberaAttr::SHORT2USHORT); //TODO
-    //m_libera->AddScalar("", attr_MgtOut_read);
     m_libera->AddScalar(m_raf + "interlock.enabled", attr_InterlockEnabled_read);
-    //Status
+    //Status -- If one of thoise interlock attrs are true then status = ALARM
     m_libera->AddScalar(m_raf + "interlock.status.il_status.x",
         attr_InterlockXNotified_read);
     m_libera->AddScalar(m_raf + "interlock.status.il_status.y",
@@ -605,9 +465,6 @@ void LiberaBrilliancePlus::init_device()
         attr_InterlockADCPreFilterNotified_read);
     m_libera->AddScalar(m_raf + "interlock.status.il_status.adc_overflow_filtered",
         attr_InterlockADCPostFilterNotified_read);
-
-    m_libera->AddScalar(tim + "rtc.sfp_tx.interlock.id", attr_InterlockID_read,
-    		LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
     m_libera->AddScalar(m_raf + "interlock.limits.position.min.x",
     		attr_XLow_read, LiberaAttr::NM2MM, LiberaAttr::MM2NM);
     m_libera->AddScalar(m_raf + "interlock.limits.position.max.x",
@@ -634,30 +491,14 @@ void LiberaBrilliancePlus::init_device()
     //POST MORTEM
     m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
     m_libera->AddScalar(m_raf + "postmortem.source_select", attr_PMSource_read);
-    m_libera->AddScalar(m_raf + "postmortem.capacity", attr_PMBufferSize_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
-
-    //Why PMNotified NEGATE type?
+    m_libera->AddScalar(m_raf + "postmortem.capacity", attr_PMBufferSize_read,
+    		LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
     m_libera->AddScalar(m_raf + "postmortem.capture",
-        attr_PMNotified_read, LiberaAttr::NEGATE, LiberaAttr::NEGATE); //TODO one or the other fix
-    //m_libera->AddScalar(m_raf + "postmortem.capture",attr_PMNotified_read);
-    m_libera->AddScalar(tim + "events.t1.count",
-        attr_PMNotificationCounter_read, LiberaAttr::ULL2SHORT);
-    }
-    catch (...)
-    {
-    	m_state = Tango::FAULT;
-    	//m_state = Tango::UNKNOWN;
-    	return;
-    }
+        attr_PMNotified_read, LiberaAttr::NEGATE, LiberaAttr::NEGATE);
 
-
-    //m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, mCDecoderSwitch);
-    //*attr_RtcDecoderSwitch_read=mCDecoderSwitch;
-
-//    // Add signals //TODO single_pass
+    // Add signals
     m_signalSP = m_libera->AddSignal<Tango::DevDouble>(
-        m_raf + "single_pass.signal",
+        m_raf + "single_pass.signal",//TODO
         1,
         attr_SPEnabled_read,
         attr_SPBufferSize_read,
@@ -826,8 +667,16 @@ void LiberaBrilliancePlus::init_device()
       init_settings();
 
     }
+    catch (istd::Exception e)
+    {
+        istd_TRC(istd::eTrcLow, "Exception thrown while trying to Connect() to libera.");
+        istd_TRC(istd::eTrcLow, e.what());
+        // let the server know it
+        set_lib_error(e.what());
+    }
     catch (...)
     {
+      cout << "Connection to Libera failed. Try to reinit the device." << endl;
       m_state = Tango::UNKNOWN;
       m_status = "Connection to Libera failed. Try to reinit the device.";
     }
@@ -2201,24 +2050,6 @@ void LiberaBrilliancePlus::read_DDBufferFrozen(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute DDTriggerCounter related method
- *	Description: Number of trigger notifications received since last device <init> 
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_DDTriggerCounter(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_DDTriggerCounter(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_DDTriggerCounter) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_DDTriggerCounter_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_DDTriggerCounter
-}
-//--------------------------------------------------------
-/**
  *	Read attribute ExternalTriggerEnabled related method
  *	Description: External trigger activation flag
  *
@@ -2489,42 +2320,6 @@ void LiberaBrilliancePlus::read_QuadSA(Tango::Attribute &attr)
 	attr.set_value(attr_QuadSA_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QuadSA
-}
-//--------------------------------------------------------
-/**
- *	Read attribute CxSA related method
- *	Description: FOFB X correction sent to the power supply
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_CxSA(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_CxSA(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_CxSA) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_CxSA_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_CxSA
-}
-//--------------------------------------------------------
-/**
- *	Read attribute CySA related method
- *	Description: FOFB Y correction sent to the power supply
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_CySA(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_CySA(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_CySA) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_CySA_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_CySA
 }
 //--------------------------------------------------------
 /**
@@ -2854,24 +2649,6 @@ void LiberaBrilliancePlus::write_PMNotified(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute PMNotificationCounter related method
- *	Description: Number a PM event recieved since last Init
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_PMNotificationCounter(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_PMNotificationCounter(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_PMNotificationCounter) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_PMNotificationCounter_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_PMNotificationCounter
-}
-//--------------------------------------------------------
-/**
  *	Read attribute InterlockXNotified related method
  *	Description: Sets to 1 if X position trip caused the Interlock event.
  *
@@ -2886,6 +2663,9 @@ void LiberaBrilliancePlus::read_InterlockXNotified(Tango::Attribute &attr)
 	//	Set the attribute value
 	attr.set_value(attr_InterlockXNotified_read);
 	
+	if (*attr_InterlockEnabled_read && *attr_InterlockXNotified_read) {
+		//m_status = "InterlockXNotified is enabled";
+	}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockXNotified
 }
 //--------------------------------------------------------
@@ -2903,7 +2683,9 @@ void LiberaBrilliancePlus::read_InterlockYNotified(Tango::Attribute &attr)
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_InterlockYNotified) ENABLED START -----*/
 	//	Set the attribute value
 	attr.set_value(attr_InterlockYNotified_read);
-	
+	if (*attr_InterlockEnabled_read && *attr_InterlockYNotified_read) {
+		//m_status = "InterlockYNotified is enabled";
+	}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockYNotified
 }
 //--------------------------------------------------------
@@ -2922,7 +2704,9 @@ void LiberaBrilliancePlus::read_InterlockAttnNotified(Tango::Attribute &attr)
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_InterlockAttnNotified) ENABLED START -----*/
 	//	Set the attribute value
 	attr.set_value(attr_InterlockAttnNotified_read);
-	
+	if (*attr_InterlockEnabled_read && *attr_InterlockAttnNotified_read) {
+		//m_status = "InterlockAttnNotified is enabled";
+	}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockAttnNotified
 }
 //--------------------------------------------------------
@@ -2940,7 +2724,9 @@ void LiberaBrilliancePlus::read_InterlockADCPreFilterNotified(Tango::Attribute &
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_InterlockADCPreFilterNotified) ENABLED START -----*/
 	//	Set the attribute value
 	attr.set_value(attr_InterlockADCPreFilterNotified_read);
-	
+	if (*attr_InterlockEnabled_read && *attr_InterlockADCPreFilterNotified_read) {
+		//m_status = "InterlockADCPreFilterNotified is enabled";
+	}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockADCPreFilterNotified
 }
 //--------------------------------------------------------
@@ -2958,7 +2744,9 @@ void LiberaBrilliancePlus::read_InterlockADCPostFilterNotified(Tango::Attribute 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_InterlockADCPostFilterNotified) ENABLED START -----*/
 	//	Set the attribute value
 	attr.set_value(attr_InterlockADCPostFilterNotified_read);
-	
+	if (*attr_InterlockEnabled_read && *attr_InterlockADCPostFilterNotified_read) {
+		//m_status = "InterlockADCPostFilterNotified is enabled";
+	}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockADCPostFilterNotified
 }
 //--------------------------------------------------------
@@ -3158,45 +2946,6 @@ void LiberaBrilliancePlus::write_AutoSwitchingEnabled(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute Switches related method
- *	Description: Switches selection. Must be in [0, 15] or 255 for auto-switching.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_Switches(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_Switches(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_Switches) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_Switches_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Switches
-}
-//--------------------------------------------------------
-/**
- *	Write attribute Switches related method
- *	Description: Switches selection. Must be in [0, 15] or 255 for auto-switching.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_Switches(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_Switches(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_Switches) ENABLED START -----*/
-
-	m_libera->UpdateScalar(attr_Switches_read, w_val);
-
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_Switches
-}
-//--------------------------------------------------------
-/**
  *	Read attribute ExternalSwitching related method
  *	Description: Sets the source of switching clock MC (external) or from the 
  *               oscillator (internal). Default value is internal.
@@ -3276,88 +3025,6 @@ void LiberaBrilliancePlus::write_SwitchingDelay(Tango::WAttribute &attr)
     m_libera->UpdateScalar(attr_SwitchingDelay_read, w_val);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SwitchingDelay
-}
-//--------------------------------------------------------
-/**
- *	Read attribute OffsetTune related method
- *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. 
- *               Default value is 0 (precisely tuned).
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_OffsetTune(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_OffsetTune(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_OffsetTune) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_OffsetTune_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_OffsetTune
-}
-//--------------------------------------------------------
-/**
- *	Write attribute OffsetTune related method
- *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. 
- *               Default value is 0 (precisely tuned).
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_OffsetTune(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_OffsetTune(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_OffsetTune) ENABLED START -----*/
-
-	m_libera->UpdateScalar(attr_OffsetTune_read, w_val);
-
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_OffsetTune
-}
-//--------------------------------------------------------
-/**
- *	Read attribute CompensateTune related method
- *	Description: To enable double offset-tune, issue the following command 
- *               (to disable it, just use false instead of true).
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_CompensateTune(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_CompensateTune(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_CompensateTune) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_CompensateTune_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_CompensateTune
-}
-//--------------------------------------------------------
-/**
- *	Write attribute CompensateTune related method
- *	Description: To enable double offset-tune, issue the following command 
- *               (to disable it, just use false instead of true).
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_CompensateTune(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_CompensateTune(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevBoolean	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_CompensateTune) ENABLED START -----*/
-
-	m_libera->UpdateScalar(attr_CompensateTune_read, w_val);
-
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_CompensateTune
 }
 //--------------------------------------------------------
 /**
@@ -3482,100 +3149,6 @@ void LiberaBrilliancePlus::write_Gain(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute HasMAFSupport related method
- *	Description: <true> if FGPA design with MAF support installed on Libera, <false> otherwise
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_HasMAFSupport(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_HasMAFSupport(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_HasMAFSupport) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_HasMAFSupport_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_HasMAFSupport
-}
-//--------------------------------------------------------
-/**
- *	Read attribute MAFLength related method
- *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_MAFLength(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MAFLength(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MAFLength) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_MAFLength_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MAFLength
-}
-//--------------------------------------------------------
-/**
- *	Write attribute MAFLength related method
- *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_MAFLength(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_MAFLength(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MAFLength) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MAFLength
-}
-//--------------------------------------------------------
-/**
- *	Read attribute MAFDelay related method
- *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.\n
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_MAFDelay(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MAFDelay(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MAFDelay) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_MAFDelay_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MAFDelay
-}
-//--------------------------------------------------------
-/**
- *	Write attribute MAFDelay related method
- *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.\n
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_MAFDelay(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_MAFDelay(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MAFDelay) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MAFDelay
-}
-//--------------------------------------------------------
-/**
  *	Read attribute MachineTime related method
  *	Description: Machine Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed
  *
@@ -3654,80 +3227,6 @@ void LiberaBrilliancePlus::write_TimePhase(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute SystemTime related method
- *	Description: System Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed\nUnit is num of secs since 1/1/1970 (Unix system time reference)
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_SystemTime(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_SystemTime(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_SystemTime) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_SystemTime_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SystemTime
-}
-//--------------------------------------------------------
-/**
- *	Write attribute SystemTime related method
- *	Description: System Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed\nUnit is num of secs since 1/1/1970 (Unix system time reference)
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_SystemTime(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_SystemTime(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_SystemTime) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SystemTime
-}
-//--------------------------------------------------------
-/**
- *	Read attribute SCPLLStatus related method
- *	Description: The SC PLL lock status
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_SCPLLStatus(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_SCPLLStatus(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_SCPLLStatus) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_SCPLLStatus_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SCPLLStatus
-}
-//--------------------------------------------------------
-/**
- *	Read attribute MCPLLStatus related method
- *	Description: Indicates the MC PLL status (1=locked, 0=unlocked)
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_MCPLLStatus(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCPLLStatus(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MCPLLStatus) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_MCPLLStatus_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MCPLLStatus
-}
-//--------------------------------------------------------
-/**
  *	Read attribute Temp1 related method
  *	Description: Temperature of the hottest component on the BPM 
  *               module is returned.
@@ -3763,25 +3262,6 @@ void LiberaBrilliancePlus::read_Temp2(Tango::Attribute &attr)
 	attr.set_value(attr_Temp2_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Temp2
-}
-//--------------------------------------------------------
-/**
- *	Read attribute Temp3 related method
- *	Description: Temperature of the hottest component on the timing 
- *               module is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_Temp3) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_Temp3_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Temp3
 }
 //--------------------------------------------------------
 /**
@@ -3827,136 +3307,6 @@ void LiberaBrilliancePlus::read_Fan2Speed(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute Incoherence related method
- *	Description: Result of the incoherence calculation. Am alarm will be set \non the attribute when an incoherence was detected.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_Incoherence(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_Incoherence(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_Incoherence) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_Incoherence_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Incoherence
-}
-//--------------------------------------------------------
-/**
- *	Read attribute RefIncoherence related method
- *	Description: The reference incoherence value registered with the command \nSetReferenceIncoherence. The reference is used to calculate the\nalarm with the MaxIncoherenceDrift.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_RefIncoherence(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_RefIncoherence(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_RefIncoherence) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_RefIncoherence_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RefIncoherence
-}
-//--------------------------------------------------------
-/**
- *	Read attribute MaxIncoherence related method
- *	Description: Maximum incoherence value. Used to create an alarm on\nthe Incoherence attribute.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_MaxIncoherence(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MaxIncoherence(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MaxIncoherence) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_MaxIncoherence_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MaxIncoherence
-}
-//--------------------------------------------------------
-/**
- *	Write attribute MaxIncoherence related method
- *	Description: Maximum incoherence value. Used to create an alarm on\nthe Incoherence attribute.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_MaxIncoherence(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_MaxIncoherence(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MaxIncoherence) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MaxIncoherence
-}
-//--------------------------------------------------------
-/**
- *	Read attribute MaxIncoherenceDrift related method
- *	Description: Maximum incoherence drift value. Used to create an alarm on\nthe Incoherence attribute.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_MaxIncoherenceDrift(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MaxIncoherenceDrift(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MaxIncoherenceDrift) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_MaxIncoherenceDrift_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MaxIncoherenceDrift
-}
-//--------------------------------------------------------
-/**
- *	Write attribute MaxIncoherenceDrift related method
- *	Description: Maximum incoherence drift value. Used to create an alarm on\nthe Incoherence attribute.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_MaxIncoherenceDrift(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_MaxIncoherenceDrift(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MaxIncoherenceDrift) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MaxIncoherenceDrift
-}
-//--------------------------------------------------------
-/**
- *	Read attribute UpTime related method
- *	Description: Number of seconds since system boot on the host running this TANGO device
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_UpTime(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_UpTime(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_UpTime) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_UpTime_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_UpTime
-}
-//--------------------------------------------------------
-/**
  *	Read attribute CpuUsage related method
  *	Description: CPU usage on the host running this TANGO device
  *
@@ -3993,26 +3343,9 @@ void LiberaBrilliancePlus::read_FreeMemory(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute RamFsUsage related method
- *	Description: Amount of ram-fs allocated bytes on the host running this TANGO device 
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_RamFsUsage(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_RamFsUsage(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_RamFsUsage) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_RamFsUsage_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RamFsUsage
-}
-//--------------------------------------------------------
-/**
  *	Read attribute UseLiberaSAData related method
- *	Description: If set to true, the X & Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.\n 
+ *	Description: If set to true, the X & Z SA postions are retreived from the Libera FPGA.
+ *               Otherwise, they are computed by the Tango device using the button values.
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -4030,7 +3363,8 @@ void LiberaBrilliancePlus::read_UseLiberaSAData(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute UseLiberaSAData related method
- *	Description: If set to true, the X & Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.\n 
+ *	Description: If set to true, the X & Z SA postions are retreived from the Libera FPGA.
+ *               Otherwise, they are computed by the Tango device using the button values.
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -4745,44 +4079,6 @@ void LiberaBrilliancePlus::read_SynchronizationStatus(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute T0Delay related method
- *	Description: Delay before transmission starts, set in cycles at fSFP
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T0Delay(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0Delay(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T0Delay) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T0Delay_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T0Delay
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T0Delay related method
- *	Description: Delay before transmission starts, set in cycles at fSFP
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T0Delay(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0Delay(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0Delay) ENABLED START -----*/
-	
-	m_libera->UpdateScalar(attr_T0Delay_read, t0Delay);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0Delay
-}
-//--------------------------------------------------------
-/**
  *	Read attribute MaxADC related method
  *	Description: The MAX ADC is monitored to assess the level of the input signal (ADC saturation). It can be reset on read or on trigger. [OnTrigger, OnRead]
  *
@@ -4798,310 +4094,6 @@ void LiberaBrilliancePlus::read_MaxADC(Tango::Attribute &attr)
 	attr.set_value(attr_MaxADC_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MaxADC
-}
-//--------------------------------------------------------
-/**
- *	Read attribute RtcDecoderSwitch related method
- *	Description: RTC decoding switch of optical stream
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_RtcDecoderSwitch(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_RtcDecoderSwitch(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_RtcDecoderSwitch) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_RtcDecoderSwitch_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RtcDecoderSwitch
-}
-//--------------------------------------------------------
-/**
- *	Write attribute RtcDecoderSwitch related method
- *	Description: RTC decoding switch of optical stream
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_RtcDecoderSwitch(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_RtcDecoderSwitch(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_RtcDecoderSwitch) ENABLED START -----*/
-	//m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, w_val);
-
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_RtcDecoderSwitch
-}
-//--------------------------------------------------------
-/**
- *	Read attribute McSource related method
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_McSource(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_McSource(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_McSource) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_McSource_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_McSource
-}
-//--------------------------------------------------------
-/**
- *	Write attribute McSource related method
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_McSource(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_McSource(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_McSource) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_McSource
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T0Direction related method
- *	Description: t0 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T0Direction(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0Direction(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T0Direction) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T0Direction_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T0Direction
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T0Direction related method
- *	Description: t0 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T0Direction(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0Direction(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0Direction) ENABLED START -----*/
-	
-	m_libera->UpdateScalar(attr_T0Direction_read, w_val);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0Direction
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T0OutputType related method
- *	Description: t0 output type
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T0OutputType(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0OutputType(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T0OutputType) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T0OutputType_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T0OutputType
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T0OutputType related method
- *	Description: t0 output type
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T0OutputType(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0OutputType(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0OutputType) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_T0OutputType_read, w_val);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0OutputType
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T0State related method
- *	Description: state of active signal: high (logical 1) or low (logical 0)
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T0State(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0State(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T0State) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T0State_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T0State
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T0State related method
- *	Description: state of active signal: high (logical 1) or low (logical 0)
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T0State(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0State(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0State) ENABLED START -----*/
-	
-	m_libera->UpdateScalar(attr_T0State_read, w_val);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0State
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T1Source related method
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T1Source(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1Source(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T1Source) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T1Source_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T1Source
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T1Source related method
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T1Source(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1Source(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1Source) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1Source
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T2Source related method
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T2Source(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2Source(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T2Source) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T2Source_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T2Source
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T2Source related method
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T2Source(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2Source(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2Source) ENABLED START -----*/
-	//m_libera->UpdateScalar(attr_T2Source_read, w_val);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2Source
-}
-//--------------------------------------------------------
-/**
- *	Read attribute MgtOut related method
- *	Description: MGT OUT selection off,sfp_in,debug,connectors
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_MgtOut(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MgtOut(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MgtOut) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_MgtOut_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MgtOut
-}
-//--------------------------------------------------------
-/**
- *	Write attribute MgtOut related method
- *	Description: MGT OUT selection off,sfp_in,debug,connectors
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_MgtOut(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_MgtOut(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MgtOut) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MgtOut
 }
 //--------------------------------------------------------
 /**
@@ -5219,391 +4211,6 @@ void LiberaBrilliancePlus::write_SPnAfter(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute T0inMask related method
- *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T0inMask(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0inMask(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T0inMask) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T0inMask_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T0inMask
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T0inMask related method
- *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T0inMask(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0inMask(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0inMask) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_T0inMask_read, t0inMask);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0inMask
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T1inMask related method
- *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T1inMask(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1inMask(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T1inMask) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T1inMask_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T1inMask
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T1inMask related method
- *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T1inMask(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1inMask(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1inMask) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1inMask
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T2inMask related method
- *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T2inMask(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2inMask(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T2inMask) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T2inMask_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T2inMask
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T2inMask related method
- *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T2inMask(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2inMask(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2inMask) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2inMask
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T0inFunction related method
- *	Description: T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T0inFunction(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0inFunction(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T0inFunction) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T0inFunction_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T0inFunction
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T0inFunction related method
- *	Description: T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T0inFunction(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0inFunction(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0inFunction) ENABLED START -----*/
-	
-	m_libera->UpdateScalar(attr_T0inFunction_read, t0inFunction);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0inFunction
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T1inFunction related method
- *	Description: T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T1inFunction(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1inFunction(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T1inFunction) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T1inFunction_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T1inFunction
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T1inFunction related method
- *	Description: T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T1inFunction(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1inFunction(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1inFunction) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1inFunction
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T2inFunction related method
- *	Description: T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T2inFunction(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2inFunction(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T2inFunction) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T2inFunction_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T2inFunction
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T2inFunction related method
- *	Description: T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T2inFunction(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2inFunction(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2inFunction) ENABLED START -----*/
-        //m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
-        m_libera->UpdateScalar(attr_T2inFunction_read, w_val);
-        //std::vector<uint32_t> value = std::vector<uint32_t>();
-        //value.push_back(109);
-        //m_libera->m_root.GetNode(mci::Tokenize("boards."+c_timingBoard+".rtc.t2.in_function")).SetValue(value);
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2inFunction
-}
-//--------------------------------------------------------
-/**
- *	Read attribute MCinMask related method
- *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_MCinMask(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCinMask(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MCinMask) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_MCinMask_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MCinMask
-}
-//--------------------------------------------------------
-/**
- *	Write attribute MCinMask related method
- *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_MCinMask(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_MCinMask(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MCinMask) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MCinMask
-}
-//--------------------------------------------------------
-/**
- *	Read attribute MCinFunction related method
- *	Description: MC Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_MCinFunction(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCinFunction(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MCinFunction) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_MCinFunction_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MCinFunction
-}
-//--------------------------------------------------------
-/**
- *	Write attribute MCinFunction related method
- *	Description: MC Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_MCinFunction(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_MCinFunction(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_MCinFunction) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_MCinFunction
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T0Duration related method
- *	Description: Duration of signal active pulse
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T0Duration(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0Duration(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T0Duration) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T0Duration_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T0Duration
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T0Duration related method
- *	Description: Duration of signal active pulse
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T0Duration(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0Duration(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T0Duration) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_T0Duration_read, t0Duration);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T0Duration
-}
-//--------------------------------------------------------
-/**
- *	Read attribute InterlockID related method
- *	Description: Oversaturation or X-Y orbit threshold
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_InterlockID(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_InterlockID(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_InterlockID) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_InterlockID_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockID
-}
-//--------------------------------------------------------
-/**
- *	Write attribute InterlockID related method
- *	Description: Oversaturation or X-Y orbit threshold
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockID(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockID(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockID) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockID
-}
-//--------------------------------------------------------
-/**
  *	Read attribute SPEnabled related method
  *	Description: Single Pass data source activation flag
  *
@@ -5678,234 +4285,6 @@ void LiberaBrilliancePlus::write_SPBufferSize(Tango::WAttribute &attr)
 	m_signalSP->Realloc(w_val);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SPBufferSize
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T2EdgeFalling related method
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T2EdgeFalling(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2EdgeFalling(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T2EdgeFalling) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T2EdgeFalling_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T2EdgeFalling
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T2EdgeFalling related method
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T2EdgeFalling(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2EdgeFalling(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevBoolean	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2EdgeFalling) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2EdgeFalling
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T2EdgeRising related method
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T2EdgeRising(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2EdgeRising(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T2EdgeRising) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T2EdgeRising_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T2EdgeRising
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T2EdgeRising related method
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T2EdgeRising(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2EdgeRising(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevBoolean	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2EdgeRising) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2EdgeRising
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T1EdgeFalling related method
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T1EdgeFalling(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1EdgeFalling(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T1EdgeFalling) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T1EdgeFalling_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T1EdgeFalling
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T1EdgeFalling related method
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T1EdgeFalling(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1EdgeFalling(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevBoolean	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1EdgeFalling) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1EdgeFalling
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T1EdgeRising related method
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T1EdgeRising(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1EdgeRising(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T1EdgeRising) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T1EdgeRising_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T1EdgeRising
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T1EdgeRising related method
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T1EdgeRising(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1EdgeRising(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevBoolean	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1EdgeRising) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1EdgeRising
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T2ID related method
- *	Description: T2 Optical event ID
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T2ID(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2ID(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T2ID) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T2ID_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T2ID
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T2ID related method
- *	Description: T2 Optical event ID
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T2ID(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2ID(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2ID) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2ID
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T1ID related method
- *	Description: T1 Optical event ID
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T1ID(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1ID(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T1ID) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T1ID_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T1ID
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T1ID related method
- *	Description: T1 Optical event ID
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T1ID(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1ID(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1ID) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1ID
 }
 //--------------------------------------------------------
 /**
@@ -5985,82 +4364,6 @@ void LiberaBrilliancePlus::write_PMSource(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute T1Direction related method
- *	Description: t2 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T1Direction(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1Direction(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T1Direction) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T1Direction_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T1Direction
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T1Direction related method
- *	Description: t2 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T1Direction(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1Direction(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T1Direction) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T1Direction
-}
-//--------------------------------------------------------
-/**
- *	Read attribute T2Direction related method
- *	Description: t2 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_T2Direction(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2Direction(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_T2Direction) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_T2Direction_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_T2Direction
-}
-//--------------------------------------------------------
-/**
- *	Write attribute T2Direction related method
- *	Description: t2 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_T2Direction(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2Direction(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevShort	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_T2Direction) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_T2Direction
-}
-//--------------------------------------------------------
-/**
  *	Read attribute SynchronizeLMT related method
  *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
  *
@@ -6096,42 +4399,6 @@ void LiberaBrilliancePlus::write_SynchronizeLMT(Tango::WAttribute &attr)
 	m_libera->UpdateScalar(attr_SynchronizeLMT_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SynchronizeLMT
-}
-//--------------------------------------------------------
-/**
- *	Read attribute RTCTimestamp related method
- *	Description: Timestamp which is be taken by receiving optical events over SFP when reception is enabled
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_RTCTimestamp) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_RTCTimestamp_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RTCTimestamp
-}
-//--------------------------------------------------------
-/**
- *	Read attribute RTCTimestampState related method
- *	Description: State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_RTCTimestampState(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_RTCTimestampState(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_RTCTimestampState) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_RTCTimestampState_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_RTCTimestampState
 }
 //--------------------------------------------------------
 /**
@@ -7121,17 +5388,27 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::State()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_state) ENABLED START -----*/
-	set_state(m_state);    // Give the state to Tango.; // replace by your own algorithm
-	if (*attr_InterlockXNotified_read == true || *attr_InterlockYNotified_read == true ||
-	 *attr_InterlockAttnNotified_read == true || *attr_InterlockADCPreFilterNotified_read == true ||
-        *attr_InterlockADCPostFilterNotified_read == true || *attr_MCPLLStatus_read == false
-		|| *attr_RTCTimestampState_read != 0 || *attr_SynchronizationStatus_read != 2)
-	{
-		set_state(Tango::ALARM);
+	Tango::DevState argout = m_state;
+
+	if (argout == Tango::FAULT) {
+		//m_status is set from Set lib error method.
 	}
-	//	Add your own code
+	else if (*attr_InterlockEnabled_read && (*attr_InterlockXNotified_read == true || *attr_InterlockYNotified_read == true ||
+	 *attr_InterlockAttnNotified_read == true || *attr_InterlockADCPreFilterNotified_read == true ||
+        *attr_InterlockADCPostFilterNotified_read == true))
+	{
+		argout = Tango::ALARM;
+		m_status = "Interlock status values are enabled.";
+	}
+	else if (argout == Tango::ON) {
+		//Add logic here..
+		m_status = "OK";
+	}
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_state
-	return DeviceImpl::dev_state();
+	set_state(argout);    // Give the state to Tango.
+	if (argout!=Tango::ALARM)
+		DeviceImpl::dev_state();
+	return get_state();  // Return it after Tango management.
 }
 //--------------------------------------------------------
 /**
@@ -7146,9 +5423,11 @@ Tango::ConstDevString LiberaBrilliancePlus::dev_status()
 	DEBUG_STREAM << "LiberaBrilliancePlus::Status()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_status) ENABLED START -----*/
 	//	Add your own code
-	set_status(m_status);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status       // Give the status to Tango.
-	return DeviceImpl::dev_status();
+	std::string status= m_status;
+	//set_status(m_status);
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status
+	set_status(status);               // Give the status to Tango.
+	return DeviceImpl::dev_status();  // Return it.
 }
 //--------------------------------------------------------
 /**
@@ -7643,68 +5922,6 @@ void LiberaBrilliancePlus::disable_sp()
 }
 //--------------------------------------------------------
 /**
- *	Command StartSynchronization related method
- *	Description: Starts synchronization procedure:
- *               * Synchronization State Machine (MUST be Tracking)
- *               * Start the Trigger (t2source=Pulse and then t2source=RTC)
- *               * Synchronization State Machine (MUST be Synchronized)
- *
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::start_synchronization()
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::StartSynchronization()  - " << device_name << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::start_synchronization) ENABLED START -----*/
-	
-	//Sync State should be in Tracking (=1) before Start
-	if(*attr_SynchronizationStatus_read == 2 ) {
-		//Set Trigger to Pulse == 3
-		//m_libera->UpdateScalar(attr_T2Source_read, (short)3);
-		//Set Trigger to RTC == 5
-		//m_libera->UpdateScalar(attr_T2Source_read, (short)5);
-		//m_libera->UpdateScalar(attr_T2inFunction_read, 80);
-                m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
-
-	}
-	else {
-		ERROR_STREAM << "Synchronization State Machine is not in TRACKING! Cant start Synchronizations." << endl;
-	}
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::start_synchronization
-}
-//--------------------------------------------------------
-/**
- *	Command AnnounceSynchronization related method
- *	Description: Announce synchronization procedure:
- *               * Stop the Trigger (t2source=off)
- *               *  MC PLL (MUST be locked)
- *               * Synchronization State Machine (MUST be Tracking)
- *
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::announce_synchronization()
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::AnnounceSynchronization()  - " << device_name << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::announce_synchronization) ENABLED START -----*/
-	if(*attr_MCPLLStatus_read) {
-		//cout << *attr_MCPLLStatus_read << endl;
-		//Stop Trigger
-		//m_libera->UpdateScalar(attr_T2Source_read, (short)0);
-                //*t2_in_function_save = *attr_T2inFunction;
-                //Tango::DevLong sync_id = new Tango::DevLong(109);
-		//m_libera->UpdateScalar(attr_T2inFunction_read, sync_id);
-		m_libera->UpdateScalar(attr_T2inFunction_read, (long)109);
-                //delete sync_id;
-		//Announce Synchronization
-		m_libera->UpdateScalar(attr_SynchronizeLMT_read, (long)0);
-	}
-	else {
-		ERROR_STREAM << "MC Pll is not locked! Cant Announce Synchronizations." << endl;
-	}
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::announce_synchronization
-}
-//--------------------------------------------------------
-/**
  *	Command ForceInitSettings related method
  *	Description: Initializing Libera Default Settings (Based to the properties) without performing init_device
  *
@@ -7954,7 +6171,7 @@ void LiberaBrilliancePlus::_SPCallback(void *data)
 void LiberaBrilliancePlus::set_lib_error(std::string nodeinfo)
 {
 	m_state = Tango::FAULT;
-    m_status = "Error while reading from a node:: "+ nodeinfo +". Please reinit the device";
+    m_status = "Error while reading from a node:: "+ nodeinfo;// +". Please reinit the device";
     //throw nodeinfo;
 }
 
@@ -7963,72 +6180,11 @@ void LiberaBrilliancePlus::init_settings()
 	try
 	{
     //Update Values from the Properties
-    //MC
-	//*attr_RtcDecoderSwitch_read = mCDecoderSwitch;
-	m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, mCDecoderSwitch);
-	m_libera->UpdateScalar(attr_McSource_read, mCSource);
-    //*attr_MCinMask_read = mCinMask;
-    m_libera->UpdateScalar(attr_MCinMask_read, mCinMask);
-    //*attr_MCinFunction_read = mCinFunction;
-    m_libera->UpdateScalar(attr_MCinFunction_read, mCinFunction);
-    //T0
-    //this->attr_T0Direction_read = &t0Direction;
-    //*attr_T0Direction_read = t0Direction;
-    m_libera->UpdateScalar(attr_T0Direction_read, t0Direction);
-    //this->attr_T0OutputType_read = &t0OutType;
-    //*attr_T0OutputType_read = t0OutType;
-    m_libera->UpdateScalar(attr_T0OutputType_read, t0OutType);
-    //this->attr_T0Duration_read = &t0Duration;
-    //*attr_T0Duration_read = t0Duration;
-    m_libera->UpdateScalar(attr_T0Duration_read, t0Duration);
-    //this->attr_T0Delay_read = &t0Delay;
-    //*attr_T0Delay_read = t0Delay;
-    m_libera->UpdateScalar(attr_T0Delay_read, t0Delay);
-    //this->attr_T0State_read = &t0State;
-    //*attr_T0State_read = t0State;
-    m_libera->UpdateScalar(attr_T0State_read, t0State);
-    //this->attr_T0inMask_read = &t0inMask;
-    //*attr_T0inMask_read = t0inMask;
-    m_libera->UpdateScalar(attr_T0inMask_read, t0inMask);
-    //this->attr_T0inFunction_read = &t0inFunction;
-    //*attr_T0inFunction_read = t0inFunction;
-    m_libera->UpdateScalar(attr_T0inFunction_read, t0inFunction);
-//    //T1
-    m_libera->UpdateScalar(attr_T1Source_read, t1Source);
-    //*attr_T1Source_read = t1Source;
-    m_libera->UpdateScalar(attr_T1inMask_read, t1inMask);
-    //*attr_T1inMask_read = t1inMask;
-    m_libera->UpdateScalar(attr_T1inFunction_read, t1inFunction);
-    //*attr_T1inFunction_read = t1inFunction;
-    m_libera->UpdateScalar(attr_T1ID_read, t1ID); //**
-    //*attr_T1ID_read = t1ID;
-    m_libera->UpdateScalar(attr_T1Direction_read, t1Direction);
-    //*attr_T1Direction_read = t1Direction;
-    m_libera->UpdateScalar(attr_T1EdgeFalling_read, t1EdgeFalling);
-    //*attr_T1EdgeFalling_read = t1EdgeFalling;
-    m_libera->UpdateScalar(attr_T1EdgeRising_read, t1EdgeRising);
-    //*attr_T1EdgeRising_read = t1EdgeRising;
-    //T2
-    //*attr_T2Source_read = t2Source;
-    m_libera->UpdateScalar(attr_T2Source_read, t2Source);
-    //*attr_T2inMask_read = t2inMask;
-    m_libera->UpdateScalar(attr_T2inMask_read, t2inMask);
-    //*attr_T2inFunction_read = t2inFunction;
-    m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
-    //*attr_T2ID_read = t2ID;
-    m_libera->UpdateScalar(attr_T2ID_read, t2ID); //**
-    //*attr_T2Direction_read = t2Direction;
-    m_libera->UpdateScalar(attr_T2Direction_read, t2Direction);
-    //*attr_T2EdgeFalling_read = t2EdgeFalling;
-    m_libera->UpdateScalar(attr_T2EdgeFalling_read, t2EdgeFalling);
-    //*attr_T2EdgeRising_read = t2EdgeRising;
-    m_libera->UpdateScalar(attr_T2EdgeRising_read, t2EdgeRising);
 
     //Interlock
-	//Interlock (Hardcoded value here always False before set values during init)
     m_libera->UpdateScalar(attr_InterlockEnabled_read, false);
     //*attr_MgtOut_read = mgtOut;
-    m_libera->UpdateScalar(attr_MgtOut_read, mgtOut); //**
+    //m_libera->UpdateScalar(attr_MgtOut_read, mgtOut); //**
     //*attr_XHigh_read = ymaxLimit;
     m_libera->UpdateScalar(attr_XHigh_read, xmaxLimit);
     //*attr_XLow_read = xminLimit;
@@ -8081,13 +6237,12 @@ void LiberaBrilliancePlus::init_settings()
 		m_signalADC->Enable();
 		}
 	else
-		m_signalADC->Disable(); //TODO refactor later, now if is already disabled it doesnt affect
-
+		m_signalADC->Disable();
 	}
 	catch (...)
 	{
 		m_state = Tango::FAULT;
-//		m_status = Tango::UNKNOWN;
+		m_status = "Error while init_settings()";
 		return;
 	}
 }
@@ -8156,6 +6311,1569 @@ void LiberaBrilliancePlus::init_settings()
 // 	DEBUG_STREAM << "LiberaBrilliancePlus::SetRefIncoherence()  - " << device_name << endl;
 // 	
 // 	//	Add your own code
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute DDTriggerCounter related method
+//  *	Description: Number of trigger notifications received since last device <init> 
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_DDTriggerCounter(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_DDTriggerCounter(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_DDTriggerCounter_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute CxSA related method
+//  *	Description: FOFB X correction sent to the power supply
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_CxSA(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_CxSA(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_CxSA_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute CySA related method
+//  *	Description: FOFB Y correction sent to the power supply
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_CySA(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_CySA(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_CySA_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute Switches related method
+//  *	Description: Switches selection. Must be in [0, 15] or 255 for auto-switching.
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_Switches(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_Switches(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_Switches_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute Switches related method
+//  *	Description: Switches selection. Must be in [0, 15] or 255 for auto-switching.
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_Switches(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_Switches(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	m_libera->UpdateScalar(attr_Switches_read, w_val);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute OffsetTune related method
+//  *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. 
+//  *               Default value is 0 (precisely tuned).
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_OffsetTune(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_OffsetTune(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_OffsetTune_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute OffsetTune related method
+//  *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. 
+//  *               Default value is 0 (precisely tuned).
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_OffsetTune(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_OffsetTune(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	m_libera->UpdateScalar(attr_OffsetTune_read, w_val);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute CompensateTune related method
+//  *	Description: To enable double offset-tune, issue the following command 
+//  *               (to disable it, just use false instead of true).
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_CompensateTune(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_CompensateTune(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_CompensateTune_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute CompensateTune related method
+//  *	Description: To enable double offset-tune, issue the following command 
+//  *               (to disable it, just use false instead of true).
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_CompensateTune(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_CompensateTune(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevBoolean	w_val;
+// 	attr.get_write_value(w_val);
+// 	m_libera->UpdateScalar(attr_CompensateTune_read, w_val);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute HasMAFSupport related method
+//  *	Description: <true> if FGPA design with MAF support installed on Libera, <false> otherwise
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_HasMAFSupport(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_HasMAFSupport(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_HasMAFSupport_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MAFLength related method
+//  *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MAFLength(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MAFLength(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MAFLength_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute MAFLength related method
+//  *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_MAFLength(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MAFLength(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MAFDelay related method
+//  *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.\n
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MAFDelay(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MAFDelay(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MAFDelay_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute MAFDelay related method
+//  *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.\n
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_MAFDelay(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MAFDelay(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute SystemTime related method
+//  *	Description: System Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed\nUnit is num of secs since 1/1/1970 (Unix system time reference)
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_SystemTime(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_SystemTime(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_SystemTime_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute SystemTime related method
+//  *	Description: System Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed\nUnit is num of secs since 1/1/1970 (Unix system time reference)
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_SystemTime(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_SystemTime(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevDouble	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute SCPLLStatus related method
+//  *	Description: The SC PLL lock status
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_SCPLLStatus(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_SCPLLStatus(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_SCPLLStatus_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MCPLLStatus related method
+//  *	Description: Indicates the MC PLL status (1=locked, 0=unlocked)
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MCPLLStatus(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCPLLStatus(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MCPLLStatus_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute Temp3 related method
+//  *	Description: Temperature of the hottest component on the timing 
+//  *               module is returned.
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_Temp3_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute Incoherence related method
+//  *	Description: Result of the incoherence calculation. Am alarm will be set \non the attribute when an incoherence was detected.
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_Incoherence(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_Incoherence(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_Incoherence_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute RefIncoherence related method
+//  *	Description: The reference incoherence value registered with the command \nSetReferenceIncoherence. The reference is used to calculate the\nalarm with the MaxIncoherenceDrift.
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_RefIncoherence(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_RefIncoherence(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_RefIncoherence_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MaxIncoherence related method
+//  *	Description: Maximum incoherence value. Used to create an alarm on\nthe Incoherence attribute.
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MaxIncoherence(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MaxIncoherence(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MaxIncoherence_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute MaxIncoherence related method
+//  *	Description: Maximum incoherence value. Used to create an alarm on\nthe Incoherence attribute.
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_MaxIncoherence(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MaxIncoherence(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevDouble	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MaxIncoherenceDrift related method
+//  *	Description: Maximum incoherence drift value. Used to create an alarm on\nthe Incoherence attribute.
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MaxIncoherenceDrift(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MaxIncoherenceDrift(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MaxIncoherenceDrift_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute MaxIncoherenceDrift related method
+//  *	Description: Maximum incoherence drift value. Used to create an alarm on\nthe Incoherence attribute.
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_MaxIncoherenceDrift(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MaxIncoherenceDrift(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevDouble	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute UpTime related method
+//  *	Description: Number of seconds since system boot on the host running this TANGO device
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_UpTime(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_UpTime(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_UpTime_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute RamFsUsage related method
+//  *	Description: Amount of ram-fs allocated bytes on the host running this TANGO device 
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_RamFsUsage(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_RamFsUsage(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_RamFsUsage_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute RTCTimestamp related method
+//  *	Description: Timestamp which is be taken by receiving optical events over SFP when reception is enabled
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_RTCTimestamp(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_RTCTimestamp_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute RTCTimestampState related method
+//  *	Description: State of the timestamp which is be taken by receiving optical events over SFP when reception is enabled
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_RTCTimestampState(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_RTCTimestampState(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_RTCTimestampState_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute RtcDecoderSwitch related method
+//  *	Description: RTC decoding switch of optical stream
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_RtcDecoderSwitch(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_RtcDecoderSwitch(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_RtcDecoderSwitch_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute RtcDecoderSwitch related method
+//  *	Description: RTC decoding switch of optical stream
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_RtcDecoderSwitch(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_RtcDecoderSwitch(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	//m_libera->UpdateScalar(attr_RtcDecoderSwitch_read, w_val);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T0Delay related method
+//  *	Description: Delay before transmission starts, set in cycles at fSFP
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T0Delay(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0Delay(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T0Delay_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T0Delay related method
+//  *	Description: Delay before transmission starts, set in cycles at fSFP
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T0Delay(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0Delay(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	m_libera->UpdateScalar(attr_T0Delay_read, t0Delay);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T0Direction related method
+//  *	Description: t0 port direction
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T0Direction(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0Direction(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T0Direction_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T0Direction related method
+//  *	Description: t0 port direction
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T0Direction(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0Direction(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	m_libera->UpdateScalar(attr_T0Direction_read, w_val);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T0OutputType related method
+//  *	Description: t0 output type
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T0OutputType(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0OutputType(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T0OutputType_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T0OutputType related method
+//  *	Description: t0 output type
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T0OutputType(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0OutputType(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	m_libera->UpdateScalar(attr_T0OutputType_read, w_val);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T0State related method
+//  *	Description: state of active signal: high (logical 1) or low (logical 0)
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T0State(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0State(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T0State_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T0State related method
+//  *	Description: state of active signal: high (logical 1) or low (logical 0)
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T0State(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0State(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	m_libera->UpdateScalar(attr_T0State_read, w_val);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T1Source related method
+//  *	Description: Trigger line source selection
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T1Source(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1Source(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T1Source_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T1Source related method
+//  *	Description: Trigger line source selection
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T1Source(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1Source(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T2Source related method
+//  *	Description: Trigger line source selection
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T2Source(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2Source(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T2Source_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T2Source related method
+//  *	Description: Trigger line source selection
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T2Source(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2Source(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	//m_libera->UpdateScalar(attr_T2Source_read, w_val);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MgtOut related method
+//  *	Description: MGT OUT selection off,sfp_in,debug,connectors
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MgtOut(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MgtOut(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MgtOut_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute MgtOut related method
+//  *	Description: MGT OUT selection off,sfp_in,debug,connectors
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_MgtOut(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MgtOut(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T0inMask related method
+//  *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T0inMask(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0inMask(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T0inMask_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T0inMask related method
+//  *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T0inMask(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0inMask(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	m_libera->UpdateScalar(attr_T0inMask_read, t0inMask);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T1inMask related method
+//  *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T1inMask(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1inMask(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T1inMask_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T1inMask related method
+//  *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T1inMask(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1inMask(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T2inMask related method
+//  *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T2inMask(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2inMask(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T2inMask_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T2inMask related method
+//  *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T2inMask(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2inMask(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T0inFunction related method
+//  *	Description: T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T0inFunction(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0inFunction(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T0inFunction_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T0inFunction related method
+//  *	Description: T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T0inFunction(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0inFunction(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	m_libera->UpdateScalar(attr_T0inFunction_read, t0inFunction);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T1inFunction related method
+//  *	Description: T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T1inFunction(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1inFunction(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T1inFunction_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T1inFunction related method
+//  *	Description: T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T1inFunction(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1inFunction(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T2inFunction related method
+//  *	Description: T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T2inFunction(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2inFunction(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T2inFunction_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T2inFunction related method
+//  *	Description: T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T2inFunction(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2inFunction(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+//         //m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
+//         m_libera->UpdateScalar(attr_T2inFunction_read, w_val);
+//         //std::vector<uint32_t> value = std::vector<uint32_t>();
+//         //value.push_back(109);
+//         //m_libera->m_root.GetNode(mci::Tokenize("boards."+c_timingBoard+".rtc.t2.in_function")).SetValue(value);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MCinMask related method
+//  *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MCinMask(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCinMask(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MCinMask_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute MCinMask related method
+//  *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_MCinMask(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MCinMask(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute MCinFunction related method
+//  *	Description: MC Function array (in_function) contains 16-bit entries that define the value of masked bits.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_MCinFunction(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCinFunction(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_MCinFunction_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute MCinFunction related method
+//  *	Description: MC Function array (in_function) contains 16-bit entries that define the value of masked bits.
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_MCinFunction(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_MCinFunction(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T0Duration related method
+//  *	Description: Duration of signal active pulse
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T0Duration(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T0Duration(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T0Duration_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T0Duration related method
+//  *	Description: Duration of signal active pulse
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T0Duration(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T0Duration(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	m_libera->UpdateScalar(attr_T0Duration_read, t0Duration);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute InterlockID related method
+//  *	Description: Oversaturation or X-Y orbit threshold
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_InterlockID(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_InterlockID(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_InterlockID_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute InterlockID related method
+//  *	Description: Oversaturation or X-Y orbit threshold
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_InterlockID(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockID(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T2EdgeFalling related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T2EdgeFalling(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2EdgeFalling(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T2EdgeFalling_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T2EdgeFalling related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T2EdgeFalling(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2EdgeFalling(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevBoolean	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T2EdgeRising related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T2EdgeRising(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2EdgeRising(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T2EdgeRising_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T2EdgeRising related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T2EdgeRising(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2EdgeRising(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevBoolean	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T1EdgeFalling related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T1EdgeFalling(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1EdgeFalling(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T1EdgeFalling_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T1EdgeFalling related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T1EdgeFalling(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1EdgeFalling(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevBoolean	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T1EdgeRising related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T1EdgeRising(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1EdgeRising(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T1EdgeRising_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T1EdgeRising related method
+//  *	Description: 
+//  *
+//  *	Data type:	Tango::DevBoolean
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T1EdgeRising(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1EdgeRising(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevBoolean	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T2ID related method
+//  *	Description: T2 Optical event ID
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T2ID(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2ID(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T2ID_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T2ID related method
+//  *	Description: T2 Optical event ID
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T2ID(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2ID(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T1ID related method
+//  *	Description: T1 Optical event ID
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T1ID(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1ID(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T1ID_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T1ID related method
+//  *	Description: T1 Optical event ID
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T1ID(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1ID(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevLong	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T1Direction related method
+//  *	Description: t2 port direction
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T1Direction(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T1Direction(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T1Direction_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T1Direction related method
+//  *	Description: t2 port direction
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T1Direction(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T1Direction(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute T2Direction related method
+//  *	Description: t2 port direction
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_T2Direction(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_T2Direction(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_T2Direction_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute T2Direction related method
+//  *	Description: t2 port direction
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_T2Direction(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_T2Direction(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute PMNotificationCounter related method
+//  *	Description: Number a PM event recieved since last Init
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_PMNotificationCounter(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_PMNotificationCounter(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_PMNotificationCounter_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Command StartSynchronization related method
+//  *	Description: Starts synchronization procedure:
+//  *               * Synchronization State Machine (MUST be Tracking)
+//  *               * Start the Trigger (t2source=Pulse and then t2source=RTC)
+//  *               * Synchronization State Machine (MUST be Synchronized)
+//  *
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::start_synchronization()
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::StartSynchronization()  - " << device_name << endl;
+// 	
+// 	//Sync State should be in Tracking (=1) before Start
+// 	if(*attr_SynchronizationStatus_read == 2 ) {
+// 		//Set Trigger to Pulse == 3
+// 		//m_libera->UpdateScalar(attr_T2Source_read, (short)3);
+// 		//Set Trigger to RTC == 5
+// 		//m_libera->UpdateScalar(attr_T2Source_read, (short)5);
+// 		//m_libera->UpdateScalar(attr_T2inFunction_read, 80);
+//                 m_libera->UpdateScalar(attr_T2inFunction_read, t2inFunction);
+// 	}
+// 	else {
+// 		ERROR_STREAM << "Synchronization State Machine is not in TRACKING! Cant start Synchronizations." << endl;
+// 	}
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Command AnnounceSynchronization related method
+//  *	Description: Announce synchronization procedure:
+//  *               * Stop the Trigger (t2source=off)
+//  *               *  MC PLL (MUST be locked)
+//  *               * Synchronization State Machine (MUST be Tracking)
+//  *
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::announce_synchronization()
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::AnnounceSynchronization()  - " << device_name << endl;
+// 	if(*attr_MCPLLStatus_read) {
+// 		//cout << *attr_MCPLLStatus_read << endl;
+// 		//Stop Trigger
+// 		//m_libera->UpdateScalar(attr_T2Source_read, (short)0);
+//                 //*t2_in_function_save = *attr_T2inFunction;
+//                 //Tango::DevLong sync_id = new Tango::DevLong(109);
+// 		//m_libera->UpdateScalar(attr_T2inFunction_read, sync_id);
+// 		m_libera->UpdateScalar(attr_T2inFunction_read, (long)109);
+//                 //delete sync_id;
+// 		//Announce Synchronization
+// 		m_libera->UpdateScalar(attr_SynchronizeLMT_read, (long)0);
+// 	}
+// 	else {
+// 		ERROR_STREAM << "MC Pll is not locked! Cant Announce Synchronizations." << endl;
+// 	}
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute McSource related method
+//  *	Description: Trigger line source selection
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_McSource(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_McSource(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_McSource_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Write attribute McSource related method
+//  *	Description: Trigger line source selection
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::write_McSource(Tango::WAttribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_McSource(Tango::WAttribute &attr) entering... " << endl;
+// 	//	Retrieve write value
+// 	Tango::DevShort	w_val;
+// 	attr.get_write_value(w_val);
+// 	
 // 	
 // }
 

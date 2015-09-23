@@ -229,7 +229,8 @@ bool LiberaClient::Connect()
         for (auto i = m_signals.begin(); i != m_signals.end(); ++i) {
             if (!(*i)->Connect(m_root)) {
                 m_connected = false;
-                istd_TRC(istd::eTrcLow, "Connection to signals failed.");
+                istd_TRC(istd::eTrcLow, "Failed to connect to signal node: " + (*i)->GetPath() );
+                throw istd::Exception((*i)->GetPath());
                 return false;
             }
         }

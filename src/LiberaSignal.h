@@ -46,7 +46,7 @@ public:
     virtual bool IsUpdated() = 0;
     virtual void ClearUpdated() = 0;
     virtual void GetData() = 0;
-
+    std::string GetPath();
 protected:
     virtual int32_t    GetOffset() = 0;
     isig::AccessMode_e GetMode();
