@@ -6238,12 +6238,11 @@ void LiberaBrilliancePlus::init_settings()
 		}
 	else
 		m_signalADC->Disable();
-
 	}
 	catch (...)
 	{
 		m_state = Tango::FAULT;
-//		m_status = Tango::UNKNOWN;
+		m_status = "Error while init_settings()";
 		return;
 	}
 }
