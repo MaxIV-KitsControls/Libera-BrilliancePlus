@@ -8,6 +8,7 @@
 #ifndef LIBERA_CLIENT_H
 #define LIBERA_CLIENT_H
 
+#include <tango.h>
 #include <mci/node.h>
 
 #include "LiberaScalarAttr.h"
@@ -22,7 +23,7 @@ using LiberaBrilliancePlus_ns::LiberaBrilliancePlus;
  */
 class LiberaClient {
 public:
-    LiberaClient(LiberaBrilliancePlus *a_deviceServer, std::string ip_address);
+    LiberaClient(Tango::DeviceImpl *a_deviceServer, std::string ip_address);
     ~LiberaClient();
 
     bool Connect();
@@ -30,6 +31,9 @@ public:
     bool IsConnected();
 
     void operator ()();
+
+    //Set Status/State of the Device in case of MCI Errors.
+    void set_libera_error(Tango::DeviceImpl *a_deviceServer, Tango::DevState state, std::string status);
 
     /**
      *  Methods for adding different attribute types to the update list.
@@ -107,8 +111,13 @@ public:
         {
             istd_TRC(istd::eTrcLow, "Exception thrown while writing to node!");
             istd_TRC(istd::eTrcLow, e.what());
+            throw istd::Exception("Error Connecting LiberaClient::UpdateScalar()");
             // let the server know it
-            m_deviceServer->set_lib_error(e.what());
+            //cout << "ERROR Notify() " << endl;
+            //m_deviceServer->set_state(Tango::FAULT);
+            //m_deviceServer->set_status(e.what());
+            //set_lib_error(m_deviceServer, Tango::FAULT, "Error while reading from a node");
+            //m_deviceServer->set_lib_error(e.what());
         }
     }
 
@@ -139,7 +148,7 @@ private:
     std::atomic<bool>   m_running;
     std::thread         m_thread;
 
-    LiberaBrilliancePlus *m_deviceServer; // used for changing device state
+    Tango::DeviceImpl *m_deviceServer; // used for changing device state
 
     std::string m_ip_address;
 

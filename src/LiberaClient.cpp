@@ -22,7 +22,7 @@
 /**
  * Constructor with member initializations.
  */
-LiberaClient::LiberaClient(LiberaBrilliancePlus_ns::LiberaBrilliancePlus *a_deviceServer, std::string ip_address)
+LiberaClient::LiberaClient(Tango::DeviceImpl *a_deviceServer, std::string ip_address)
   : m_connected(false),
     m_running(false),
     m_thread(),
@@ -81,10 +81,19 @@ void LiberaClient::UpdateAttr()
     }
     catch (istd::Exception e)
     {
-        istd_TRC(istd::eTrcLow, "Exception thrown while reading from node!");
-        istd_TRC(istd::eTrcLow, e.what());
+        istd_TRC(istd::eTrcLow, "Exception thrown while reading from node!!");
+        //istd_TRC(istd::eTrcLow, e.what());
+        //istd_TRC(istd::eTrcLow, "Error Connecting LiberaClient::UpdateAttr()()");
+        //throw istd::Exception("Error Connecting LiberaClient::UpdateAttr()");
+        //m_deviceServer->set_state(Tango::FAULT);
+        //m_deviceServer->set_status("TEST");
+        set_libera_error(m_deviceServer, Tango::FAULT, "Error while reading from node:"+std::string(e.what()));
+        //throw istd::Exception(e.what());
         // let the server know it
-        m_deviceServer->set_lib_error(e.what());
+        //m_deviceServer->set_status(e.what());
+        //set_lib_error(m_deviceServer, Tango::FAULT, "Error while reading from a node");
+        //auto
+        //m_deviceServer->set_lib_error(e.what());
         m_connected = false;
     }
 }
@@ -97,14 +106,22 @@ void LiberaClient::operator()()
     // thread function has started
     m_running = true;
     while (m_running) {
-        if (m_connected) {
-            UpdateAttr();
-            std::this_thread::sleep_for(std::chrono::seconds(2));
-        }
-        else {
-            // wait for stop running
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        }
+    	try {
+            if (m_connected) {
+                UpdateAttr();
+                std::this_thread::sleep_for(std::chrono::seconds(2));
+            }
+            else {
+                // wait for stop running
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+    	}
+    	catch(...) {
+        	throw istd::Exception("Error Connecting LiberaClient::operator()()");
+        	istd_TRC(istd::eTrcLow, "Error Connecting LiberaClient::operator()()");
+            istd_TRC(istd::eTrcLow, "Exception thrown while connecting root node!");
+    	}
+
     }
     istd_TRC(istd::eTrcHigh, "Exit attribute update thread");
 }
@@ -206,8 +223,11 @@ void LiberaClient::Connect(mci::Node &a_root, mci::Root a_type)
     }
     catch (istd::Exception e)
     {
+    	//throw istd::Exception("Error Connecting LiberaClient::Connect()");
+    	//istd_TRC(istd::eTrcLow, "Error Connecting LiberaClient::Connect()");
         istd_TRC(istd::eTrcLow, "Exception thrown while connecting root node!");
-        istd_TRC(istd::eTrcLow, e.what());
+        //set_libera_error(m_deviceServer, Tango::FAULT, "Error while reading from node:"+std::string(e.what()));
+        //istd_TRC(istd::eTrcLow, e.what());
     }
 }
 
@@ -229,8 +249,12 @@ bool LiberaClient::Connect()
         for (auto i = m_signals.begin(); i != m_signals.end(); ++i) {
             if (!(*i)->Connect(m_root)) {
                 m_connected = false;
-                istd_TRC(istd::eTrcLow, "Failed to connect to signal node: " + (*i)->GetPath() );
-                throw istd::Exception((*i)->GetPath());
+                //m_deviceServer->set_status("TEST"); //TODO
+                //istd_TRC(istd::eTrcLow, "Failed to connect to signal node: " + (*i)->GetPath() );
+                //throw istd::Exception((*i)->GetPath());
+                //istd_TRC(istd::eTrcLow, "Error Connecting LiberaClient::Connect()");
+                //throw istd::Exception("Error Connecting LiberaClient::Connect()");
+                set_libera_error(m_deviceServer, Tango::FAULT, "Failed to connect to signal node: " + (*i)->GetPath());
                 return false;
             }
         }
@@ -275,4 +299,10 @@ void LiberaClient::Disconnect()
 bool LiberaClient::IsConnected()
 {
     return m_connected;
+}
+
+void LiberaClient::set_libera_error(Tango::DeviceImpl *a_deviceServer, Tango::DevState state, std::string status)
+{
+	a_deviceServer->set_state(state);
+	a_deviceServer->set_status(status);
 }
