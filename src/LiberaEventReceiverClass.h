@@ -9,7 +9,7 @@
 //               It contains all properties and methods which the 
 //               LiberaEventReceiver requires only once e.g. the commands.
 //
-// project :     Libera Event Receiver
+// project :     Libera BPM Device Server
 //
 // This file is part of Tango device class.
 // 

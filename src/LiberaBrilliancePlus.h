@@ -291,7 +291,7 @@ public:
 	Tango::DevLong	sPnAfter;
 	//	ExternalTriggerDelay:	Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples
 	Tango::DevLong	externalTriggerDelay;
-	//	DSCMode:	
+	//	DSCMode:
 	Tango::DevShort	dSCMode;
 	//	InterlockFilterOverflow:	ADC filter overflow
 	Tango::DevLong	interlockFilterOverflow;
@@ -906,7 +906,7 @@ public:
 	virtual bool is_AutoSwitchingEnabled_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalSwitching related methods
- *	Description: Sets the source of switching clock MC (external) or from the 
+ *	Description: Sets the source of switching clock MC (external) or from the
  *               oscillator (internal). Default value is internal.
  *
  *	Data type:	Tango::DevBoolean
@@ -1000,9 +1000,9 @@ public:
 	virtual bool is_Temp2_allowed(Tango::AttReqType type);
 /**
  *	Attribute Fan1Speed related methods
- *	Description: Provides minimal fan speed reading of all three fans on 
+ *	Description: Provides minimal fan speed reading of all three fans on
  *               the left side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken returned value 
+ *               module (consisting of 3 fans) is broken returned value
  *               0 means that at least one fan has stopped.
  *
  *	Data type:	Tango::DevShort
@@ -1012,9 +1012,9 @@ public:
 	virtual bool is_Fan1Speed_allowed(Tango::AttReqType type);
 /**
  *	Attribute Fan2Speed related methods
- *	Description: Provides minimal fan speed reading of all three fans on 
+ *	Description: Provides minimal fan speed reading of all three fans on
  *               the right side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken returned value 
+ *               module (consisting of 3 fans) is broken returned value
  *               0 means that at least one fan has stopped.
  *
  *	Data type:	Tango::DevShort
@@ -2044,7 +2044,7 @@ public:
 	 *               		High    = 3,
 	 *               		Detail  = 4
 	 *
-	 *	@param argin 
+	 *	@param argin
 	 */
 	virtual void set_trace_level(Tango::DevUShort argin);
 	virtual bool is_SetTraceLevel_allowed(const CORBA::Any &any);

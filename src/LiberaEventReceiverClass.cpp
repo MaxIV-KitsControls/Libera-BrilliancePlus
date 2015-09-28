@@ -14,7 +14,7 @@ static const char *HttpServer = "http://www.esrf.eu/computing/cs/tango/tango_doc
 //               and all properties and methods required
 //               by the LiberaEventReceiver once per process.
 //
-// project :     Libera Event Receiver
+// project :     Libera BPM Device Server
 //
 // This file is part of Tango device class.
 // 

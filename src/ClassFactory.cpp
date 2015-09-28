@@ -1,4 +1,4 @@
-/*----- PROTECTED REGION ID(LiberaEventReceiver::ClassFactory.cpp) ENABLED START -----*/
+/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ClassFactory.cpp) ENABLED START -----*/
 static const char *RcsId = "$Id:  $";
 //=============================================================================
 //
@@ -39,18 +39,18 @@ static const char *RcsId = "$Id:  $";
 //=============================================================================
 
 #include <tango.h>
-#include <LiberaEventReceiverClass.h>
+#include <LiberaBrilliancePlusClass.h>
 
 //	Add class header files if needed
 
 
 /**
- *	Create LiberaEventReceiver Class singleton and store it in DServer object.
+ *	Create LiberaBrilliancePlus Class singleton and store it in DServer object.
  */
 
 void Tango::DServer::class_factory()
 {
 	//	Add method class init if needed
-	add_class(LiberaEventReceiver_ns::LiberaEventReceiverClass::init("LiberaEventReceiver"));
+	add_class(LiberaBrilliancePlus_ns::LiberaBrilliancePlusClass::init("LiberaBrilliancePlus"));
 }
-/*----- PROTECTED REGION END -----*/	//	LiberaEventReceiver::ClassFactory.cpp
+/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ClassFactory.cpp

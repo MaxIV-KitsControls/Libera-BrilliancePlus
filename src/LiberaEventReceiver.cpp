@@ -224,6 +224,7 @@ void LiberaEventReceiver::init_device()
 	std::string tim("boards." + c_timingBoard + ".");
 
 	//	Initialize device
+    //m_libera = new LiberaClient(this);
     m_libera = new LiberaClient(this, liberaIpAddr);
 
     //try
@@ -361,7 +362,7 @@ void LiberaEventReceiver::get_device_property()
 	/*----- PROTECTED REGION ID(LiberaEventReceiver::get_device_property_before) ENABLED START -----*/
 	
 	//	Initialize property data members
-    DEBUG_STREAM << "LiberaBrilliancePlus::get_device_property() get device properties " << device_name << endl;
+    DEBUG_STREAM << "LiberaEventReceiver::get_device_property() get device properties " << device_name << endl;
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaEventReceiver::get_device_property_before
 
@@ -2299,7 +2300,7 @@ void LiberaEventReceiver::announce_synchronization()
 
 /*----- PROTECTED REGION ID(LiberaEventReceiver::namespace_ending) ENABLED START -----*/
 
-void LiberaBrilliancePlus::set_lib_error(std::string nodeinfo)
+void LiberaEventReceiver::set_lib_error(std::string nodeinfo)
 {
 	m_state = Tango::FAULT;
 	//set_state(Tango::FAULT);    // Give the state to Tango.
@@ -2307,7 +2308,7 @@ void LiberaBrilliancePlus::set_lib_error(std::string nodeinfo)
     //throw nodeinfo;
 }
 
-void LiberaBrilliancePlus::init_settings()
+void LiberaEventReceiver::init_settings()
 {
 	try
 	{

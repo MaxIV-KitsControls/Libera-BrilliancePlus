@@ -6,7 +6,7 @@ static const char *RcsId = "$Id:  $";
 //
 // description : State machine file for the LiberaEventReceiver class
 //
-// project :     Libera Event Receiver
+// project :     Libera BPM Device Server
 //
 // This file is part of Tango device class.
 // 
