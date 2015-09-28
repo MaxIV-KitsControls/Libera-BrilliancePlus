@@ -1,10 +1,10 @@
-/*----- PROTECTED REGION ID(LiberaEventReceiver::main.cpp) ENABLED START -----*/
+/*----- PROTECTED REGION ID(LiberaBrilliancePlus::main.cpp) ENABLED START -----*/
 static const char *RcsId = "$Id:  $";
 //=============================================================================
 //
 // file :        main.cpp
 //
-// description : C++ source for the LiberaEventReceiver device server main.
+// description : C++ source for the LiberaBrilliancePlus device server main.
 //               The main rule is to initialise (and create) the Tango
 //               system and to create the DServerClass singleton.
 //               The main should be the same for every Tango device server.
@@ -39,24 +39,34 @@ static const char *RcsId = "$Id:  $";
 //=============================================================================
 #include <tango.h>
 
-// Check if crash reporting is used.
-#if defined(ENABLE_CRASH_REPORT)
-#  include <crashreporting/crash_report.h>
-#else
-#  define DECLARE_CRASH_HANDLER
-#  define INSTALL_CRASH_HANDLER
-#endif
-
-DECLARE_CRASH_HANDLER;
+#include <istd/trace.h>
+#include <mci/mci.h>
 
 int main(int argc,char *argv[])
 {
-	INSTALL_CRASH_HANDLER
+    /*istd::TraceInit("-");
+    istd::TraceStart(istd::eTrcLow);
+
+    // need to initialize CORBA from mci before Tango does it
+    mci::Init(argc, argv);*/
+	
+	
+	// Initialize MCI layer
+	try {
+		mci::Init();
+		istd::TraceInit();
+		istd::TraceSetLevel(istd::eTrcOff);
+	} catch (istd::Exception &e) {
+		cout << "Received a MCI Exception" << endl;
+		cout << "Exiting" << endl;
+	}
+
+    Tango::Util *tg = NULL;
 	try
 	{
 		// Initialise the device server
 		//----------------------------------------
-		Tango::Util *tg = Tango::Util::init(argc,argv);
+		tg = Tango::Util::init(argc,argv);
 
 		// Create the device server singleton 
 		//	which will create everything
@@ -81,7 +91,17 @@ int main(int argc,char *argv[])
 		cout << "Exiting" << endl;
 	}
 	Tango::Util::instance()->server_cleanup();
+	
+	
+	// Destroy MCI layer
+	try {
+		istd::TraceStop();
+		mci::Shutdown();
+	} catch (istd::Exception &e) {
+		cout << "Received a MCI Exception" << endl;
+		cout << "Exiting" << endl;
+	}
 	return(0);
 }
 
-/*----- PROTECTED REGION END -----*/	//	LiberaEventReceiver::main.cpp
+/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::main.cpp
