@@ -247,8 +247,6 @@ public:
 	Tango::DevLong	interlockID;
 	//	EnableSP:	Specifies whether or not the Single Pass data source should be enabled at startup. Defaults to false.
 	Tango::DevBoolean	enableSP;
-	//	DefaultSPBufferSize:	Default [or initial] value for attribute Single Pass BufferSize [in samples]. Defaults to 1024.
-	Tango::DevLong	defaultSPBufferSize;
 	//	PMCapture:	PM functionality capture: Set True to Disable, False to Enable
 	Tango::DevBoolean	pMCapture;
 	//	PMOffset:	PM Offset
@@ -454,6 +452,14 @@ public:
 	Tango::DevLong	*attr_RTCTimestampState_read;
 	Tango::DevLong	*attr_InterlockFilterOverflow_read;
 	Tango::DevLong	*attr_InterlockFilterPosition_read;
+	Tango::DevDouble	*attr_SumSP_read;
+	Tango::DevDouble	*attr_VbSP_read;
+	Tango::DevDouble	*attr_VcSP_read;
+	Tango::DevDouble	*attr_VdSP_read;
+	Tango::DevDouble	*attr_XPosSP_read;
+	Tango::DevDouble	*attr_YPosSP_read;
+	Tango::DevDouble	*attr_ThdrId_read;
+	Tango::DevDouble	*attr_VaSP_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -495,14 +501,6 @@ public:
 	Tango::DevDouble	*attr_VbTD_read;
 	Tango::DevDouble	*attr_VcTD_read;
 	Tango::DevDouble	*attr_VdTD_read;
-	Tango::DevDouble	*attr_VaSP_read;
-	Tango::DevDouble	*attr_VbSP_read;
-	Tango::DevDouble	*attr_VcSP_read;
-	Tango::DevDouble	*attr_VdSP_read;
-	Tango::DevDouble	*attr_SumSP_read;
-	Tango::DevDouble	*attr_XPosSP_read;
-	Tango::DevDouble	*attr_YPosSP_read;
-	Tango::DevDouble	*attr_ThdrId_read;
 
 //	Constructors and destructors
 public:
@@ -1737,7 +1735,6 @@ public:
  *	Attr type:	Scalar
  */
 	virtual void read_SPBufferSize(Tango::Attribute &attr);
-	virtual void write_SPBufferSize(Tango::WAttribute &attr);
 	virtual bool is_SPBufferSize_allowed(Tango::AttReqType type);
 /**
  *	Attribute T2EdgeFalling related methods
@@ -1887,6 +1884,78 @@ public:
 	virtual void read_InterlockFilterPosition(Tango::Attribute &attr);
 	virtual void write_InterlockFilterPosition(Tango::WAttribute &attr);
 	virtual bool is_InterlockFilterPosition_allowed(Tango::AttReqType type);
+/**
+ *	Attribute SumSP related methods
+ *	Description: Single Pass data: Sum
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_SumSP(Tango::Attribute &attr);
+	virtual bool is_SumSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VbSP related methods
+ *	Description: Single Pass data: Vb
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VbSP(Tango::Attribute &attr);
+	virtual bool is_VbSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VcSP related methods
+ *	Description: Single Pass data: Vc
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VcSP(Tango::Attribute &attr);
+	virtual bool is_VcSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VdSP related methods
+ *	Description: Single Pass data: Vd
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VdSP(Tango::Attribute &attr);
+	virtual bool is_VdSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute XPosSP related methods
+ *	Description: Single Pass data: X Pos.
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_XPosSP(Tango::Attribute &attr);
+	virtual bool is_XPosSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute YPosSP related methods
+ *	Description: Single Pass data: Y Pos.
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_YPosSP(Tango::Attribute &attr);
+	virtual bool is_YPosSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute ThdrId related methods
+ *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_ThdrId(Tango::Attribute &attr);
+	virtual bool is_ThdrId_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VaSP related methods
+ *	Description: Single Pass data: Va
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VaSP(Tango::Attribute &attr);
+	virtual bool is_VaSP_allowed(Tango::AttReqType type);
 /**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
@@ -2259,78 +2328,6 @@ public:
  */
 	virtual void read_VdTD(Tango::Attribute &attr);
 	virtual bool is_VdTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VaSP related methods
- *	Description: Single Pass data: Va
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VaSP(Tango::Attribute &attr);
-	virtual bool is_VaSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VbSP related methods
- *	Description: Single Pass data: Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VbSP(Tango::Attribute &attr);
-	virtual bool is_VbSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VcSP related methods
- *	Description: Single Pass data: Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VcSP(Tango::Attribute &attr);
-	virtual bool is_VcSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VdSP related methods
- *	Description: Single Pass data: Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VdSP(Tango::Attribute &attr);
-	virtual bool is_VdSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute SumSP related methods
- *	Description: Single Pass data: Sum
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_SumSP(Tango::Attribute &attr);
-	virtual bool is_SumSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute XPosSP related methods
- *	Description: Single Pass data: X Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_XPosSP(Tango::Attribute &attr);
-	virtual bool is_XPosSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute YPosSP related methods
- *	Description: Single Pass data: Y Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_YPosSP(Tango::Attribute &attr);
-	virtual bool is_YPosSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute ThdrId related methods
- *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_ThdrId(Tango::Attribute &attr);
-	virtual bool is_ThdrId_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------

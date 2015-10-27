@@ -230,6 +230,14 @@ static const char *RcsId = "$Id:  $";
 //  RTCTimestampState                |  Tango::DevLong	Scalar
 //  InterlockFilterOverflow          |  Tango::DevLong	Scalar
 //  InterlockFilterPosition          |  Tango::DevLong	Scalar
+//  SumSP                            |  Tango::DevDouble	Scalar
+//  VbSP                             |  Tango::DevDouble	Scalar
+//  VcSP                             |  Tango::DevDouble	Scalar
+//  VdSP                             |  Tango::DevDouble	Scalar
+//  XPosSP                           |  Tango::DevDouble	Scalar
+//  YPosSP                           |  Tango::DevDouble	Scalar
+//  ThdrId                           |  Tango::DevDouble	Scalar
+//  VaSP                             |  Tango::DevDouble	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  YPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  QuadDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -271,14 +279,6 @@ static const char *RcsId = "$Id:  $";
 //  VbTD                             |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  VcTD                             |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  VdTD                             |  Tango::DevDouble	Spectrum  ( max = 250000)
-//  VaSP                             |  Tango::DevDouble	Spectrum  ( max = 250000)
-//  VbSP                             |  Tango::DevDouble	Spectrum  ( max = 250000)
-//  VcSP                             |  Tango::DevDouble	Spectrum  ( max = 250000)
-//  VdSP                             |  Tango::DevDouble	Spectrum  ( max = 250000)
-//  SumSP                            |  Tango::DevDouble	Spectrum  ( max = 250000)
-//  XPosSP                           |  Tango::DevDouble	Spectrum  ( max = 250000)
-//  YPosSP                           |  Tango::DevDouble	Spectrum  ( max = 250000)
-//  ThdrId                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //================================================================
 
 namespace LiberaBrilliancePlus_ns
@@ -910,7 +910,6 @@ void LiberaBrilliancePlus::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("T0Delay"));
 	dev_prop.push_back(Tango::DbDatum("InterlockID"));
 	dev_prop.push_back(Tango::DbDatum("EnableSP"));
-	dev_prop.push_back(Tango::DbDatum("DefaultSPBufferSize"));
 	dev_prop.push_back(Tango::DbDatum("PMCapture"));
 	dev_prop.push_back(Tango::DbDatum("PMOffset"));
 	dev_prop.push_back(Tango::DbDatum("DefaultPMBufferSize"));
@@ -1570,17 +1569,6 @@ void LiberaBrilliancePlus::get_device_property()
 		}
 		//	And try to extract EnableSP value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  enableSP;
-
-		//	Try to initialize DefaultSPBufferSize from class property
-		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
-		if (cl_prop.is_empty()==false)	cl_prop  >>  defaultSPBufferSize;
-		else {
-			//	Try to initialize DefaultSPBufferSize from default device value
-			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
-			if (def_prop.is_empty()==false)	def_prop  >>  defaultSPBufferSize;
-		}
-		//	And try to extract DefaultSPBufferSize value from database
-		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  defaultSPBufferSize;
 
 		//	Try to initialize PMCapture from class property
 		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
@@ -5660,27 +5648,6 @@ void LiberaBrilliancePlus::read_SPBufferSize(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Write attribute SPBufferSize related method
- *	Description: The number of samples to be read on Single Pass data source.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_SPBufferSize(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_SPBufferSize(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevLong	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_SPBufferSize) ENABLED START -----*/
-	
-	m_signalSP->Realloc(w_val);
-
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_SPBufferSize
-}
-//--------------------------------------------------------
-/**
  *	Read attribute T2EdgeFalling related method
  *	Description: 
  *
@@ -6208,6 +6175,149 @@ void LiberaBrilliancePlus::write_InterlockFilterPosition(Tango::WAttribute &attr
 	m_libera->UpdateScalar(attr_InterlockFilterPosition_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockFilterPosition
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute SumSP related method
+ *	Description: Single Pass data: Sum
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_SumSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_SumSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_SumSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_SumSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VbSP related method
+ *	Description: Single Pass data: Vb
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VbSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VbSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VcSP related method
+ *	Description: Single Pass data: Vc
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VcSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VcSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VdSP related method
+ *	Description: Single Pass data: Vd
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VdSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VdSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute XPosSP related method
+ *	Description: Single Pass data: X Pos.
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_XPosSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_XPosSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_XPosSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_XPosSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPosSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute YPosSP related method
+ *	Description: Single Pass data: Y Pos.
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_YPosSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_YPosSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_YPosSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_YPosSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_YPosSP
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute ThdrId related method
+ *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_ThdrId) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_ThdrId_read);
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ThdrId
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VaSP related method
+ *	Description: Single Pass data: Va
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VaSP) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VaSP_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaSP
 }
 //--------------------------------------------------------
 /**
@@ -6948,149 +7058,6 @@ void LiberaBrilliancePlus::read_VdTD(Tango::Attribute &attr)
 	attr.set_value(attr_VdTD_read, *attr_TDBufferSize_read);
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdTD
-}
-//--------------------------------------------------------
-/**
- *	Read attribute VaSP related method
- *	Description: Single Pass data: Va
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VaSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_VaSP_read, *attr_SPBufferSize_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute VbSP related method
- *	Description: Single Pass data: Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VbSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_VbSP_read, *attr_SPBufferSize_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute VcSP related method
- *	Description: Single Pass data: Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VcSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_VcSP_read, *attr_SPBufferSize_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute VdSP related method
- *	Description: Single Pass data: Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VdSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_VdSP_read, *attr_SPBufferSize_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute SumSP related method
- *	Description: Single Pass data: Sum
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_SumSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_SumSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_SumSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_SumSP_read, *attr_SPBufferSize_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute XPosSP related method
- *	Description: Single Pass data: X Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_XPosSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_XPosSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_XPosSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_XPosSP_read, *attr_SPBufferSize_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPosSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute YPosSP related method
- *	Description: Single Pass data: Y Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_YPosSP(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_YPosSP(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_YPosSP) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_YPosSP_read, *attr_SPBufferSize_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_YPosSP
-}
-//--------------------------------------------------------
-/**
- *	Read attribute ThdrId related method
- *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_ThdrId) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_ThdrId_read, *attr_SPBufferSize_read);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ThdrId
 }
 
 //--------------------------------------------------------

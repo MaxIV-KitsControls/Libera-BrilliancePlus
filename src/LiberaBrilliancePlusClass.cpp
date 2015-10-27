@@ -1787,20 +1787,6 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "DefaultSPBufferSize";
-	prop_desc = "Default [or initial] value for attribute Single Pass BufferSize [in samples]. Defaults to 1024.";
-	prop_def  = "1024";
-	vect_data.clear();
-	vect_data.push_back("1024");
-	if (prop_def.length()>0)
-	{
-		Tango::DbDatum	data(prop_name);
-		data << vect_data ;
-		dev_def_prop.push_back(data);
-		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
-	}
-	else
-		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "PMCapture";
 	prop_desc = "PM functionality capture: Set True to Disable, False to Enable";
 	prop_def  = "false";
@@ -5307,7 +5293,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	spbuffersize->set_default_properties(spbuffersize_prop);
 	//	Not Polled
-	spbuffersize->set_disp_level(Tango::OPERATOR);
+	spbuffersize->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
 	att_list.push_back(spbuffersize);
 
@@ -5670,6 +5656,198 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	interlockfilterposition->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(interlockfilterposition);
+
+	//	Attribute : SumSP
+	SumSPAttrib	*sumsp = new SumSPAttrib();
+	Tango::UserDefaultAttrProp	sumsp_prop;
+	sumsp_prop.set_description("Single Pass data: Sum");
+	sumsp_prop.set_label("SP Sum");
+	sumsp_prop.set_unit("mm");
+	sumsp_prop.set_standard_unit("mm");
+	sumsp_prop.set_display_unit("mm");
+	sumsp_prop.set_format("%10.0f");
+	//	max_value	not set for SumSP
+	//	min_value	not set for SumSP
+	//	max_alarm	not set for SumSP
+	//	min_alarm	not set for SumSP
+	//	max_warning	not set for SumSP
+	//	min_warning	not set for SumSP
+	//	delta_t	not set for SumSP
+	//	delta_val	not set for SumSP
+	
+	sumsp->set_default_properties(sumsp_prop);
+	//	Not Polled
+	sumsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(sumsp);
+
+	//	Attribute : VbSP
+	VbSPAttrib	*vbsp = new VbSPAttrib();
+	Tango::UserDefaultAttrProp	vbsp_prop;
+	vbsp_prop.set_description("Single Pass data: Vb");
+	vbsp_prop.set_label("SP Vb");
+	vbsp_prop.set_unit("a.u.");
+	vbsp_prop.set_standard_unit("a.u.");
+	vbsp_prop.set_display_unit("a.u.");
+	vbsp_prop.set_format("%10.0f");
+	//	max_value	not set for VbSP
+	//	min_value	not set for VbSP
+	//	max_alarm	not set for VbSP
+	//	min_alarm	not set for VbSP
+	//	max_warning	not set for VbSP
+	//	min_warning	not set for VbSP
+	//	delta_t	not set for VbSP
+	//	delta_val	not set for VbSP
+	
+	vbsp->set_default_properties(vbsp_prop);
+	//	Not Polled
+	vbsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vbsp);
+
+	//	Attribute : VcSP
+	VcSPAttrib	*vcsp = new VcSPAttrib();
+	Tango::UserDefaultAttrProp	vcsp_prop;
+	vcsp_prop.set_description("Single Pass data: Vc");
+	vcsp_prop.set_label("SP Vc");
+	vcsp_prop.set_unit("a.u.");
+	vcsp_prop.set_standard_unit("a.u.");
+	vcsp_prop.set_display_unit("a.u.");
+	vcsp_prop.set_format("%10.0f");
+	//	max_value	not set for VcSP
+	//	min_value	not set for VcSP
+	//	max_alarm	not set for VcSP
+	//	min_alarm	not set for VcSP
+	//	max_warning	not set for VcSP
+	//	min_warning	not set for VcSP
+	//	delta_t	not set for VcSP
+	//	delta_val	not set for VcSP
+	
+	vcsp->set_default_properties(vcsp_prop);
+	//	Not Polled
+	vcsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vcsp);
+
+	//	Attribute : VdSP
+	VdSPAttrib	*vdsp = new VdSPAttrib();
+	Tango::UserDefaultAttrProp	vdsp_prop;
+	vdsp_prop.set_description("Single Pass data: Vd");
+	vdsp_prop.set_label("SP Vd");
+	vdsp_prop.set_unit("a.u.");
+	vdsp_prop.set_standard_unit("a.u.");
+	vdsp_prop.set_display_unit("a.u.");
+	vdsp_prop.set_format("%10.0f");
+	//	max_value	not set for VdSP
+	//	min_value	not set for VdSP
+	//	max_alarm	not set for VdSP
+	//	min_alarm	not set for VdSP
+	//	max_warning	not set for VdSP
+	//	min_warning	not set for VdSP
+	//	delta_t	not set for VdSP
+	//	delta_val	not set for VdSP
+	
+	vdsp->set_default_properties(vdsp_prop);
+	//	Not Polled
+	vdsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vdsp);
+
+	//	Attribute : XPosSP
+	XPosSPAttrib	*xpossp = new XPosSPAttrib();
+	Tango::UserDefaultAttrProp	xpossp_prop;
+	xpossp_prop.set_description("Single Pass data: X Pos.");
+	xpossp_prop.set_label("SP X Pos.");
+	xpossp_prop.set_unit("mm");
+	xpossp_prop.set_standard_unit("mm");
+	xpossp_prop.set_display_unit("mm");
+	xpossp_prop.set_format("%8.4f");
+	//	max_value	not set for XPosSP
+	//	min_value	not set for XPosSP
+	//	max_alarm	not set for XPosSP
+	//	min_alarm	not set for XPosSP
+	//	max_warning	not set for XPosSP
+	//	min_warning	not set for XPosSP
+	//	delta_t	not set for XPosSP
+	//	delta_val	not set for XPosSP
+	
+	xpossp->set_default_properties(xpossp_prop);
+	//	Not Polled
+	xpossp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(xpossp);
+
+	//	Attribute : YPosSP
+	YPosSPAttrib	*ypossp = new YPosSPAttrib();
+	Tango::UserDefaultAttrProp	ypossp_prop;
+	ypossp_prop.set_description("Single Pass data: Y Pos.");
+	ypossp_prop.set_label("SP Y Pos.");
+	ypossp_prop.set_unit("mm");
+	ypossp_prop.set_standard_unit("mm");
+	ypossp_prop.set_display_unit("mm");
+	ypossp_prop.set_format("%8.4f");
+	//	max_value	not set for YPosSP
+	//	min_value	not set for YPosSP
+	//	max_alarm	not set for YPosSP
+	//	min_alarm	not set for YPosSP
+	//	max_warning	not set for YPosSP
+	//	min_warning	not set for YPosSP
+	//	delta_t	not set for YPosSP
+	//	delta_val	not set for YPosSP
+	
+	ypossp->set_default_properties(ypossp_prop);
+	//	Not Polled
+	ypossp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ypossp);
+
+	//	Attribute : ThdrId
+	ThdrIdAttrib	*thdrid = new ThdrIdAttrib();
+	Tango::UserDefaultAttrProp	thdrid_prop;
+	thdrid_prop.set_description("Indicates the ADC sample in the ADC buffer where the threshold was exceeded");
+	thdrid_prop.set_label("SP Thr_Idx");
+	thdrid_prop.set_unit("a.u.");
+	thdrid_prop.set_standard_unit("a.u.");
+	thdrid_prop.set_display_unit("a.u.");
+	thdrid_prop.set_format("%10.0f");
+	//	max_value	not set for ThdrId
+	//	min_value	not set for ThdrId
+	//	max_alarm	not set for ThdrId
+	//	min_alarm	not set for ThdrId
+	//	max_warning	not set for ThdrId
+	//	min_warning	not set for ThdrId
+	//	delta_t	not set for ThdrId
+	//	delta_val	not set for ThdrId
+	
+	thdrid->set_default_properties(thdrid_prop);
+	//	Not Polled
+	thdrid->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(thdrid);
+
+	//	Attribute : VaSP
+	VaSPAttrib	*vasp = new VaSPAttrib();
+	Tango::UserDefaultAttrProp	vasp_prop;
+	vasp_prop.set_description("Single Pass data: Va");
+	vasp_prop.set_label("SP Va");
+	vasp_prop.set_unit("a.u.");
+	vasp_prop.set_standard_unit("a.u.");
+	vasp_prop.set_display_unit("a.u.");
+	vasp_prop.set_format("%10.0f");
+	//	max_value	not set for VaSP
+	//	min_value	not set for VaSP
+	//	max_alarm	not set for VaSP
+	//	min_alarm	not set for VaSP
+	//	max_warning	not set for VaSP
+	//	min_warning	not set for VaSP
+	//	delta_t	not set for VaSP
+	//	delta_val	not set for VaSP
+	
+	vasp->set_default_properties(vasp_prop);
+	//	Not Polled
+	vasp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vasp);
 
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
@@ -6654,198 +6832,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	vdtd->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(vdtd);
-
-	//	Attribute : VaSP
-	VaSPAttrib	*vasp = new VaSPAttrib();
-	Tango::UserDefaultAttrProp	vasp_prop;
-	vasp_prop.set_description("Single Pass data: Va");
-	vasp_prop.set_label("SP Va");
-	vasp_prop.set_unit("a.u.");
-	vasp_prop.set_standard_unit("a.u.");
-	vasp_prop.set_display_unit("a.u.");
-	vasp_prop.set_format("%10.0f");
-	//	max_value	not set for VaSP
-	//	min_value	not set for VaSP
-	//	max_alarm	not set for VaSP
-	//	min_alarm	not set for VaSP
-	//	max_warning	not set for VaSP
-	//	min_warning	not set for VaSP
-	//	delta_t	not set for VaSP
-	//	delta_val	not set for VaSP
-	
-	vasp->set_default_properties(vasp_prop);
-	//	Not Polled
-	vasp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(vasp);
-
-	//	Attribute : VbSP
-	VbSPAttrib	*vbsp = new VbSPAttrib();
-	Tango::UserDefaultAttrProp	vbsp_prop;
-	vbsp_prop.set_description("Single Pass data: Vb");
-	vbsp_prop.set_label("SP Vb");
-	vbsp_prop.set_unit("a.u.");
-	vbsp_prop.set_standard_unit("a.u.");
-	vbsp_prop.set_display_unit("a.u.");
-	vbsp_prop.set_format("%10.0f");
-	//	max_value	not set for VbSP
-	//	min_value	not set for VbSP
-	//	max_alarm	not set for VbSP
-	//	min_alarm	not set for VbSP
-	//	max_warning	not set for VbSP
-	//	min_warning	not set for VbSP
-	//	delta_t	not set for VbSP
-	//	delta_val	not set for VbSP
-	
-	vbsp->set_default_properties(vbsp_prop);
-	//	Not Polled
-	vbsp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(vbsp);
-
-	//	Attribute : VcSP
-	VcSPAttrib	*vcsp = new VcSPAttrib();
-	Tango::UserDefaultAttrProp	vcsp_prop;
-	vcsp_prop.set_description("Single Pass data: Vc");
-	vcsp_prop.set_label("SP Vc");
-	vcsp_prop.set_unit("a.u.");
-	vcsp_prop.set_standard_unit("a.u.");
-	vcsp_prop.set_display_unit("a.u.");
-	vcsp_prop.set_format("%10.0f");
-	//	max_value	not set for VcSP
-	//	min_value	not set for VcSP
-	//	max_alarm	not set for VcSP
-	//	min_alarm	not set for VcSP
-	//	max_warning	not set for VcSP
-	//	min_warning	not set for VcSP
-	//	delta_t	not set for VcSP
-	//	delta_val	not set for VcSP
-	
-	vcsp->set_default_properties(vcsp_prop);
-	//	Not Polled
-	vcsp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(vcsp);
-
-	//	Attribute : VdSP
-	VdSPAttrib	*vdsp = new VdSPAttrib();
-	Tango::UserDefaultAttrProp	vdsp_prop;
-	vdsp_prop.set_description("Single Pass data: Vd");
-	vdsp_prop.set_label("SP Vd");
-	vdsp_prop.set_unit("a.u.");
-	vdsp_prop.set_standard_unit("a.u.");
-	vdsp_prop.set_display_unit("a.u.");
-	vdsp_prop.set_format("%10.0f");
-	//	max_value	not set for VdSP
-	//	min_value	not set for VdSP
-	//	max_alarm	not set for VdSP
-	//	min_alarm	not set for VdSP
-	//	max_warning	not set for VdSP
-	//	min_warning	not set for VdSP
-	//	delta_t	not set for VdSP
-	//	delta_val	not set for VdSP
-	
-	vdsp->set_default_properties(vdsp_prop);
-	//	Not Polled
-	vdsp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(vdsp);
-
-	//	Attribute : SumSP
-	SumSPAttrib	*sumsp = new SumSPAttrib();
-	Tango::UserDefaultAttrProp	sumsp_prop;
-	sumsp_prop.set_description("Single Pass data: Sum");
-	sumsp_prop.set_label("SP Sum");
-	sumsp_prop.set_unit("mm");
-	sumsp_prop.set_standard_unit("mm");
-	sumsp_prop.set_display_unit("mm");
-	sumsp_prop.set_format("%10.0f");
-	//	max_value	not set for SumSP
-	//	min_value	not set for SumSP
-	//	max_alarm	not set for SumSP
-	//	min_alarm	not set for SumSP
-	//	max_warning	not set for SumSP
-	//	min_warning	not set for SumSP
-	//	delta_t	not set for SumSP
-	//	delta_val	not set for SumSP
-	
-	sumsp->set_default_properties(sumsp_prop);
-	//	Not Polled
-	sumsp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(sumsp);
-
-	//	Attribute : XPosSP
-	XPosSPAttrib	*xpossp = new XPosSPAttrib();
-	Tango::UserDefaultAttrProp	xpossp_prop;
-	xpossp_prop.set_description("Single Pass data: X Pos.");
-	xpossp_prop.set_label("SP X Pos.");
-	xpossp_prop.set_unit("mm");
-	xpossp_prop.set_standard_unit("mm");
-	xpossp_prop.set_display_unit("mm");
-	xpossp_prop.set_format("%8.4f");
-	//	max_value	not set for XPosSP
-	//	min_value	not set for XPosSP
-	//	max_alarm	not set for XPosSP
-	//	min_alarm	not set for XPosSP
-	//	max_warning	not set for XPosSP
-	//	min_warning	not set for XPosSP
-	//	delta_t	not set for XPosSP
-	//	delta_val	not set for XPosSP
-	
-	xpossp->set_default_properties(xpossp_prop);
-	//	Not Polled
-	xpossp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(xpossp);
-
-	//	Attribute : YPosSP
-	YPosSPAttrib	*ypossp = new YPosSPAttrib();
-	Tango::UserDefaultAttrProp	ypossp_prop;
-	ypossp_prop.set_description("Single Pass data: Y Pos.");
-	ypossp_prop.set_label("SP Y Pos.");
-	ypossp_prop.set_unit("mm");
-	ypossp_prop.set_standard_unit("mm");
-	ypossp_prop.set_display_unit("mm");
-	ypossp_prop.set_format("%8.4f");
-	//	max_value	not set for YPosSP
-	//	min_value	not set for YPosSP
-	//	max_alarm	not set for YPosSP
-	//	min_alarm	not set for YPosSP
-	//	max_warning	not set for YPosSP
-	//	min_warning	not set for YPosSP
-	//	delta_t	not set for YPosSP
-	//	delta_val	not set for YPosSP
-	
-	ypossp->set_default_properties(ypossp_prop);
-	//	Not Polled
-	ypossp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(ypossp);
-
-	//	Attribute : ThdrId
-	ThdrIdAttrib	*thdrid = new ThdrIdAttrib();
-	Tango::UserDefaultAttrProp	thdrid_prop;
-	thdrid_prop.set_description("Indicates the ADC sample in the ADC buffer where the threshold was exceeded");
-	thdrid_prop.set_label("SP Thr_Idx");
-	thdrid_prop.set_unit("a.u.");
-	thdrid_prop.set_standard_unit("a.u.");
-	thdrid_prop.set_display_unit("a.u.");
-	thdrid_prop.set_format("%10.0f");
-	//	max_value	not set for ThdrId
-	//	min_value	not set for ThdrId
-	//	max_alarm	not set for ThdrId
-	//	min_alarm	not set for ThdrId
-	//	max_warning	not set for ThdrId
-	//	min_warning	not set for ThdrId
-	//	delta_t	not set for ThdrId
-	//	delta_val	not set for ThdrId
-	
-	thdrid->set_default_properties(thdrid_prop);
-	//	Not Polled
-	thdrid->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(thdrid);
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());

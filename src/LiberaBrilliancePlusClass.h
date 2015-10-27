@@ -1742,12 +1742,10 @@ class SPBufferSizeAttrib: public Tango::Attr
 {
 public:
 	SPBufferSizeAttrib():Attr("SPBufferSize",
-			Tango::DEV_LONG, Tango::READ_WRITE) {};
+			Tango::DEV_LONG, Tango::READ) {};
 	~SPBufferSizeAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_SPBufferSize(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_SPBufferSize(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SPBufferSize_allowed(ty);}
 };
@@ -1971,6 +1969,110 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockFilterPosition(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockFilterPosition_allowed(ty);}
+};
+
+//	Attribute SumSP class definition
+class SumSPAttrib: public Tango::Attr
+{
+public:
+	SumSPAttrib():Attr("SumSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~SumSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_SumSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SumSP_allowed(ty);}
+};
+
+//	Attribute VbSP class definition
+class VbSPAttrib: public Tango::Attr
+{
+public:
+	VbSPAttrib():Attr("VbSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~VbSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VbSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VbSP_allowed(ty);}
+};
+
+//	Attribute VcSP class definition
+class VcSPAttrib: public Tango::Attr
+{
+public:
+	VcSPAttrib():Attr("VcSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~VcSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VcSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VcSP_allowed(ty);}
+};
+
+//	Attribute VdSP class definition
+class VdSPAttrib: public Tango::Attr
+{
+public:
+	VdSPAttrib():Attr("VdSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~VdSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VdSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VdSP_allowed(ty);}
+};
+
+//	Attribute XPosSP class definition
+class XPosSPAttrib: public Tango::Attr
+{
+public:
+	XPosSPAttrib():Attr("XPosSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~XPosSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_XPosSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_XPosSP_allowed(ty);}
+};
+
+//	Attribute YPosSP class definition
+class YPosSPAttrib: public Tango::Attr
+{
+public:
+	YPosSPAttrib():Attr("YPosSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~YPosSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_YPosSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_YPosSP_allowed(ty);}
+};
+
+//	Attribute ThdrId class definition
+class ThdrIdAttrib: public Tango::Attr
+{
+public:
+	ThdrIdAttrib():Attr("ThdrId",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~ThdrIdAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ThdrId(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ThdrId_allowed(ty);}
+};
+
+//	Attribute VaSP class definition
+class VaSPAttrib: public Tango::Attr
+{
+public:
+	VaSPAttrib():Attr("VaSP",
+			Tango::DEV_DOUBLE, Tango::READ) {};
+	~VaSPAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VaSP(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VaSP_allowed(ty);}
 };
 
 //	Attribute XPosDD class definition
@@ -2504,110 +2606,6 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VdTD(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VdTD_allowed(ty);}
-};
-
-//	Attribute VaSP class definition
-class VaSPAttrib: public Tango::SpectrumAttr
-{
-public:
-	VaSPAttrib():SpectrumAttr("VaSP",
-			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
-	~VaSPAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VaSP(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VaSP_allowed(ty);}
-};
-
-//	Attribute VbSP class definition
-class VbSPAttrib: public Tango::SpectrumAttr
-{
-public:
-	VbSPAttrib():SpectrumAttr("VbSP",
-			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
-	~VbSPAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VbSP(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VbSP_allowed(ty);}
-};
-
-//	Attribute VcSP class definition
-class VcSPAttrib: public Tango::SpectrumAttr
-{
-public:
-	VcSPAttrib():SpectrumAttr("VcSP",
-			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
-	~VcSPAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VcSP(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VcSP_allowed(ty);}
-};
-
-//	Attribute VdSP class definition
-class VdSPAttrib: public Tango::SpectrumAttr
-{
-public:
-	VdSPAttrib():SpectrumAttr("VdSP",
-			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
-	~VdSPAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VdSP(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VdSP_allowed(ty);}
-};
-
-//	Attribute SumSP class definition
-class SumSPAttrib: public Tango::SpectrumAttr
-{
-public:
-	SumSPAttrib():SpectrumAttr("SumSP",
-			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
-	~SumSPAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_SumSP(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SumSP_allowed(ty);}
-};
-
-//	Attribute XPosSP class definition
-class XPosSPAttrib: public Tango::SpectrumAttr
-{
-public:
-	XPosSPAttrib():SpectrumAttr("XPosSP",
-			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
-	~XPosSPAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_XPosSP(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_XPosSP_allowed(ty);}
-};
-
-//	Attribute YPosSP class definition
-class YPosSPAttrib: public Tango::SpectrumAttr
-{
-public:
-	YPosSPAttrib():SpectrumAttr("YPosSP",
-			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
-	~YPosSPAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_YPosSP(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_YPosSP_allowed(ty);}
-};
-
-//	Attribute ThdrId class definition
-class ThdrIdAttrib: public Tango::SpectrumAttr
-{
-public:
-	ThdrIdAttrib():SpectrumAttr("ThdrId",
-			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
-	~ThdrIdAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ThdrId(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ThdrId_allowed(ty);}
 };
 
 
