@@ -1689,7 +1689,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "T0inFunction";
+	prop_name = "T0idOut";
 	prop_desc = "T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
 	prop_def  = "144";
 	vect_data.clear();
@@ -1778,20 +1778,6 @@ void LiberaBrilliancePlusClass::set_default_property()
 	prop_def  = "false";
 	vect_data.clear();
 	vect_data.push_back("false");
-	if (prop_def.length()>0)
-	{
-		Tango::DbDatum	data(prop_name);
-		data << vect_data ;
-		dev_def_prop.push_back(data);
-		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
-	}
-	else
-		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "DefaultSPBufferSize";
-	prop_desc = "Default [or initial] value for attribute Single Pass BufferSize [in samples]. Defaults to 1024.";
-	prop_def  = "1024";
-	vect_data.clear();
-	vect_data.push_back("1024");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -2621,30 +2607,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(ddtriggercounter);
 
-	//	Attribute : ExternalTriggerEnabled
-	ExternalTriggerEnabledAttrib	*externaltriggerenabled = new ExternalTriggerEnabledAttrib();
-	Tango::UserDefaultAttrProp	externaltriggerenabled_prop;
-	externaltriggerenabled_prop.set_description("External trigger activation flag");
-	externaltriggerenabled_prop.set_label("Ext. Trig. Enabled");
-	externaltriggerenabled_prop.set_unit("n/a");
-	externaltriggerenabled_prop.set_standard_unit("n/a");
-	externaltriggerenabled_prop.set_display_unit("n/a");
-	//	format	not set for ExternalTriggerEnabled
-	//	max_value	not set for ExternalTriggerEnabled
-	//	min_value	not set for ExternalTriggerEnabled
-	//	max_alarm	not set for ExternalTriggerEnabled
-	//	min_alarm	not set for ExternalTriggerEnabled
-	//	max_warning	not set for ExternalTriggerEnabled
-	//	min_warning	not set for ExternalTriggerEnabled
-	//	delta_t	not set for ExternalTriggerEnabled
-	//	delta_val	not set for ExternalTriggerEnabled
-	
-	externaltriggerenabled->set_default_properties(externaltriggerenabled_prop);
-	//	Not Polled
-	externaltriggerenabled->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(externaltriggerenabled);
-
 	//	Attribute : ExternalTriggerDelay
 	ExternalTriggerDelayAttrib	*externaltriggerdelay = new ExternalTriggerDelayAttrib();
 	Tango::UserDefaultAttrProp	externaltriggerdelay_prop;
@@ -2885,54 +2847,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	quadsa->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(quadsa);
-
-	//	Attribute : CxSA
-	CxSAAttrib	*cxsa = new CxSAAttrib();
-	Tango::UserDefaultAttrProp	cxsa_prop;
-	cxsa_prop.set_description("FOFB X correction sent to the power supply");
-	cxsa_prop.set_label("FOFB X Correction");
-	cxsa_prop.set_unit("a.u.");
-	//	standard_unit	not set for CxSA
-	//	display_unit	not set for CxSA
-	cxsa_prop.set_format("%8d");
-	//	max_value	not set for CxSA
-	//	min_value	not set for CxSA
-	//	max_alarm	not set for CxSA
-	//	min_alarm	not set for CxSA
-	//	max_warning	not set for CxSA
-	//	min_warning	not set for CxSA
-	//	delta_t	not set for CxSA
-	//	delta_val	not set for CxSA
-	
-	cxsa->set_default_properties(cxsa_prop);
-	//	Not Polled
-	cxsa->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(cxsa);
-
-	//	Attribute : CySA
-	CySAAttrib	*cysa = new CySAAttrib();
-	Tango::UserDefaultAttrProp	cysa_prop;
-	cysa_prop.set_description("FOFB Y correction sent to the power supply");
-	cysa_prop.set_label("FOFB Y Correction");
-	cysa_prop.set_unit("a.u.");
-	//	standard_unit	not set for CySA
-	//	display_unit	not set for CySA
-	cysa_prop.set_format("%8d");
-	//	max_value	not set for CySA
-	//	min_value	not set for CySA
-	//	max_alarm	not set for CySA
-	//	min_alarm	not set for CySA
-	//	max_warning	not set for CySA
-	//	min_warning	not set for CySA
-	//	delta_t	not set for CySA
-	//	delta_val	not set for CySA
-	
-	cysa->set_default_properties(cysa_prop);
-	//	Not Polled
-	cysa->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(cysa);
 
 	//	Attribute : SAStatNumSamples
 	SAStatNumSamplesAttrib	*sastatnumsamples = new SAStatNumSamplesAttrib();
@@ -3488,31 +3402,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(autoswitchingenabled);
 
-	//	Attribute : Switches
-	SwitchesAttrib	*switches = new SwitchesAttrib();
-	Tango::UserDefaultAttrProp	switches_prop;
-	switches_prop.set_description("Switches selection. Must be in [0, 15] or 255 for auto-switching.");
-	switches_prop.set_label("Switches");
-	switches_prop.set_unit("a.u.");
-	//	standard_unit	not set for Switches
-	//	display_unit	not set for Switches
-	switches_prop.set_format("%3d");
-	switches_prop.set_max_value("255");
-	switches_prop.set_min_value("0");
-	//	max_alarm	not set for Switches
-	//	min_alarm	not set for Switches
-	//	max_warning	not set for Switches
-	//	min_warning	not set for Switches
-	//	delta_t	not set for Switches
-	//	delta_val	not set for Switches
-	
-	switches->set_default_properties(switches_prop);
-	//	Not Polled
-	switches->set_disp_level(Tango::OPERATOR);
-	switches->set_memorized();
-	switches->set_memorized_init(true);
-	att_list.push_back(switches);
-
 	//	Attribute : ExternalSwitching
 	ExternalSwitchingAttrib	*externalswitching = new ExternalSwitchingAttrib();
 	Tango::UserDefaultAttrProp	externalswitching_prop;
@@ -3685,104 +3574,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(gain);
 
-	//	Attribute : HasMAFSupport
-	HasMAFSupportAttrib	*hasmafsupport = new HasMAFSupportAttrib();
-	Tango::UserDefaultAttrProp	hasmafsupport_prop;
-	hasmafsupport_prop.set_description("<true> if FGPA design with MAF support installed on Libera, <false> otherwise");
-	hasmafsupport_prop.set_label("Moving Average Filter Support");
-	//	unit	not set for HasMAFSupport
-	//	standard_unit	not set for HasMAFSupport
-	//	display_unit	not set for HasMAFSupport
-	//	format	not set for HasMAFSupport
-	//	max_value	not set for HasMAFSupport
-	//	min_value	not set for HasMAFSupport
-	//	max_alarm	not set for HasMAFSupport
-	//	min_alarm	not set for HasMAFSupport
-	//	max_warning	not set for HasMAFSupport
-	//	min_warning	not set for HasMAFSupport
-	//	delta_t	not set for HasMAFSupport
-	//	delta_val	not set for HasMAFSupport
-	
-	hasmafsupport->set_default_properties(hasmafsupport_prop);
-	//	Not Polled
-	hasmafsupport->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(hasmafsupport);
-
-	//	Attribute : MAFLength
-	MAFLengthAttrib	*maflength = new MAFLengthAttrib();
-	Tango::UserDefaultAttrProp	maflength_prop;
-	maflength_prop.set_description("MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.");
-	maflength_prop.set_label("Moving Average Filter Length");
-	maflength_prop.set_unit("ADC samples");
-	//	standard_unit	not set for MAFLength
-	//	display_unit	not set for MAFLength
-	maflength_prop.set_format("%6d");
-	//	max_value	not set for MAFLength
-	maflength_prop.set_min_value("1");
-	//	max_alarm	not set for MAFLength
-	//	min_alarm	not set for MAFLength
-	//	max_warning	not set for MAFLength
-	//	min_warning	not set for MAFLength
-	//	delta_t	not set for MAFLength
-	//	delta_val	not set for MAFLength
-	
-	maflength->set_default_properties(maflength_prop);
-	//	Not Polled
-	maflength->set_disp_level(Tango::OPERATOR);
-	maflength->set_memorized();
-	maflength->set_memorized_init(true);
-	att_list.push_back(maflength);
-
-	//	Attribute : MAFDelay
-	MAFDelayAttrib	*mafdelay = new MAFDelayAttrib();
-	Tango::UserDefaultAttrProp	mafdelay_prop;
-	mafdelay_prop.set_description("MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.\n");
-	mafdelay_prop.set_label("Moving Average Filter Delay");
-	mafdelay_prop.set_unit("ADC samples");
-	//	standard_unit	not set for MAFDelay
-	//	display_unit	not set for MAFDelay
-	mafdelay_prop.set_format("%6d");
-	//	max_value	not set for MAFDelay
-	mafdelay_prop.set_min_value("0");
-	//	max_alarm	not set for MAFDelay
-	//	min_alarm	not set for MAFDelay
-	//	max_warning	not set for MAFDelay
-	//	min_warning	not set for MAFDelay
-	//	delta_t	not set for MAFDelay
-	//	delta_val	not set for MAFDelay
-	
-	mafdelay->set_default_properties(mafdelay_prop);
-	//	Not Polled
-	mafdelay->set_disp_level(Tango::OPERATOR);
-	mafdelay->set_memorized();
-	mafdelay->set_memorized_init(true);
-	att_list.push_back(mafdelay);
-
-	//	Attribute : MachineTime
-	MachineTimeAttrib	*machinetime = new MachineTimeAttrib();
-	Tango::UserDefaultAttrProp	machinetime_prop;
-	machinetime_prop.set_description("Machine Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed");
-	machinetime_prop.set_label("Machine Time");
-	machinetime_prop.set_unit("a.u.");
-	//	standard_unit	not set for MachineTime
-	//	display_unit	not set for MachineTime
-	machinetime_prop.set_format("%9d");
-	//	max_value	not set for MachineTime
-	machinetime_prop.set_min_value("0");
-	//	max_alarm	not set for MachineTime
-	//	min_alarm	not set for MachineTime
-	//	max_warning	not set for MachineTime
-	//	min_warning	not set for MachineTime
-	//	delta_t	not set for MachineTime
-	//	delta_val	not set for MachineTime
-	
-	machinetime->set_default_properties(machinetime_prop);
-	//	Not Polled
-	machinetime->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(machinetime);
-
 	//	Attribute : TimePhase
 	TimePhaseAttrib	*timephase = new TimePhaseAttrib();
 	Tango::UserDefaultAttrProp	timephase_prop;
@@ -3807,54 +3598,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	timephase->set_memorized();
 	timephase->set_memorized_init(true);
 	att_list.push_back(timephase);
-
-	//	Attribute : SystemTime
-	SystemTimeAttrib	*systemtime = new SystemTimeAttrib();
-	Tango::UserDefaultAttrProp	systemtime_prop;
-	systemtime_prop.set_description("System Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed\nUnit is num of secs since 1/1/1970 (Unix system time reference)");
-	systemtime_prop.set_label("System Time");
-	systemtime_prop.set_unit("secs since 1/1/1970");
-	//	standard_unit	not set for SystemTime
-	//	display_unit	not set for SystemTime
-	systemtime_prop.set_format("%10d");
-	//	max_value	not set for SystemTime
-	systemtime_prop.set_min_value("2000000000");
-	//	max_alarm	not set for SystemTime
-	//	min_alarm	not set for SystemTime
-	//	max_warning	not set for SystemTime
-	//	min_warning	not set for SystemTime
-	//	delta_t	not set for SystemTime
-	//	delta_val	not set for SystemTime
-	
-	systemtime->set_default_properties(systemtime_prop);
-	//	Not Polled
-	systemtime->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(systemtime);
-
-	//	Attribute : SCPLLStatus
-	SCPLLStatusAttrib	*scpllstatus = new SCPLLStatusAttrib();
-	Tango::UserDefaultAttrProp	scpllstatus_prop;
-	scpllstatus_prop.set_description("The SC PLL lock status");
-	scpllstatus_prop.set_label("SC PLL Locked");
-	//	unit	not set for SCPLLStatus
-	//	standard_unit	not set for SCPLLStatus
-	//	display_unit	not set for SCPLLStatus
-	scpllstatus_prop.set_format("%8d");
-	//	max_value	not set for SCPLLStatus
-	//	min_value	not set for SCPLLStatus
-	//	max_alarm	not set for SCPLLStatus
-	//	min_alarm	not set for SCPLLStatus
-	//	max_warning	not set for SCPLLStatus
-	//	min_warning	not set for SCPLLStatus
-	//	delta_t	not set for SCPLLStatus
-	//	delta_val	not set for SCPLLStatus
-	
-	scpllstatus->set_default_properties(scpllstatus_prop);
-	//	Not Polled
-	scpllstatus->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(scpllstatus);
 
 	//	Attribute : MCPLLStatus
 	MCPLLStatusAttrib	*mcpllstatus = new MCPLLStatusAttrib();
@@ -4000,128 +3743,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(fan2speed);
 
-	//	Attribute : Incoherence
-	IncoherenceAttrib	*incoherence = new IncoherenceAttrib();
-	Tango::UserDefaultAttrProp	incoherence_prop;
-	incoherence_prop.set_description("Result of the incoherence calculation. Am alarm will be set \non the attribute when an incoherence was detected.");
-	incoherence_prop.set_label("Incoherence");
-	incoherence_prop.set_unit("a.u.");
-	//	standard_unit	not set for Incoherence
-	//	display_unit	not set for Incoherence
-	incoherence_prop.set_format("%6.4f");
-	//	max_value	not set for Incoherence
-	//	min_value	not set for Incoherence
-	//	max_alarm	not set for Incoherence
-	//	min_alarm	not set for Incoherence
-	//	max_warning	not set for Incoherence
-	//	min_warning	not set for Incoherence
-	//	delta_t	not set for Incoherence
-	//	delta_val	not set for Incoherence
-	
-	incoherence->set_default_properties(incoherence_prop);
-	//	Not Polled
-	incoherence->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(incoherence);
-
-	//	Attribute : RefIncoherence
-	RefIncoherenceAttrib	*refincoherence = new RefIncoherenceAttrib();
-	Tango::UserDefaultAttrProp	refincoherence_prop;
-	refincoherence_prop.set_description("The reference incoherence value registered with the command \nSetReferenceIncoherence. The reference is used to calculate the\nalarm with the MaxIncoherenceDrift.");
-	refincoherence_prop.set_label("Ref. Incoherence");
-	refincoherence_prop.set_unit("a.u.");
-	//	standard_unit	not set for RefIncoherence
-	//	display_unit	not set for RefIncoherence
-	refincoherence_prop.set_format("%6.4f");
-	//	max_value	not set for RefIncoherence
-	//	min_value	not set for RefIncoherence
-	//	max_alarm	not set for RefIncoherence
-	//	min_alarm	not set for RefIncoherence
-	//	max_warning	not set for RefIncoherence
-	//	min_warning	not set for RefIncoherence
-	//	delta_t	not set for RefIncoherence
-	//	delta_val	not set for RefIncoherence
-	
-	refincoherence->set_default_properties(refincoherence_prop);
-	//	Not Polled
-	refincoherence->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(refincoherence);
-
-	//	Attribute : MaxIncoherence
-	MaxIncoherenceAttrib	*maxincoherence = new MaxIncoherenceAttrib();
-	Tango::UserDefaultAttrProp	maxincoherence_prop;
-	maxincoherence_prop.set_description("Maximum incoherence value. Used to create an alarm on\nthe Incoherence attribute.");
-	maxincoherence_prop.set_label("Max. incoherence");
-	maxincoherence_prop.set_unit("a.u.");
-	//	standard_unit	not set for MaxIncoherence
-	//	display_unit	not set for MaxIncoherence
-	maxincoherence_prop.set_format("%6.4f");
-	//	max_value	not set for MaxIncoherence
-	//	min_value	not set for MaxIncoherence
-	//	max_alarm	not set for MaxIncoherence
-	//	min_alarm	not set for MaxIncoherence
-	//	max_warning	not set for MaxIncoherence
-	//	min_warning	not set for MaxIncoherence
-	//	delta_t	not set for MaxIncoherence
-	//	delta_val	not set for MaxIncoherence
-	
-	maxincoherence->set_default_properties(maxincoherence_prop);
-	//	Not Polled
-	maxincoherence->set_disp_level(Tango::OPERATOR);
-	maxincoherence->set_memorized();
-	maxincoherence->set_memorized_init(true);
-	att_list.push_back(maxincoherence);
-
-	//	Attribute : MaxIncoherenceDrift
-	MaxIncoherenceDriftAttrib	*maxincoherencedrift = new MaxIncoherenceDriftAttrib();
-	Tango::UserDefaultAttrProp	maxincoherencedrift_prop;
-	maxincoherencedrift_prop.set_description("Maximum incoherence drift value. Used to create an alarm on\nthe Incoherence attribute.");
-	maxincoherencedrift_prop.set_label("Max. Incoherence Drift ");
-	maxincoherencedrift_prop.set_unit("a.u.");
-	//	standard_unit	not set for MaxIncoherenceDrift
-	//	display_unit	not set for MaxIncoherenceDrift
-	maxincoherencedrift_prop.set_format("%6.4f");
-	//	max_value	not set for MaxIncoherenceDrift
-	//	min_value	not set for MaxIncoherenceDrift
-	//	max_alarm	not set for MaxIncoherenceDrift
-	//	min_alarm	not set for MaxIncoherenceDrift
-	//	max_warning	not set for MaxIncoherenceDrift
-	//	min_warning	not set for MaxIncoherenceDrift
-	//	delta_t	not set for MaxIncoherenceDrift
-	//	delta_val	not set for MaxIncoherenceDrift
-	
-	maxincoherencedrift->set_default_properties(maxincoherencedrift_prop);
-	//	Not Polled
-	maxincoherencedrift->set_disp_level(Tango::OPERATOR);
-	maxincoherencedrift->set_memorized();
-	maxincoherencedrift->set_memorized_init(true);
-	att_list.push_back(maxincoherencedrift);
-
-	//	Attribute : UpTime
-	UpTimeAttrib	*uptime = new UpTimeAttrib();
-	Tango::UserDefaultAttrProp	uptime_prop;
-	uptime_prop.set_description("Number of seconds since system boot on the host running this TANGO device");
-	uptime_prop.set_label("Uptime");
-	uptime_prop.set_unit("secs");
-	//	standard_unit	not set for UpTime
-	//	display_unit	not set for UpTime
-	uptime_prop.set_format("%8d");
-	//	max_value	not set for UpTime
-	//	min_value	not set for UpTime
-	//	max_alarm	not set for UpTime
-	//	min_alarm	not set for UpTime
-	//	max_warning	not set for UpTime
-	//	min_warning	not set for UpTime
-	//	delta_t	not set for UpTime
-	//	delta_val	not set for UpTime
-	
-	uptime->set_default_properties(uptime_prop);
-	//	Not Polled
-	uptime->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(uptime);
-
 	//	Attribute : CpuUsage
 	CpuUsageAttrib	*cpuusage = new CpuUsageAttrib();
 	Tango::UserDefaultAttrProp	cpuusage_prop;
@@ -4169,55 +3790,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	freememory->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(freememory);
-
-	//	Attribute : RamFsUsage
-	RamFsUsageAttrib	*ramfsusage = new RamFsUsageAttrib();
-	Tango::UserDefaultAttrProp	ramfsusage_prop;
-	ramfsusage_prop.set_description("Amount of ram-fs allocated bytes on the host running this TANGO device ");
-	ramfsusage_prop.set_label("Ram-fs Usage");
-	ramfsusage_prop.set_unit("bytes");
-	//	standard_unit	not set for RamFsUsage
-	//	display_unit	not set for RamFsUsage
-	ramfsusage_prop.set_format("%8d");
-	//	max_value	not set for RamFsUsage
-	//	min_value	not set for RamFsUsage
-	//	max_alarm	not set for RamFsUsage
-	//	min_alarm	not set for RamFsUsage
-	//	max_warning	not set for RamFsUsage
-	//	min_warning	not set for RamFsUsage
-	//	delta_t	not set for RamFsUsage
-	//	delta_val	not set for RamFsUsage
-	
-	ramfsusage->set_default_properties(ramfsusage_prop);
-	//	Not Polled
-	ramfsusage->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(ramfsusage);
-
-	//	Attribute : UseLiberaSAData
-	UseLiberaSADataAttrib	*useliberasadata = new UseLiberaSADataAttrib();
-	Tango::UserDefaultAttrProp	useliberasadata_prop;
-	useliberasadata_prop.set_description("If set to true, the X & Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.\n ");
-	useliberasadata_prop.set_label("Use Libera SA Data");
-	//	unit	not set for UseLiberaSAData
-	//	standard_unit	not set for UseLiberaSAData
-	//	display_unit	not set for UseLiberaSAData
-	//	format	not set for UseLiberaSAData
-	//	max_value	not set for UseLiberaSAData
-	//	min_value	not set for UseLiberaSAData
-	//	max_alarm	not set for UseLiberaSAData
-	//	min_alarm	not set for UseLiberaSAData
-	//	max_warning	not set for UseLiberaSAData
-	//	min_warning	not set for UseLiberaSAData
-	//	delta_t	not set for UseLiberaSAData
-	//	delta_val	not set for UseLiberaSAData
-	
-	useliberasadata->set_default_properties(useliberasadata_prop);
-	//	Not Polled
-	useliberasadata->set_disp_level(Tango::EXPERT);
-	useliberasadata->set_memorized();
-	useliberasadata->set_memorized_init(true);
-	att_list.push_back(useliberasadata);
 
 	//	Attribute : InterlockEnabled
 	InterlockEnabledAttrib	*interlockenabled = new InterlockEnabledAttrib();
@@ -4731,7 +4303,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	t0delay->set_default_properties(t0delay_prop);
 	//	Not Polled
-	t0delay->set_disp_level(Tango::EXPERT);
+	t0delay->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(t0delay);
 
@@ -5095,29 +4667,29 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(t2inmask);
 
-	//	Attribute : T0inFunction
-	T0inFunctionAttrib	*t0infunction = new T0inFunctionAttrib();
-	Tango::UserDefaultAttrProp	t0infunction_prop;
-	t0infunction_prop.set_description("T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
-	t0infunction_prop.set_label("T0 Function array");
-	//	unit	not set for T0inFunction
-	//	standard_unit	not set for T0inFunction
-	//	display_unit	not set for T0inFunction
-	//	format	not set for T0inFunction
-	//	max_value	not set for T0inFunction
-	//	min_value	not set for T0inFunction
-	//	max_alarm	not set for T0inFunction
-	//	min_alarm	not set for T0inFunction
-	//	max_warning	not set for T0inFunction
-	//	min_warning	not set for T0inFunction
-	//	delta_t	not set for T0inFunction
-	//	delta_val	not set for T0inFunction
+	//	Attribute : T0idOut
+	T0idOutAttrib	*t0idout = new T0idOutAttrib();
+	Tango::UserDefaultAttrProp	t0idout_prop;
+	t0idout_prop.set_description("T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
+	t0idout_prop.set_label("T0 Function array");
+	//	unit	not set for T0idOut
+	//	standard_unit	not set for T0idOut
+	//	display_unit	not set for T0idOut
+	//	format	not set for T0idOut
+	//	max_value	not set for T0idOut
+	//	min_value	not set for T0idOut
+	//	max_alarm	not set for T0idOut
+	//	min_alarm	not set for T0idOut
+	//	max_warning	not set for T0idOut
+	//	min_warning	not set for T0idOut
+	//	delta_t	not set for T0idOut
+	//	delta_val	not set for T0idOut
 	
-	t0infunction->set_default_properties(t0infunction_prop);
+	t0idout->set_default_properties(t0idout_prop);
 	//	Not Polled
-	t0infunction->set_disp_level(Tango::EXPERT);
+	t0idout->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
-	att_list.push_back(t0infunction);
+	att_list.push_back(t0idout);
 
 	//	Attribute : T1inFunction
 	T1inFunctionAttrib	*t1infunction = new T1inFunctionAttrib();
@@ -5307,7 +4879,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	spbuffersize->set_default_properties(spbuffersize_prop);
 	//	Not Polled
-	spbuffersize->set_disp_level(Tango::OPERATOR);
+	spbuffersize->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
 	att_list.push_back(spbuffersize);
 
@@ -5670,6 +5242,198 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	interlockfilterposition->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(interlockfilterposition);
+
+	//	Attribute : SumSP
+	SumSPAttrib	*sumsp = new SumSPAttrib();
+	Tango::UserDefaultAttrProp	sumsp_prop;
+	sumsp_prop.set_description("Single Pass data: Sum");
+	sumsp_prop.set_label("SP Sum");
+	sumsp_prop.set_unit("mm");
+	sumsp_prop.set_standard_unit("mm");
+	sumsp_prop.set_display_unit("mm");
+	sumsp_prop.set_format("%10.0f");
+	//	max_value	not set for SumSP
+	//	min_value	not set for SumSP
+	//	max_alarm	not set for SumSP
+	//	min_alarm	not set for SumSP
+	//	max_warning	not set for SumSP
+	//	min_warning	not set for SumSP
+	//	delta_t	not set for SumSP
+	//	delta_val	not set for SumSP
+	
+	sumsp->set_default_properties(sumsp_prop);
+	//	Not Polled
+	sumsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(sumsp);
+
+	//	Attribute : VbSP
+	VbSPAttrib	*vbsp = new VbSPAttrib();
+	Tango::UserDefaultAttrProp	vbsp_prop;
+	vbsp_prop.set_description("Single Pass data: Vb");
+	vbsp_prop.set_label("SP Vb");
+	vbsp_prop.set_unit("a.u.");
+	vbsp_prop.set_standard_unit("a.u.");
+	vbsp_prop.set_display_unit("a.u.");
+	vbsp_prop.set_format("%10.0f");
+	//	max_value	not set for VbSP
+	//	min_value	not set for VbSP
+	//	max_alarm	not set for VbSP
+	//	min_alarm	not set for VbSP
+	//	max_warning	not set for VbSP
+	//	min_warning	not set for VbSP
+	//	delta_t	not set for VbSP
+	//	delta_val	not set for VbSP
+	
+	vbsp->set_default_properties(vbsp_prop);
+	//	Not Polled
+	vbsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vbsp);
+
+	//	Attribute : VcSP
+	VcSPAttrib	*vcsp = new VcSPAttrib();
+	Tango::UserDefaultAttrProp	vcsp_prop;
+	vcsp_prop.set_description("Single Pass data: Vc");
+	vcsp_prop.set_label("SP Vc");
+	vcsp_prop.set_unit("a.u.");
+	vcsp_prop.set_standard_unit("a.u.");
+	vcsp_prop.set_display_unit("a.u.");
+	vcsp_prop.set_format("%10.0f");
+	//	max_value	not set for VcSP
+	//	min_value	not set for VcSP
+	//	max_alarm	not set for VcSP
+	//	min_alarm	not set for VcSP
+	//	max_warning	not set for VcSP
+	//	min_warning	not set for VcSP
+	//	delta_t	not set for VcSP
+	//	delta_val	not set for VcSP
+	
+	vcsp->set_default_properties(vcsp_prop);
+	//	Not Polled
+	vcsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vcsp);
+
+	//	Attribute : VdSP
+	VdSPAttrib	*vdsp = new VdSPAttrib();
+	Tango::UserDefaultAttrProp	vdsp_prop;
+	vdsp_prop.set_description("Single Pass data: Vd");
+	vdsp_prop.set_label("SP Vd");
+	vdsp_prop.set_unit("a.u.");
+	vdsp_prop.set_standard_unit("a.u.");
+	vdsp_prop.set_display_unit("a.u.");
+	vdsp_prop.set_format("%10.0f");
+	//	max_value	not set for VdSP
+	//	min_value	not set for VdSP
+	//	max_alarm	not set for VdSP
+	//	min_alarm	not set for VdSP
+	//	max_warning	not set for VdSP
+	//	min_warning	not set for VdSP
+	//	delta_t	not set for VdSP
+	//	delta_val	not set for VdSP
+	
+	vdsp->set_default_properties(vdsp_prop);
+	//	Not Polled
+	vdsp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vdsp);
+
+	//	Attribute : XPosSP
+	XPosSPAttrib	*xpossp = new XPosSPAttrib();
+	Tango::UserDefaultAttrProp	xpossp_prop;
+	xpossp_prop.set_description("Single Pass data: X Pos.");
+	xpossp_prop.set_label("SP X Pos.");
+	xpossp_prop.set_unit("mm");
+	xpossp_prop.set_standard_unit("mm");
+	xpossp_prop.set_display_unit("mm");
+	xpossp_prop.set_format("%8.4f");
+	//	max_value	not set for XPosSP
+	//	min_value	not set for XPosSP
+	//	max_alarm	not set for XPosSP
+	//	min_alarm	not set for XPosSP
+	//	max_warning	not set for XPosSP
+	//	min_warning	not set for XPosSP
+	//	delta_t	not set for XPosSP
+	//	delta_val	not set for XPosSP
+	
+	xpossp->set_default_properties(xpossp_prop);
+	//	Not Polled
+	xpossp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(xpossp);
+
+	//	Attribute : YPosSP
+	YPosSPAttrib	*ypossp = new YPosSPAttrib();
+	Tango::UserDefaultAttrProp	ypossp_prop;
+	ypossp_prop.set_description("Single Pass data: Y Pos.");
+	ypossp_prop.set_label("SP Y Pos.");
+	ypossp_prop.set_unit("mm");
+	ypossp_prop.set_standard_unit("mm");
+	ypossp_prop.set_display_unit("mm");
+	ypossp_prop.set_format("%8.4f");
+	//	max_value	not set for YPosSP
+	//	min_value	not set for YPosSP
+	//	max_alarm	not set for YPosSP
+	//	min_alarm	not set for YPosSP
+	//	max_warning	not set for YPosSP
+	//	min_warning	not set for YPosSP
+	//	delta_t	not set for YPosSP
+	//	delta_val	not set for YPosSP
+	
+	ypossp->set_default_properties(ypossp_prop);
+	//	Not Polled
+	ypossp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(ypossp);
+
+	//	Attribute : ThdrId
+	ThdrIdAttrib	*thdrid = new ThdrIdAttrib();
+	Tango::UserDefaultAttrProp	thdrid_prop;
+	thdrid_prop.set_description("Indicates the ADC sample in the ADC buffer where the threshold was exceeded");
+	thdrid_prop.set_label("SP Thr_Idx");
+	thdrid_prop.set_unit("a.u.");
+	thdrid_prop.set_standard_unit("a.u.");
+	thdrid_prop.set_display_unit("a.u.");
+	thdrid_prop.set_format("%10.0f");
+	//	max_value	not set for ThdrId
+	//	min_value	not set for ThdrId
+	//	max_alarm	not set for ThdrId
+	//	min_alarm	not set for ThdrId
+	//	max_warning	not set for ThdrId
+	//	min_warning	not set for ThdrId
+	//	delta_t	not set for ThdrId
+	//	delta_val	not set for ThdrId
+	
+	thdrid->set_default_properties(thdrid_prop);
+	//	Not Polled
+	thdrid->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(thdrid);
+
+	//	Attribute : VaSP
+	VaSPAttrib	*vasp = new VaSPAttrib();
+	Tango::UserDefaultAttrProp	vasp_prop;
+	vasp_prop.set_description("Single Pass data: Va");
+	vasp_prop.set_label("SP Va");
+	vasp_prop.set_unit("a.u.");
+	vasp_prop.set_standard_unit("a.u.");
+	vasp_prop.set_display_unit("a.u.");
+	vasp_prop.set_format("%10.0f");
+	//	max_value	not set for VaSP
+	//	min_value	not set for VaSP
+	//	max_alarm	not set for VaSP
+	//	min_alarm	not set for VaSP
+	//	max_warning	not set for VaSP
+	//	min_warning	not set for VaSP
+	//	delta_t	not set for VaSP
+	//	delta_val	not set for VaSP
+	
+	vasp->set_default_properties(vasp_prop);
+	//	Not Polled
+	vasp->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vasp);
 
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
@@ -6654,198 +6418,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	vdtd->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(vdtd);
-
-	//	Attribute : VaSP
-	VaSPAttrib	*vasp = new VaSPAttrib();
-	Tango::UserDefaultAttrProp	vasp_prop;
-	vasp_prop.set_description("Single Pass data: Va");
-	vasp_prop.set_label("SP Va");
-	vasp_prop.set_unit("a.u.");
-	vasp_prop.set_standard_unit("a.u.");
-	vasp_prop.set_display_unit("a.u.");
-	vasp_prop.set_format("%10.0f");
-	//	max_value	not set for VaSP
-	//	min_value	not set for VaSP
-	//	max_alarm	not set for VaSP
-	//	min_alarm	not set for VaSP
-	//	max_warning	not set for VaSP
-	//	min_warning	not set for VaSP
-	//	delta_t	not set for VaSP
-	//	delta_val	not set for VaSP
-	
-	vasp->set_default_properties(vasp_prop);
-	//	Not Polled
-	vasp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(vasp);
-
-	//	Attribute : VbSP
-	VbSPAttrib	*vbsp = new VbSPAttrib();
-	Tango::UserDefaultAttrProp	vbsp_prop;
-	vbsp_prop.set_description("Single Pass data: Vb");
-	vbsp_prop.set_label("SP Vb");
-	vbsp_prop.set_unit("a.u.");
-	vbsp_prop.set_standard_unit("a.u.");
-	vbsp_prop.set_display_unit("a.u.");
-	vbsp_prop.set_format("%10.0f");
-	//	max_value	not set for VbSP
-	//	min_value	not set for VbSP
-	//	max_alarm	not set for VbSP
-	//	min_alarm	not set for VbSP
-	//	max_warning	not set for VbSP
-	//	min_warning	not set for VbSP
-	//	delta_t	not set for VbSP
-	//	delta_val	not set for VbSP
-	
-	vbsp->set_default_properties(vbsp_prop);
-	//	Not Polled
-	vbsp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(vbsp);
-
-	//	Attribute : VcSP
-	VcSPAttrib	*vcsp = new VcSPAttrib();
-	Tango::UserDefaultAttrProp	vcsp_prop;
-	vcsp_prop.set_description("Single Pass data: Vc");
-	vcsp_prop.set_label("SP Vc");
-	vcsp_prop.set_unit("a.u.");
-	vcsp_prop.set_standard_unit("a.u.");
-	vcsp_prop.set_display_unit("a.u.");
-	vcsp_prop.set_format("%10.0f");
-	//	max_value	not set for VcSP
-	//	min_value	not set for VcSP
-	//	max_alarm	not set for VcSP
-	//	min_alarm	not set for VcSP
-	//	max_warning	not set for VcSP
-	//	min_warning	not set for VcSP
-	//	delta_t	not set for VcSP
-	//	delta_val	not set for VcSP
-	
-	vcsp->set_default_properties(vcsp_prop);
-	//	Not Polled
-	vcsp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(vcsp);
-
-	//	Attribute : VdSP
-	VdSPAttrib	*vdsp = new VdSPAttrib();
-	Tango::UserDefaultAttrProp	vdsp_prop;
-	vdsp_prop.set_description("Single Pass data: Vd");
-	vdsp_prop.set_label("SP Vd");
-	vdsp_prop.set_unit("a.u.");
-	vdsp_prop.set_standard_unit("a.u.");
-	vdsp_prop.set_display_unit("a.u.");
-	vdsp_prop.set_format("%10.0f");
-	//	max_value	not set for VdSP
-	//	min_value	not set for VdSP
-	//	max_alarm	not set for VdSP
-	//	min_alarm	not set for VdSP
-	//	max_warning	not set for VdSP
-	//	min_warning	not set for VdSP
-	//	delta_t	not set for VdSP
-	//	delta_val	not set for VdSP
-	
-	vdsp->set_default_properties(vdsp_prop);
-	//	Not Polled
-	vdsp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(vdsp);
-
-	//	Attribute : SumSP
-	SumSPAttrib	*sumsp = new SumSPAttrib();
-	Tango::UserDefaultAttrProp	sumsp_prop;
-	sumsp_prop.set_description("Single Pass data: Sum");
-	sumsp_prop.set_label("SP Sum");
-	sumsp_prop.set_unit("mm");
-	sumsp_prop.set_standard_unit("mm");
-	sumsp_prop.set_display_unit("mm");
-	sumsp_prop.set_format("%10.0f");
-	//	max_value	not set for SumSP
-	//	min_value	not set for SumSP
-	//	max_alarm	not set for SumSP
-	//	min_alarm	not set for SumSP
-	//	max_warning	not set for SumSP
-	//	min_warning	not set for SumSP
-	//	delta_t	not set for SumSP
-	//	delta_val	not set for SumSP
-	
-	sumsp->set_default_properties(sumsp_prop);
-	//	Not Polled
-	sumsp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(sumsp);
-
-	//	Attribute : XPosSP
-	XPosSPAttrib	*xpossp = new XPosSPAttrib();
-	Tango::UserDefaultAttrProp	xpossp_prop;
-	xpossp_prop.set_description("Single Pass data: X Pos.");
-	xpossp_prop.set_label("SP X Pos.");
-	xpossp_prop.set_unit("mm");
-	xpossp_prop.set_standard_unit("mm");
-	xpossp_prop.set_display_unit("mm");
-	xpossp_prop.set_format("%8.4f");
-	//	max_value	not set for XPosSP
-	//	min_value	not set for XPosSP
-	//	max_alarm	not set for XPosSP
-	//	min_alarm	not set for XPosSP
-	//	max_warning	not set for XPosSP
-	//	min_warning	not set for XPosSP
-	//	delta_t	not set for XPosSP
-	//	delta_val	not set for XPosSP
-	
-	xpossp->set_default_properties(xpossp_prop);
-	//	Not Polled
-	xpossp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(xpossp);
-
-	//	Attribute : YPosSP
-	YPosSPAttrib	*ypossp = new YPosSPAttrib();
-	Tango::UserDefaultAttrProp	ypossp_prop;
-	ypossp_prop.set_description("Single Pass data: Y Pos.");
-	ypossp_prop.set_label("SP Y Pos.");
-	ypossp_prop.set_unit("mm");
-	ypossp_prop.set_standard_unit("mm");
-	ypossp_prop.set_display_unit("mm");
-	ypossp_prop.set_format("%8.4f");
-	//	max_value	not set for YPosSP
-	//	min_value	not set for YPosSP
-	//	max_alarm	not set for YPosSP
-	//	min_alarm	not set for YPosSP
-	//	max_warning	not set for YPosSP
-	//	min_warning	not set for YPosSP
-	//	delta_t	not set for YPosSP
-	//	delta_val	not set for YPosSP
-	
-	ypossp->set_default_properties(ypossp_prop);
-	//	Not Polled
-	ypossp->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(ypossp);
-
-	//	Attribute : ThdrId
-	ThdrIdAttrib	*thdrid = new ThdrIdAttrib();
-	Tango::UserDefaultAttrProp	thdrid_prop;
-	thdrid_prop.set_description("Indicates the ADC sample in the ADC buffer where the threshold was exceeded");
-	thdrid_prop.set_label("SP Thr_Idx");
-	thdrid_prop.set_unit("a.u.");
-	thdrid_prop.set_standard_unit("a.u.");
-	thdrid_prop.set_display_unit("a.u.");
-	thdrid_prop.set_format("%10.0f");
-	//	max_value	not set for ThdrId
-	//	min_value	not set for ThdrId
-	//	max_alarm	not set for ThdrId
-	//	min_alarm	not set for ThdrId
-	//	max_warning	not set for ThdrId
-	//	min_warning	not set for ThdrId
-	//	delta_t	not set for ThdrId
-	//	delta_val	not set for ThdrId
-	
-	thdrid->set_default_properties(thdrid_prop);
-	//	Not Polled
-	thdrid->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(thdrid);
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
