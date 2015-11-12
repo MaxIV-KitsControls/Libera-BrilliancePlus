@@ -1,3 +1,12 @@
+tangods-liberabrillianceplus (1.3.4) unstable; urgency=low
+
+  * Fix dev_state to report FAULT and ALARM states
+  * Clean/Remove unused attributes with empty node
+  * T0inFunction changed to T0idOut
+  * T0Delay write function bug fixed. 
+
+ -- Vasileios Martos <vasileios.martos> Thu, 16 November 2015 08:00:00 +0000
+ 
 tangods-liberabrillianceplus (1.3.3) unstable; urgency=low
 
   * Change SinglePass Attributes from Spectrum to Scalar in order to be archieved

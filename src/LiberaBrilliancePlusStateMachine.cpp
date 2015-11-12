@@ -82,20 +82,10 @@ bool LiberaBrilliancePlus::is_DDEnabled_allowed(TANGO_UNUSED(Tango::AttReqType t
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDEnabledStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDEnabledStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for DDEnabled attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDEnabledStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDEnabledStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -112,20 +102,10 @@ bool LiberaBrilliancePlus::is_DDBufferSize_allowed(TANGO_UNUSED(Tango::AttReqTyp
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDBufferSizeStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDBufferSizeStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for DDBufferSize attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDBufferSizeStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDBufferSizeStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -142,20 +122,10 @@ bool LiberaBrilliancePlus::is_DDDecimationFactor_allowed(TANGO_UNUSED(Tango::Att
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDDecimationFactorStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDDecimationFactorStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for DDDecimationFactor attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDDecimationFactorStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDDecimationFactorStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -172,20 +142,10 @@ bool LiberaBrilliancePlus::is_DDTriggerOffset_allowed(TANGO_UNUSED(Tango::AttReq
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDTriggerOffsetStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDTriggerOffsetStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for DDTriggerOffset attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDTriggerOffsetStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDTriggerOffsetStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -198,20 +158,10 @@ bool LiberaBrilliancePlus::is_DDTriggerOffset_allowed(TANGO_UNUSED(Tango::AttReq
 bool LiberaBrilliancePlus::is_DDBufferFreezingEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDBufferFreezingEnabledStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for DDBufferFreezingEnabled attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDBufferFreezingEnabledStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDBufferFreezingEnabledStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -224,20 +174,10 @@ bool LiberaBrilliancePlus::is_DDBufferFreezingEnabled_allowed(TANGO_UNUSED(Tango
 bool LiberaBrilliancePlus::is_DDBufferFrozen_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDBufferFrozenStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for DDBufferFrozen attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDBufferFrozenStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDBufferFrozenStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -250,20 +190,10 @@ bool LiberaBrilliancePlus::is_DDBufferFrozen_allowed(TANGO_UNUSED(Tango::AttReqT
 bool LiberaBrilliancePlus::is_DDTriggerCounter_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDTriggerCounterStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for DDTriggerCounter attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DDTriggerCounterStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DDTriggerCounterStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -300,20 +230,10 @@ bool LiberaBrilliancePlus::is_SAEnabled_allowed(TANGO_UNUSED(Tango::AttReqType t
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SAEnabledStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SAEnabledStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for SAEnabled attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SAEnabledStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SAEnabledStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -326,20 +246,10 @@ bool LiberaBrilliancePlus::is_SAEnabled_allowed(TANGO_UNUSED(Tango::AttReqType t
 bool LiberaBrilliancePlus::is_VaSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VaSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VaSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -352,20 +262,10 @@ bool LiberaBrilliancePlus::is_VaSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VbSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VbSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VbSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -378,20 +278,10 @@ bool LiberaBrilliancePlus::is_VbSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VcSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VcSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VcSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -404,20 +294,10 @@ bool LiberaBrilliancePlus::is_VcSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VdSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VdSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VdSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -430,20 +310,10 @@ bool LiberaBrilliancePlus::is_VdSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_XPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for XPosSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::XPosSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -456,20 +326,10 @@ bool LiberaBrilliancePlus::is_XPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_YPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for YPosSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::YPosSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -482,20 +342,10 @@ bool LiberaBrilliancePlus::is_YPosSA_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_SumSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for SumSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SumSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -508,20 +358,10 @@ bool LiberaBrilliancePlus::is_SumSA_allowed(TANGO_UNUSED(Tango::AttReqType type)
 bool LiberaBrilliancePlus::is_QuadSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QuadSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for QuadSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QuadSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::QuadSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -538,20 +378,10 @@ bool LiberaBrilliancePlus::is_SAStatNumSamples_allowed(TANGO_UNUSED(Tango::AttRe
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SAStatNumSamplesStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SAStatNumSamplesStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for SAStatNumSamples attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SAStatNumSamplesStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SAStatNumSamplesStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -660,20 +490,10 @@ bool LiberaBrilliancePlus::is_YPeakPosSA_allowed(TANGO_UNUSED(Tango::AttReqType 
 bool LiberaBrilliancePlus::is_SumMeanSA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumMeanSAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for SumMeanSA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumMeanSAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SumMeanSAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -690,20 +510,10 @@ bool LiberaBrilliancePlus::is_ADCEnabled_allowed(TANGO_UNUSED(Tango::AttReqType 
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ADCEnabledStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCEnabledStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for ADCEnabled attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCEnabledStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ADCEnabledStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -720,20 +530,10 @@ bool LiberaBrilliancePlus::is_ADCBufferSize_allowed(TANGO_UNUSED(Tango::AttReqTy
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ADCBufferSizeStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCBufferSizeStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for ADCBufferSize attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCBufferSizeStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ADCBufferSizeStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -770,20 +570,10 @@ bool LiberaBrilliancePlus::is_PMNotified_allowed(TANGO_UNUSED(Tango::AttReqType 
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::PMNotifiedStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::PMNotifiedStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for PMNotified attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::PMNotifiedStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::PMNotifiedStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -796,20 +586,10 @@ bool LiberaBrilliancePlus::is_PMNotified_allowed(TANGO_UNUSED(Tango::AttReqType 
 bool LiberaBrilliancePlus::is_PMNotificationCounter_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::PMNotificationCounterStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for PMNotificationCounter attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::PMNotificationCounterStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::PMNotificationCounterStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1106,20 +886,10 @@ bool LiberaBrilliancePlus::is_AGCEnabled_allowed(TANGO_UNUSED(Tango::AttReqType 
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::AGCEnabledStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::AGCEnabledStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for AGCEnabled attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::AGCEnabledStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::AGCEnabledStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1284,20 +1054,10 @@ bool LiberaBrilliancePlus::is_CpuUsage_allowed(TANGO_UNUSED(Tango::AttReqType ty
 bool LiberaBrilliancePlus::is_FreeMemory_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::FreeMemoryStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for FreeMemory attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::FreeMemoryStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::FreeMemoryStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1494,20 +1254,10 @@ bool LiberaBrilliancePlus::is_TDEnabled_allowed(TANGO_UNUSED(Tango::AttReqType t
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDEnabledStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDEnabledStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for TDEnabled attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDEnabledStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDEnabledStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1524,20 +1274,10 @@ bool LiberaBrilliancePlus::is_TDBufferSize_allowed(TANGO_UNUSED(Tango::AttReqTyp
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDBufferSizeStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDBufferSizeStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for TDBufferSize attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDBufferSizeStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDBufferSizeStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1554,20 +1294,10 @@ bool LiberaBrilliancePlus::is_TDDecimationFactor_allowed(TANGO_UNUSED(Tango::Att
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDDecimationFactorStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDDecimationFactorStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for TDDecimationFactor attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDDecimationFactorStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDDecimationFactorStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1584,20 +1314,10 @@ bool LiberaBrilliancePlus::is_TDTriggerOffset_allowed(TANGO_UNUSED(Tango::AttReq
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDTriggerOffsetStateAllowed_WRITE
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDTriggerOffsetStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for TDTriggerOffset attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDTriggerOffsetStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDTriggerOffsetStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1610,20 +1330,10 @@ bool LiberaBrilliancePlus::is_TDTriggerOffset_allowed(TANGO_UNUSED(Tango::AttReq
 bool LiberaBrilliancePlus::is_TDBufferFreezingEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDBufferFreezingEnabledStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for TDBufferFreezingEnabled attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDBufferFreezingEnabledStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDBufferFreezingEnabledStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1636,20 +1346,10 @@ bool LiberaBrilliancePlus::is_TDBufferFreezingEnabled_allowed(TANGO_UNUSED(Tango
 bool LiberaBrilliancePlus::is_TDBufferFrozen_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDBufferFrozenStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for TDBufferFrozen attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDBufferFrozenStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDBufferFrozenStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -1662,20 +1362,10 @@ bool LiberaBrilliancePlus::is_TDBufferFrozen_allowed(TANGO_UNUSED(Tango::AttReqT
 bool LiberaBrilliancePlus::is_TDTriggerCounter_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDTriggerCounterStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for TDTriggerCounter attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::TDTriggerCounterStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::TDTriggerCounterStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2548,20 +2238,10 @@ bool LiberaBrilliancePlus::is_InterlockFilterPosition_allowed(TANGO_UNUSED(Tango
 bool LiberaBrilliancePlus::is_SumSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumSPStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for SumSP attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumSPStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SumSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2574,20 +2254,10 @@ bool LiberaBrilliancePlus::is_SumSP_allowed(TANGO_UNUSED(Tango::AttReqType type)
 bool LiberaBrilliancePlus::is_VbSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbSPStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VbSP attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbSPStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VbSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2600,20 +2270,10 @@ bool LiberaBrilliancePlus::is_VbSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VcSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcSPStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VcSP attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcSPStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VcSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2626,20 +2286,10 @@ bool LiberaBrilliancePlus::is_VcSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VdSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdSPStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VdSP attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdSPStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VdSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2652,20 +2302,10 @@ bool LiberaBrilliancePlus::is_VdSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_XPosSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosSPStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for XPosSP attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosSPStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::XPosSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2678,20 +2318,10 @@ bool LiberaBrilliancePlus::is_XPosSP_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_YPosSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosSPStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for YPosSP attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosSPStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::YPosSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2704,20 +2334,10 @@ bool LiberaBrilliancePlus::is_YPosSP_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_ThdrId_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ThdrIdStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for ThdrId attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ThdrIdStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ThdrIdStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2730,228 +2350,10 @@ bool LiberaBrilliancePlus::is_ThdrId_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_VaSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaSPStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VaSP attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaSPStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VaSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_XPosDD_allowed()
- *	Description : Execution allowed for XPosDD attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_SumSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumSPStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SumSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_VbSP_allowed()
- *	Description : Execution allowed for VbSP attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_VbSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbSPStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VbSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_VcSP_allowed()
- *	Description : Execution allowed for VcSP attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_VcSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcSPStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VcSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_VdSP_allowed()
- *	Description : Execution allowed for VdSP attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_VdSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdSPStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VdSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_XPosSP_allowed()
- *	Description : Execution allowed for XPosSP attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_XPosSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosSPStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::XPosSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_YPosSP_allowed()
- *	Description : Execution allowed for YPosSP attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_YPosSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosSPStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::YPosSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_ThdrId_allowed()
- *	Description : Execution allowed for ThdrId attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_ThdrId_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ThdrIdStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ThdrIdStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
-	return true;
-}
-
-//--------------------------------------------------------
-/**
- *	Method      : LiberaBrilliancePlus::is_VaSP_allowed()
- *	Description : Execution allowed for VaSP attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_VaSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaSPStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VaSPStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2964,20 +2366,10 @@ bool LiberaBrilliancePlus::is_VaSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_XPosDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for XPosDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::XPosDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -2990,20 +2382,10 @@ bool LiberaBrilliancePlus::is_XPosDD_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_YPosDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for YPosDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::YPosDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3016,20 +2398,10 @@ bool LiberaBrilliancePlus::is_YPosDD_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_QuadDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QuadDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for QuadDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QuadDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::QuadDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3042,20 +2414,10 @@ bool LiberaBrilliancePlus::is_QuadDD_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_SumDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for SumDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SumDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3068,20 +2430,10 @@ bool LiberaBrilliancePlus::is_SumDD_allowed(TANGO_UNUSED(Tango::AttReqType type)
 bool LiberaBrilliancePlus::is_VaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VaDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VaDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3094,20 +2446,10 @@ bool LiberaBrilliancePlus::is_VaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VbDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VbDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3120,20 +2462,10 @@ bool LiberaBrilliancePlus::is_VbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VcDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VcDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3146,20 +2478,10 @@ bool LiberaBrilliancePlus::is_VcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VdDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VdDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VdDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3220,20 +2542,10 @@ bool LiberaBrilliancePlus::is_SumSAHistory_allowed(TANGO_UNUSED(Tango::AttReqTyp
 bool LiberaBrilliancePlus::is_XPosPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosPMStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for XPosPM attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosPMStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::XPosPMStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3246,20 +2558,10 @@ bool LiberaBrilliancePlus::is_XPosPM_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_YPosPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosPMStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for YPosPM attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosPMStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::YPosPMStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3272,20 +2574,10 @@ bool LiberaBrilliancePlus::is_YPosPM_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_QuadPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QuadPMStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for QuadPM attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QuadPMStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::QuadPMStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3298,20 +2590,10 @@ bool LiberaBrilliancePlus::is_QuadPM_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_SumPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumPMStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for SumPM attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumPMStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SumPMStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3324,20 +2606,10 @@ bool LiberaBrilliancePlus::is_SumPM_allowed(TANGO_UNUSED(Tango::AttReqType type)
 bool LiberaBrilliancePlus::is_VaPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaPMStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VaPM attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaPMStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VaPMStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3350,20 +2622,10 @@ bool LiberaBrilliancePlus::is_VaPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VbPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbPMStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VbPM attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbPMStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VbPMStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3376,20 +2638,10 @@ bool LiberaBrilliancePlus::is_VbPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VcPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcPMStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VcPM attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcPMStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VcPMStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3402,20 +2654,10 @@ bool LiberaBrilliancePlus::is_VcPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VdPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdPMStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VdPM attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdPMStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VdPMStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3428,20 +2670,10 @@ bool LiberaBrilliancePlus::is_VdPM_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_ADCChannelA_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCChannelAStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for ADCChannelA attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCChannelAStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ADCChannelAStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3454,20 +2686,10 @@ bool LiberaBrilliancePlus::is_ADCChannelA_allowed(TANGO_UNUSED(Tango::AttReqType
 bool LiberaBrilliancePlus::is_ADCChannelB_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCChannelBStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for ADCChannelB attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCChannelBStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ADCChannelBStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3480,20 +2702,10 @@ bool LiberaBrilliancePlus::is_ADCChannelB_allowed(TANGO_UNUSED(Tango::AttReqType
 bool LiberaBrilliancePlus::is_ADCChannelC_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCChannelCStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for ADCChannelC attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCChannelCStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ADCChannelCStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3506,20 +2718,10 @@ bool LiberaBrilliancePlus::is_ADCChannelC_allowed(TANGO_UNUSED(Tango::AttReqType
 bool LiberaBrilliancePlus::is_ADCChannelD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCChannelDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for ADCChannelD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ADCChannelDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ADCChannelDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3532,20 +2734,10 @@ bool LiberaBrilliancePlus::is_ADCChannelD_allowed(TANGO_UNUSED(Tango::AttReqType
 bool LiberaBrilliancePlus::is_IaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::IaDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for IaDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::IaDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::IaDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3558,20 +2750,10 @@ bool LiberaBrilliancePlus::is_IaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_IbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::IbDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for IbDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::IbDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::IbDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3584,20 +2766,10 @@ bool LiberaBrilliancePlus::is_IbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_IcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::IcDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for IcDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::IcDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::IcDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3610,20 +2782,10 @@ bool LiberaBrilliancePlus::is_IcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_IdDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::IdDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for IdDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::IdDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::IdDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3636,20 +2798,10 @@ bool LiberaBrilliancePlus::is_IdDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_QaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QaDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for QaDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QaDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::QaDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3662,20 +2814,10 @@ bool LiberaBrilliancePlus::is_QaDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_QbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QbDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for QbDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QbDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::QbDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3688,20 +2830,10 @@ bool LiberaBrilliancePlus::is_QbDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_QcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QcDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for QcDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QcDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::QcDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3714,20 +2846,10 @@ bool LiberaBrilliancePlus::is_QcDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_QdDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QdDDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for QdDD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QdDDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::QdDDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3740,20 +2862,10 @@ bool LiberaBrilliancePlus::is_QdDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_UserData_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::UserDataStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for UserData attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::UserDataStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::UserDataStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3782,20 +2894,10 @@ bool LiberaBrilliancePlus::is_logs_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_XPosTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosTDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for XPosTD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosTDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::XPosTDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3808,20 +2910,10 @@ bool LiberaBrilliancePlus::is_XPosTD_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_YPosTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosTDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for YPosTD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosTDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::YPosTDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3834,20 +2926,10 @@ bool LiberaBrilliancePlus::is_YPosTD_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_QuadTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QuadTDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for QuadTD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::QuadTDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::QuadTDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3860,20 +2942,10 @@ bool LiberaBrilliancePlus::is_QuadTD_allowed(TANGO_UNUSED(Tango::AttReqType type
 bool LiberaBrilliancePlus::is_SumTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumTDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for SumTD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumTDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SumTDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3886,20 +2958,10 @@ bool LiberaBrilliancePlus::is_SumTD_allowed(TANGO_UNUSED(Tango::AttReqType type)
 bool LiberaBrilliancePlus::is_VaTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaTDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VaTD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaTDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VaTDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3912,20 +2974,10 @@ bool LiberaBrilliancePlus::is_VaTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VbTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbTDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VbTD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbTDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VbTDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3938,20 +2990,10 @@ bool LiberaBrilliancePlus::is_VbTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VcTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcTDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VcTD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcTDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VcTDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
@@ -3964,20 +3006,10 @@ bool LiberaBrilliancePlus::is_VcTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 bool LiberaBrilliancePlus::is_VdTD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
-	//	Check access type.
-	if ( type==Tango::READ_REQ )
-	{
-		//	Compare device state with not allowed states for READ 
-		if (get_state()==Tango::UNKNOWN ||
-			get_state()==Tango::FAULT)
-		{
-		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdTDStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for VdTD attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdTDStateAllowed_READ) ENABLED START -----*/
 		
 		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VdTDStateAllowed_READ
-			return false;
-		}
-		return true;
-	}
 	return true;
 }
 
