@@ -5680,7 +5680,8 @@ void LiberaBrilliancePlus::read_SumSP(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_SumSP(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_SumSP) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_SumSP_read, *attr_SPBufferSize_read);
+
+	attr.set_value(attr_SumSP_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumSP
 }
@@ -5698,7 +5699,8 @@ void LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_VbSP(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VbSP) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_VbSP_read, *attr_SPBufferSize_read);
+
+	attr.set_value(attr_VbSP_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbSP
 }
@@ -5716,7 +5718,9 @@ void LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_VcSP(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VcSP) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_VcSP_read, *attr_SPBufferSize_read);
+
+	attr.set_value(attr_VcSP_read);
+
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcSP
 }
@@ -5734,7 +5738,9 @@ void LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_VdSP(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VdSP) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_VdSP_read, *attr_SPBufferSize_read);
+
+	attr.set_value(attr_VdSP_read);
+
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdSP
 }
@@ -5752,7 +5758,9 @@ void LiberaBrilliancePlus::read_XPosSP(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_XPosSP(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_XPosSP) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_XPosSP_read, *attr_SPBufferSize_read);
+
+	attr.set_value(attr_XPosSP_read);
+
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPosSP
 }
@@ -5770,7 +5778,8 @@ void LiberaBrilliancePlus::read_YPosSP(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_YPosSP(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_YPosSP) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_YPosSP_read, *attr_SPBufferSize_read);
+
+	attr.set_value(attr_YPosSP_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_YPosSP
 }
@@ -5788,7 +5797,9 @@ void LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_ThdrId) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_ThdrId_read, *attr_SPBufferSize_read);
+
+	attr.set_value(attr_ThdrId_read);
+
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ThdrId
 }
 //--------------------------------------------------------
@@ -5805,7 +5816,9 @@ void LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr)
 	DEBUG_STREAM << "LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr) entering... " << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VaSP) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_VaSP_read, *attr_SPBufferSize_read);
+
+	attr.set_value(attr_VaSP_read);
+
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaSP
 }

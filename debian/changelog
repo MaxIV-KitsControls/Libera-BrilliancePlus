@@ -1,3 +1,9 @@
+tangods-liberabrillianceplus (1.3.3) unstable; urgency=low
+
+  * Change SinglePass Attributes from Spectrum to Scalar in order to be archieved
+
+ -- Vasileios Martos <vasileios.martos> Thu, 29 October 2015 08:00:00 +0000
+
 tangods-liberabrillianceplus (1.3.2) unstable; urgency=low
 
   * Fix AGC mode during init

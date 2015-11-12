@@ -2753,6 +2753,214 @@ bool LiberaBrilliancePlus::is_VaSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
  *	Description : Execution allowed for XPosDD attribute
  */
 //--------------------------------------------------------
+bool LiberaBrilliancePlus::is_SumSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Check access type.
+	if ( type==Tango::READ_REQ )
+	{
+		//	Compare device state with not allowed states for READ 
+		if (get_state()==Tango::UNKNOWN ||
+			get_state()==Tango::FAULT)
+		{
+		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::SumSPStateAllowed_READ) ENABLED START -----*/
+		
+		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::SumSPStateAllowed_READ
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_VbSP_allowed()
+ *	Description : Execution allowed for VbSP attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_VbSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Check access type.
+	if ( type==Tango::READ_REQ )
+	{
+		//	Compare device state with not allowed states for READ 
+		if (get_state()==Tango::UNKNOWN ||
+			get_state()==Tango::FAULT)
+		{
+		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VbSPStateAllowed_READ) ENABLED START -----*/
+		
+		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VbSPStateAllowed_READ
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_VcSP_allowed()
+ *	Description : Execution allowed for VcSP attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_VcSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Check access type.
+	if ( type==Tango::READ_REQ )
+	{
+		//	Compare device state with not allowed states for READ 
+		if (get_state()==Tango::UNKNOWN ||
+			get_state()==Tango::FAULT)
+		{
+		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VcSPStateAllowed_READ) ENABLED START -----*/
+		
+		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VcSPStateAllowed_READ
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_VdSP_allowed()
+ *	Description : Execution allowed for VdSP attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_VdSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Check access type.
+	if ( type==Tango::READ_REQ )
+	{
+		//	Compare device state with not allowed states for READ 
+		if (get_state()==Tango::UNKNOWN ||
+			get_state()==Tango::FAULT)
+		{
+		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VdSPStateAllowed_READ) ENABLED START -----*/
+		
+		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VdSPStateAllowed_READ
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_XPosSP_allowed()
+ *	Description : Execution allowed for XPosSP attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_XPosSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Check access type.
+	if ( type==Tango::READ_REQ )
+	{
+		//	Compare device state with not allowed states for READ 
+		if (get_state()==Tango::UNKNOWN ||
+			get_state()==Tango::FAULT)
+		{
+		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::XPosSPStateAllowed_READ) ENABLED START -----*/
+		
+		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::XPosSPStateAllowed_READ
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_YPosSP_allowed()
+ *	Description : Execution allowed for YPosSP attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_YPosSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Check access type.
+	if ( type==Tango::READ_REQ )
+	{
+		//	Compare device state with not allowed states for READ 
+		if (get_state()==Tango::UNKNOWN ||
+			get_state()==Tango::FAULT)
+		{
+		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::YPosSPStateAllowed_READ) ENABLED START -----*/
+		
+		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::YPosSPStateAllowed_READ
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_ThdrId_allowed()
+ *	Description : Execution allowed for ThdrId attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_ThdrId_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Check access type.
+	if ( type==Tango::READ_REQ )
+	{
+		//	Compare device state with not allowed states for READ 
+		if (get_state()==Tango::UNKNOWN ||
+			get_state()==Tango::FAULT)
+		{
+		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ThdrIdStateAllowed_READ) ENABLED START -----*/
+		
+		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ThdrIdStateAllowed_READ
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_VaSP_allowed()
+ *	Description : Execution allowed for VaSP attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_VaSP_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+
+	//	Check access type.
+	if ( type==Tango::READ_REQ )
+	{
+		//	Compare device state with not allowed states for READ 
+		if (get_state()==Tango::UNKNOWN ||
+			get_state()==Tango::FAULT)
+		{
+		/*----- PROTECTED REGION ID(LiberaBrilliancePlus::VaSPStateAllowed_READ) ENABLED START -----*/
+		
+		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::VaSPStateAllowed_READ
+			return false;
+		}
+		return true;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_XPosDD_allowed()
+ *	Description : Execution allowed for XPosDD attribute
+ */
+//--------------------------------------------------------
 bool LiberaBrilliancePlus::is_XPosDD_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
 
