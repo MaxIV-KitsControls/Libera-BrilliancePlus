@@ -3560,15 +3560,10 @@ bool LiberaBrilliancePlus::is_DisableSP_allowed(TANGO_UNUSED(const CORBA::Any &a
 //--------------------------------------------------------
 bool LiberaBrilliancePlus::is_StartSynchronization_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	//	Compare device state with not allowed states.
-	if (get_state()==Tango::UNKNOWN ||
-		get_state()==Tango::FAULT)
-	{
+	//	Not any excluded states for StartSynchronization command.
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::StartSynchronizationStateAllowed) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::StartSynchronizationStateAllowed
-		return false;
-	}
 	return true;
 }
 
@@ -3580,15 +3575,10 @@ bool LiberaBrilliancePlus::is_StartSynchronization_allowed(TANGO_UNUSED(const CO
 //--------------------------------------------------------
 bool LiberaBrilliancePlus::is_AnnounceSynchronization_allowed(TANGO_UNUSED(const CORBA::Any &any))
 {
-	//	Compare device state with not allowed states.
-	if (get_state()==Tango::UNKNOWN ||
-		get_state()==Tango::FAULT)
-	{
+	//	Not any excluded states for AnnounceSynchronization command.
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::AnnounceSynchronizationStateAllowed) ENABLED START -----*/
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::AnnounceSynchronizationStateAllowed
-		return false;
-	}
 	return true;
 }
 

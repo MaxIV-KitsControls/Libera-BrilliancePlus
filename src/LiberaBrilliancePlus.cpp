@@ -6603,16 +6603,16 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 		argout = Tango::ALARM;
 		m_status = "Interlock status values are enabled.";
 	}
-	else if (*attr_MCPLLStatus_read == false || *attr_RTCTimestampState_read != 0)
+	else if (*attr_MCPLLStatus_read == false || *attr_RTCTimestampState_read != 1)
 	{
 		m_state = Tango::ALARM;
 		if (*attr_MCPLLStatus_read == false)
 		{
 			m_status = "MC Pll not locked";
 		}
-		else if (*attr_RTCTimestampState_read != 0)
+		else if (*attr_RTCTimestampState_read != 1)
 		{
-			m_status = "RTC TimeStamp not progress";
+			m_status = "RTC TimeStamp not done";
 		}
 		//Set status logic in dev_status func
 	}

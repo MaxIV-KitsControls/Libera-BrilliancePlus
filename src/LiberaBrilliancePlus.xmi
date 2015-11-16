@@ -785,8 +785,6 @@
         <type xsi:type="pogoDsl:VoidType"/>
       </argout>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <excludedStates>UNKNOWN</excludedStates>
-      <excludedStates>FAULT</excludedStates>
     </commands>
     <commands name="AnnounceSynchronization" description="Announce synchronization procedure:&#xA;* Stop the Trigger (t2source=off)&#xA;*  MC PLL (MUST be locked)&#xA;* Synchronization State Machine (MUST be Tracking)" execMethod="announce_synchronization" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="n/a">
@@ -796,8 +794,6 @@
         <type xsi:type="pogoDsl:VoidType"/>
       </argout>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <excludedStates>UNKNOWN</excludedStates>
-      <excludedStates>FAULT</excludedStates>
     </commands>
     <commands name="ForceInitSettings" description="Initializing Libera Default Settings (Based to the properties) without performing init_device" execMethod="force_init_settings" displayLevel="OPERATOR" polledPeriod="0">
       <argin description="n/a">
