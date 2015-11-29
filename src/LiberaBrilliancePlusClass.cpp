@@ -792,6 +792,7 @@ void LiberaBrilliancePlusClass::get_class_property()
 	cl_prop.push_back(Tango::DbDatum("EnableADCOptionalData"));
 	cl_prop.push_back(Tango::DbDatum("Institute"));
 	cl_prop.push_back(Tango::DbDatum("EnableTDOptionalData"));
+	cl_prop.push_back(Tango::DbDatum("InterlockGainDependentThreshold"));
 	
 	//	Call database and extract values
 	if (Tango::Util::instance()->_UseDb==true)
@@ -881,6 +882,18 @@ void LiberaBrilliancePlusClass::get_class_property()
 		{
 			def_prop    >>  enableTDOptionalData;
 			cl_prop[i]  <<  enableTDOptionalData;
+		}
+	}
+	//	Try to extract InterlockGainDependentThreshold value
+	if (cl_prop[++i].is_empty()==false)	cl_prop[i]  >>  interlockGainDependentThreshold;
+	else
+	{
+		//	Check default value for InterlockGainDependentThreshold
+		def_prop = get_default_class_property(cl_prop[i].name);
+		if (def_prop.is_empty()==false)
+		{
+			def_prop    >>  interlockGainDependentThreshold;
+			cl_prop[i]  <<  interlockGainDependentThreshold;
 		}
 	}
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::get_class_property_after) ENABLED START -----*/
@@ -996,6 +1009,19 @@ void LiberaBrilliancePlusClass::set_default_property()
 	prop_def  = "false";
 	vect_data.clear();
 	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		cl_def_prop.push_back(data);
+		add_wiz_class_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_class_prop(prop_name, prop_desc);
+	prop_name = "InterlockGainDependentThreshold";
+	prop_desc = "";
+	prop_def  = "";
+	vect_data.clear();
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -1689,7 +1715,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "T0idOut";
+	prop_name = "T0idOutput";
 	prop_desc = "T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
 	prop_def  = "144";
 	vect_data.clear();
@@ -1759,7 +1785,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "InterlockID";
+	prop_name = "InterlockId";
 	prop_desc = "oversaturation or X-Y orbit threshold";
 	prop_def  = "1";
 	vect_data.clear();
@@ -1927,7 +1953,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "XminLimit";
+	prop_name = "InterlockLimitXMin";
 	prop_desc = "X interlock min limit";
 	prop_def  = "-5";
 	vect_data.clear();
@@ -1941,7 +1967,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "YminLimit";
+	prop_name = "InterlockLimitYMin";
 	prop_desc = "Y interlock min limit";
 	prop_def  = "-5";
 	vect_data.clear();
@@ -1955,7 +1981,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "XmaxLimit";
+	prop_name = "InterlockLimitXMax";
 	prop_desc = "X interlock max limit";
 	prop_def  = "5";
 	vect_data.clear();
@@ -1969,7 +1995,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "YmaxLimit";
+	prop_name = "InterlockLimitYMax";
 	prop_desc = "Y interlock max limit";
 	prop_def  = "5";
 	vect_data.clear();
@@ -1997,7 +2023,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "T1ID";
+	prop_name = "T1IdInput";
 	prop_desc = "T1 Optical event ID";
 	prop_def  = "21";
 	vect_data.clear();
@@ -2011,7 +2037,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "T2ID";
+	prop_name = "T2IdInput";
 	prop_desc = "T2 Optical event ID";
 	prop_def  = "62";
 	vect_data.clear();
@@ -2197,6 +2223,34 @@ void LiberaBrilliancePlusClass::set_default_property()
 	prop_desc = "Trace Error functionality for the Libera, by default is Disabled:\n * Value: OutPut ,  TraceLevel\n	* Output[0] :  OutPut on Screen = 0\n	                         OutPut on File = 0 (﻿/var/tmp/ds.log/LiberaMciTrace.log)\n	* TraceLevel[1] : ﻿   Off     = 0,\n        		      Low     = 1,\n		      Med     = 2,\n		      High    = 3,\n		      Detail  = 4";
 	prop_def  = "";
 	vect_data.clear();
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "InterlockOverflowDuration";
+	prop_desc = "Duration of allowed ADC saturation (in ADC samples)";
+	prop_def  = "1000";
+	vect_data.clear();
+	vect_data.push_back("1000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "InterlockGainDependentThreshold";
+	prop_desc = "Sets the threshold for gain dependent mode of Interlock \noperation.";
+	prop_def  = "-25";
+	vect_data.clear();
+	vect_data.push_back("-25");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -3061,8 +3115,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	adcenabled->set_default_properties(adcenabled_prop);
 	//	Not Polled
 	adcenabled->set_disp_level(Tango::OPERATOR);
-	adcenabled->set_memorized();
-	adcenabled->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(adcenabled);
 
 	//	Attribute : ADCBufferSize
@@ -3282,101 +3335,101 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(interlockadcpostfilternotified);
 
-	//	Attribute : XLow
-	XLowAttrib	*xlow = new XLowAttrib();
-	Tango::UserDefaultAttrProp	xlow_prop;
-	xlow_prop.set_description("Lower limit of the X position interlock threshold in mm");
-	xlow_prop.set_label("X Low Int. Thres.");
-	xlow_prop.set_unit("mm");
-	//	standard_unit	not set for XLow
-	//	display_unit	not set for XLow
-	xlow_prop.set_format("%8.4f");
-	//	max_value	not set for XLow
-	//	min_value	not set for XLow
-	//	max_alarm	not set for XLow
-	//	min_alarm	not set for XLow
-	//	max_warning	not set for XLow
-	//	min_warning	not set for XLow
-	//	delta_t	not set for XLow
-	//	delta_val	not set for XLow
+	//	Attribute : InterlockLimitXMin
+	InterlockLimitXMinAttrib	*interlocklimitxmin = new InterlockLimitXMinAttrib();
+	Tango::UserDefaultAttrProp	interlocklimitxmin_prop;
+	interlocklimitxmin_prop.set_description("Lower limit of the X position interlock threshold in mm");
+	interlocklimitxmin_prop.set_label("X Low Int. Thres.");
+	interlocklimitxmin_prop.set_unit("mm");
+	//	standard_unit	not set for InterlockLimitXMin
+	//	display_unit	not set for InterlockLimitXMin
+	interlocklimitxmin_prop.set_format("%8.4f");
+	//	max_value	not set for InterlockLimitXMin
+	//	min_value	not set for InterlockLimitXMin
+	//	max_alarm	not set for InterlockLimitXMin
+	//	min_alarm	not set for InterlockLimitXMin
+	//	max_warning	not set for InterlockLimitXMin
+	//	min_warning	not set for InterlockLimitXMin
+	//	delta_t	not set for InterlockLimitXMin
+	//	delta_val	not set for InterlockLimitXMin
 	
-	xlow->set_default_properties(xlow_prop);
+	interlocklimitxmin->set_default_properties(interlocklimitxmin_prop);
 	//	Not Polled
-	xlow->set_disp_level(Tango::EXPERT);
+	interlocklimitxmin->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
-	att_list.push_back(xlow);
+	att_list.push_back(interlocklimitxmin);
 
-	//	Attribute : XHigh
-	XHighAttrib	*xhigh = new XHighAttrib();
-	Tango::UserDefaultAttrProp	xhigh_prop;
-	xhigh_prop.set_description("Upper limit of the X position interlock threshold in mm");
-	xhigh_prop.set_label("X High Int. Thres.");
-	xhigh_prop.set_unit("mm");
-	//	standard_unit	not set for XHigh
-	//	display_unit	not set for XHigh
-	xhigh_prop.set_format("%8.4f");
-	//	max_value	not set for XHigh
-	//	min_value	not set for XHigh
-	//	max_alarm	not set for XHigh
-	//	min_alarm	not set for XHigh
-	//	max_warning	not set for XHigh
-	//	min_warning	not set for XHigh
-	//	delta_t	not set for XHigh
-	//	delta_val	not set for XHigh
+	//	Attribute : InterlockLimitXMax
+	InterlockLimitXMaxAttrib	*interlocklimitxmax = new InterlockLimitXMaxAttrib();
+	Tango::UserDefaultAttrProp	interlocklimitxmax_prop;
+	interlocklimitxmax_prop.set_description("Upper limit of the X position interlock threshold in mm");
+	interlocklimitxmax_prop.set_label("X High Int. Thres.");
+	interlocklimitxmax_prop.set_unit("mm");
+	//	standard_unit	not set for InterlockLimitXMax
+	//	display_unit	not set for InterlockLimitXMax
+	interlocklimitxmax_prop.set_format("%8.4f");
+	//	max_value	not set for InterlockLimitXMax
+	//	min_value	not set for InterlockLimitXMax
+	//	max_alarm	not set for InterlockLimitXMax
+	//	min_alarm	not set for InterlockLimitXMax
+	//	max_warning	not set for InterlockLimitXMax
+	//	min_warning	not set for InterlockLimitXMax
+	//	delta_t	not set for InterlockLimitXMax
+	//	delta_val	not set for InterlockLimitXMax
 	
-	xhigh->set_default_properties(xhigh_prop);
+	interlocklimitxmax->set_default_properties(interlocklimitxmax_prop);
 	//	Not Polled
-	xhigh->set_disp_level(Tango::EXPERT);
+	interlocklimitxmax->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
-	att_list.push_back(xhigh);
+	att_list.push_back(interlocklimitxmax);
 
-	//	Attribute : YLow
-	YLowAttrib	*ylow = new YLowAttrib();
-	Tango::UserDefaultAttrProp	ylow_prop;
-	ylow_prop.set_description("Lower limit of the Y position interlock threshold in mm");
-	ylow_prop.set_label("Y Low Int. Thres.");
-	ylow_prop.set_unit("mm");
-	//	standard_unit	not set for YLow
-	//	display_unit	not set for YLow
-	ylow_prop.set_format("%8.4f");
-	//	max_value	not set for YLow
-	//	min_value	not set for YLow
-	//	max_alarm	not set for YLow
-	//	min_alarm	not set for YLow
-	//	max_warning	not set for YLow
-	//	min_warning	not set for YLow
-	//	delta_t	not set for YLow
-	//	delta_val	not set for YLow
+	//	Attribute : InterlockLimitYMin
+	InterlockLimitYMinAttrib	*interlocklimitymin = new InterlockLimitYMinAttrib();
+	Tango::UserDefaultAttrProp	interlocklimitymin_prop;
+	interlocklimitymin_prop.set_description("Lower limit of the Y position interlock threshold in mm");
+	interlocklimitymin_prop.set_label("Y Low Int. Thres.");
+	interlocklimitymin_prop.set_unit("mm");
+	//	standard_unit	not set for InterlockLimitYMin
+	//	display_unit	not set for InterlockLimitYMin
+	interlocklimitymin_prop.set_format("%8.4f");
+	//	max_value	not set for InterlockLimitYMin
+	//	min_value	not set for InterlockLimitYMin
+	//	max_alarm	not set for InterlockLimitYMin
+	//	min_alarm	not set for InterlockLimitYMin
+	//	max_warning	not set for InterlockLimitYMin
+	//	min_warning	not set for InterlockLimitYMin
+	//	delta_t	not set for InterlockLimitYMin
+	//	delta_val	not set for InterlockLimitYMin
 	
-	ylow->set_default_properties(ylow_prop);
+	interlocklimitymin->set_default_properties(interlocklimitymin_prop);
 	//	Not Polled
-	ylow->set_disp_level(Tango::EXPERT);
+	interlocklimitymin->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
-	att_list.push_back(ylow);
+	att_list.push_back(interlocklimitymin);
 
-	//	Attribute : YHigh
-	YHighAttrib	*yhigh = new YHighAttrib();
-	Tango::UserDefaultAttrProp	yhigh_prop;
-	yhigh_prop.set_description("Upper limit of the Y position interlock threshold in mm");
-	yhigh_prop.set_label("Y High Int. Thres.");
-	yhigh_prop.set_unit("mm");
-	//	standard_unit	not set for YHigh
-	//	display_unit	not set for YHigh
-	yhigh_prop.set_format("%8.4f");
-	//	max_value	not set for YHigh
-	//	min_value	not set for YHigh
-	//	max_alarm	not set for YHigh
-	//	min_alarm	not set for YHigh
-	//	max_warning	not set for YHigh
-	//	min_warning	not set for YHigh
-	//	delta_t	not set for YHigh
-	//	delta_val	not set for YHigh
+	//	Attribute : InterlockLimitYMax
+	InterlockLimitYMaxAttrib	*interlocklimitymax = new InterlockLimitYMaxAttrib();
+	Tango::UserDefaultAttrProp	interlocklimitymax_prop;
+	interlocklimitymax_prop.set_description("Upper limit of the Y position interlock threshold in mm");
+	interlocklimitymax_prop.set_label("Y High Int. Thres.");
+	interlocklimitymax_prop.set_unit("mm");
+	//	standard_unit	not set for InterlockLimitYMax
+	//	display_unit	not set for InterlockLimitYMax
+	interlocklimitymax_prop.set_format("%8.4f");
+	//	max_value	not set for InterlockLimitYMax
+	//	min_value	not set for InterlockLimitYMax
+	//	max_alarm	not set for InterlockLimitYMax
+	//	min_alarm	not set for InterlockLimitYMax
+	//	max_warning	not set for InterlockLimitYMax
+	//	min_warning	not set for InterlockLimitYMax
+	//	delta_t	not set for InterlockLimitYMax
+	//	delta_val	not set for InterlockLimitYMax
 	
-	yhigh->set_default_properties(yhigh_prop);
+	interlocklimitymax->set_default_properties(interlocklimitymax_prop);
 	//	Not Polled
-	yhigh->set_disp_level(Tango::OPERATOR);
+	interlocklimitymax->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
-	att_list.push_back(yhigh);
+	att_list.push_back(interlocklimitymax);
 
 	//	Attribute : AutoSwitchingEnabled
 	AutoSwitchingEnabledAttrib	*autoswitchingenabled = new AutoSwitchingEnabledAttrib();
@@ -3885,8 +3938,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	interlockoverflowduration->set_default_properties(interlockoverflowduration_prop);
 	//	Not Polled
 	interlockoverflowduration->set_disp_level(Tango::OPERATOR);
-	interlockoverflowduration->set_memorized();
-	interlockoverflowduration->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(interlockoverflowduration);
 
 	//	Attribute : InterlockGainDependentThreshold
@@ -3910,8 +3962,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	interlockgaindependentthreshold->set_default_properties(interlockgaindependentthreshold_prop);
 	//	Not Polled
 	interlockgaindependentthreshold->set_disp_level(Tango::OPERATOR);
-	interlockgaindependentthreshold->set_memorized();
-	interlockgaindependentthreshold->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(interlockgaindependentthreshold);
 
 	//	Attribute : Kx
@@ -4667,29 +4718,29 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(t2inmask);
 
-	//	Attribute : T0idOut
-	T0idOutAttrib	*t0idout = new T0idOutAttrib();
-	Tango::UserDefaultAttrProp	t0idout_prop;
-	t0idout_prop.set_description("T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
-	t0idout_prop.set_label("T0 Function array");
-	//	unit	not set for T0idOut
-	//	standard_unit	not set for T0idOut
-	//	display_unit	not set for T0idOut
-	//	format	not set for T0idOut
-	//	max_value	not set for T0idOut
-	//	min_value	not set for T0idOut
-	//	max_alarm	not set for T0idOut
-	//	min_alarm	not set for T0idOut
-	//	max_warning	not set for T0idOut
-	//	min_warning	not set for T0idOut
-	//	delta_t	not set for T0idOut
-	//	delta_val	not set for T0idOut
+	//	Attribute : T0idOutput
+	T0idOutputAttrib	*t0idoutput = new T0idOutputAttrib();
+	Tango::UserDefaultAttrProp	t0idoutput_prop;
+	t0idoutput_prop.set_description("T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
+	t0idoutput_prop.set_label("T0 Function array");
+	//	unit	not set for T0idOutput
+	//	standard_unit	not set for T0idOutput
+	//	display_unit	not set for T0idOutput
+	//	format	not set for T0idOutput
+	//	max_value	not set for T0idOutput
+	//	min_value	not set for T0idOutput
+	//	max_alarm	not set for T0idOutput
+	//	min_alarm	not set for T0idOutput
+	//	max_warning	not set for T0idOutput
+	//	min_warning	not set for T0idOutput
+	//	delta_t	not set for T0idOutput
+	//	delta_val	not set for T0idOutput
 	
-	t0idout->set_default_properties(t0idout_prop);
+	t0idoutput->set_default_properties(t0idoutput_prop);
 	//	Not Polled
-	t0idout->set_disp_level(Tango::EXPERT);
+	t0idoutput->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
-	att_list.push_back(t0idout);
+	att_list.push_back(t0idoutput);
 
 	//	Attribute : T1inFunction
 	T1inFunctionAttrib	*t1infunction = new T1inFunctionAttrib();
@@ -4979,53 +5030,53 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(t1edgerising);
 
-	//	Attribute : T2ID
-	T2IDAttrib	*t2id = new T2IDAttrib();
-	Tango::UserDefaultAttrProp	t2id_prop;
-	t2id_prop.set_description("T2 Optical event ID");
-	t2id_prop.set_label("T2 ID");
-	t2id_prop.set_unit("n/a");
-	t2id_prop.set_standard_unit("n/a");
-	t2id_prop.set_display_unit("n/a");
-	//	format	not set for T2ID
-	//	max_value	not set for T2ID
-	//	min_value	not set for T2ID
-	//	max_alarm	not set for T2ID
-	//	min_alarm	not set for T2ID
-	//	max_warning	not set for T2ID
-	//	min_warning	not set for T2ID
-	//	delta_t	not set for T2ID
-	//	delta_val	not set for T2ID
+	//	Attribute : T2IdInput
+	T2IdInputAttrib	*t2idinput = new T2IdInputAttrib();
+	Tango::UserDefaultAttrProp	t2idinput_prop;
+	t2idinput_prop.set_description("T2 Optical event ID");
+	t2idinput_prop.set_label("T2 ID");
+	t2idinput_prop.set_unit("n/a");
+	t2idinput_prop.set_standard_unit("n/a");
+	t2idinput_prop.set_display_unit("n/a");
+	//	format	not set for T2IdInput
+	//	max_value	not set for T2IdInput
+	//	min_value	not set for T2IdInput
+	//	max_alarm	not set for T2IdInput
+	//	min_alarm	not set for T2IdInput
+	//	max_warning	not set for T2IdInput
+	//	min_warning	not set for T2IdInput
+	//	delta_t	not set for T2IdInput
+	//	delta_val	not set for T2IdInput
 	
-	t2id->set_default_properties(t2id_prop);
+	t2idinput->set_default_properties(t2idinput_prop);
 	//	Not Polled
-	t2id->set_disp_level(Tango::EXPERT);
+	t2idinput->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
-	att_list.push_back(t2id);
+	att_list.push_back(t2idinput);
 
-	//	Attribute : T1ID
-	T1IDAttrib	*t1id = new T1IDAttrib();
-	Tango::UserDefaultAttrProp	t1id_prop;
-	t1id_prop.set_description("T1 Optical event ID");
-	t1id_prop.set_label("T1 ID");
-	t1id_prop.set_unit("n/a");
-	t1id_prop.set_standard_unit("n/a");
-	t1id_prop.set_display_unit("n/a");
-	//	format	not set for T1ID
-	//	max_value	not set for T1ID
-	//	min_value	not set for T1ID
-	//	max_alarm	not set for T1ID
-	//	min_alarm	not set for T1ID
-	//	max_warning	not set for T1ID
-	//	min_warning	not set for T1ID
-	//	delta_t	not set for T1ID
-	//	delta_val	not set for T1ID
+	//	Attribute : T1IdInput
+	T1IdInputAttrib	*t1idinput = new T1IdInputAttrib();
+	Tango::UserDefaultAttrProp	t1idinput_prop;
+	t1idinput_prop.set_description("T1 Optical event ID");
+	t1idinput_prop.set_label("T1 ID");
+	t1idinput_prop.set_unit("n/a");
+	t1idinput_prop.set_standard_unit("n/a");
+	t1idinput_prop.set_display_unit("n/a");
+	//	format	not set for T1IdInput
+	//	max_value	not set for T1IdInput
+	//	min_value	not set for T1IdInput
+	//	max_alarm	not set for T1IdInput
+	//	min_alarm	not set for T1IdInput
+	//	max_warning	not set for T1IdInput
+	//	min_warning	not set for T1IdInput
+	//	delta_t	not set for T1IdInput
+	//	delta_val	not set for T1IdInput
 	
-	t1id->set_default_properties(t1id_prop);
+	t1idinput->set_default_properties(t1idinput_prop);
 	//	Not Polled
-	t1id->set_disp_level(Tango::EXPERT);
+	t1idinput->set_disp_level(Tango::EXPERT);
 	//	Not Memorized
-	att_list.push_back(t1id);
+	att_list.push_back(t1idinput);
 
 	//	Attribute : PMBufferSize
 	PMBufferSizeAttrib	*pmbuffersize = new PMBufferSizeAttrib();

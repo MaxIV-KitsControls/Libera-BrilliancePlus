@@ -233,8 +233,8 @@ public:
 	Tango::DevLong	t1inMask;
 	//	T2inMask:	T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.
 	Tango::DevLong	t2inMask;
-	//	T0idOut:	T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
-	Tango::DevLong	t0idOut;
+	//	T0idOutput:	T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+	Tango::DevLong	t0idOutput;
 	//	T1inFunction:	T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
 	Tango::DevLong	t1inFunction;
 	//	T2inFunction:	T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
@@ -243,8 +243,8 @@ public:
 	Tango::DevLong	t0Duration;
 	//	T0Delay:	Delay before transmission starts, set in cycles at fSFP
 	Tango::DevLong	t0Delay;
-	//	InterlockID:	oversaturation or X-Y orbit threshold
-	Tango::DevLong	interlockID;
+	//	InterlockId:	oversaturation or X-Y orbit threshold
+	Tango::DevLong	interlockId;
 	//	EnableSP:	Specifies whether or not the Single Pass data source should be enabled at startup. Defaults to false.
 	Tango::DevBoolean	enableSP;
 	//	PMCapture:	PM functionality capture: Set True to Disable, False to Enable
@@ -267,20 +267,20 @@ public:
 	Tango::DevShort	t1Direction;
 	//	T2Direction:	t2 port direction -  (Input,Output)
 	Tango::DevShort	t2Direction;
-	//	XminLimit:	X interlock min limit
-	Tango::DevDouble	xminLimit;
-	//	YminLimit:	Y interlock min limit
-	Tango::DevDouble	yminLimit;
-	//	XmaxLimit:	X interlock max limit
-	Tango::DevDouble	xmaxLimit;
-	//	YmaxLimit:	Y interlock max limit
-	Tango::DevDouble	ymaxLimit;
+	//	InterlockLimitXMin:	X interlock min limit
+	Tango::DevDouble	interlockLimitXMin;
+	//	InterlockLimitYMin:	Y interlock min limit
+	Tango::DevDouble	interlockLimitYMin;
+	//	InterlockLimitXMax:	X interlock max limit
+	Tango::DevDouble	interlockLimitXMax;
+	//	InterlockLimitYMax:	Y interlock max limit
+	Tango::DevDouble	interlockLimitYMax;
 	//	InterlockEnable:	Specifies whether or not the Interlock should be enabled at startup.
 	Tango::DevBoolean	interlockEnable;
-	//	T1ID:	T1 Optical event ID
-	Tango::DevLong	t1ID;
-	//	T2ID:	T2 Optical event ID
-	Tango::DevLong	t2ID;
+	//	T1IdInput:	T1 Optical event ID
+	Tango::DevLong	t1IdInput;
+	//	T2IdInput:	T2 Optical event ID
+	Tango::DevLong	t2IdInput;
 	//	SPThreshold:	Specifies the threshold for start of calculation (in ADC counts)
 	Tango::DevLong	sPThreshold;
 	//	SPnBefore:	Specifies the number of samples to take before the threshold (in ADC samples)
@@ -315,6 +315,11 @@ public:
 	//  		      High    = 3,
 	//  		      Detail  = 4
 	vector<Tango::DevShort>	errorTrace;
+	//	InterlockOverflowDuration:	Duration of allowed ADC saturation (in ADC samples)
+	Tango::DevLong	interlockOverflowDuration;
+	//	InterlockGainDependentThreshold:	Sets the threshold for gain dependent mode of Interlock 
+	//  operation.
+	Tango::DevLong	interlockGainDependentThreshold;
 
 //	Attribute data members
 public:
@@ -354,10 +359,10 @@ public:
 	Tango::DevBoolean	*attr_InterlockAttnNotified_read;
 	Tango::DevBoolean	*attr_InterlockADCPreFilterNotified_read;
 	Tango::DevBoolean	*attr_InterlockADCPostFilterNotified_read;
-	Tango::DevDouble	*attr_XLow_read;
-	Tango::DevDouble	*attr_XHigh_read;
-	Tango::DevDouble	*attr_YLow_read;
-	Tango::DevDouble	*attr_YHigh_read;
+	Tango::DevDouble	*attr_InterlockLimitXMin_read;
+	Tango::DevDouble	*attr_InterlockLimitXMax_read;
+	Tango::DevDouble	*attr_InterlockLimitYMin_read;
+	Tango::DevDouble	*attr_InterlockLimitYMax_read;
 	Tango::DevBoolean	*attr_AutoSwitchingEnabled_read;
 	Tango::DevBoolean	*attr_ExternalSwitching_read;
 	Tango::DevLong	*attr_SwitchingDelay_read;
@@ -411,7 +416,7 @@ public:
 	Tango::DevLong	*attr_T0inMask_read;
 	Tango::DevLong	*attr_T1inMask_read;
 	Tango::DevLong	*attr_T2inMask_read;
-	Tango::DevLong	*attr_T0idOut_read;
+	Tango::DevLong	*attr_T0idOutput_read;
 	Tango::DevLong	*attr_T1inFunction_read;
 	Tango::DevLong	*attr_T2inFunction_read;
 	Tango::DevLong	*attr_MCinMask_read;
@@ -424,8 +429,8 @@ public:
 	Tango::DevBoolean	*attr_T2EdgeRising_read;
 	Tango::DevBoolean	*attr_T1EdgeFalling_read;
 	Tango::DevBoolean	*attr_T1EdgeRising_read;
-	Tango::DevLong	*attr_T2ID_read;
-	Tango::DevLong	*attr_T1ID_read;
+	Tango::DevLong	*attr_T2IdInput_read;
+	Tango::DevLong	*attr_T1IdInput_read;
 	Tango::DevLong	*attr_PMBufferSize_read;
 	Tango::DevShort	*attr_PMSource_read;
 	Tango::DevShort	*attr_T1Direction_read;
@@ -893,45 +898,45 @@ public:
 	virtual void read_InterlockADCPostFilterNotified(Tango::Attribute &attr);
 	virtual bool is_InterlockADCPostFilterNotified_allowed(Tango::AttReqType type);
 /**
- *	Attribute XLow related methods
+ *	Attribute InterlockLimitXMin related methods
  *	Description: Lower limit of the X position interlock threshold in mm
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
-	virtual void read_XLow(Tango::Attribute &attr);
-	virtual void write_XLow(Tango::WAttribute &attr);
-	virtual bool is_XLow_allowed(Tango::AttReqType type);
+	virtual void read_InterlockLimitXMin(Tango::Attribute &attr);
+	virtual void write_InterlockLimitXMin(Tango::WAttribute &attr);
+	virtual bool is_InterlockLimitXMin_allowed(Tango::AttReqType type);
 /**
- *	Attribute XHigh related methods
+ *	Attribute InterlockLimitXMax related methods
  *	Description: Upper limit of the X position interlock threshold in mm
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
-	virtual void read_XHigh(Tango::Attribute &attr);
-	virtual void write_XHigh(Tango::WAttribute &attr);
-	virtual bool is_XHigh_allowed(Tango::AttReqType type);
+	virtual void read_InterlockLimitXMax(Tango::Attribute &attr);
+	virtual void write_InterlockLimitXMax(Tango::WAttribute &attr);
+	virtual bool is_InterlockLimitXMax_allowed(Tango::AttReqType type);
 /**
- *	Attribute YLow related methods
+ *	Attribute InterlockLimitYMin related methods
  *	Description: Lower limit of the Y position interlock threshold in mm
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
-	virtual void read_YLow(Tango::Attribute &attr);
-	virtual void write_YLow(Tango::WAttribute &attr);
-	virtual bool is_YLow_allowed(Tango::AttReqType type);
+	virtual void read_InterlockLimitYMin(Tango::Attribute &attr);
+	virtual void write_InterlockLimitYMin(Tango::WAttribute &attr);
+	virtual bool is_InterlockLimitYMin_allowed(Tango::AttReqType type);
 /**
- *	Attribute YHigh related methods
+ *	Attribute InterlockLimitYMax related methods
  *	Description: Upper limit of the Y position interlock threshold in mm
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
-	virtual void read_YHigh(Tango::Attribute &attr);
-	virtual void write_YHigh(Tango::WAttribute &attr);
-	virtual bool is_YHigh_allowed(Tango::AttReqType type);
+	virtual void read_InterlockLimitYMax(Tango::Attribute &attr);
+	virtual void write_InterlockLimitYMax(Tango::WAttribute &attr);
+	virtual bool is_InterlockLimitYMax_allowed(Tango::AttReqType type);
 /**
  *	Attribute AutoSwitchingEnabled related methods
  *	Description: Enables / disables the switching mechanism.
@@ -1469,15 +1474,15 @@ public:
 	virtual void write_T2inMask(Tango::WAttribute &attr);
 	virtual bool is_T2inMask_allowed(Tango::AttReqType type);
 /**
- *	Attribute T0idOut related methods
+ *	Attribute T0idOutput related methods
  *	Description: T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
  */
-	virtual void read_T0idOut(Tango::Attribute &attr);
-	virtual void write_T0idOut(Tango::WAttribute &attr);
-	virtual bool is_T0idOut_allowed(Tango::AttReqType type);
+	virtual void read_T0idOutput(Tango::Attribute &attr);
+	virtual void write_T0idOutput(Tango::WAttribute &attr);
+	virtual bool is_T0idOutput_allowed(Tango::AttReqType type);
 /**
  *	Attribute T1inFunction related methods
  *	Description: T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
@@ -1598,25 +1603,25 @@ public:
 	virtual void write_T1EdgeRising(Tango::WAttribute &attr);
 	virtual bool is_T1EdgeRising_allowed(Tango::AttReqType type);
 /**
- *	Attribute T2ID related methods
+ *	Attribute T2IdInput related methods
  *	Description: T2 Optical event ID
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
  */
-	virtual void read_T2ID(Tango::Attribute &attr);
-	virtual void write_T2ID(Tango::WAttribute &attr);
-	virtual bool is_T2ID_allowed(Tango::AttReqType type);
+	virtual void read_T2IdInput(Tango::Attribute &attr);
+	virtual void write_T2IdInput(Tango::WAttribute &attr);
+	virtual bool is_T2IdInput_allowed(Tango::AttReqType type);
 /**
- *	Attribute T1ID related methods
+ *	Attribute T1IdInput related methods
  *	Description: T1 Optical event ID
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
  */
-	virtual void read_T1ID(Tango::Attribute &attr);
-	virtual void write_T1ID(Tango::WAttribute &attr);
-	virtual bool is_T1ID_allowed(Tango::AttReqType type);
+	virtual void read_T1IdInput(Tango::Attribute &attr);
+	virtual void write_T1IdInput(Tango::WAttribute &attr);
+	virtual bool is_T1IdInput_allowed(Tango::AttReqType type);
 /**
  *	Attribute PMBufferSize related methods
  *	Description: The number of samples to be read on PM data source.
