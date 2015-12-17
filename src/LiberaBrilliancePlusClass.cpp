@@ -3687,10 +3687,10 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	temp1_prop.set_format("%8d");
 	//	max_value	not set for Temp1
 	//	min_value	not set for Temp1
-	temp1_prop.set_max_alarm("65");
-	//	min_alarm	not set for Temp1
-	//	max_warning	not set for Temp1
-	//	min_warning	not set for Temp1
+	temp1_prop.set_max_alarm("75");
+	temp1_prop.set_min_alarm("5");
+	temp1_prop.set_max_warning("72");
+	temp1_prop.set_min_warning("10");
 	//	delta_t	not set for Temp1
 	//	delta_val	not set for Temp1
 	
@@ -3711,10 +3711,10 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	temp2_prop.set_format("%8d");
 	//	max_value	not set for Temp2
 	//	min_value	not set for Temp2
-	temp2_prop.set_max_alarm("65");
-	//	min_alarm	not set for Temp2
-	//	max_warning	not set for Temp2
-	//	min_warning	not set for Temp2
+	temp2_prop.set_max_alarm("75");
+	temp2_prop.set_min_alarm("5");
+	temp2_prop.set_max_warning("72");
+	temp2_prop.set_min_warning("10");
 	//	delta_t	not set for Temp2
 	//	delta_val	not set for Temp2
 	
@@ -3735,10 +3735,10 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	temp3_prop.set_format("%8d");
 	//	max_value	not set for Temp3
 	//	min_value	not set for Temp3
-	temp3_prop.set_max_alarm("65");
-	//	min_alarm	not set for Temp3
-	//	max_warning	not set for Temp3
-	//	min_warning	not set for Temp3
+	temp3_prop.set_max_alarm("75");
+	temp3_prop.set_min_alarm("5");
+	temp3_prop.set_max_warning("72");
+	temp3_prop.set_min_warning("10");
 	//	delta_t	not set for Temp3
 	//	delta_val	not set for Temp3
 	

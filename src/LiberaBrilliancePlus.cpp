@@ -6634,12 +6634,13 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 		{
 			m_status = "RTC TimeStamp not done";
 		}
-		//Set status logic in dev_status func
+
 	}
 	else {
 		argout = Tango::ON;
 		m_status = "Connected to Libera";
 	}
+
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_state
 	set_state(argout);    // Give the state to Tango.
 	if (argout!=Tango::ALARM)
@@ -6659,8 +6660,13 @@ Tango::ConstDevString LiberaBrilliancePlus::dev_status()
 	DEBUG_STREAM << "LiberaBrilliancePlus::Status()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::dev_status) ENABLED START -----*/
 	//	Add your own code
-	std::string status= m_status;
-	//set_status(m_status);
+
+	//Check for status change and push it to the logs.
+	LogStatusGuard(current_status);
+	current_status=m_status;
+
+	//ugly but for Pogo reasons
+	std::string status = current_status;
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::dev_status
 	set_status(status);               // Give the status to Tango.
 	return DeviceImpl::dev_status();  // Return it.
@@ -7352,6 +7358,25 @@ void LiberaBrilliancePlus::UpdatePM()
 // 	//	Set the attribute value
 // 	attr.set_value(attr_InterlockInterlockGainDependentThresholdThreshold_read);
 // }
+
+/*
+ *      Log status guard
+ */
+void LiberaBrilliancePlus::LogStatusGuard(std::string status)
+{
+	if (status.compare(m_status) != 0) {
+		switch(get_state()) {
+		case 8:
+			//ERROR_STREAM << status << endl;
+			cout << "ERROR_STREAM " << m_status << endl;
+			break;
+		case 11:
+			//WARN_STREAM << status << endl;
+			cout << "WARN_STREAM " << m_status << endl;
+			break;
+		}
+	}
+}
 
 /*
  *      DD stream callback

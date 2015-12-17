@@ -99,8 +99,11 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
         bool initFlag;
         void init_settings();
 
+        void LogStatusGuard(std::string status);               // Give the status to Tango.
+
         Tango::DevState m_state;
         std::string m_status;
+        std::string current_status;
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Data Members
 
