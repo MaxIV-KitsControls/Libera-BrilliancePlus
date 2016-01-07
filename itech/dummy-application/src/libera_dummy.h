@@ -34,12 +34,14 @@ private:
     bool RegExec();
 	void RegistryAddTiming(const char *a_name);
     void RegistryAddRaf(const char *a_name);
+    void RegistryAddApplication();
 	/* Dummy internal parameters */
 	int m_exitThread1;
 	std::thread m_thread1;
 
 	std::vector<isig::SignalSourceSharedPtr> m_signals;
 	uint64_t m_ilkStatus;
+	int32_t *m_refTest;
 };
 
 #endif // LIBERA_DUMMY_H

@@ -231,7 +231,11 @@ void platformDummy::OnRegistryAdd(ireg::TreeNodePtr &parent) {
 	fans.GetTreeNode()->Attach(m_nodefan_right_middle);
 	fans.GetTreeNode()->Attach(m_nodefan_right_front);
 
-
+	//Create application node
+	regroot.GetTreeNode()->Attach(Create<RegNode>("application"));
+    mci::Node application = GetRegistry()["application"];
+    application.GetTreeNode()
+		->Attach(Create<RegValueInt32Node>("synchronize_lmt", 100));
 
 	mci::Node boards = GetRegistry()["boards"];
 

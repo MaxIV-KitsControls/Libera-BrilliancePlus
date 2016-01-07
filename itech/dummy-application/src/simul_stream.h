@@ -40,7 +40,7 @@ public:
 
 private:
 
-    virtual isig::SuccessCode_e GetEventLmt(isig::LMT& a_lmt) const
+    virtual isig::SuccessCode_e GetEventLmt(isig::LMT& a_lmt, uint64_t &a_count) const
     {
         ::sleep(1);
         return GetCurrentLmt(a_lmt);
