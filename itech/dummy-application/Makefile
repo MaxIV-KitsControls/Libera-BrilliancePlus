@@ -17,7 +17,7 @@ LOCAL_RULES=deb show_env dupload
 # Build these subdirectories
 SUBDIRS = src
 
-export BASE_VER?=2.6
+export BASE_VER?=2.9
 
 BASE_INC_DIR?=/usr/include/libera-$(BASE_VER)
 BASE_LIB_DIR?=/opt/libera/lib
