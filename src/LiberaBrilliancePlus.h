@@ -2438,6 +2438,8 @@ public:
  
   void set_lib_error(std::string nodeinfo);
 
+  std::string set_interlock_status();
+
 /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Additional Method prototypes
 };
 

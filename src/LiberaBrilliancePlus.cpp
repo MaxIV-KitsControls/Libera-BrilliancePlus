@@ -6621,7 +6621,7 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
         *attr_InterlockADCPostFilterNotified_read == true))
 	{
 		argout = Tango::ALARM;
-		m_status = "Interlock status values are enabled.";
+		m_status = set_interlock_status();
 	}
 	else if (*attr_MCPLLStatus_read == false || *attr_RTCTimestampState_read != 1)
 	{
@@ -7367,12 +7367,12 @@ void LiberaBrilliancePlus::LogStatusGuard(std::string status)
 	if (status.compare(m_status) != 0) {
 		switch(get_state()) {
 		case 8:
-			//ERROR_STREAM << status << endl;
-			cout << "ERROR_STREAM " << m_status << endl;
+			ERROR_STREAM << status << endl;
+			//cout << "ERROR_STREAM " << m_status << endl;
 			break;
 		case 11:
-			//WARN_STREAM << status << endl;
-			cout << "WARN_STREAM " << m_status << endl;
+			WARN_STREAM << status << endl;
+			//cout << "WARN_STREAM " << m_status << endl;
 			break;
 		}
 	}
@@ -7496,6 +7496,22 @@ void LiberaBrilliancePlus::set_lib_error(std::string nodeinfo)
 	m_state = Tango::FAULT;
     m_status = "Error while reading from a node:: "+ nodeinfo +". Please reinit the device";
     //throw nodeinfo;
+}
+
+std::string LiberaBrilliancePlus::set_interlock_status()
+{
+	std::string status = "Interlock Enabled ";
+
+	if (*attr_InterlockXNotified_read)
+		status += " - X position exceeded the limit values";
+
+	if (*attr_InterlockYNotified_read)
+		status += " - Y position exceeded the limit values";
+
+	if (*attr_InterlockADCPreFilterNotified_read)
+			status += " - ADCs in saturation";
+
+	return status;
 }
 
 void LiberaBrilliancePlus::init_settings()
@@ -7641,6 +7657,9 @@ void LiberaBrilliancePlus::init_settings()
 		return;
 	}
 }
+
+
+
 // //--------------------------------------------------------
 // /**
 //  *	Read attribute SynchronizeLMT related method
