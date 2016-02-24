@@ -91,6 +91,8 @@ static const char *RcsId = "$Id:  $";
 //  AnnounceSynchronization     |  announce_synchronization
 //  ForceInitSettings           |  force_init_settings
 //  SetTraceLevel               |  set_trace_level
+//  EnableFA                    |  enable_fa
+//  DisableFA                   |  disable_fa
 //================================================================
 
 //================================================================
@@ -221,6 +223,8 @@ static const char *RcsId = "$Id:  $";
 //  YPosSP                           |  Tango::DevDouble	Scalar
 //  ThdrId                           |  Tango::DevDouble	Scalar
 //  VaSP                             |  Tango::DevDouble	Scalar
+//  FAEnabled                        |  Tango::DevBoolean	Scalar
+//  FAStatNumSamples                 |  Tango::DevLong	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  YPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  QuadDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -262,6 +266,16 @@ static const char *RcsId = "$Id:  $";
 //  VbTD                             |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  VcTD                             |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  VdTD                             |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  VaFA                             |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  VbFA                             |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  VcFA                             |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  VdFA                             |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  XPosFA                           |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  SumFA                            |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  QuadFA                           |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  YPosFA                           |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  lmt_hFA                          |  Tango::DevDouble	Spectrum  ( max = 250000)
+//  lmt_lFA                          |  Tango::DevDouble	Spectrum  ( max = 250000)
 //================================================================
 
 namespace LiberaBrilliancePlus_ns
@@ -731,6 +745,27 @@ void LiberaBrilliancePlus::init_device()
     m_signalSA->SetNotifier(&LiberaBrilliancePlus::_SACallback,
             reinterpret_cast<void*>(this));
 
+    m_signalFA  = m_libera->AddSignal<Tango::DevDouble>(
+        m_raf + "signals.fa",
+		16384,
+        attr_FAEnabled_read,
+        attr_FAStatNumSamples_read,
+        attr_VaFA_read,
+        attr_VbFA_read,
+        attr_VcFA_read,
+        attr_VdFA_read,
+        attr_SumFA_read,
+        attr_QuadFA_read,
+        attr_XPosFA_read,
+        attr_YPosFA_read,
+		attr_lmt_lFA_read,
+		attr_lmt_hFA_read);
+    m_signalFA->SetPeriod(0); // stream waits in read
+    m_signalDdc->SetMode(isig::eModeStream);
+    m_signalFA->Enable();
+    m_signalFA->SetNotifier(&LiberaBrilliancePlus::_FACallback,
+            reinterpret_cast<void*>(this));
+
     m_signalPM  = m_libera->AddSignal<Tango::DevDouble>(
         m_raf + "postmortem.signals.ddc_synthetic",
         16384,
@@ -803,6 +838,12 @@ void LiberaBrilliancePlus::init_device()
     set_change_event("ThdrId",  true, false);
     set_change_event("XPosSP",  true, false);
     set_change_event("YPosSP",  true, false);
+
+    //Archive Events
+    set_archive_event("XPosFA",  true, false);
+    set_archive_event("YPosFA",  true, false);
+    set_archive_event("QuadFA",  true, false);
+    set_archive_event("SumFA",  true, false);
 
     //set_change_event("State",  true, false);
 
@@ -5844,6 +5885,86 @@ void LiberaBrilliancePlus::read_VaSP(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
+ *	Read attribute FAEnabled related method
+ *	Description: FA data source activation flag
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_FAEnabled(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_FAEnabled(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_FAEnabled) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_FAEnabled_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_FAEnabled
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute FAEnabled related method
+ *	Description: FA data source activation flag
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::write_FAEnabled(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::write_FAEnabled(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevBoolean	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_FAEnabled) ENABLED START -----*/
+    w_val ? enable_fa() : disable_fa();
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_FAEnabled
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute FAStatNumSamples related method
+ *	Description: The number of sample in FA history used to compute the FA statistics
+ *               (Mean, RMS, Peak pos). The most recent samples will be used.
+ *               The valid range is [2, FAHistoryLength property value].
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_FAStatNumSamples(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_FAStatNumSamples(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_FAStatNumSamples) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_FAStatNumSamples
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute FAStatNumSamples related method
+ *	Description: The number of sample in FA history used to compute the FA statistics
+ *               (Mean, RMS, Peak pos). The most recent samples will be used.
+ *               The valid range is [2, FAHistoryLength property value].
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::write_FAStatNumSamples(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::write_FAStatNumSamples(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevLong	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_FAStatNumSamples) ENABLED START -----*/
+	m_signalFA->Realloc(w_val);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_FAStatNumSamples
+}
+//--------------------------------------------------------
+/**
  *	Read attribute XPosDD related method
  *	Description: Turn by turn data: X Pos.
  *
@@ -6582,6 +6703,186 @@ void LiberaBrilliancePlus::read_VdTD(Tango::Attribute &attr)
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdTD
 }
+//--------------------------------------------------------
+/**
+ *	Read attribute VaFA related method
+ *	Description: Slow Acquisition: Fa
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VaFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VaFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VaFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VaFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VaFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VbFA related method
+ *	Description: Fast Acquisition: Vb
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VbFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VbFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VbFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VbFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VbFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VcFA related method
+ *	Description: Fast Acquisition: Vc
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VcFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VcFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VcFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VcFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VcFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute VdFA related method
+ *	Description: Fast Acquisition: Vd
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_VdFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_VdFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_VdFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_VdFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_VdFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute XPosFA related method
+ *	Description: Fast Acquisition: X
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_XPosFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_XPosFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_XPosFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_XPosFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_XPosFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute SumFA related method
+ *	Description: Fast Acquisition: Sum
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_SumFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_SumFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_SumFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_SumFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_SumFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute QuadFA related method
+ *	Description: Fast Acquisition: Quad
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_QuadFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_QuadFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_QuadFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_QuadFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_QuadFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute YPosFA related method
+ *	Description: Fast Acquisition: Y
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_YPosFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_YPosFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_YPosFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_YPosFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_YPosFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute lmt_hFA related method
+ *	Description: Fast Acquisition: Y
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_lmt_hFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_lmt_hFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_lmt_hFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_lmt_hFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_lmt_hFA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute lmt_lFA related method
+ *	Description: Fast Acquisition: Y
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_lmt_lFA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_lmt_lFA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_lmt_lFA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_lmt_lFA_read, *attr_FAStatNumSamples_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_lmt_lFA
+}
 
 //--------------------------------------------------------
 /**
@@ -7260,6 +7561,42 @@ void LiberaBrilliancePlus::set_trace_level(Tango::DevUShort argin)
 	istd::TraceSetLevel(static_cast<istd::TraceLevel_e>(argin));
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::set_trace_level
 }
+//--------------------------------------------------------
+/**
+ *	Command EnableFA related method
+ *	Description: Enables the so called ``fast acquisition`` data source
+ *
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::enable_fa()
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::EnableFA()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::enable_fa) ENABLED START -----*/
+	if(m_libera != NULL)
+ {
+	//	Add your own code
+	m_signalFA->Enable();
+ }
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::enable_fa
+}
+//--------------------------------------------------------
+/**
+ *	Command DisableFA related method
+ *	Description: Disables the so called ``fast acquisition`` data source
+ *
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::disable_fa()
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::DisableFA()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::disable_fa) ENABLED START -----*/
+		if(m_libera != NULL)
+ {
+	//	Add your own code
+	m_signalFA->Disable();
+}
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_fa
+}
 
 /*----- PROTECTED REGION ID(LiberaBrilliancePlus::namespace_ending) ENABLED START -----*/
 
@@ -7421,6 +7758,28 @@ void LiberaBrilliancePlus::_SACallback(void *data)
 {
         LiberaBrilliancePlus *device = reinterpret_cast<LiberaBrilliancePlus *>(data);
         device->SACallback();
+}
+/*
+ *      FA stream callback
+ */
+void LiberaBrilliancePlus::FACallback()
+{
+    INFO_STREAM << "FA CALLBACK " << endl;
+        m_signalFA->GetData();
+
+        push_archive_event("XPosFA", attr_XPosFA_read);
+        push_archive_event("YPosFA", attr_YPosFA_read);
+        push_archive_event("QuadFA", attr_QuadFA_read);
+        push_archive_event("SumFA", attr_SumFA_read);
+}
+
+/*
+ * FACallback static wrapper
+ */
+void LiberaBrilliancePlus::_FACallback(void *data)
+{
+        LiberaBrilliancePlus *device = reinterpret_cast<LiberaBrilliancePlus *>(data);
+        device->FACallback();
 }
 /*
  *      PM stream callback
@@ -7657,77 +8016,5 @@ void LiberaBrilliancePlus::init_settings()
 		return;
 	}
 }
-
-
-
-// //--------------------------------------------------------
-// /**
-//  *	Read attribute SynchronizeLMT related method
-//  *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
-//  *
-//  *	Data type:	Tango::DevLong
-//  *	Attr type:	Scalar
-//  */
-// //--------------------------------------------------------
-// void LiberaBrilliancePlus::read_SynchronizeLMT(Tango::Attribute &attr)
-// {
-// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_SynchronizeLMT(Tango::Attribute &attr) entering... " << endl;
-// 	//	Set the attribute value
-// 	attr.set_value(attr_SynchronizeLMT_read);
-// 	
-// }
-
-// //--------------------------------------------------------
-// /**
-//  *	Write attribute SynchronizeLMT related method
-//  *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
-//  *
-//  *	Data type:	Tango::DevLong
-//  *	Attr type:	Scalar
-//  */
-// //--------------------------------------------------------
-// void LiberaBrilliancePlus::write_SynchronizeLMT(Tango::WAttribute &attr)
-// {
-// 	DEBUG_STREAM << "LiberaBrilliancePlus::write_SynchronizeLMT(Tango::WAttribute &attr) entering... " << endl;
-// 	//	Retrieve write value
-// 	Tango::DevLong	w_val;
-// 	attr.get_write_value(w_val);
-// 	m_libera->UpdateScalar(attr_SynchronizeLMT_read, w_val);
-// 	
-// }
-
-// //--------------------------------------------------------
-// /**
-//  *	Read attribute MCPll related method
-//  *	Description: MAchine' Phase Locked Loop
-//  *
-//  *	Data type:	Tango::DevBoolean
-//  *	Attr type:	Scalar
-//  */
-// //--------------------------------------------------------
-// void LiberaBrilliancePlus::read_MCPll(Tango::Attribute &attr)
-// {
-// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCPll(Tango::Attribute &attr) entering... " << endl;
-// 	//	Set the attribute value
-// 	attr.set_value(attr_MCPll_read);
-// 	
-// }
-
-// //--------------------------------------------------------
-// /**
-//  *	Command SetRefIncoherence related method
-//  *	Description: Set the actual incoherence value as refeference value for the drift alarm calculation.
-//  *
-//  */
-// //--------------------------------------------------------
-// void LiberaBrilliancePlus::set_ref_incoherence()
-// {
-// 	DEBUG_STREAM << "LiberaBrilliancePlus::SetRefIncoherence()  - " << device_name << endl;
-// 	
-// 	//	Add your own code
-// 	
-// }
-
-
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::namespace_ending
 } //	namespace

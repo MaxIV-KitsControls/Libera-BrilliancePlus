@@ -1836,6 +1836,36 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VaSP_allowed(ty);}
 };
 
+//	Attribute FAEnabled class definition
+class FAEnabledAttrib: public Tango::Attr
+{
+public:
+	FAEnabledAttrib():Attr("FAEnabled",
+			Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
+	~FAEnabledAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_FAEnabled(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_FAEnabled(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_FAEnabled_allowed(ty);}
+};
+
+//	Attribute FAStatNumSamples class definition
+class FAStatNumSamplesAttrib: public Tango::Attr
+{
+public:
+	FAStatNumSamplesAttrib():Attr("FAStatNumSamples",
+			Tango::DEV_LONG, Tango::READ_WRITE) {};
+	~FAStatNumSamplesAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_FAStatNumSamples(att);}
+	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_FAStatNumSamples(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_FAStatNumSamples_allowed(ty);}
+};
+
 //	Attribute XPosDD class definition
 class XPosDDAttrib: public Tango::SpectrumAttr
 {
@@ -2367,6 +2397,136 @@ public:
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VdTD(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VdTD_allowed(ty);}
+};
+
+//	Attribute VaFA class definition
+class VaFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	VaFAAttrib():SpectrumAttr("VaFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~VaFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VaFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VaFA_allowed(ty);}
+};
+
+//	Attribute VbFA class definition
+class VbFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	VbFAAttrib():SpectrumAttr("VbFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~VbFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VbFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VbFA_allowed(ty);}
+};
+
+//	Attribute VcFA class definition
+class VcFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	VcFAAttrib():SpectrumAttr("VcFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~VcFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VcFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VcFA_allowed(ty);}
+};
+
+//	Attribute VdFA class definition
+class VdFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	VdFAAttrib():SpectrumAttr("VdFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~VdFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_VdFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_VdFA_allowed(ty);}
+};
+
+//	Attribute XPosFA class definition
+class XPosFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	XPosFAAttrib():SpectrumAttr("XPosFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~XPosFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_XPosFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_XPosFA_allowed(ty);}
+};
+
+//	Attribute SumFA class definition
+class SumFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	SumFAAttrib():SpectrumAttr("SumFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~SumFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_SumFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SumFA_allowed(ty);}
+};
+
+//	Attribute QuadFA class definition
+class QuadFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	QuadFAAttrib():SpectrumAttr("QuadFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~QuadFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_QuadFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_QuadFA_allowed(ty);}
+};
+
+//	Attribute YPosFA class definition
+class YPosFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	YPosFAAttrib():SpectrumAttr("YPosFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~YPosFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_YPosFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_YPosFA_allowed(ty);}
+};
+
+//	Attribute lmt_hFA class definition
+class lmt_hFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	lmt_hFAAttrib():SpectrumAttr("lmt_hFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~lmt_hFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_lmt_hFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_lmt_hFA_allowed(ty);}
+};
+
+//	Attribute lmt_lFA class definition
+class lmt_lFAAttrib: public Tango::SpectrumAttr
+{
+public:
+	lmt_lFAAttrib():SpectrumAttr("lmt_lFA",
+			Tango::DEV_DOUBLE, Tango::READ, 250000) {};
+	~lmt_lFAAttrib() {};
+	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_lmt_lFA(att);}
+	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_lmt_lFA_allowed(ty);}
 };
 
 
@@ -3084,6 +3244,52 @@ public:
 	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
 	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
 	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_SetTraceLevel_allowed(any);}
+};
+
+//	Command EnableFA class definition
+class EnableFAClass : public Tango::Command
+{
+public:
+	EnableFAClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	EnableFAClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~EnableFAClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_EnableFA_allowed(any);}
+};
+
+//	Command DisableFA class definition
+class DisableFAClass : public Tango::Command
+{
+public:
+	DisableFAClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DisableFAClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DisableFAClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DisableFA_allowed(any);}
 };
 
 

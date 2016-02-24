@@ -722,6 +722,42 @@ CORBA::Any *SetTraceLevelClass::execute(Tango::DeviceImpl *device, const CORBA::
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		EnableFAClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *EnableFAClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "EnableFAClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->enable_fa());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		DisableFAClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *DisableFAClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "DisableFAClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->disable_fa());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -5486,6 +5522,54 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(vasp);
 
+	//	Attribute : FAEnabled
+	FAEnabledAttrib	*faenabled = new FAEnabledAttrib();
+	Tango::UserDefaultAttrProp	faenabled_prop;
+	faenabled_prop.set_description("FA data source activation flag");
+	faenabled_prop.set_label("FA Enabled");
+	faenabled_prop.set_unit("n/a");
+	faenabled_prop.set_standard_unit("n/a");
+	faenabled_prop.set_display_unit("n/a");
+	//	format	not set for FAEnabled
+	//	max_value	not set for FAEnabled
+	//	min_value	not set for FAEnabled
+	//	max_alarm	not set for FAEnabled
+	//	min_alarm	not set for FAEnabled
+	//	max_warning	not set for FAEnabled
+	//	min_warning	not set for FAEnabled
+	//	delta_t	not set for FAEnabled
+	//	delta_val	not set for FAEnabled
+	
+	faenabled->set_default_properties(faenabled_prop);
+	//	Not Polled
+	faenabled->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(faenabled);
+
+	//	Attribute : FAStatNumSamples
+	FAStatNumSamplesAttrib	*fastatnumsamples = new FAStatNumSamplesAttrib();
+	Tango::UserDefaultAttrProp	fastatnumsamples_prop;
+	fastatnumsamples_prop.set_description("The number of sample in FA history used to compute the FA statistics\n(Mean, RMS, Peak pos). The most recent samples will be used.\nThe valid range is [2, FAHistoryLength property value].");
+	fastatnumsamples_prop.set_label("FA Stats.Num.Samples.");
+	fastatnumsamples_prop.set_unit("samples");
+	//	standard_unit	not set for FAStatNumSamples
+	//	display_unit	not set for FAStatNumSamples
+	fastatnumsamples_prop.set_format("%5d");
+	fastatnumsamples_prop.set_max_value("65535");
+	fastatnumsamples_prop.set_min_value("2");
+	//	max_alarm	not set for FAStatNumSamples
+	//	min_alarm	not set for FAStatNumSamples
+	//	max_warning	not set for FAStatNumSamples
+	//	min_warning	not set for FAStatNumSamples
+	//	delta_t	not set for FAStatNumSamples
+	//	delta_val	not set for FAStatNumSamples
+	
+	fastatnumsamples->set_default_properties(fastatnumsamples_prop);
+	//	Not Polled
+	fastatnumsamples->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(fastatnumsamples);
+
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
 	Tango::UserDefaultAttrProp	xposdd_prop;
@@ -6470,6 +6554,246 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(vdtd);
 
+	//	Attribute : VaFA
+	VaFAAttrib	*vafa = new VaFAAttrib();
+	Tango::UserDefaultAttrProp	vafa_prop;
+	vafa_prop.set_description("Slow Acquisition: Fa");
+	vafa_prop.set_label("FA Va");
+	vafa_prop.set_unit("a.u.");
+	vafa_prop.set_standard_unit("a.u.");
+	vafa_prop.set_display_unit("a.u.");
+	vafa_prop.set_format("%10.0f");
+	//	max_value	not set for VaFA
+	//	min_value	not set for VaFA
+	//	max_alarm	not set for VaFA
+	//	min_alarm	not set for VaFA
+	//	max_warning	not set for VaFA
+	//	min_warning	not set for VaFA
+	//	delta_t	not set for VaFA
+	//	delta_val	not set for VaFA
+	
+	vafa->set_default_properties(vafa_prop);
+	//	Not Polled
+	vafa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vafa);
+
+	//	Attribute : VbFA
+	VbFAAttrib	*vbfa = new VbFAAttrib();
+	Tango::UserDefaultAttrProp	vbfa_prop;
+	vbfa_prop.set_description("Fast Acquisition: Vb");
+	vbfa_prop.set_label("FA Vb");
+	vbfa_prop.set_unit("a.u.");
+	vbfa_prop.set_standard_unit("a.u.");
+	vbfa_prop.set_display_unit("a.u.");
+	vbfa_prop.set_format("%10.0f");
+	//	max_value	not set for VbFA
+	//	min_value	not set for VbFA
+	//	max_alarm	not set for VbFA
+	//	min_alarm	not set for VbFA
+	//	max_warning	not set for VbFA
+	//	min_warning	not set for VbFA
+	//	delta_t	not set for VbFA
+	//	delta_val	not set for VbFA
+	
+	vbfa->set_default_properties(vbfa_prop);
+	//	Not Polled
+	vbfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vbfa);
+
+	//	Attribute : VcFA
+	VcFAAttrib	*vcfa = new VcFAAttrib();
+	Tango::UserDefaultAttrProp	vcfa_prop;
+	vcfa_prop.set_description("Fast Acquisition: Vc");
+	vcfa_prop.set_label("FA Vc");
+	vcfa_prop.set_unit("a.u.");
+	vcfa_prop.set_standard_unit("a.u.");
+	vcfa_prop.set_display_unit("a.u.");
+	vcfa_prop.set_format("%10.0f");
+	//	max_value	not set for VcFA
+	//	min_value	not set for VcFA
+	//	max_alarm	not set for VcFA
+	//	min_alarm	not set for VcFA
+	//	max_warning	not set for VcFA
+	//	min_warning	not set for VcFA
+	//	delta_t	not set for VcFA
+	//	delta_val	not set for VcFA
+	
+	vcfa->set_default_properties(vcfa_prop);
+	//	Not Polled
+	vcfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vcfa);
+
+	//	Attribute : VdFA
+	VdFAAttrib	*vdfa = new VdFAAttrib();
+	Tango::UserDefaultAttrProp	vdfa_prop;
+	vdfa_prop.set_description("Fast Acquisition: Vd");
+	vdfa_prop.set_label("FA Vd");
+	vdfa_prop.set_unit("a.u.");
+	vdfa_prop.set_standard_unit("a.u.");
+	vdfa_prop.set_display_unit("a.u.");
+	vdfa_prop.set_format("%10.0f");
+	//	max_value	not set for VdFA
+	//	min_value	not set for VdFA
+	//	max_alarm	not set for VdFA
+	//	min_alarm	not set for VdFA
+	//	max_warning	not set for VdFA
+	//	min_warning	not set for VdFA
+	//	delta_t	not set for VdFA
+	//	delta_val	not set for VdFA
+	
+	vdfa->set_default_properties(vdfa_prop);
+	//	Not Polled
+	vdfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(vdfa);
+
+	//	Attribute : XPosFA
+	XPosFAAttrib	*xposfa = new XPosFAAttrib();
+	Tango::UserDefaultAttrProp	xposfa_prop;
+	xposfa_prop.set_description("Fast Acquisition: X");
+	xposfa_prop.set_label("X.Pos.FA");
+	xposfa_prop.set_unit("mm");
+	//	standard_unit	not set for XPosFA
+	//	display_unit	not set for XPosFA
+	xposfa_prop.set_format("%8.2f");
+	//	max_value	not set for XPosFA
+	//	min_value	not set for XPosFA
+	//	max_alarm	not set for XPosFA
+	//	min_alarm	not set for XPosFA
+	//	max_warning	not set for XPosFA
+	//	min_warning	not set for XPosFA
+	//	delta_t	not set for XPosFA
+	//	delta_val	not set for XPosFA
+	
+	xposfa->set_default_properties(xposfa_prop);
+	//	Not Polled
+	xposfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(xposfa);
+
+	//	Attribute : SumFA
+	SumFAAttrib	*sumfa = new SumFAAttrib();
+	Tango::UserDefaultAttrProp	sumfa_prop;
+	sumfa_prop.set_description("Fast Acquisition: Sum");
+	sumfa_prop.set_label("Sum FA");
+	sumfa_prop.set_unit("a.u.");
+	//	standard_unit	not set for SumFA
+	//	display_unit	not set for SumFA
+	sumfa_prop.set_format("%10.0f");
+	//	max_value	not set for SumFA
+	//	min_value	not set for SumFA
+	//	max_alarm	not set for SumFA
+	//	min_alarm	not set for SumFA
+	//	max_warning	not set for SumFA
+	//	min_warning	not set for SumFA
+	//	delta_t	not set for SumFA
+	//	delta_val	not set for SumFA
+	
+	sumfa->set_default_properties(sumfa_prop);
+	//	Not Polled
+	sumfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(sumfa);
+
+	//	Attribute : QuadFA
+	QuadFAAttrib	*quadfa = new QuadFAAttrib();
+	Tango::UserDefaultAttrProp	quadfa_prop;
+	quadfa_prop.set_description("Fast Acquisition: Quad");
+	quadfa_prop.set_label("Quad FA");
+	quadfa_prop.set_unit("a.u.");
+	//	standard_unit	not set for QuadFA
+	//	display_unit	not set for QuadFA
+	quadfa_prop.set_format("%8.4f");
+	//	max_value	not set for QuadFA
+	//	min_value	not set for QuadFA
+	//	max_alarm	not set for QuadFA
+	//	min_alarm	not set for QuadFA
+	//	max_warning	not set for QuadFA
+	//	min_warning	not set for QuadFA
+	//	delta_t	not set for QuadFA
+	//	delta_val	not set for QuadFA
+	
+	quadfa->set_default_properties(quadfa_prop);
+	//	Not Polled
+	quadfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(quadfa);
+
+	//	Attribute : YPosFA
+	YPosFAAttrib	*yposfa = new YPosFAAttrib();
+	Tango::UserDefaultAttrProp	yposfa_prop;
+	yposfa_prop.set_description("Fast Acquisition: Y");
+	yposfa_prop.set_label("Y.Pos.FA");
+	yposfa_prop.set_unit("mm");
+	//	standard_unit	not set for YPosFA
+	//	display_unit	not set for YPosFA
+	yposfa_prop.set_format("%8.2f");
+	//	max_value	not set for YPosFA
+	//	min_value	not set for YPosFA
+	//	max_alarm	not set for YPosFA
+	//	min_alarm	not set for YPosFA
+	//	max_warning	not set for YPosFA
+	//	min_warning	not set for YPosFA
+	//	delta_t	not set for YPosFA
+	//	delta_val	not set for YPosFA
+	
+	yposfa->set_default_properties(yposfa_prop);
+	//	Not Polled
+	yposfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(yposfa);
+
+	//	Attribute : lmt_hFA
+	lmt_hFAAttrib	*lmt_hfa = new lmt_hFAAttrib();
+	Tango::UserDefaultAttrProp	lmt_hfa_prop;
+	lmt_hfa_prop.set_description("Fast Acquisition: Y");
+	lmt_hfa_prop.set_label("Y.Pos.FA");
+	lmt_hfa_prop.set_unit("mm");
+	//	standard_unit	not set for lmt_hFA
+	//	display_unit	not set for lmt_hFA
+	lmt_hfa_prop.set_format("%8.2f");
+	//	max_value	not set for lmt_hFA
+	//	min_value	not set for lmt_hFA
+	//	max_alarm	not set for lmt_hFA
+	//	min_alarm	not set for lmt_hFA
+	//	max_warning	not set for lmt_hFA
+	//	min_warning	not set for lmt_hFA
+	//	delta_t	not set for lmt_hFA
+	//	delta_val	not set for lmt_hFA
+	
+	lmt_hfa->set_default_properties(lmt_hfa_prop);
+	//	Not Polled
+	lmt_hfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(lmt_hfa);
+
+	//	Attribute : lmt_lFA
+	lmt_lFAAttrib	*lmt_lfa = new lmt_lFAAttrib();
+	Tango::UserDefaultAttrProp	lmt_lfa_prop;
+	lmt_lfa_prop.set_description("Fast Acquisition: Y");
+	lmt_lfa_prop.set_label("Y.Pos.FA");
+	lmt_lfa_prop.set_unit("mm");
+	//	standard_unit	not set for lmt_lFA
+	//	display_unit	not set for lmt_lFA
+	lmt_lfa_prop.set_format("%8.2f");
+	//	max_value	not set for lmt_lFA
+	//	min_value	not set for lmt_lFA
+	//	max_alarm	not set for lmt_lFA
+	//	min_alarm	not set for lmt_lFA
+	//	max_warning	not set for lmt_lFA
+	//	min_warning	not set for lmt_lFA
+	//	delta_t	not set for lmt_lFA
+	//	delta_val	not set for lmt_lFA
+	
+	lmt_lfa->set_default_properties(lmt_lfa_prop);
+	//	Not Polled
+	lmt_lfa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(lmt_lfa);
+
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::attribute_factory_after) ENABLED START -----*/
@@ -6772,6 +7096,24 @@ void LiberaBrilliancePlusClass::command_factory()
 			"",
 			Tango::OPERATOR);
 	command_list.push_back(pSetTraceLevelCmd);
+
+	//	Command EnableFA
+	EnableFAClass	*pEnableFACmd =
+		new EnableFAClass("EnableFA",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pEnableFACmd);
+
+	//	Command DisableFA
+	DisableFAClass	*pDisableFACmd =
+		new DisableFAClass("DisableFA",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pDisableFACmd);
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::command_factory_after) ENABLED START -----*/
 	

@@ -73,6 +73,7 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
     Tango::DevLong   *attr_DDBufferSize_read_added;
 
     LiberaSignal *m_signalSA;
+    LiberaSignal *m_signalFA;
 
     LiberaSignal *m_signalPM;
     Tango::DevBoolean *attr_PMEnabled_read_added; //declared here for completeness
@@ -84,11 +85,13 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
     LiberaSignal *m_signalTdp;
 
     std::string m_raf;
-    
+
         void DDCallback();
         static void _DDCallback(void *data);
         void SACallback();
         static void _SACallback(void *data);
+        void FACallback();
+        static void _FACallback(void *data);
         void PMCallback();
         static void _PMCallback(void *data);
         void SPCallback();
@@ -451,6 +454,8 @@ public:
 	Tango::DevDouble	*attr_YPosSP_read;
 	Tango::DevDouble	*attr_ThdrId_read;
 	Tango::DevDouble	*attr_VaSP_read;
+	Tango::DevBoolean	*attr_FAEnabled_read;
+	Tango::DevLong	*attr_FAStatNumSamples_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -492,6 +497,16 @@ public:
 	Tango::DevDouble	*attr_VbTD_read;
 	Tango::DevDouble	*attr_VcTD_read;
 	Tango::DevDouble	*attr_VdTD_read;
+	Tango::DevDouble	*attr_VaFA_read;
+	Tango::DevDouble	*attr_VbFA_read;
+	Tango::DevDouble	*attr_VcFA_read;
+	Tango::DevDouble	*attr_VdFA_read;
+	Tango::DevDouble	*attr_XPosFA_read;
+	Tango::DevDouble	*attr_SumFA_read;
+	Tango::DevDouble	*attr_QuadFA_read;
+	Tango::DevDouble	*attr_YPosFA_read;
+	Tango::DevDouble	*attr_lmt_hFA_read;
+	Tango::DevDouble	*attr_lmt_lFA_read;
 
 //	Constructors and destructors
 public:
@@ -1786,6 +1801,28 @@ public:
 	virtual void read_VaSP(Tango::Attribute &attr);
 	virtual bool is_VaSP_allowed(Tango::AttReqType type);
 /**
+ *	Attribute FAEnabled related methods
+ *	Description: FA data source activation flag
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_FAEnabled(Tango::Attribute &attr);
+	virtual void write_FAEnabled(Tango::WAttribute &attr);
+	virtual bool is_FAEnabled_allowed(Tango::AttReqType type);
+/**
+ *	Attribute FAStatNumSamples related methods
+ *	Description: The number of sample in FA history used to compute the FA statistics
+ *               (Mean, RMS, Peak pos). The most recent samples will be used.
+ *               The valid range is [2, FAHistoryLength property value].
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_FAStatNumSamples(Tango::Attribute &attr);
+	virtual void write_FAStatNumSamples(Tango::WAttribute &attr);
+	virtual bool is_FAStatNumSamples_allowed(Tango::AttReqType type);
+/**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
  *
@@ -2157,6 +2194,96 @@ public:
  */
 	virtual void read_VdTD(Tango::Attribute &attr);
 	virtual bool is_VdTD_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VaFA related methods
+ *	Description: Slow Acquisition: Fa
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_VaFA(Tango::Attribute &attr);
+	virtual bool is_VaFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VbFA related methods
+ *	Description: Fast Acquisition: Vb
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_VbFA(Tango::Attribute &attr);
+	virtual bool is_VbFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VcFA related methods
+ *	Description: Fast Acquisition: Vc
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_VcFA(Tango::Attribute &attr);
+	virtual bool is_VcFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VdFA related methods
+ *	Description: Fast Acquisition: Vd
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_VdFA(Tango::Attribute &attr);
+	virtual bool is_VdFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute XPosFA related methods
+ *	Description: Fast Acquisition: X
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_XPosFA(Tango::Attribute &attr);
+	virtual bool is_XPosFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute SumFA related methods
+ *	Description: Fast Acquisition: Sum
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_SumFA(Tango::Attribute &attr);
+	virtual bool is_SumFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute QuadFA related methods
+ *	Description: Fast Acquisition: Quad
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_QuadFA(Tango::Attribute &attr);
+	virtual bool is_QuadFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute YPosFA related methods
+ *	Description: Fast Acquisition: Y
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_YPosFA(Tango::Attribute &attr);
+	virtual bool is_YPosFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute lmt_hFA related methods
+ *	Description: Fast Acquisition: Y
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_lmt_hFA(Tango::Attribute &attr);
+	virtual bool is_lmt_hFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute lmt_lFA related methods
+ *	Description: Fast Acquisition: Y
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_lmt_lFA(Tango::Attribute &attr);
+	virtual bool is_lmt_lFA_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -2421,6 +2548,20 @@ public:
 	 */
 	virtual void set_trace_level(Tango::DevUShort argin);
 	virtual bool is_SetTraceLevel_allowed(const CORBA::Any &any);
+	/**
+	 *	Command EnableFA related method
+	 *	Description: Enables the so called ``fast acquisition`` data source
+	 *
+	 */
+	virtual void enable_fa();
+	virtual bool is_EnableFA_allowed(const CORBA::Any &any);
+	/**
+	 *	Command DisableFA related method
+	 *	Description: Disables the so called ``fast acquisition`` data source
+	 *
+	 */
+	virtual void disable_fa();
+	virtual bool is_DisableFA_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------
