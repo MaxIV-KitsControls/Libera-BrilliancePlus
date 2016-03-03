@@ -1,3 +1,12 @@
+tangods-liberabrillianceplus (1.4.1) unstable; urgency=low
+
+  * Added new FA signal (9036)
+  * Interlock status message now are more explicit (9177)
+  * Update Logging functionality to send logs to ElasticSearch Cluster. (8387)
+  * Ranges in Temperature changed (8953)
+
+ -- Vasileios Martos <vasileios.martos> Mon, 1 March 2016 10:00:00 +0000
+   
 tangods-liberabrillianceplus (1.3.6) unstable; urgency=low
 
   * Added new properties
