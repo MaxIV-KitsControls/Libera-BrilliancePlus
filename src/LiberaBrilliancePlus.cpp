@@ -840,10 +840,10 @@ void LiberaBrilliancePlus::init_device()
     set_change_event("YPosSP",  true, false);
 
     //Archive Events
-    set_archive_event("XPosFA",  true, false);
-    set_archive_event("YPosFA",  true, false);
-    set_archive_event("QuadFA",  true, false);
-    set_archive_event("SumFA",  true, false);
+    set_change_event("XPosFA",  true, false);
+    set_change_event("YPosFA",  true, false);
+    set_change_event("QuadFA",  true, false);
+    set_change_event("SumFA",  true, false);
 
     //set_change_event("State",  true, false);
 
@@ -7767,10 +7767,10 @@ void LiberaBrilliancePlus::FACallback()
     INFO_STREAM << "FA CALLBACK " << endl;
         m_signalFA->GetData();
 
-        push_archive_event("XPosFA", attr_XPosFA_read);
-        push_archive_event("YPosFA", attr_YPosFA_read);
-        push_archive_event("QuadFA", attr_QuadFA_read);
-        push_archive_event("SumFA", attr_SumFA_read);
+        push_change_event("XPosFA", attr_XPosFA_read, *attr_FAStatNumSamples_read);
+        push_change_event("YPosFA", attr_YPosFA_read, *attr_FAStatNumSamples_read);
+        push_change_event("QuadFA", attr_QuadFA_read, *attr_FAStatNumSamples_read);
+        push_change_event("SumFA", attr_SumFA_read, *attr_FAStatNumSamples_read);
 }
 
 /*
