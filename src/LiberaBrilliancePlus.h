@@ -326,6 +326,22 @@ public:
 	//	InterlockGainDependentThreshold:	Sets the threshold for gain dependent mode of Interlock 
 	//  operation.
 	Tango::DevLong	interlockGainDependentThreshold;
+	//	T2State:	state of active signal: high (logical 1) or low (logical 0)
+	Tango::DevShort	t2State;
+	//	T1State:	state of active signal: high (logical 1) or low (logical 0)
+	Tango::DevShort	t1State;
+	//	T1Duration:	Duration of signal active pulse
+	Tango::DevLong	t1Duration;
+	//	T1idOutput:	T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+	Tango::DevLong	t1idOutput;
+	//	T2idOutput:	T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+	Tango::DevLong	t2idOutput;
+	//	T2Duration:	Duration of signal active pulse
+	Tango::DevLong	t2Duration;
+	//	RtcT1inMask:	evrx2.rtc.t1.in_mask
+	Tango::DevLong	rtcT1inMask;
+	//	RtcT2inMask:	evrx2.rtc.t2.in_mask
+	Tango::DevLong	rtcT2inMask;
 
 //	Attribute data members
 public:
@@ -456,6 +472,15 @@ public:
 	Tango::DevDouble	*attr_VaSP_read;
 	Tango::DevBoolean	*attr_FAEnabled_read;
 	Tango::DevLong	*attr_FAStatNumSamples_read;
+	Tango::DevShort	*attr_T1State_read;
+	Tango::DevShort	*attr_T2State_read;
+	Tango::DevLong	*attr_T1Duration_read;
+	Tango::DevLong	*attr_T1idOutput_read;
+	Tango::DevLong	*attr_T2idOutput_read;
+	Tango::DevLong	*attr_T0IdInput_read;
+	Tango::DevLong	*attr_T2Duration_read;
+	Tango::DevLong	*attr_RtcT1inMask_read;
+	Tango::DevLong	*attr_RtcT2inMask_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -1822,6 +1847,96 @@ public:
 	virtual void read_FAStatNumSamples(Tango::Attribute &attr);
 	virtual void write_FAStatNumSamples(Tango::WAttribute &attr);
 	virtual bool is_FAStatNumSamples_allowed(Tango::AttReqType type);
+/**
+ *	Attribute T1State related methods
+ *	Description: state of active signal: high (logical 1) or low (logical 0)
+ *
+ *	Data type:	Tango::DevShort
+ *	Attr type:	Scalar
+ */
+	virtual void read_T1State(Tango::Attribute &attr);
+	virtual void write_T1State(Tango::WAttribute &attr);
+	virtual bool is_T1State_allowed(Tango::AttReqType type);
+/**
+ *	Attribute T2State related methods
+ *	Description: state of active signal: high (logical 1) or low (logical 0)
+ *
+ *	Data type:	Tango::DevShort
+ *	Attr type:	Scalar
+ */
+	virtual void read_T2State(Tango::Attribute &attr);
+	virtual void write_T2State(Tango::WAttribute &attr);
+	virtual bool is_T2State_allowed(Tango::AttReqType type);
+/**
+ *	Attribute T1Duration related methods
+ *	Description: Duration of signal active pulse
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_T1Duration(Tango::Attribute &attr);
+	virtual void write_T1Duration(Tango::WAttribute &attr);
+	virtual bool is_T1Duration_allowed(Tango::AttReqType type);
+/**
+ *	Attribute T1idOutput related methods
+ *	Description: T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_T1idOutput(Tango::Attribute &attr);
+	virtual void write_T1idOutput(Tango::WAttribute &attr);
+	virtual bool is_T1idOutput_allowed(Tango::AttReqType type);
+/**
+ *	Attribute T2idOutput related methods
+ *	Description: T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_T2idOutput(Tango::Attribute &attr);
+	virtual void write_T2idOutput(Tango::WAttribute &attr);
+	virtual bool is_T2idOutput_allowed(Tango::AttReqType type);
+/**
+ *	Attribute T0IdInput related methods
+ *	Description: T0 Optical event ID
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_T0IdInput(Tango::Attribute &attr);
+	virtual void write_T0IdInput(Tango::WAttribute &attr);
+	virtual bool is_T0IdInput_allowed(Tango::AttReqType type);
+/**
+ *	Attribute T2Duration related methods
+ *	Description: Duration of signal active pulse
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_T2Duration(Tango::Attribute &attr);
+	virtual void write_T2Duration(Tango::WAttribute &attr);
+	virtual bool is_T2Duration_allowed(Tango::AttReqType type);
+/**
+ *	Attribute RtcT1inMask related methods
+ *	Description: evrx2.rtc.t1.in_mask
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_RtcT1inMask(Tango::Attribute &attr);
+	virtual void write_RtcT1inMask(Tango::WAttribute &attr);
+	virtual bool is_RtcT1inMask_allowed(Tango::AttReqType type);
+/**
+ *	Attribute RtcT2inMask related methods
+ *	Description: evrx2.rtc.t2.in_mask
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_RtcT2inMask(Tango::Attribute &attr);
+	virtual void write_RtcT2inMask(Tango::WAttribute &attr);
+	virtual bool is_RtcT2inMask_allowed(Tango::AttReqType type);
 /**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.

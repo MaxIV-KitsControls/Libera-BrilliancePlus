@@ -2296,6 +2296,118 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2State";
+	prop_desc = "state of active signal: high (logical 1) or low (logical 0)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1State";
+	prop_desc = "state of active signal: high (logical 1) or low (logical 0)";
+	prop_def  = "1";
+	vect_data.clear();
+	vect_data.push_back("1");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1Duration";
+	prop_desc = "Duration of signal active pulse";
+	prop_def  = "100000000";
+	vect_data.clear();
+	vect_data.push_back("100000000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T1idOutput";
+	prop_desc = "T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
+	prop_def  = "161";
+	vect_data.clear();
+	vect_data.push_back("161");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2idOutput";
+	prop_desc = "T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.";
+	prop_def  = "254";
+	vect_data.clear();
+	vect_data.push_back("254");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "T2Duration";
+	prop_desc = "Duration of signal active pulse";
+	prop_def  = "100000000";
+	vect_data.clear();
+	vect_data.push_back("100000000");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "RtcT1inMask";
+	prop_desc = "evrx2.rtc.t1.in_mask";
+	prop_def  = "255";
+	vect_data.clear();
+	vect_data.push_back("255");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "RtcT2inMask";
+	prop_desc = "evrx2.rtc.t2.in_mask";
+	prop_def  = "255";
+	vect_data.clear();
+	vect_data.push_back("255");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
@@ -4710,7 +4822,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	T1inMaskAttrib	*t1inmask = new T1inMaskAttrib();
 	Tango::UserDefaultAttrProp	t1inmask_prop;
 	t1inmask_prop.set_description("T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.");
-	t1inmask_prop.set_label("T1 Masking Array");
+	t1inmask_prop.set_label("T1 SFP Connectors inMask");
 	//	unit	not set for T1inMask
 	//	standard_unit	not set for T1inMask
 	//	display_unit	not set for T1inMask
@@ -4734,7 +4846,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	T2inMaskAttrib	*t2inmask = new T2inMaskAttrib();
 	Tango::UserDefaultAttrProp	t2inmask_prop;
 	t2inmask_prop.set_description("T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerators timing system.");
-	t2inmask_prop.set_label("T2 Masking Array");
+	t2inmask_prop.set_label("T2 SFP Connectors inMask");
 	//	unit	not set for T2inMask
 	//	standard_unit	not set for T2inMask
 	//	display_unit	not set for T2inMask
@@ -5569,6 +5681,222 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	fastatnumsamples->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(fastatnumsamples);
+
+	//	Attribute : T1State
+	T1StateAttrib	*t1state = new T1StateAttrib();
+	Tango::UserDefaultAttrProp	t1state_prop;
+	t1state_prop.set_description("state of active signal: high (logical 1) or low (logical 0)");
+	t1state_prop.set_label("t1 signal state");
+	//	unit	not set for T1State
+	//	standard_unit	not set for T1State
+	//	display_unit	not set for T1State
+	//	format	not set for T1State
+	//	max_value	not set for T1State
+	//	min_value	not set for T1State
+	//	max_alarm	not set for T1State
+	//	min_alarm	not set for T1State
+	//	max_warning	not set for T1State
+	//	min_warning	not set for T1State
+	//	delta_t	not set for T1State
+	//	delta_val	not set for T1State
+	
+	t1state->set_default_properties(t1state_prop);
+	//	Not Polled
+	t1state->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1state);
+
+	//	Attribute : T2State
+	T2StateAttrib	*t2state = new T2StateAttrib();
+	Tango::UserDefaultAttrProp	t2state_prop;
+	t2state_prop.set_description("state of active signal: high (logical 1) or low (logical 0)");
+	t2state_prop.set_label("t2 signal state");
+	//	unit	not set for T2State
+	//	standard_unit	not set for T2State
+	//	display_unit	not set for T2State
+	//	format	not set for T2State
+	//	max_value	not set for T2State
+	//	min_value	not set for T2State
+	//	max_alarm	not set for T2State
+	//	min_alarm	not set for T2State
+	//	max_warning	not set for T2State
+	//	min_warning	not set for T2State
+	//	delta_t	not set for T2State
+	//	delta_val	not set for T2State
+	
+	t2state->set_default_properties(t2state_prop);
+	//	Not Polled
+	t2state->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2state);
+
+	//	Attribute : T1Duration
+	T1DurationAttrib	*t1duration = new T1DurationAttrib();
+	Tango::UserDefaultAttrProp	t1duration_prop;
+	t1duration_prop.set_description("Duration of signal active pulse");
+	t1duration_prop.set_label("T1 Duration");
+	//	unit	not set for T1Duration
+	//	standard_unit	not set for T1Duration
+	//	display_unit	not set for T1Duration
+	//	format	not set for T1Duration
+	//	max_value	not set for T1Duration
+	//	min_value	not set for T1Duration
+	//	max_alarm	not set for T1Duration
+	//	min_alarm	not set for T1Duration
+	//	max_warning	not set for T1Duration
+	//	min_warning	not set for T1Duration
+	//	delta_t	not set for T1Duration
+	//	delta_val	not set for T1Duration
+	
+	t1duration->set_default_properties(t1duration_prop);
+	//	Not Polled
+	t1duration->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1duration);
+
+	//	Attribute : T1idOutput
+	T1idOutputAttrib	*t1idoutput = new T1idOutputAttrib();
+	Tango::UserDefaultAttrProp	t1idoutput_prop;
+	t1idoutput_prop.set_description("T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
+	t1idoutput_prop.set_label("T1 Function array");
+	//	unit	not set for T1idOutput
+	//	standard_unit	not set for T1idOutput
+	//	display_unit	not set for T1idOutput
+	//	format	not set for T1idOutput
+	//	max_value	not set for T1idOutput
+	//	min_value	not set for T1idOutput
+	//	max_alarm	not set for T1idOutput
+	//	min_alarm	not set for T1idOutput
+	//	max_warning	not set for T1idOutput
+	//	min_warning	not set for T1idOutput
+	//	delta_t	not set for T1idOutput
+	//	delta_val	not set for T1idOutput
+	
+	t1idoutput->set_default_properties(t1idoutput_prop);
+	//	Not Polled
+	t1idoutput->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t1idoutput);
+
+	//	Attribute : T2idOutput
+	T2idOutputAttrib	*t2idoutput = new T2idOutputAttrib();
+	Tango::UserDefaultAttrProp	t2idoutput_prop;
+	t2idoutput_prop.set_description("T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.");
+	t2idoutput_prop.set_label("T2 Function array");
+	//	unit	not set for T2idOutput
+	//	standard_unit	not set for T2idOutput
+	//	display_unit	not set for T2idOutput
+	//	format	not set for T2idOutput
+	//	max_value	not set for T2idOutput
+	//	min_value	not set for T2idOutput
+	//	max_alarm	not set for T2idOutput
+	//	min_alarm	not set for T2idOutput
+	//	max_warning	not set for T2idOutput
+	//	min_warning	not set for T2idOutput
+	//	delta_t	not set for T2idOutput
+	//	delta_val	not set for T2idOutput
+	
+	t2idoutput->set_default_properties(t2idoutput_prop);
+	//	Not Polled
+	t2idoutput->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2idoutput);
+
+	//	Attribute : T0IdInput
+	T0IdInputAttrib	*t0idinput = new T0IdInputAttrib();
+	Tango::UserDefaultAttrProp	t0idinput_prop;
+	t0idinput_prop.set_description("T0 Optical event ID");
+	t0idinput_prop.set_label("T0 ID");
+	t0idinput_prop.set_unit("n/a");
+	t0idinput_prop.set_standard_unit("n/a");
+	t0idinput_prop.set_display_unit("n/a");
+	//	format	not set for T0IdInput
+	//	max_value	not set for T0IdInput
+	//	min_value	not set for T0IdInput
+	//	max_alarm	not set for T0IdInput
+	//	min_alarm	not set for T0IdInput
+	//	max_warning	not set for T0IdInput
+	//	min_warning	not set for T0IdInput
+	//	delta_t	not set for T0IdInput
+	//	delta_val	not set for T0IdInput
+	
+	t0idinput->set_default_properties(t0idinput_prop);
+	//	Not Polled
+	t0idinput->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t0idinput);
+
+	//	Attribute : T2Duration
+	T2DurationAttrib	*t2duration = new T2DurationAttrib();
+	Tango::UserDefaultAttrProp	t2duration_prop;
+	t2duration_prop.set_description("Duration of signal active pulse");
+	t2duration_prop.set_label("T2 Duration");
+	//	unit	not set for T2Duration
+	//	standard_unit	not set for T2Duration
+	//	display_unit	not set for T2Duration
+	//	format	not set for T2Duration
+	//	max_value	not set for T2Duration
+	//	min_value	not set for T2Duration
+	//	max_alarm	not set for T2Duration
+	//	min_alarm	not set for T2Duration
+	//	max_warning	not set for T2Duration
+	//	min_warning	not set for T2Duration
+	//	delta_t	not set for T2Duration
+	//	delta_val	not set for T2Duration
+	
+	t2duration->set_default_properties(t2duration_prop);
+	//	Not Polled
+	t2duration->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(t2duration);
+
+	//	Attribute : RtcT1inMask
+	RtcT1inMaskAttrib	*rtct1inmask = new RtcT1inMaskAttrib();
+	Tango::UserDefaultAttrProp	rtct1inmask_prop;
+	rtct1inmask_prop.set_description("evrx2.rtc.t1.in_mask");
+	rtct1inmask_prop.set_label("RTC T1 inMask");
+	//	unit	not set for RtcT1inMask
+	//	standard_unit	not set for RtcT1inMask
+	//	display_unit	not set for RtcT1inMask
+	//	format	not set for RtcT1inMask
+	//	max_value	not set for RtcT1inMask
+	//	min_value	not set for RtcT1inMask
+	//	max_alarm	not set for RtcT1inMask
+	//	min_alarm	not set for RtcT1inMask
+	//	max_warning	not set for RtcT1inMask
+	//	min_warning	not set for RtcT1inMask
+	//	delta_t	not set for RtcT1inMask
+	//	delta_val	not set for RtcT1inMask
+	
+	rtct1inmask->set_default_properties(rtct1inmask_prop);
+	//	Not Polled
+	rtct1inmask->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(rtct1inmask);
+
+	//	Attribute : RtcT2inMask
+	RtcT2inMaskAttrib	*rtct2inmask = new RtcT2inMaskAttrib();
+	Tango::UserDefaultAttrProp	rtct2inmask_prop;
+	rtct2inmask_prop.set_description("evrx2.rtc.t2.in_mask");
+	rtct2inmask_prop.set_label("RTC T2 inMask");
+	//	unit	not set for RtcT2inMask
+	//	standard_unit	not set for RtcT2inMask
+	//	display_unit	not set for RtcT2inMask
+	//	format	not set for RtcT2inMask
+	//	max_value	not set for RtcT2inMask
+	//	min_value	not set for RtcT2inMask
+	//	max_alarm	not set for RtcT2inMask
+	//	min_alarm	not set for RtcT2inMask
+	//	max_warning	not set for RtcT2inMask
+	//	min_warning	not set for RtcT2inMask
+	//	delta_t	not set for RtcT2inMask
+	//	delta_val	not set for RtcT2inMask
+	
+	rtct2inmask->set_default_properties(rtct2inmask_prop);
+	//	Not Polled
+	rtct2inmask->set_disp_level(Tango::EXPERT);
+	//	Not Memorized
+	att_list.push_back(rtct2inmask);
 
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();

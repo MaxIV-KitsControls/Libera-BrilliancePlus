@@ -1,3 +1,9 @@
+tangods-liberabrillianceplus (1.4.2) unstable; urgency=low
+
+  * Added new attributes and their properties respectively in order to apply the new configuration (9917)
+
+ -- Vasileios Martos <vasileios.martos> Mon, 23 March 2016 12:00:00 +0000
+ 
 tangods-liberabrillianceplus (1.4.1) unstable; urgency=low
 
   * Added new FA signal (9036)
