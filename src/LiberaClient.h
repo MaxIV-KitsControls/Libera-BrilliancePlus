@@ -22,7 +22,7 @@ using LiberaBrilliancePlus_ns::LiberaBrilliancePlus;
  */
 class LiberaClient {
 public:
-    LiberaClient(LiberaBrilliancePlus *a_deviceServer, std::string ip_address);
+    LiberaClient(Tango::DeviceImpl *a_deviceServer, std::string ip_address);
     ~LiberaClient();
 
     bool Connect();
@@ -108,7 +108,9 @@ public:
             istd_TRC(istd::eTrcLow, "Exception thrown while writing to node!");
             istd_TRC(istd::eTrcLow, e.what());
             // let the server know it
-            m_deviceServer->set_lib_error(e.what());
+            //m_deviceServer->set_lib_error(e.what());
+            m_errorFlag = true;
+            m_errorStatus = e.what();
         }
     }
 
@@ -139,7 +141,7 @@ private:
     std::atomic<bool>   m_running;
     std::thread         m_thread;
 
-    LiberaBrilliancePlus *m_deviceServer; // used for changing device state
+    Tango::DeviceImpl *m_deviceServer; // used for changing device state
 
     std::string m_ip_address;
 
@@ -150,6 +152,9 @@ private:
     std::vector<std::shared_ptr<LiberaAttr> >   m_attr_pm; // platform list of attributes
     std::vector<std::shared_ptr<LiberaSignal> > m_signals; // list of managed signals
     std::map<LiberaAttr *, std::function<void ()> > m_notify; // map of notification callbacks
+public:
+    std::string m_errorStatus;
+    bool m_errorFlag;
 };
 
 #endif //LIBERA_CLIENT_H

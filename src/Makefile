@@ -129,7 +129,10 @@ SVC_OBJS =      \
         $(OBJDIR)/$(PACKAGE_NAME).o \
         $(OBJDIR)/$(PACKAGE_NAME)Class.o \
         $(OBJDIR)/$(PACKAGE_NAME)StateMachine.o \
-        $(OBJDIR)/ClassFactory.o  \
+        $(OBJDIR)/LiberaEventReceiver.o \
+        $(OBJDIR)/LiberaEventReceiverClass.o \
+        $(OBJDIR)/LiberaEventReceiverStateMachine.o \
+        $(OBJDIR)/MultiClassesFactory.o  \
         $(OBJDIR)/main.o \
         $(ADDITIONAL_OBJS) 
 

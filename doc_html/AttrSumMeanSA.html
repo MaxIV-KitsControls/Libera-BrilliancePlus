@@ -1,266 +1,168 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<HTML>
-<HEAD>
-<Title> Tango Device Server User s Guide </Title>
-</HEAD>
-<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000FF" VLINK="#7F00FF" ALINK="#FF0000">
-
-<P><!-------TITLE------></P>
-<TABLE BORDER="0" WIDTH="100%">
-    <TR>
-        <TD ALIGN="left">
-            <A HREF="http://www.esrf.fr/" TARGET=new>
-            <IMG SRC="http://www.esrf.fr/gifs/logo/80.gif" BORDER=0 Height="60"></A>
-        </TD>
-        <TD ALIGN="center">
-            <A HREF="http://www.elettra.trieste.it/" TARGET=new>
-            <IMG SRC="http://www.esrf.fr/computing/cs/tango/elettra_logo.gif" BORDER=0 Height="60"></A>
-        </TD>
-        <TD ALIGN="center">
-            <A HREF="http://www.synchrotron-soleil.fr/" TARGET=new>
-            <IMG SRC="http://www.esrf.fr/computing/cs/tango/soleil_logo.gif" BORDER=0 Height="60"></A>
-        </TD>
-        <TD ALIGN="center">
-            <A HREF="http://www.cells.es/" TARGET=new>
-            <IMG SRC="http://www.esrf.fr/computing/cs/tango/alba.jpg" BORDER=0 Height="45"></A>
-        </TD>
-        <TD ALIGN="Right">
-            <H2><FONT COLOR="#7F00FF">
-            <Br><Center><A HREF="http://www.tango-controls.org/" TARGET="_top"> TANGO </a> 
-            </Center></FONT>
-       </TD>
-    </TR>
-    <TR>
-        <TD ALIGN="left">
-            <A HREF="http://www.desy.de/html/home/index_eng.html" TARGET=new>
-            <IMG SRC="http://www.esrf.fr/computing/cs/tango/desy.gif" BORDER=0 Height="44"></A>
-        </TD>
-        <TD ALIGN="center">
-            <A HREF="http://www.maxlab.lu.se/maxlab/max4/index.html" TARGET=new>
-            <IMG SRC="http://www.esrf.fr/computing/cs/tango/maxlab.gif" BORDER=0 Height="40"></A>
-        </TD>
-        <TD ALIGN="center">
-            <A HREF="http://www.frm2.tum.de/en/index.html" TARGET=new>
-            <IMG SRC="http://www.esrf.fr/computing/cs/tango/frm-2.jpg" BORDER=0 Height="45"></A>
-        </TD>
-            <TD>
-            <!-- Empty -->
-        </TD>
-        <TD ALIGN="Right">
-            <H2><FONT COLOR="#7F00FF">
-            <Center> Device Servers
-            </Center></FONT>
-        </TD>
-    </TR>
-</TABLE>
-
-<HR WIDTH="100%"></H5>
-
-
-<FONT SIZE="+3">
-<center>
-<u>
-         LiberaBrilliancePlus Tango Class <Br>
-</u> 
-<FONT SIZE="+1">
-      ( Libera BPM Device Server )
-<Br>
-<Br>
-<TABLE BORDER="1" WIDTH="100%" CELLSPACING=0>
-       <TD ALIGN="center">
-               <a href="index.html">         Description</a>
-       </Td>
-       <TD ALIGN="center">
-               <a href="Properties.html">    Properties</a></li>
-       </Td>
-       <TD ALIGN="center">
-               <a href="Commands.html">      Commands</a></li>
-       </Td>
-       <TD ALIGN="center">
-               <a href="Attributes.html">    Attributes</a></li>
-       </Td>
-       <TD ALIGN="center">
-               <a href="States.html">        States</a></li>
-       </Td>
-</TABLE>
-<Br>
-<Br>
-<Br>
-<FONT SIZE="+2"><u>
-            SumMeanSA Attribute 
-</u></Font>
-</Center>
-
-
-
-<FONT SIZE="-1">
-<Br>
-<Br>
+<html>
+<head>
+<title> LiberaBrilliancePlus Tango Class Attribute SumMeanSA </title>
+</head>
+<body text="Black" bgcolor="White" link="Blue" vlink="Purple" alink="Red">
+<br><br><br>
+<font size="+1"><u><b> Attribute SumMeanSA : </b></u></font>
 <ul>
-	<Font SIZE="+0"> <b><u> Description :</u></b> </Font>
-	<ul>
-		SA: mean of sum
-	</ul>
-	<Br>
-	<Br>
-	
-	
-	
-	<Table Border=0 Cellpadding=0 CELLSPACING=10>
-	<TR>
-	<TD ALIGN="left" VALIGN=top>
-	
-		
-	<Table Border=2 Cellpadding=3 CELLSPACING=0>
-	<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-	<Td COLSPAN=0> <Font Size=+1> <Center><b>
-		  Attribute Definition 
-	</b></Font></Center></td>
-	</Tr>
-			<!---------- Attribute type ----------->
-			<Tr>
-				<Td> <Font=+1><b> Attribute Type  </b></Font></Td>
-				<Td> Scalar  </Td>
-			</Tr>
-		
-			<!---------- R/W type ----------->
-			<Tr>
-				<Td> <Font=+1><b> R/W Type  </b></Font></Td>
-				<Td> READ </Td>
-			</Tr>
-			
-			<!---------- Data type ----------->
-			<Tr>
-				<Td> <Font=+1><b>   Data Type  </b></Font></Td>
-				<Td> Tango::DEV_DOUBLE </Td>
-			</Tr>
-			
-			<!---------- Allowed State ----------->
-			
-		<!--- Read access --->
-		<Tr>
-			<Td> <Font=+1><b> Read NOT allowed for   </b></Font></Td>
-			<Td> 
-					- UNKNOWN <Br>
-					- FAULT <Br>
-			</Td>
-		</Tr>
-
-		
-			<!---------- Display Level ----------->
-			<Tr>
-				<Td> <Font=+1><b> Display Level  </b></Font></Td>
-				<Td> OPERATOR	</Td>
-			</Tr>
-		
-			<!---------- Inheritance ----------->
-			<Tr>
-				<Td> <Font=+1><b>  Inherited </b></Font></Td>
-				<Td> false	</Td>
-			</Tr>
-			<Tr>
-				<Td> <Font=+1><b>  Abstract </b></Font></Td>
-				<Td>  false </Td>
-			</Tr>
-	
-			<!---------- Polling ----------->
-			<Tr>
-				<Td> <Font=+1><b> Polling Period  </b></Font></Td>
-				<Td> 0 ms </Td>
-			</Tr>
-		
-			<!---------- Memorized ----------->
-		
-			<!---------- Change Event ----------->
-	
-			<!---------- Archive Event ----------->
-		
-		</Table>
-	</Td>
-	<Td ALIGN="left" VALIGN=top>
-		
-		
-	<Table Border=2 Cellpadding=3 CELLSPACING=0>
-	<TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
-	<Td COLSPAN=0> <Font Size=+1> <Center><b>
-		   Attrribute Properties 
-	</b></Font></Center></td>
-	</Tr>
-			<Tr><Td> <Font=+1><b>  label         </b></Font></Td>    <Td> SA Sum Mean</Td></Tr>
-			<Tr><Td> <Font=+1><b>  unit          </b></Font></Td>    <Td> a.u.</Td></Tr>
-			<Tr><Td> <Font=+1><b>  standard unit </b></Font></Td>    <Td> a.u.</Td></Tr>
-			<Tr><Td> <Font=+1><b>  display unit  </b></Font></Td>    <Td> a.u.</Td></Tr>
-			<Tr><Td> <Font=+1><b>  format        </b></Font></Td>    <Td> %8.1f</Td></Tr>
-			<Tr><Td> <Font=+1><b>  max_value     </b></Font></Td>    <Td> </Td></Tr>
-			<Tr><Td> <Font=+1><b>  min_value     </b></Font></Td>    <Td> </Td></Tr>
-			<Tr><Td> <Font=+1><b>  max_alarm     </b></Font></Td>    <Td> </Td></Tr>
-			<Tr><Td> <Font=+1><b>  min_alarm     </b></Font></Td>    <Td> </Td></Tr>
-			<Tr><Td> <Font=+1><b>  max_warning   </b></Font></Td>    <Td> </Td></Tr>
-			<Tr><Td> <Font=+1><b>  min_warning   </b></Font></Td>    <Td> </Td></Tr>
-			<Tr><Td> <Font=+1><b>  delta_time    </b></Font></Td>    <Td> </Td></Tr>
-			<Tr><Td> <Font=+1><b>  delta_val     </b></Font></Td>    <Td> </Td></Tr>
-			<!--- Tr><Td> <Font=+1><b>  description   </b></Font></Td>    <Td> SA: mean of sum</Td></Tr--->
-		</Table>
-	</Td>
-	</Table>
-	<Br>
-	<Br>
-	<Br>
-	<Br>
-	
-<!---  /*PROTECTED REGION ID(./doc_html/AttrSumMeanSA.html) ENABLED START*/  --->
-	<!--- Add your own documentation, pictures, links,.... --->
-	<ul>
-
-	</ul>
-<!---  /*PROTECTED REGION END*/  --->
-
-	<Br>
-	<Br>
+	SA: mean of sum
 </ul>
-</FONT>
-<Br>
-<Br>
-
-
-<!--- html Footer --->
-<Center>
-<Font size=-1>
-<br>
-<br>
-<TABLE BORDER="1" WIDTH="100%">
-    <Tr>
-		<!--- Hosted by Sourceforge --->
-        <Td Align="Center">
-			<Font size=-1>
-			<b>TANGO</b> is an open source project hosted by :<br>
-			<A href="http://sourceforge.net" Target="new">
-					<IMG title="Sourceforge logo"
-						alt="Sourceforge logo small"
-						src="http://www.esrf.fr/computing/cs/tango/sourceforge.gif"
-						border=0> </a>
-			</Font>
-		</Td>
-		<!--- 2 Sourceforge Repositories --->
-		<Td Align="Center">
-			<Font size=-1>
-			Core and Tools :
-			<a href="http://tango-cs.cvs.sourceforge.net/tango-cs/" Target=new>
-			CVS repository</a> on
-			<a href="https://sourceforge.net/projects/tango-cs" Target=new>
-			tango-cs project</a>
-			<br>
-			Device Servers :
-			<a href="http://tango-ds.cvs.sourceforge.net/tango-ds/" Target=new>
-					CVS repository</cmda> on
-			<a href="https://sourceforge.net/projects/tango-ds" Target=new>
-					tango-ds project</a>
-			</Font>
-		</Td>
-    </Tr>
-</Table>
-</Font>
-</Center>
+<br><br><br>
+<Table Border=0 Cellpadding=0 CELLSPACING=20>
+	<TR>
+		<TD ALIGN="left" VALIGN=top>
+			<Table Border=2 Cellpadding=3 CELLSPACING=0>
+				<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+				<td colspan=0> <font size=+1> <center><b> Attribute Definition </b></font></center></td>
+				</tr>
+				<tr>
+					<td> Attribute Type </td>
+					<td> Scalar </td>
+				</tr>
+				<tr>
+					<td> R/W Type </td>
+					<td> READ </td>
+				</tr>
+				<tr>
+					<td> Data Type </td>
+					<td> Tango::DEV_DOUBLE </td>
+				</tr>
+				<tr>
+					<td> Display Level </td>
+					<td> OPERATOR </td>
+				</tr>
+				<tr>
+					<td> Inherited </td>
+					<td> false </td>
+				</tr>
+				<tr>
+					<td> Abstract </td>
+					<td> false </td>
+				</tr>
+				<tr>
+					<td> Polling Period </td>
+					<td> Not polled </td>
+				</tr>
+				<tr>
+					<td> Memorized </td>
+					<td> Not set </td>
+				</tr>
+			<Tr BGCOLOR="#CCCCFF"><Td><Hr></Td><Td><Hr></Td></Tr>
+				<tr>
+					<td> Read allowed for </td>
+					<td> All states </td>
+				</tr>
+			</table>
+		</td>
+		<TD ALIGN="Center" VALIGN=top>
+			<Table Border=2 Cellpadding=3 CELLSPACING=0>
+				<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+				<td colspan=0> <font size=+1> <center><b> Attribute Properties </b></font></center></td>
+				</tr>
+				<tr>
+					<td> label </td>
+					<td> SA Sum Mean </td>
+				</tr>
+				<tr>
+					<td> unit </td>
+					<td> a.u. </td>
+				</tr>
+				<tr>
+					<td> standard unit </td>
+					<td> a.u. </td>
+				</tr>
+				<tr>
+					<td> display unit </td>
+					<td> a.u. </td>
+				</tr>
+				<tr>
+					<td> format </td>
+					<td> %8.1f </td>
+				</tr>
+				<tr>
+					<td> max_value </td>
+					<td>  </td>
+				</tr>
+				<tr>
+					<td> min_value </td>
+					<td>  </td>
+				</tr>
+				<tr>
+					<td> max_alarm </td>
+					<td>  </td>
+				</tr>
+				<tr>
+					<td> min_alarm </td>
+					<td>  </td>
+				</tr>
+				<tr>
+					<td> max_warning </td>
+					<td>  </td>
+				</tr>
+				<tr>
+					<td> min_warning </td>
+					<td>  </td>
+				</tr>
+				<tr>
+					<td> delta_time </td>
+					<td>  </td>
+				</tr>
+				<tr>
+					<td> delta_val </td>
+					<td>  </td>
+				</tr>
+			</table>
+		</td>
+		<TD ALIGN="Right" VALIGN=top>
+			<Table Border=2 Cellpadding=3 CELLSPACING=0>
+				<tr bgcolor="#CCCCFF" class="TableHeadingColor">
+				<td colspan=0> <font size=+1> <center><b> Attribute Event Criteria </b></font></center></td>
+				</tr>
+				<tr>
+					<td> Periodic </td>
+					<td> Not set </td>
+				</tr>
+				<tr>
+					<td> Relative Change </td>
+					<td> Not set </td>
+				</tr>
+				<tr>
+					<td> Absolute Change </td>
+					<td> Not set </td>
+				</tr>
+			<Tr BGCOLOR="#CCCCFF"><Td><Hr></Td><Td><Hr></Td></Tr>
+				<tr>
+					<td> Archive Periodic </td>
+					<td> Not set </td>
+				</tr>
+				<tr>
+					<td> Archive Relative Change </td>
+					<td> Not set </td>
+				</tr>
+				<tr>
+					<td> Archive Absolute Change </td>
+					<td> Not set </td>
+				</tr>
+			<Tr BGCOLOR="#CCCCFF"><Td><Hr></Td><Td><Hr></Td></Tr>
+				<tr>
+					<td> Push Change event by user code </td>
+					<td> false </td>
+				</tr>
+			<Tr BGCOLOR="#CCCCFF"><Td> </Td><Td> </Td></Tr>
+				<tr>
+					<td> Push Archive event by user code </td>
+					<td> false </td>
+				</tr>
+			<Tr BGCOLOR="#CCCCFF"><Td> </Td><Td> </Td></Tr>
+				<tr>
+					<td> Push DataReady event by user code </td>
+					<td> Not set </td>
+				</tr>
+			</table>
+		</td>
+	</TR>
+</table>
 </body>
 </html>
-

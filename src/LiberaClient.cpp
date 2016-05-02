@@ -22,9 +22,10 @@
 /**
  * Constructor with member initializations.
  */
-LiberaClient::LiberaClient(LiberaBrilliancePlus_ns::LiberaBrilliancePlus *a_deviceServer, std::string ip_address)
+LiberaClient::LiberaClient(Tango::DeviceImpl *a_deviceServer, std::string ip_address)
   : m_connected(false),
     m_running(false),
+	m_errorFlag(false),
     m_thread(),
     m_deviceServer(a_deviceServer)
 {
@@ -84,7 +85,9 @@ void LiberaClient::UpdateAttr()
         istd_TRC(istd::eTrcLow, "Exception thrown while reading from node!");
         istd_TRC(istd::eTrcLow, e.what());
         // let the server know it
-        m_deviceServer->set_lib_error(e.what());
+        //m_deviceServer->set_lib_error(e.what());
+        m_errorFlag = true;
+        m_errorStatus = e.what();
         m_connected = false;
     }
 }
