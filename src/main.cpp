@@ -1,15 +1,15 @@
-/*----- PROTECTED REGION ID(LiberaEventReceiver::main.cpp) ENABLED START -----*/
+/*----- PROTECTED REGION ID(LiberaBrilliancePlus::main.cpp) ENABLED START -----*/
 static const char *RcsId = "$Id:  $";
 //=============================================================================
 //
 // file :        main.cpp
 //
-// description : C++ source for the LiberaEventReceiver device server main.
+// description : C++ source for the LiberaBrilliancePlus device server main.
 //               The main rule is to initialise (and create) the Tango
 //               system and to create the DServerClass singleton.
 //               The main should be the same for every Tango device server.
 //
-// project :     Libera BPM Event Receiver Device Server
+// project :     Libera BPM Device Server
 //
 // This file is part of Tango device class.
 // 
@@ -38,6 +38,8 @@ static const char *RcsId = "$Id:  $";
 //        (Program Obviously used to Generate tango Object)
 //=============================================================================
 #include <tango.h>
+#include <istd/trace.h>
+#include <mci/mci.h>
 
 // Check if crash reporting is used.
 #if defined(ENABLE_CRASH_REPORT)
@@ -52,6 +54,16 @@ DECLARE_CRASH_HANDLER;
 int main(int argc,char *argv[])
 {
 	INSTALL_CRASH_HANDLER
+	// Initialize MCI layer
+	try {
+		mci::Init();
+		istd::TraceInit();
+		istd::TraceSetLevel(istd::eTrcOff);
+	} catch (istd::Exception &e) {
+		cout << "Received a MCI Exception" << endl;
+		cout << "Exiting" << endl;
+	}
+
 	try
 	{
 		// Initialise the device server
@@ -81,7 +93,16 @@ int main(int argc,char *argv[])
 		cout << "Exiting" << endl;
 	}
 	Tango::Util::instance()->server_cleanup();
+	// Destroy MCI layer
+	try {
+		istd::TraceStop();
+		mci::Shutdown();
+	} catch (istd::Exception &e) {
+		cout << "Received a MCI Exception" << endl;
+		cout << "Exiting" << endl;
+	}
 	return(0);
 }
 
-/*----- PROTECTED REGION END -----*/	//	LiberaEventReceiver::main.cpp
+/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::main.cpp
+
