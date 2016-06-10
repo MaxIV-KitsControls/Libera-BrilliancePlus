@@ -2720,6 +2720,29 @@ public:
 	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DisableFA_allowed(any);}
 };
 
+//	Command DisableAllSignals class definition
+class DisableAllSignalsClass : public Tango::Command
+{
+public:
+	DisableAllSignalsClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DisableAllSignalsClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DisableAllSignalsClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DisableAllSignals_allowed(any);}
+};
+
 
 /**
  *	The LiberaBrilliancePlusClass singleton definition

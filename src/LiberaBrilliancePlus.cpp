@@ -91,6 +91,7 @@ static const char *RcsId = "$Id:  $";
 //  SetTraceLevel               |  set_trace_level
 //  EnableFA                    |  enable_fa
 //  DisableFA                   |  disable_fa
+//  DisableAllSignals           |  disable_all_signals
 //================================================================
 
 //================================================================
@@ -518,7 +519,6 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
     m_libera->AddScalar(m_raf + "postmortem.source_select", attr_PMSource_read);
     m_libera->AddScalar(m_raf + "postmortem.capacity", attr_PMBufferSize_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
-    m_libera->AddScalar(m_raf + "postmortem.offset", attr_PMOffset_read);
 
     //Why PMNotified NEGATE type?
     m_libera->AddScalar(m_raf + "postmortem.capture",
@@ -5852,6 +5852,31 @@ void LiberaBrilliancePlus::disable_fa()
 	m_signalFA->Disable();
 }
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_fa
+}
+//--------------------------------------------------------
+/**
+ *	Command DisableAllSignals related method
+ *	Description: Disables All the Signals.
+ *
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::disable_all_signals()
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::DisableAllSignals()  - " << device_name << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::disable_all_signals) ENABLED START -----*/
+		if(m_libera != NULL)
+ {
+	//	Add your own code
+		m_signalADC->Disable();
+		m_signalFA->Disable();
+		m_signalSA->Disable();
+		m_signalTdp->Disable();
+		m_signalSP->Disable();
+		m_signalPM->Disable();
+		m_signalDdc->Disable();
+		m_signalDdcRaw->Disable();
+}
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_all_signals
 }
 
 /*----- PROTECTED REGION ID(LiberaBrilliancePlus::namespace_ending) ENABLED START -----*/

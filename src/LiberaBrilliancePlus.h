@@ -2096,6 +2096,13 @@ public:
 	 */
 	virtual void disable_fa();
 	virtual bool is_DisableFA_allowed(const CORBA::Any &any);
+	/**
+	 *	Command DisableAllSignals related method
+	 *	Description: Disables All the Signals.
+	 *
+	 */
+	virtual void disable_all_signals();
+	virtual bool is_DisableAllSignals_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------

@@ -3140,4 +3140,24 @@ bool LiberaBrilliancePlus::is_DisableFA_allowed(TANGO_UNUSED(const CORBA::Any &a
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_DisableAllSignals_allowed()
+ *	Description : Execution allowed for DisableAllSignals attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_DisableAllSignals_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::UNKNOWN ||
+		get_state()==Tango::FAULT)
+	{
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DisableAllSignalsStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DisableAllSignalsStateAllowed
+		return false;
+	}
+	return true;
+}
+
 }	//	End of namespace

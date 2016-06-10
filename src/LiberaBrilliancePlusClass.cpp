@@ -722,6 +722,24 @@ CORBA::Any *DisableFAClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(cons
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		DisableAllSignalsClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *DisableAllSignalsClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "DisableAllSignalsClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->disable_all_signals());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -5816,6 +5834,15 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pDisableFACmd);
+
+	//	Command DisableAllSignals
+	DisableAllSignalsClass	*pDisableAllSignalsCmd =
+		new DisableAllSignalsClass("DisableAllSignals",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pDisableAllSignalsCmd);
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::command_factory_after) ENABLED START -----*/
 	
