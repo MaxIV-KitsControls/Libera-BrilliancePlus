@@ -1,8 +1,0 @@
-/var/opt/libera/log/platform-dummy.log { 
-  rotate 5 
-  size=10M 
-  missingok 
-  notifempty
-  nocreate
-  compress 
-}
