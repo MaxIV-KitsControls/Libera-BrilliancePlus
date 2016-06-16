@@ -1,5 +1,5 @@
 Source: tangods-liberabrillianceplus
-Standards-Version: 1.2.1
+Standards-Version: 2.0.0
 Section: utils
 Maintainer: MAXIV Laboratory <kits@maxlab.lu.se>, Cosylab d.o.o. <info@cosylab.com>
 Homepage: https://github.com/MaxIV-KitsControls/Libera-BrilliancePlus
@@ -9,7 +9,8 @@ Priority: optional
 Build-Depends: debhelper (>= 7.0.0),
                libtango8-dev,
                libera-base2.9-dev,
-               libera-mci2.9-dev
+               libera-mci2.9-dev,
+               lib-liberabrilliancepluscommon
 
 Package: tangods-liberabrillianceplus
 Architecture: i386

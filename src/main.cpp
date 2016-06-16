@@ -12,20 +12,20 @@ static const char *RcsId = "$Id:  $";
 // project :     Libera BPM Device Server
 //
 // This file is part of Tango device class.
-// 
+//
 // Tango is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // Tango is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-// 
+//
 // $Author:  $
 //
 // $Revision:  $
@@ -46,16 +46,15 @@ int main(int argc,char *argv[])
 {
     /*istd::TraceInit("-");
     istd::TraceStart(istd::eTrcLow);
-
     // need to initialize CORBA from mci before Tango does it
     mci::Init(argc, argv);*/
-	
-	
+
+
 	// Initialize MCI layer
 	try {
 		mci::Init();
-		istd::TraceInit("+", "LSPE-TDS.log");
-		istd::TraceSetLevel(istd::eTrcHigh);
+		istd::TraceInit();
+		istd::TraceSetLevel(istd::eTrcOff);
 	} catch (istd::Exception &e) {
 		cout << "Received a MCI Exception" << endl;
 		cout << "Exiting" << endl;
@@ -68,7 +67,7 @@ int main(int argc,char *argv[])
 		//----------------------------------------
 		tg = Tango::Util::init(argc,argv);
 
-		// Create the device server singleton 
+		// Create the device server singleton
 		//	which will create everything
 		//----------------------------------------
 		tg->server_init(false);
@@ -86,13 +85,13 @@ int main(int argc,char *argv[])
 	catch (CORBA::Exception &e)
 	{
 		Tango::Except::print_exception(e);
-		
+
 		cout << "Received a CORBA_Exception" << endl;
 		cout << "Exiting" << endl;
 	}
 	Tango::Util::instance()->server_cleanup();
-	
-	
+
+
 	// Destroy MCI layer
 	try {
 		istd::TraceStop();
