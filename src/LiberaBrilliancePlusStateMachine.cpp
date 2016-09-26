@@ -707,21 +707,21 @@ bool LiberaBrilliancePlus::is_InterlockLimitYMax_allowed(TANGO_UNUSED(Tango::Att
 
 //--------------------------------------------------------
 /**
- *	Method      : LiberaBrilliancePlus::is_AutoSwitchingEnabled_allowed()
- *	Description : Execution allowed for AutoSwitchingEnabled attribute
+ *	Method      : LiberaBrilliancePlus::is_ConditionSwitching_allowed()
+ *	Description : Execution allowed for ConditionSwitching attribute
  */
 //--------------------------------------------------------
-bool LiberaBrilliancePlus::is_AutoSwitchingEnabled_allowed(TANGO_UNUSED(Tango::AttReqType type))
+bool LiberaBrilliancePlus::is_ConditionSwitching_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
-	//	Not any excluded states for AutoSwitchingEnabled attribute in Write access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::AutoSwitchingEnabledStateAllowed_WRITE) ENABLED START -----*/
+	//	Not any excluded states for ConditionSwitching attribute in Write access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ConditionSwitchingStateAllowed_WRITE) ENABLED START -----*/
 	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::AutoSwitchingEnabledStateAllowed_WRITE
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ConditionSwitchingStateAllowed_WRITE
 
-	//	Not any excluded states for AutoSwitchingEnabled attribute in read access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::AutoSwitchingEnabledStateAllowed_READ) ENABLED START -----*/
+	//	Not any excluded states for ConditionSwitching attribute in read access.
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ConditionSwitchingStateAllowed_READ) ENABLED START -----*/
 	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::AutoSwitchingEnabledStateAllowed_READ
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ConditionSwitchingStateAllowed_READ
 	return true;
 }
 

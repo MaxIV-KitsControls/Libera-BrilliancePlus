@@ -135,7 +135,7 @@ static const char *RcsId = "$Id:  $";
 //  InterlockLimitXMax               |  Tango::DevDouble	Scalar
 //  InterlockLimitYMin               |  Tango::DevDouble	Scalar
 //  InterlockLimitYMax               |  Tango::DevDouble	Scalar
-//  AutoSwitchingEnabled             |  Tango::DevBoolean	Scalar
+//  ConditionSwitching               |  Tango::DevBoolean	Scalar
 //  ExternalSwitching                |  Tango::DevBoolean	Scalar
 //  SwitchingDelay                   |  Tango::DevLong	Scalar
 //  DSCMode                          |  Tango::DevShort	Scalar
@@ -393,7 +393,7 @@ void LiberaBrilliancePlus::init_device()
     //m_libera->AddScalar("", attr_CxSA_read);
     //m_libera->AddScalar("", attr_CySA_read);
 
-    m_libera->AddScalar(m_raf + "conditioning.switching", attr_AutoSwitchingEnabled_read);
+    m_libera->AddScalar(m_raf + "conditioning.switching", attr_ConditionSwitching_read);
     //m_libera->AddScalar("", attr_Switches_read); // n.a.
     m_libera->AddScalar(m_raf + "conf.switching_source",
         attr_ExternalSwitching_read, LiberaAttr::ENUM2BOOL, LiberaAttr::BOOL2ENUM);
@@ -777,7 +777,7 @@ void LiberaBrilliancePlus::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("EnableSA"));
 	dev_prop.push_back(Tango::DbDatum("SAHistoryLength"));
 	dev_prop.push_back(Tango::DbDatum("DDDecimationFactor"));
-	dev_prop.push_back(Tango::DbDatum("EnableAutoSwitchingIfSAEnabled"));
+	dev_prop.push_back(Tango::DbDatum("ConditionSwitchingEnabled"));
 	dev_prop.push_back(Tango::DbDatum("EnableDSCIfAutoSwitchingEnabled"));
 	dev_prop.push_back(Tango::DbDatum("DefaultSAStatNumSamples"));
 	dev_prop.push_back(Tango::DbDatum("DefaultADCBufferSize"));
@@ -982,16 +982,16 @@ void LiberaBrilliancePlus::get_device_property()
 		//	And try to extract DDDecimationFactor value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  dDDecimationFactor;
 
-		//	Try to initialize EnableAutoSwitchingIfSAEnabled from class property
+		//	Try to initialize ConditionSwitchingEnabled from class property
 		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
-		if (cl_prop.is_empty()==false)	cl_prop  >>  enableAutoSwitchingIfSAEnabled;
+		if (cl_prop.is_empty()==false)	cl_prop  >>  conditionSwitchingEnabled;
 		else {
-			//	Try to initialize EnableAutoSwitchingIfSAEnabled from default device value
+			//	Try to initialize ConditionSwitchingEnabled from default device value
 			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
-			if (def_prop.is_empty()==false)	def_prop  >>  enableAutoSwitchingIfSAEnabled;
+			if (def_prop.is_empty()==false)	def_prop  >>  conditionSwitchingEnabled;
 		}
-		//	And try to extract EnableAutoSwitchingIfSAEnabled value from database
-		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  enableAutoSwitchingIfSAEnabled;
+		//	And try to extract ConditionSwitchingEnabled value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  conditionSwitchingEnabled;
 
 		//	Try to initialize EnableDSCIfAutoSwitchingEnabled from class property
 		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
@@ -2572,42 +2572,40 @@ void LiberaBrilliancePlus::write_InterlockLimitYMax(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute AutoSwitchingEnabled related method
+ *	Read attribute ConditionSwitching related method
  *	Description: Enables / disables the switching mechanism.
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
  */
 //--------------------------------------------------------
-void LiberaBrilliancePlus::read_AutoSwitchingEnabled(Tango::Attribute &attr)
+void LiberaBrilliancePlus::read_ConditionSwitching(Tango::Attribute &attr)
 {
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_AutoSwitchingEnabled(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_AutoSwitchingEnabled) ENABLED START -----*/
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_ConditionSwitching(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_ConditionSwitching) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_AutoSwitchingEnabled_read);
+	attr.set_value(attr_ConditionSwitching_read);
 	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_AutoSwitchingEnabled
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ConditionSwitching
 }
 //--------------------------------------------------------
 /**
- *	Write attribute AutoSwitchingEnabled related method
+ *	Write attribute ConditionSwitching related method
  *	Description: Enables / disables the switching mechanism.
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
  */
 //--------------------------------------------------------
-void LiberaBrilliancePlus::write_AutoSwitchingEnabled(Tango::WAttribute &attr)
+void LiberaBrilliancePlus::write_ConditionSwitching(Tango::WAttribute &attr)
 {
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_AutoSwitchingEnabled(Tango::WAttribute &attr) entering... " << endl;
+	DEBUG_STREAM << "LiberaBrilliancePlus::write_ConditionSwitching(Tango::WAttribute &attr) entering... " << endl;
 	//	Retrieve write value
 	Tango::DevBoolean	w_val;
 	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_AutoSwitchingEnabled) ENABLED START -----*/
-    m_libera->UpdateScalar(attr_AutoSwitchingEnabled_read, w_val);
-
-
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_AutoSwitchingEnabled
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_ConditionSwitching) ENABLED START -----*/
+    m_libera->UpdateScalar(attr_ConditionSwitching_read, w_val);
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_ConditionSwitching
 }
 //--------------------------------------------------------
 /**
@@ -6233,7 +6231,7 @@ void LiberaBrilliancePlus::init_settings()
 	m_libera->UpdateScalar(attr_AGCEnabled_read, false);
 	m_libera->UpdateScalar(attr_Gain_read, gain);
         m_libera->UpdateScalar(attr_AGCEnabled_read, enableAGC);
-	m_libera->UpdateScalar(attr_AutoSwitchingEnabled_read, enableAutoSwitchingIfSAEnabled);
+	m_libera->UpdateScalar(attr_ConditionSwitching_read, conditionSwitchingEnabled);
 
 	m_libera->UpdateScalar(attr_Kx_read, kxCoefficient);
 	m_libera->UpdateScalar(attr_Ky_read, kyCoefficient);

@@ -1231,7 +1231,7 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
-	prop_name = "EnableAutoSwitchingIfSAEnabled";
+	prop_name = "ConditionSwitchingEnabled";
 	prop_desc = "When set to TRUE, auto-switching is automattically enabled when the SA data source is itself enabled";
 	prop_def  = "false";
 	vect_data.clear();
@@ -2999,29 +2999,29 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(interlocklimitymax);
 
-	//	Attribute : AutoSwitchingEnabled
-	AutoSwitchingEnabledAttrib	*autoswitchingenabled = new AutoSwitchingEnabledAttrib();
-	Tango::UserDefaultAttrProp	autoswitchingenabled_prop;
-	autoswitchingenabled_prop.set_description("Enables / disables the switching mechanism.");
-	autoswitchingenabled_prop.set_label("Auto switching enabled");
-	autoswitchingenabled_prop.set_unit("n/a");
-	autoswitchingenabled_prop.set_standard_unit("n/a");
-	autoswitchingenabled_prop.set_display_unit("n/a");
-	//	format	not set for AutoSwitchingEnabled
-	//	max_value	not set for AutoSwitchingEnabled
-	//	min_value	not set for AutoSwitchingEnabled
-	//	max_alarm	not set for AutoSwitchingEnabled
-	//	min_alarm	not set for AutoSwitchingEnabled
-	//	max_warning	not set for AutoSwitchingEnabled
-	//	min_warning	not set for AutoSwitchingEnabled
-	//	delta_t	not set for AutoSwitchingEnabled
-	//	delta_val	not set for AutoSwitchingEnabled
+	//	Attribute : ConditionSwitching
+	ConditionSwitchingAttrib	*conditionswitching = new ConditionSwitchingAttrib();
+	Tango::UserDefaultAttrProp	conditionswitching_prop;
+	conditionswitching_prop.set_description("Enables / disables the switching mechanism.");
+	conditionswitching_prop.set_label("Condition switching enabled");
+	conditionswitching_prop.set_unit("n/a");
+	conditionswitching_prop.set_standard_unit("n/a");
+	conditionswitching_prop.set_display_unit("n/a");
+	//	format	not set for ConditionSwitching
+	//	max_value	not set for ConditionSwitching
+	//	min_value	not set for ConditionSwitching
+	//	max_alarm	not set for ConditionSwitching
+	//	min_alarm	not set for ConditionSwitching
+	//	max_warning	not set for ConditionSwitching
+	//	min_warning	not set for ConditionSwitching
+	//	delta_t	not set for ConditionSwitching
+	//	delta_val	not set for ConditionSwitching
 	
-	autoswitchingenabled->set_default_properties(autoswitchingenabled_prop);
+	conditionswitching->set_default_properties(conditionswitching_prop);
 	//	Not Polled
-	autoswitchingenabled->set_disp_level(Tango::OPERATOR);
+	conditionswitching->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
-	att_list.push_back(autoswitchingenabled);
+	att_list.push_back(conditionswitching);
 
 	//	Attribute : ExternalSwitching
 	ExternalSwitchingAttrib	*externalswitching = new ExternalSwitchingAttrib();

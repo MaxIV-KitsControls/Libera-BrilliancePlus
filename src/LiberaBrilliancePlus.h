@@ -143,8 +143,8 @@ public:
 	//	DDDecimationFactor:	The DD decimation factor.
 	//  Allowed values : 1 (no decimation) or 64 (for the so called booster normal mode)
 	Tango::DevUShort	dDDecimationFactor;
-	//	EnableAutoSwitchingIfSAEnabled:	When set to TRUE, auto-switching is automattically enabled when the SA data source is itself enabled
-	Tango::DevBoolean	enableAutoSwitchingIfSAEnabled;
+	//	ConditionSwitchingEnabled:	When set to TRUE, auto-switching is automattically enabled when the SA data source is itself enabled
+	Tango::DevBoolean	conditionSwitchingEnabled;
 	//	EnableDSCIfAutoSwitchingEnabled:	When set to TRUE, the Digital Signal Conditioning is automattically enabled when the auto-switching is itself enabled
 	Tango::DevBoolean	enableDSCIfAutoSwitchingEnabled;
 	//	DefaultSAStatNumSamples:	Default number of SA history samples to use form RMS pos. computation.
@@ -312,7 +312,7 @@ public:
 	Tango::DevDouble	*attr_InterlockLimitXMax_read;
 	Tango::DevDouble	*attr_InterlockLimitYMin_read;
 	Tango::DevDouble	*attr_InterlockLimitYMax_read;
-	Tango::DevBoolean	*attr_AutoSwitchingEnabled_read;
+	Tango::DevBoolean	*attr_ConditionSwitching_read;
 	Tango::DevBoolean	*attr_ExternalSwitching_read;
 	Tango::DevLong	*attr_SwitchingDelay_read;
 	Tango::DevShort	*attr_DSCMode_read;
@@ -839,15 +839,15 @@ public:
 	virtual void write_InterlockLimitYMax(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitYMax_allowed(Tango::AttReqType type);
 /**
- *	Attribute AutoSwitchingEnabled related methods
+ *	Attribute ConditionSwitching related methods
  *	Description: Enables / disables the switching mechanism.
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
  */
-	virtual void read_AutoSwitchingEnabled(Tango::Attribute &attr);
-	virtual void write_AutoSwitchingEnabled(Tango::WAttribute &attr);
-	virtual bool is_AutoSwitchingEnabled_allowed(Tango::AttReqType type);
+	virtual void read_ConditionSwitching(Tango::Attribute &attr);
+	virtual void write_ConditionSwitching(Tango::WAttribute &attr);
+	virtual bool is_ConditionSwitching_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalSwitching related methods
  *	Description: Sets the source of switching clock MC (external) or from the 

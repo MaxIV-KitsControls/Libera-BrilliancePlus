@@ -570,19 +570,19 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockLimitYMax_allowed(ty);}
 };
 
-//	Attribute AutoSwitchingEnabled class definition
-class AutoSwitchingEnabledAttrib: public Tango::Attr
+//	Attribute ConditionSwitching class definition
+class ConditionSwitchingAttrib: public Tango::Attr
 {
 public:
-	AutoSwitchingEnabledAttrib():Attr("AutoSwitchingEnabled",
+	ConditionSwitchingAttrib():Attr("ConditionSwitching",
 			Tango::DEV_BOOLEAN, Tango::READ_WRITE) {};
-	~AutoSwitchingEnabledAttrib() {};
+	~ConditionSwitchingAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_AutoSwitchingEnabled(att);}
+		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ConditionSwitching(att);}
 	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_AutoSwitchingEnabled(att);}
+		{(static_cast<LiberaBrilliancePlus *>(dev))->write_ConditionSwitching(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_AutoSwitchingEnabled_allowed(ty);}
+		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ConditionSwitching_allowed(ty);}
 };
 
 //	Attribute ExternalSwitching class definition
