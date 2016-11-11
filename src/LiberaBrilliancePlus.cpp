@@ -2454,7 +2454,6 @@ void LiberaBrilliancePlus::write_InterlockLimitXMin(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitXMin) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_InterlockLimitXMin_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitXMin
 }
 //--------------------------------------------------------
@@ -2491,7 +2490,6 @@ void LiberaBrilliancePlus::write_InterlockLimitXMax(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitXMax) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_InterlockLimitXMax_read, w_val);
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitXMax
 }
 //--------------------------------------------------------
@@ -2528,8 +2526,6 @@ void LiberaBrilliancePlus::write_InterlockLimitYMin(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitYMin) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_InterlockLimitYMin_read, w_val);
-	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitYMin
 }
 //--------------------------------------------------------
@@ -2566,8 +2562,6 @@ void LiberaBrilliancePlus::write_InterlockLimitYMax(Tango::WAttribute &attr)
 	Tango::DevDouble	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitYMax) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_InterlockLimitYMax_read, w_val);
-	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitYMax
 }
 //--------------------------------------------------------
