@@ -800,43 +800,39 @@ public:
 	virtual bool is_InterlockADCPostFilterNotified_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockLimitXMin related methods
- *	Description: Lower limit of the X position interlock threshold in mm
+ *	Description: Lower limit of the X position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
 	virtual void read_InterlockLimitXMin(Tango::Attribute &attr);
-	virtual void write_InterlockLimitXMin(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitXMin_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockLimitXMax related methods
- *	Description: Upper limit of the X position interlock threshold in mm
+ *	Description: Upper limit of the X position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
 	virtual void read_InterlockLimitXMax(Tango::Attribute &attr);
-	virtual void write_InterlockLimitXMax(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitXMax_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockLimitYMin related methods
- *	Description: Lower limit of the Y position interlock threshold in mm
+ *	Description: Lower limit of the Y position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
 	virtual void read_InterlockLimitYMin(Tango::Attribute &attr);
-	virtual void write_InterlockLimitYMin(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitYMin_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockLimitYMax related methods
- *	Description: Upper limit of the Y position interlock threshold in mm
+ *	Description: Upper limit of the Y position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
 	virtual void read_InterlockLimitYMax(Tango::Attribute &attr);
-	virtual void write_InterlockLimitYMax(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitYMax_allowed(Tango::AttReqType type);
 /**
  *	Attribute ConditionSwitching related methods

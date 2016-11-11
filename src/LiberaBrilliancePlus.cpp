@@ -2423,7 +2423,7 @@ void LiberaBrilliancePlus::read_InterlockADCPostFilterNotified(Tango::Attribute 
 //--------------------------------------------------------
 /**
  *	Read attribute InterlockLimitXMin related method
- *	Description: Lower limit of the X position interlock threshold in mm
+ *	Description: Lower limit of the X position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -2440,26 +2440,8 @@ void LiberaBrilliancePlus::read_InterlockLimitXMin(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Write attribute InterlockLimitXMin related method
- *	Description: Lower limit of the X position interlock threshold in mm
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockLimitXMin(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockLimitXMin(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitXMin) ENABLED START -----*/
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitXMin
-}
-//--------------------------------------------------------
-/**
  *	Read attribute InterlockLimitXMax related method
- *	Description: Upper limit of the X position interlock threshold in mm
+ *	Description: Upper limit of the X position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -2476,26 +2458,8 @@ void LiberaBrilliancePlus::read_InterlockLimitXMax(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Write attribute InterlockLimitXMax related method
- *	Description: Upper limit of the X position interlock threshold in mm
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockLimitXMax(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockLimitXMax(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitXMax) ENABLED START -----*/
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitXMax
-}
-//--------------------------------------------------------
-/**
  *	Read attribute InterlockLimitYMin related method
- *	Description: Lower limit of the Y position interlock threshold in mm
+ *	Description: Lower limit of the Y position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -2512,26 +2476,8 @@ void LiberaBrilliancePlus::read_InterlockLimitYMin(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Write attribute InterlockLimitYMin related method
- *	Description: Lower limit of the Y position interlock threshold in mm
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockLimitYMin(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockLimitYMin(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitYMin) ENABLED START -----*/
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitYMin
-}
-//--------------------------------------------------------
-/**
  *	Read attribute InterlockLimitYMax related method
- *	Description: Upper limit of the Y position interlock threshold in mm
+ *	Description: Upper limit of the Y position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -2545,24 +2491,6 @@ void LiberaBrilliancePlus::read_InterlockLimitYMax(Tango::Attribute &attr)
 	attr.set_value(attr_InterlockLimitYMax_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockLimitYMax
-}
-//--------------------------------------------------------
-/**
- *	Write attribute InterlockLimitYMax related method
- *	Description: Upper limit of the Y position interlock threshold in mm
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockLimitYMax(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockLimitYMax(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitYMax) ENABLED START -----*/
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitYMax
 }
 //--------------------------------------------------------
 /**

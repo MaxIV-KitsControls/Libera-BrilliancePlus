@@ -633,10 +633,6 @@ bool LiberaBrilliancePlus::is_InterlockADCPostFilterNotified_allowed(TANGO_UNUSE
 //--------------------------------------------------------
 bool LiberaBrilliancePlus::is_InterlockLimitXMin_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
-	//	Not any excluded states for InterlockLimitXMin attribute in Write access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockLimitXMinStateAllowed_WRITE) ENABLED START -----*/
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::InterlockLimitXMinStateAllowed_WRITE
 
 	//	Not any excluded states for InterlockLimitXMin attribute in read access.
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockLimitXMinStateAllowed_READ) ENABLED START -----*/
@@ -653,10 +649,6 @@ bool LiberaBrilliancePlus::is_InterlockLimitXMin_allowed(TANGO_UNUSED(Tango::Att
 //--------------------------------------------------------
 bool LiberaBrilliancePlus::is_InterlockLimitXMax_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
-	//	Not any excluded states for InterlockLimitXMax attribute in Write access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockLimitXMaxStateAllowed_WRITE) ENABLED START -----*/
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::InterlockLimitXMaxStateAllowed_WRITE
 
 	//	Not any excluded states for InterlockLimitXMax attribute in read access.
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockLimitXMaxStateAllowed_READ) ENABLED START -----*/
@@ -673,10 +665,6 @@ bool LiberaBrilliancePlus::is_InterlockLimitXMax_allowed(TANGO_UNUSED(Tango::Att
 //--------------------------------------------------------
 bool LiberaBrilliancePlus::is_InterlockLimitYMin_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
-	//	Not any excluded states for InterlockLimitYMin attribute in Write access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockLimitYMinStateAllowed_WRITE) ENABLED START -----*/
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::InterlockLimitYMinStateAllowed_WRITE
 
 	//	Not any excluded states for InterlockLimitYMin attribute in read access.
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockLimitYMinStateAllowed_READ) ENABLED START -----*/
@@ -693,10 +681,6 @@ bool LiberaBrilliancePlus::is_InterlockLimitYMin_allowed(TANGO_UNUSED(Tango::Att
 //--------------------------------------------------------
 bool LiberaBrilliancePlus::is_InterlockLimitYMax_allowed(TANGO_UNUSED(Tango::AttReqType type))
 {
-	//	Not any excluded states for InterlockLimitYMax attribute in Write access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockLimitYMaxStateAllowed_WRITE) ENABLED START -----*/
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::InterlockLimitYMaxStateAllowed_WRITE
 
 	//	Not any excluded states for InterlockLimitYMax attribute in read access.
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::InterlockLimitYMaxStateAllowed_READ) ENABLED START -----*/

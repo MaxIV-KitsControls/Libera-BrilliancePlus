@@ -958,37 +958,37 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="ADC overflow with filtering." label="" unit="" standardUnit="" displayUnit="" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="InterlockLimitXMin" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
+    <attributes name="InterlockLimitXMin" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:DoubleType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Lower limit of the X position interlock threshold in mm" label="X Low Int. Thres." unit="mm" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Lower limit of the X position interlock threshold in mm (Writable only via Property)" label="X Low Int. Thres." unit="mm" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="InterlockLimitXMax" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
+    <attributes name="InterlockLimitXMax" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:DoubleType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Upper limit of the X position interlock threshold in mm" label="X High Int. Thres." unit="mm" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Upper limit of the X position interlock threshold in mm (Writable only via Property)" label="X High Int. Thres." unit="mm" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="InterlockLimitYMin" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
+    <attributes name="InterlockLimitYMin" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:DoubleType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Lower limit of the Y position interlock threshold in mm" label="Y Low Int. Thres." unit="mm" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Lower limit of the Y position interlock threshold in mm (Writable only via Property)" label="Y Low Int. Thres." unit="mm" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="InterlockLimitYMax" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
+    <attributes name="InterlockLimitYMax" attType="Scalar" rwType="READ" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:DoubleType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
       <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="Upper limit of the Y position interlock threshold in mm" label="Y High Int. Thres." unit="mm" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="Upper limit of the Y position interlock threshold in mm (Writable only via Property)" label="Y High Int. Thres." unit="mm" standardUnit="" displayUnit="" format="%8.4f" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="ConditionSwitching" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:BooleanType"/>

@@ -515,12 +515,10 @@ class InterlockLimitXMinAttrib: public Tango::Attr
 {
 public:
 	InterlockLimitXMinAttrib():Attr("InterlockLimitXMin",
-			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+			Tango::DEV_DOUBLE, Tango::READ) {};
 	~InterlockLimitXMinAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockLimitXMin(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockLimitXMin(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockLimitXMin_allowed(ty);}
 };
@@ -530,12 +528,10 @@ class InterlockLimitXMaxAttrib: public Tango::Attr
 {
 public:
 	InterlockLimitXMaxAttrib():Attr("InterlockLimitXMax",
-			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+			Tango::DEV_DOUBLE, Tango::READ) {};
 	~InterlockLimitXMaxAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockLimitXMax(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockLimitXMax(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockLimitXMax_allowed(ty);}
 };
@@ -545,12 +541,10 @@ class InterlockLimitYMinAttrib: public Tango::Attr
 {
 public:
 	InterlockLimitYMinAttrib():Attr("InterlockLimitYMin",
-			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+			Tango::DEV_DOUBLE, Tango::READ) {};
 	~InterlockLimitYMinAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockLimitYMin(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockLimitYMin(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockLimitYMin_allowed(ty);}
 };
@@ -560,12 +554,10 @@ class InterlockLimitYMaxAttrib: public Tango::Attr
 {
 public:
 	InterlockLimitYMaxAttrib():Attr("InterlockLimitYMax",
-			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
+			Tango::DEV_DOUBLE, Tango::READ) {};
 	~InterlockLimitYMaxAttrib() {};
 	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
 		{(static_cast<LiberaBrilliancePlus *>(dev))->read_InterlockLimitYMax(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->write_InterlockLimitYMax(att);}
 	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockLimitYMax_allowed(ty);}
 };

@@ -2906,7 +2906,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Attribute : InterlockLimitXMin
 	InterlockLimitXMinAttrib	*interlocklimitxmin = new InterlockLimitXMinAttrib();
 	Tango::UserDefaultAttrProp	interlocklimitxmin_prop;
-	interlocklimitxmin_prop.set_description("Lower limit of the X position interlock threshold in mm");
+	interlocklimitxmin_prop.set_description("Lower limit of the X position interlock threshold in mm (Writable only via Property)");
 	interlocklimitxmin_prop.set_label("X Low Int. Thres.");
 	interlocklimitxmin_prop.set_unit("mm");
 	//	standard_unit	not set for InterlockLimitXMin
@@ -2923,14 +2923,14 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	interlocklimitxmin->set_default_properties(interlocklimitxmin_prop);
 	//	Not Polled
-	interlocklimitxmin->set_disp_level(Tango::EXPERT);
+	interlocklimitxmin->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(interlocklimitxmin);
 
 	//	Attribute : InterlockLimitXMax
 	InterlockLimitXMaxAttrib	*interlocklimitxmax = new InterlockLimitXMaxAttrib();
 	Tango::UserDefaultAttrProp	interlocklimitxmax_prop;
-	interlocklimitxmax_prop.set_description("Upper limit of the X position interlock threshold in mm");
+	interlocklimitxmax_prop.set_description("Upper limit of the X position interlock threshold in mm (Writable only via Property)");
 	interlocklimitxmax_prop.set_label("X High Int. Thres.");
 	interlocklimitxmax_prop.set_unit("mm");
 	//	standard_unit	not set for InterlockLimitXMax
@@ -2947,14 +2947,14 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	interlocklimitxmax->set_default_properties(interlocklimitxmax_prop);
 	//	Not Polled
-	interlocklimitxmax->set_disp_level(Tango::EXPERT);
+	interlocklimitxmax->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(interlocklimitxmax);
 
 	//	Attribute : InterlockLimitYMin
 	InterlockLimitYMinAttrib	*interlocklimitymin = new InterlockLimitYMinAttrib();
 	Tango::UserDefaultAttrProp	interlocklimitymin_prop;
-	interlocklimitymin_prop.set_description("Lower limit of the Y position interlock threshold in mm");
+	interlocklimitymin_prop.set_description("Lower limit of the Y position interlock threshold in mm (Writable only via Property)");
 	interlocklimitymin_prop.set_label("Y Low Int. Thres.");
 	interlocklimitymin_prop.set_unit("mm");
 	//	standard_unit	not set for InterlockLimitYMin
@@ -2971,14 +2971,14 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	interlocklimitymin->set_default_properties(interlocklimitymin_prop);
 	//	Not Polled
-	interlocklimitymin->set_disp_level(Tango::EXPERT);
+	interlocklimitymin->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(interlocklimitymin);
 
 	//	Attribute : InterlockLimitYMax
 	InterlockLimitYMaxAttrib	*interlocklimitymax = new InterlockLimitYMaxAttrib();
 	Tango::UserDefaultAttrProp	interlocklimitymax_prop;
-	interlocklimitymax_prop.set_description("Upper limit of the Y position interlock threshold in mm");
+	interlocklimitymax_prop.set_description("Upper limit of the Y position interlock threshold in mm (Writable only via Property)");
 	interlocklimitymax_prop.set_label("Y High Int. Thres.");
 	interlocklimitymax_prop.set_unit("mm");
 	//	standard_unit	not set for InterlockLimitYMax
@@ -2995,7 +2995,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	
 	interlocklimitymax->set_default_properties(interlocklimitymax_prop);
 	//	Not Polled
-	interlocklimitymax->set_disp_level(Tango::EXPERT);
+	interlocklimitymax->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
 	att_list.push_back(interlocklimitymax);
 
