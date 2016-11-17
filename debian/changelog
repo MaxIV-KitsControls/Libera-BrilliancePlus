@@ -1,3 +1,13 @@
+tangods-liberabrillianceplus (1.4.3) unstable; urgency=low
+
+  * Added LMT_l adn LMT_l timestamp for the SA signal for testinga and validation of the signal values.
+  * Remove Write functions for the X,Y Interlock limit attributes.
+  * Added new timing attributes MCLock and PLLClockGood
+  * Renamed MCPLLLock attribute to PLLLock.
+  * Added new functions for setting timing alarm status.
+
+ -- Vasileios Martos <vasileios.martos> Mon, 23 March 2016 12:00:00 +0000
+ 
 tangods-liberabrillianceplus (1.4.2) unstable; urgency=low
 
   * Added new attributes and their properties respectively in order to apply the new configuration (9917)
