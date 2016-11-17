@@ -8394,7 +8394,7 @@ void LiberaBrilliancePlus::set_lib_error(std::string nodeinfo)
 
 std::string LiberaBrilliancePlus::set_interlock_status()
 {
-	std::string status = "Interlock Enabled ";
+	std::string status = "Interlock Alarm";
 
 	if (*attr_InterlockXNotified_read)
 		status += " - X position exceeded the limit values";
@@ -8410,19 +8410,19 @@ std::string LiberaBrilliancePlus::set_interlock_status()
 
 std::string LiberaBrilliancePlus::set_timing_status()
 {
-	std::string status = "Timing Issues: ";
+	std::string status = "Timing Alarm";
 
 	if (*attr_PLLLock_read == false)
-		status += "Pll not locked";
+		status += " - Pll not locked";
 
 	if (*attr_MCLock_read == false)
-		status += "MC not locked";
+		status += " - MC not locked";
 
 	if (*attr_PLLClockGood_read == false)
-		status += "Pll Clock not good";
+		status += " - Pll Clock not good";
 
 	if (*attr_RTCTimestampState_read != 1)
-		status += "RTC TimeStamp not done";
+		status += " - RTC TimeStamp not done";
 
 	return status;
 }
