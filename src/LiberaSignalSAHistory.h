@@ -32,6 +32,8 @@ public:
         Tango::DevDouble *&a_QuadSA_read,
         Tango::DevDouble *&a_XPosSA_read,
         Tango::DevDouble *&a_ZPosSA_read,
+	    Tango::DevDouble *&a_lmt_l_SA_read,
+	    Tango::DevDouble *&a_lmt_h_SA_read,
         Tango::DevDouble *&a_XPosSAHistory_read,
         Tango::DevDouble *&a_ZPosSAHistory_read,
         Tango::DevDouble *&a_SumSAHistory_read,
