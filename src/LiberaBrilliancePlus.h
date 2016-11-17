@@ -394,7 +394,7 @@ public:
 	Tango::DevBoolean	*attr_AGCEnabled_read;
 	Tango::DevDouble	*attr_Gain_read;
 	Tango::DevLong	*attr_TimePhase_read;
-	Tango::DevBoolean	*attr_MCPLLStatus_read;
+	Tango::DevBoolean	*attr_PLLLock_read;
 	Tango::DevShort	*attr_Temp1_read;
 	Tango::DevShort	*attr_Temp2_read;
 	Tango::DevShort	*attr_Temp3_read;
@@ -481,6 +481,10 @@ public:
 	Tango::DevLong	*attr_T2Duration_read;
 	Tango::DevLong	*attr_RtcT1inMask_read;
 	Tango::DevLong	*attr_RtcT2inMask_read;
+	Tango::DevDouble	*attr_lmt_hSA_read;
+	Tango::DevDouble	*attr_lmt_lSA_read;
+	Tango::DevBoolean	*attr_MCLock_read;
+	Tango::DevBoolean	*attr_PLLClockGood_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -559,7 +563,7 @@ public:
 	LiberaBrilliancePlus(Tango::DeviceClass *cl,const char *s,const char *d);
 	/**
 	 * The device object destructor.
-	 */	
+	 */
 	~LiberaBrilliancePlus() {delete_device();};
 
 
@@ -948,7 +952,6 @@ public:
  *	Attr type:	Scalar
  */
 	virtual void read_InterlockLimitXMin(Tango::Attribute &attr);
-	virtual void write_InterlockLimitXMin(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitXMin_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockLimitXMax related methods
@@ -958,7 +961,6 @@ public:
  *	Attr type:	Scalar
  */
 	virtual void read_InterlockLimitXMax(Tango::Attribute &attr);
-	virtual void write_InterlockLimitXMax(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitXMax_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockLimitYMin related methods
@@ -968,7 +970,6 @@ public:
  *	Attr type:	Scalar
  */
 	virtual void read_InterlockLimitYMin(Tango::Attribute &attr);
-	virtual void write_InterlockLimitYMin(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitYMin_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockLimitYMax related methods
@@ -978,7 +979,6 @@ public:
  *	Attr type:	Scalar
  */
 	virtual void read_InterlockLimitYMax(Tango::Attribute &attr);
-	virtual void write_InterlockLimitYMax(Tango::WAttribute &attr);
 	virtual bool is_InterlockLimitYMax_allowed(Tango::AttReqType type);
 /**
  *	Attribute AutoSwitchingEnabled related methods
@@ -1077,14 +1077,14 @@ public:
 	virtual void write_TimePhase(Tango::WAttribute &attr);
 	virtual bool is_TimePhase_allowed(Tango::AttReqType type);
 /**
- *	Attribute MCPLLStatus related methods
- *	Description: Indicates the MC PLL status (1=locked, 0=unlocked)
+ *	Attribute PLLLock related methods
+ *	Description: boards.evrx2.pll.locked
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
  */
-	virtual void read_MCPLLStatus(Tango::Attribute &attr);
-	virtual bool is_MCPLLStatus_allowed(Tango::AttReqType type);
+	virtual void read_PLLLock(Tango::Attribute &attr);
+	virtual bool is_PLLLock_allowed(Tango::AttReqType type);
 /**
  *	Attribute Temp1 related methods
  *	Description: Temperature of the hottest component on the BPM 
@@ -1938,6 +1938,42 @@ public:
 	virtual void write_RtcT2inMask(Tango::WAttribute &attr);
 	virtual bool is_RtcT2inMask_allowed(Tango::AttReqType type);
 /**
+ *	Attribute lmt_hSA related methods
+ *	Description: Slow Acquisition: LMT h
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_lmt_hSA(Tango::Attribute &attr);
+	virtual bool is_lmt_hSA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute lmt_lSA related methods
+ *	Description: Slow Acquisition: LMT l
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_lmt_lSA(Tango::Attribute &attr);
+	virtual bool is_lmt_lSA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute MCLock related methods
+ *	Description: boards.evrx2.clk_mgr.mc.locked
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_MCLock(Tango::Attribute &attr);
+	virtual bool is_MCLock_allowed(Tango::AttReqType type);
+/**
+ *	Attribute PLLClockGood related methods
+ *	Description: boards.evrx2.pll.clk_good
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_PLLClockGood(Tango::Attribute &attr);
+	virtual bool is_PLLClockGood_allowed(Tango::AttReqType type);
+/**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
  *
@@ -2411,6 +2447,7 @@ public:
 
 
 
+
 //	Command related methods
 public:
 	/**
@@ -2695,6 +2732,7 @@ public:
   void set_lib_error(std::string nodeinfo);
 
   std::string set_interlock_status();
+  std::string set_timing_status();
 
 /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Additional Method prototypes
 };

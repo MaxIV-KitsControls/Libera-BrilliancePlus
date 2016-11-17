@@ -132,8 +132,8 @@ LiberaBrilliancePlusClass *LiberaBrilliancePlusClass::init(const char *name)
 		catch (bad_alloc &)
 		{
 			throw;
-		}		
-	}		
+		}
+	}
 	return _instance;
 }
 
@@ -3800,29 +3800,29 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	timephase->set_memorized_init(true);
 	att_list.push_back(timephase);
 
-	//	Attribute : MCPLLStatus
-	MCPLLStatusAttrib	*mcpllstatus = new MCPLLStatusAttrib();
-	Tango::UserDefaultAttrProp	mcpllstatus_prop;
-	mcpllstatus_prop.set_description("Indicates the MC PLL status (1=locked, 0=unlocked)");
-	mcpllstatus_prop.set_label("MC PLL Locked");
-	//	unit	not set for MCPLLStatus
-	//	standard_unit	not set for MCPLLStatus
-	//	display_unit	not set for MCPLLStatus
-	mcpllstatus_prop.set_format("%8d");
-	//	max_value	not set for MCPLLStatus
-	//	min_value	not set for MCPLLStatus
-	//	max_alarm	not set for MCPLLStatus
-	//	min_alarm	not set for MCPLLStatus
-	//	max_warning	not set for MCPLLStatus
-	//	min_warning	not set for MCPLLStatus
-	//	delta_t	not set for MCPLLStatus
-	//	delta_val	not set for MCPLLStatus
+	//	Attribute : PLLLock
+	PLLLockAttrib	*plllock = new PLLLockAttrib();
+	Tango::UserDefaultAttrProp	plllock_prop;
+	plllock_prop.set_description("boards.evrx2.pll.locked");
+	plllock_prop.set_label("PLL Locked");
+	//	unit	not set for PLLLock
+	//	standard_unit	not set for PLLLock
+	//	display_unit	not set for PLLLock
+	plllock_prop.set_format("%8d");
+	//	max_value	not set for PLLLock
+	//	min_value	not set for PLLLock
+	//	max_alarm	not set for PLLLock
+	//	min_alarm	not set for PLLLock
+	//	max_warning	not set for PLLLock
+	//	min_warning	not set for PLLLock
+	//	delta_t	not set for PLLLock
+	//	delta_val	not set for PLLLock
 	
-	mcpllstatus->set_default_properties(mcpllstatus_prop);
+	plllock->set_default_properties(plllock_prop);
 	//	Not Polled
-	mcpllstatus->set_disp_level(Tango::OPERATOR);
+	plllock->set_disp_level(Tango::OPERATOR);
 	//	Not Memorized
-	att_list.push_back(mcpllstatus);
+	att_list.push_back(plllock);
 
 	//	Attribute : Temp1
 	Temp1Attrib	*temp1 = new Temp1Attrib();
@@ -5898,6 +5898,102 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(rtct2inmask);
 
+	//	Attribute : lmt_hSA
+	lmt_hSAAttrib	*lmt_hsa = new lmt_hSAAttrib();
+	Tango::UserDefaultAttrProp	lmt_hsa_prop;
+	lmt_hsa_prop.set_description("Slow Acquisition: LMT h");
+	lmt_hsa_prop.set_label("SA LMT h");
+	lmt_hsa_prop.set_unit("a.u.");
+	lmt_hsa_prop.set_standard_unit("a.u.");
+	lmt_hsa_prop.set_display_unit("a.u.");
+	lmt_hsa_prop.set_format("%10.0f");
+	//	max_value	not set for lmt_hSA
+	//	min_value	not set for lmt_hSA
+	//	max_alarm	not set for lmt_hSA
+	//	min_alarm	not set for lmt_hSA
+	//	max_warning	not set for lmt_hSA
+	//	min_warning	not set for lmt_hSA
+	//	delta_t	not set for lmt_hSA
+	//	delta_val	not set for lmt_hSA
+	
+	lmt_hsa->set_default_properties(lmt_hsa_prop);
+	//	Not Polled
+	lmt_hsa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(lmt_hsa);
+
+	//	Attribute : lmt_lSA
+	lmt_lSAAttrib	*lmt_lsa = new lmt_lSAAttrib();
+	Tango::UserDefaultAttrProp	lmt_lsa_prop;
+	lmt_lsa_prop.set_description("Slow Acquisition: LMT l");
+	lmt_lsa_prop.set_label("SA LMT l");
+	lmt_lsa_prop.set_unit("a.u.");
+	lmt_lsa_prop.set_standard_unit("a.u.");
+	lmt_lsa_prop.set_display_unit("a.u.");
+	lmt_lsa_prop.set_format("%10.0f");
+	//	max_value	not set for lmt_lSA
+	//	min_value	not set for lmt_lSA
+	//	max_alarm	not set for lmt_lSA
+	//	min_alarm	not set for lmt_lSA
+	//	max_warning	not set for lmt_lSA
+	//	min_warning	not set for lmt_lSA
+	//	delta_t	not set for lmt_lSA
+	//	delta_val	not set for lmt_lSA
+	
+	lmt_lsa->set_default_properties(lmt_lsa_prop);
+	//	Not Polled
+	lmt_lsa->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(lmt_lsa);
+
+	//	Attribute : MCLock
+	MCLockAttrib	*mclock = new MCLockAttrib();
+	Tango::UserDefaultAttrProp	mclock_prop;
+	mclock_prop.set_description("boards.evrx2.clk_mgr.mc.locked");
+	mclock_prop.set_label("MC Locked");
+	//	unit	not set for MCLock
+	//	standard_unit	not set for MCLock
+	//	display_unit	not set for MCLock
+	mclock_prop.set_format("%8d");
+	//	max_value	not set for MCLock
+	//	min_value	not set for MCLock
+	//	max_alarm	not set for MCLock
+	//	min_alarm	not set for MCLock
+	//	max_warning	not set for MCLock
+	//	min_warning	not set for MCLock
+	//	delta_t	not set for MCLock
+	//	delta_val	not set for MCLock
+	
+	mclock->set_default_properties(mclock_prop);
+	//	Not Polled
+	mclock->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(mclock);
+
+	//	Attribute : PLLClockGood
+	PLLClockGoodAttrib	*pllclockgood = new PLLClockGoodAttrib();
+	Tango::UserDefaultAttrProp	pllclockgood_prop;
+	pllclockgood_prop.set_description("boards.evrx2.pll.clk_good");
+	pllclockgood_prop.set_label("Clock Good");
+	//	unit	not set for PLLClockGood
+	//	standard_unit	not set for PLLClockGood
+	//	display_unit	not set for PLLClockGood
+	pllclockgood_prop.set_format("%8d");
+	//	max_value	not set for PLLClockGood
+	//	min_value	not set for PLLClockGood
+	//	max_alarm	not set for PLLClockGood
+	//	min_alarm	not set for PLLClockGood
+	//	max_warning	not set for PLLClockGood
+	//	min_warning	not set for PLLClockGood
+	//	delta_t	not set for PLLClockGood
+	//	delta_val	not set for PLLClockGood
+	
+	pllclockgood->set_default_properties(pllclockgood_prop);
+	//	Not Polled
+	pllclockgood->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(pllclockgood);
+
 	//	Attribute : XPosDD
 	XPosDDAttrib	*xposdd = new XPosDDAttrib();
 	Tango::UserDefaultAttrProp	xposdd_prop;
@@ -7122,6 +7218,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(lmt_lfa);
 
+
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::attribute_factory_after) ENABLED START -----*/
@@ -7129,6 +7226,26 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Add your own code
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlusClass::attribute_factory_after
+}
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlusClass::pipe_factory()
+ *	Description : Create the pipe object(s)
+ *                and store them in the pipe list
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlusClass::pipe_factory()
+{
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::pipe_factory_before) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlusClass::pipe_factory_before
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::pipe_factory_after) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlusClass::pipe_factory_after
 }
 //--------------------------------------------------------
 /**
@@ -7459,7 +7576,7 @@ void LiberaBrilliancePlusClass::command_factory()
  * method : 		LiberaBrilliancePlusClass::create_static_attribute_list
  * description : 	Create the a list of static attributes
  *
- * @param	att_list	the ceated attribute list 
+ * @param	att_list	the ceated attribute list
  */
 //--------------------------------------------------------
 void LiberaBrilliancePlusClass::create_static_attribute_list(vector<Tango::Attr *> &att_list)
@@ -7493,10 +7610,10 @@ void LiberaBrilliancePlusClass::erase_dynamic_attributes(const Tango::DevVarStri
 	Tango::Util *tg = Tango::Util::instance();
 
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
-	{	
+	{
 		Tango::DeviceImpl *dev_impl = tg->get_device_by_name(((string)(*devlist_ptr)[i]).c_str());
 		LiberaBrilliancePlus *dev = static_cast<LiberaBrilliancePlus *> (dev_impl);
-		
+
 		vector<Tango::Attribute *> &dev_att_list = dev->get_device_attr()->get_attribute_list();
 		vector<Tango::Attribute *>::iterator ite_att;
 		for (ite_att=dev_att_list.begin() ; ite_att != dev_att_list.end() ; ++ite_att)
@@ -7528,7 +7645,7 @@ void LiberaBrilliancePlusClass::erase_dynamic_attributes(const Tango::DevVarStri
 Tango::Attr *LiberaBrilliancePlusClass::get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname)
 {
 	vector<Tango::Attr *>::iterator it;
-	for (it=att_list.begin() ; it<att_list.end() ; it++)
+	for (it=att_list.begin() ; it<att_list.end() ; ++it)
 		if ((*it)->get_name()==attname)
 			return (*it);
 	//	Attr does not exist

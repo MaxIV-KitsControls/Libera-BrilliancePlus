@@ -147,7 +147,7 @@ static const char *RcsId = "$Id:  $";
 //  AGCEnabled                       |  Tango::DevBoolean	Scalar
 //  Gain                             |  Tango::DevDouble	Scalar
 //  TimePhase                        |  Tango::DevLong	Scalar
-//  MCPLLStatus                      |  Tango::DevBoolean	Scalar
+//  PLLLock                          |  Tango::DevBoolean	Scalar
 //  Temp1                            |  Tango::DevShort	Scalar
 //  Temp2                            |  Tango::DevShort	Scalar
 //  Temp3                            |  Tango::DevShort	Scalar
@@ -234,6 +234,10 @@ static const char *RcsId = "$Id:  $";
 //  T2Duration                       |  Tango::DevLong	Scalar
 //  RtcT1inMask                      |  Tango::DevLong	Scalar
 //  RtcT2inMask                      |  Tango::DevLong	Scalar
+//  lmt_hSA                          |  Tango::DevDouble	Scalar
+//  lmt_lSA                          |  Tango::DevDouble	Scalar
+//  MCLock                           |  Tango::DevBoolean	Scalar
+//  PLLClockGood                     |  Tango::DevBoolean	Scalar
 //  XPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  YPosDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
 //  QuadDD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -471,8 +475,10 @@ void LiberaBrilliancePlus::init_device()
         attr_TimePhase_read, LiberaAttr::ULONG2LONG, LiberaAttr::LONG2ULONG);
     //m_libera->AddScalar("", attr_SystemTime_read); // n.a.
     //m_libera->AddScalar("", attr_SCPLLStatus_read); // n.a.
-    m_libera->AddScalar(tim + "pll.locked", attr_MCPLLStatus_read);
 
+    m_libera->AddScalar(tim + "pll.locked", attr_PLLLock_read);
+    m_libera->AddScalar(tim + "clk_mgr.mc.locked", attr_MCLock_read);
+    m_libera->AddScalar(tim + "pll.clk_good", attr_PLLClockGood_read);
 
     m_libera->AddScalarPM("boards." + liberaBoard + ".sensors.ID_2.value",
         attr_Temp1_read, LiberaAttr::DBL2SHORT);
@@ -778,6 +784,8 @@ void LiberaBrilliancePlus::init_device()
         attr_QuadSA_read,
         attr_XPosSA_read,
         attr_YPosSA_read,
+		attr_lmt_lSA_read,
+		attr_lmt_hSA_read,
         attr_XPosSAHistory_read,
         attr_YPosSAHistory_read,
         attr_SumSAHistory_read,
@@ -881,6 +889,9 @@ void LiberaBrilliancePlus::init_device()
     set_change_event("YPosSA",  true, false);
     set_change_event("QuadSA",  true, false);
     set_change_event("SumSA",  true, false);
+    set_change_event("lmt_hSA",  true, false);
+    set_change_event("lmt_lSA",  true, false);
+
 
     set_change_event("SumSP",  true, false);
     set_change_event("ThdrId",  true, false);
@@ -2118,7 +2129,7 @@ void LiberaBrilliancePlus::get_device_property()
 //--------------------------------------------------------
 void LiberaBrilliancePlus::always_executed_hook()
 {
-	INFO_STREAM << "LiberaBrilliancePlus::always_executed_hook()  " << device_name << endl;
+	DEBUG_STREAM << "LiberaBrilliancePlus::always_executed_hook()  " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::always_executed_hook) ENABLED START -----*/
 
 	//	code always executed before all requests
@@ -3085,25 +3096,6 @@ void LiberaBrilliancePlus::read_InterlockLimitXMin(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Write attribute InterlockLimitXMin related method
- *	Description: Lower limit of the X position interlock threshold in mm
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockLimitXMin(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockLimitXMin(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitXMin) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_InterlockLimitXMin_read, w_val);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitXMin
-}
-//--------------------------------------------------------
-/**
  *	Read attribute InterlockLimitXMax related method
  *	Description: Upper limit of the X position interlock threshold in mm
  *
@@ -3119,25 +3111,6 @@ void LiberaBrilliancePlus::read_InterlockLimitXMax(Tango::Attribute &attr)
 	attr.set_value(attr_InterlockLimitXMax_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockLimitXMax
-}
-//--------------------------------------------------------
-/**
- *	Write attribute InterlockLimitXMax related method
- *	Description: Upper limit of the X position interlock threshold in mm
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockLimitXMax(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockLimitXMax(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitXMax) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_InterlockLimitXMax_read, w_val);
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitXMax
 }
 //--------------------------------------------------------
 /**
@@ -3159,26 +3132,6 @@ void LiberaBrilliancePlus::read_InterlockLimitYMin(Tango::Attribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Write attribute InterlockLimitYMin related method
- *	Description: Lower limit of the Y position interlock threshold in mm
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockLimitYMin(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockLimitYMin(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitYMin) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_InterlockLimitYMin_read, w_val);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitYMin
-}
-//--------------------------------------------------------
-/**
  *	Read attribute InterlockLimitYMax related method
  *	Description: Upper limit of the Y position interlock threshold in mm
  *
@@ -3194,26 +3147,6 @@ void LiberaBrilliancePlus::read_InterlockLimitYMax(Tango::Attribute &attr)
 	attr.set_value(attr_InterlockLimitYMax_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_InterlockLimitYMax
-}
-//--------------------------------------------------------
-/**
- *	Write attribute InterlockLimitYMax related method
- *	Description: Upper limit of the Y position interlock threshold in mm
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::write_InterlockLimitYMax(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::write_InterlockLimitYMax(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::write_InterlockLimitYMax) ENABLED START -----*/
-	m_libera->UpdateScalar(attr_InterlockLimitYMax_read, w_val);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockLimitYMax
 }
 //--------------------------------------------------------
 /**
@@ -3580,21 +3513,21 @@ void LiberaBrilliancePlus::write_TimePhase(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
- *	Read attribute MCPLLStatus related method
- *	Description: Indicates the MC PLL status (1=locked, 0=unlocked)
+ *	Read attribute PLLLock related method
+ *	Description: boards.evrx2.pll.locked
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
  */
 //--------------------------------------------------------
-void LiberaBrilliancePlus::read_MCPLLStatus(Tango::Attribute &attr)
+void LiberaBrilliancePlus::read_PLLLock(Tango::Attribute &attr)
 {
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCPLLStatus(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MCPLLStatus) ENABLED START -----*/
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_PLLLock(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_PLLLock) ENABLED START -----*/
 	//	Set the attribute value
-	attr.set_value(attr_MCPLLStatus_read);
+	attr.set_value(attr_PLLLock_read);
 	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MCPLLStatus
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_PLLLock
 }
 //--------------------------------------------------------
 /**
@@ -6453,6 +6386,78 @@ void LiberaBrilliancePlus::write_RtcT2inMask(Tango::WAttribute &attr)
 }
 //--------------------------------------------------------
 /**
+ *	Read attribute lmt_hSA related method
+ *	Description: Slow Acquisition: LMT h
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_lmt_hSA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_lmt_hSA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_lmt_hSA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_lmt_hSA_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_lmt_hSA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute lmt_lSA related method
+ *	Description: Slow Acquisition: LMT l
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_lmt_lSA(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_lmt_lSA(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_lmt_lSA) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_lmt_lSA_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_lmt_lSA
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute MCLock related method
+ *	Description: boards.evrx2.clk_mgr.mc.locked
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_MCLock(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_MCLock(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_MCLock) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_MCLock_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_MCLock
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute PLLClockGood related method
+ *	Description: boards.evrx2.pll.clk_good
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::read_PLLClockGood(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "LiberaBrilliancePlus::read_PLLClockGood(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_PLLClockGood) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_PLLClockGood_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_PLLClockGood
+}
+//--------------------------------------------------------
+/**
  *	Read attribute XPosDD related method
  *	Description: Turn by turn data: X Pos.
  *
@@ -7415,26 +7420,12 @@ Tango::DevState LiberaBrilliancePlus::dev_state()
 		argout = Tango::ALARM;
 		m_status = set_interlock_status();
 	}
-	else if (*attr_MCPLLStatus_read == false || *attr_RTCTimestampState_read != 1)
+	else if (*attr_PLLLock_read == false || *attr_RTCTimestampState_read != 1 || *attr_MCLock_read == false || *attr_PLLClockGood_read == false )
 	{
-		m_state = Tango::ALARM;
-		if (*attr_MCPLLStatus_read == false)
-		{
-			m_status = "MC Pll not locked";
-		}
-		else if (*attr_RTCTimestampState_read != 1)
-		{
-			m_status = "RTC TimeStamp not done";
-		}
-
 		argout = Tango::ALARM;
-	}/*
-	else if(argout == Tango::ALARM) {
-		//Just in case of Tango alarms etc.
-		// avoid to enter in last else
+		m_status = set_timing_status();
 
 	}
-	*/
 	else {
 		argout = Tango::ON;
 		m_status = "Connected to Libera";
@@ -8018,15 +8009,9 @@ void LiberaBrilliancePlus::announce_synchronization()
 {
 	DEBUG_STREAM << "LiberaBrilliancePlus::AnnounceSynchronization()  - " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::announce_synchronization) ENABLED START -----*/
-	if(*attr_MCPLLStatus_read) {
-		//cout << *attr_MCPLLStatus_read << endl;
-		//Stop Trigger
-		//m_libera->UpdateScalar(attr_T2Source_read, (short)0);
-                //*t2_in_function_save = *attr_T2inFunction;
-                //Tango::DevLong sync_id = new Tango::DevLong(109);
-		//m_libera->UpdateScalar(attr_T2inFunction_read, sync_id);
+	if(*attr_PLLLock_read) {
 		m_libera->UpdateScalar(attr_T2inFunction_read, (long)109);
-                //delete sync_id;
+
 		//Announce Synchronization
 		m_libera->UpdateScalar(attr_SynchronizeLMT_read, (long)0);
 	}
@@ -8106,6 +8091,21 @@ void LiberaBrilliancePlus::disable_fa()
 	m_signalFA->Disable();
 }
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_fa
+}
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::add_dynamic_commands()
+ *	Description : Create the dynamic commands if any
+ *                for specified device.
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::add_dynamic_commands()
+{
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::add_dynamic_commands) ENABLED START -----*/
+	
+	//	Add your own code to create and add dynamic commands if any
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::add_dynamic_commands
 }
 
 /*----- PROTECTED REGION ID(LiberaBrilliancePlus::namespace_ending) ENABLED START -----*/
@@ -8272,11 +8272,16 @@ void LiberaBrilliancePlus::SACallback()
 {
     INFO_STREAM << "SA CALLBACK " << endl;
         m_signalSA->GetData();
+        //pushing the all events with the same timestamp
+        struct timeval tv;
+        gettimeofday(&tv, NULL);
+        push_change_event("lmt_hSA", attr_lmt_hSA_read, tv, Tango::ATTR_VALID);
+        push_change_event("lmt_lSA", attr_lmt_lSA_read, tv, Tango::ATTR_VALID);
+        push_change_event("XPosSA", attr_XPosSA_read, tv, Tango::ATTR_VALID);
+        push_change_event("YPosSA", attr_YPosSA_read, tv, Tango::ATTR_VALID);
+        push_change_event("SumSA", attr_SumSA_read, tv, Tango::ATTR_VALID);
+        push_change_event("QuadSA", attr_QuadSA_read, tv, Tango::ATTR_VALID);
 
-        push_change_event("XPosSA", attr_XPosSA_read);
-        push_change_event("YPosSA", attr_YPosSA_read);
-        push_change_event("QuadSA", attr_QuadSA_read);
-        push_change_event("SumSA", attr_SumSA_read);
 }
 
 /*
@@ -8399,6 +8404,25 @@ std::string LiberaBrilliancePlus::set_interlock_status()
 
 	if (*attr_InterlockADCPreFilterNotified_read)
 			status += " - ADCs in saturation";
+
+	return status;
+}
+
+std::string LiberaBrilliancePlus::set_timing_status()
+{
+	std::string status = "Timing Issues: ";
+
+	if (*attr_PLLLock_read == false)
+		status += "Pll not locked";
+
+	if (*attr_MCLock_read == false)
+		status += "MC not locked";
+
+	if (*attr_PLLClockGood_read == false)
+		status += "Pll Clock not good";
+
+	if (*attr_RTCTimestampState_read != 1)
+		status += "RTC TimeStamp not done";
 
 	return status;
 }
