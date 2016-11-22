@@ -6,7 +6,7 @@ tangods-liberabrillianceplus (1.4.3) unstable; urgency=low
   * Renamed MCPLLLock attribute to PLLLock.
   * Added new functions for setting timing alarm status.
 
- -- Vasileios Martos <vasileios.martos> Mon, 23 March 2016 12:00:00 +0000
+ -- Vasileios Martos <vasileios.martos> Mon, 15 November 2016 12:00:00 +0000
  
 tangods-liberabrillianceplus (1.4.2) unstable; urgency=low
 
