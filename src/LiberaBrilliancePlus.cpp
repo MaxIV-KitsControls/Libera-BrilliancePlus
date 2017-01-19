@@ -1527,7 +1527,7 @@ void LiberaBrilliancePlus::get_device_property()
 //--------------------------------------------------------
 void LiberaBrilliancePlus::always_executed_hook()
 {
-	INFO_STREAM << "LiberaBrilliancePlus::always_executed_hook()  " << device_name << endl;
+	DEBUG_STREAM << "LiberaBrilliancePlus::always_executed_hook()  " << device_name << endl;
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::always_executed_hook) ENABLED START -----*/
 
 	//	code always executed before all requests
@@ -2210,7 +2210,8 @@ void LiberaBrilliancePlus::write_ADCEnabled(Tango::WAttribute &attr)
 //--------------------------------------------------------
 /**
  *	Read attribute ADCBufferSize related method
- *	Description: The number of samples to be read on ADC data source.\nInfluences the size of the associated attributes [such as ADCChannelA for instance].
+ *	Description: The number of samples to be read on ADC data source.
+ *               Influences the size of the associated attributes [such as ADCChannelA for instance].
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -2228,7 +2229,8 @@ void LiberaBrilliancePlus::read_ADCBufferSize(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute ADCBufferSize related method
- *	Description: The number of samples to be read on ADC data source.\nInfluences the size of the associated attributes [such as ADCChannelA for instance].
+ *	Description: The number of samples to be read on ADC data source.
+ *               Influences the size of the associated attributes [such as ADCChannelA for instance].
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -5798,6 +5800,21 @@ void LiberaBrilliancePlus::disable_all_signals()
 		m_signalDdcRaw->Disable();
 }
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::disable_all_signals
+}
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::add_dynamic_commands()
+ *	Description : Create the dynamic commands if any
+ *                for specified device.
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlus::add_dynamic_commands()
+{
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::add_dynamic_commands) ENABLED START -----*/
+	
+	//	Add your own code to create and add dynamic commands if any
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::add_dynamic_commands
 }
 
 /*----- PROTECTED REGION ID(LiberaBrilliancePlus::namespace_ending) ENABLED START -----*/

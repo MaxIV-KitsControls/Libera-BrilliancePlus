@@ -132,8 +132,8 @@ LiberaBrilliancePlusClass *LiberaBrilliancePlusClass::init(const char *name)
 		catch (bad_alloc &)
 		{
 			throw;
-		}		
-	}		
+		}
+	}
 	return _instance;
 }
 
@@ -2731,8 +2731,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	adcbuffersize->set_default_properties(adcbuffersize_prop);
 	//	Not Polled
 	adcbuffersize->set_disp_level(Tango::OPERATOR);
-	adcbuffersize->set_memorized();
-	adcbuffersize->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(adcbuffersize);
 
 	//	Attribute : PMOffset
@@ -5532,6 +5531,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(lmt_lfa);
 
+
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::attribute_factory_after) ENABLED START -----*/
@@ -5539,6 +5539,26 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Add your own code
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlusClass::attribute_factory_after
+}
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlusClass::pipe_factory()
+ *	Description : Create the pipe object(s)
+ *                and store them in the pipe list
+ */
+//--------------------------------------------------------
+void LiberaBrilliancePlusClass::pipe_factory()
+{
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::pipe_factory_before) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlusClass::pipe_factory_before
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::pipe_factory_after) ENABLED START -----*/
+	
+	//	Add your own code
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlusClass::pipe_factory_after
 }
 //--------------------------------------------------------
 /**
@@ -5860,7 +5880,7 @@ void LiberaBrilliancePlusClass::command_factory()
  * method : 		LiberaBrilliancePlusClass::create_static_attribute_list
  * description : 	Create the a list of static attributes
  *
- * @param	att_list	the ceated attribute list 
+ * @param	att_list	the ceated attribute list
  */
 //--------------------------------------------------------
 void LiberaBrilliancePlusClass::create_static_attribute_list(vector<Tango::Attr *> &att_list)
@@ -5894,10 +5914,10 @@ void LiberaBrilliancePlusClass::erase_dynamic_attributes(const Tango::DevVarStri
 	Tango::Util *tg = Tango::Util::instance();
 
 	for (unsigned long i=0 ; i<devlist_ptr->length() ; i++)
-	{	
+	{
 		Tango::DeviceImpl *dev_impl = tg->get_device_by_name(((string)(*devlist_ptr)[i]).c_str());
 		LiberaBrilliancePlus *dev = static_cast<LiberaBrilliancePlus *> (dev_impl);
-		
+
 		vector<Tango::Attribute *> &dev_att_list = dev->get_device_attr()->get_attribute_list();
 		vector<Tango::Attribute *>::iterator ite_att;
 		for (ite_att=dev_att_list.begin() ; ite_att != dev_att_list.end() ; ++ite_att)
@@ -5929,7 +5949,7 @@ void LiberaBrilliancePlusClass::erase_dynamic_attributes(const Tango::DevVarStri
 Tango::Attr *LiberaBrilliancePlusClass::get_attr_object_by_name(vector<Tango::Attr *> &att_list, string attname)
 {
 	vector<Tango::Attr *>::iterator it;
-	for (it=att_list.begin() ; it<att_list.end() ; it++)
+	for (it=att_list.begin() ; it<att_list.end() ; ++it)
 		if ((*it)->get_name()==attname)
 			return (*it);
 	//	Attr does not exist

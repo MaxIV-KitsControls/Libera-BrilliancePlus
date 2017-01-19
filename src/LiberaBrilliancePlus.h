@@ -444,7 +444,7 @@ public:
 	LiberaBrilliancePlus(Tango::DeviceClass *cl,const char *s,const char *d);
 	/**
 	 * The device object destructor.
-	 */	
+	 */
 	~LiberaBrilliancePlus() {delete_device();};
 
 
@@ -721,7 +721,8 @@ public:
 	virtual bool is_ADCEnabled_allowed(Tango::AttReqType type);
 /**
  *	Attribute ADCBufferSize related methods
- *	Description: The number of samples to be read on ADC data source.\nInfluences the size of the associated attributes [such as ADCChannelA for instance].
+ *	Description: The number of samples to be read on ADC data source.
+ *               Influences the size of the associated attributes [such as ADCChannelA for instance].
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -1843,6 +1844,7 @@ public:
 	 */
 	//--------------------------------------------------------
 	void add_dynamic_attributes();
+
 
 
 

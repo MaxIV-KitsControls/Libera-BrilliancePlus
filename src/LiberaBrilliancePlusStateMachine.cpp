@@ -2505,6 +2505,7 @@ bool LiberaBrilliancePlus::is_lmt_lFA_allowed(TANGO_UNUSED(Tango::AttReqType typ
 	return true;
 }
 
+
 //=================================================
 //		Commands Allowed Methods
 //=================================================
@@ -3143,5 +3144,12 @@ bool LiberaBrilliancePlus::is_DisableAllSignals_allowed(TANGO_UNUSED(const CORBA
 	}
 	return true;
 }
+
+
+/*----- PROTECTED REGION ID(LiberaBrilliancePlus::LiberaBrilliancePlusStateAllowed.AdditionalMethods) ENABLED START -----*/
+
+//	Additional Methods
+
+/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::LiberaBrilliancePlusStateAllowed.AdditionalMethods
 
 }	//	End of namespace

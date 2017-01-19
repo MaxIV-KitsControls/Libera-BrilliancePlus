@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <pogoDsl:PogoSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pogoDsl="http://www.esrf.fr/tango/pogo/PogoDsl">
-  <classes name="LiberaBrilliancePlus" pogoRevision="8.4">
-    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/Libera-BrilliancePlus/src" language="Cpp" filestogenerate="XMI   file,Code files" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
+  <classes name="LiberaBrilliancePlus" pogoRevision="9.2">
+    <description description="IT Libera BPM Device Server.&#xA;The interface should be the same as for the Brillance model." title="Libera BPM Device Server" sourcePath="/Users/vasmar/Documents/workspace/Libera-BrilliancePlus/src" language="Cpp" filestogenerate="XMI   file,Code files,Protected Regions" hasMandatoryProperty="false" hasConcreteProperty="true" hasAbstractCommand="false" hasAbstractAttribute="false">
       <inheritances classname="Device_4Impl" sourcePath=""/>
       <identification contact="at maxlab.lu.se - kitscontrols" author="kitscontrols" emailDomain="maxlab.lu.se" classFamily="BeamDiag" siteSpecific="" platform="Unix Like" bus="Ethernet" manufacturer="I-Tech" reference="Libera Brilliance Plus"/>
     </description>
@@ -895,12 +895,13 @@
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
       <properties description="ADC data source activation flag" label="ADC Enabled" unit="n/a" standardUnit="n/a" displayUnit="n/a" format="" maxValue="" minValue="" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
-    <attributes name="ADCBufferSize" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" memorized="true" memorizedAtInit="true">
+    <attributes name="ADCBufferSize" attType="Scalar" rwType="READ_WRITE" displayLevel="OPERATOR" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:IntType"/>
       <changeEvent fire="false" libCheckCriteria="false"/>
       <archiveEvent fire="false" libCheckCriteria="false"/>
+      <dataReadyEvent fire="false" libCheckCriteria="true"/>
       <status abstract="false" inherited="false" concrete="true" concreteHere="true"/>
-      <properties description="The number of samples to be read on ADC data source.\nInfluences the size of the associated attributes [such as ADCChannelA for instance]." label="ADC Buffer Size" unit="samples" standardUnit="" displayUnit="" format="%5d" maxValue="65535" minValue="8" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
+      <properties description="The number of samples to be read on ADC data source.&#xA;Influences the size of the associated attributes [such as ADCChannelA for instance]." label="ADC Buffer Size" unit="samples" standardUnit="" displayUnit="" format="%5d" maxValue="65535" minValue="8" maxAlarm="" minAlarm="" maxWarning="" minWarning="" deltaTime="" deltaValue=""/>
     </attributes>
     <attributes name="PMOffset" attType="Scalar" rwType="READ_WRITE" displayLevel="EXPERT" polledPeriod="0" maxX="0" maxY="0" allocReadMember="false" isDynamic="false">
       <dataType xsi:type="pogoDsl:IntType"/>
