@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 7.0.0),
                libtango8-dev,
                libera-base2.9-dev,
                libera-mci2.9-dev,
-               libliberatango
+               libliberatango-dev (>= 2.1.0)
 
 Package: tangods-liberabrillianceplus
 Architecture: i386
