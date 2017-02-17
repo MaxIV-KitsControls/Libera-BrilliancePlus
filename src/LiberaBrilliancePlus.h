@@ -395,13 +395,6 @@ public:
 	Tango::DevDouble	*attr_Gain_read;
 	Tango::DevLong	*attr_TimePhase_read;
 	Tango::DevBoolean	*attr_PLLLock_read;
-	Tango::DevShort	*attr_Temp1_read;
-	Tango::DevShort	*attr_Temp2_read;
-	Tango::DevShort	*attr_Temp3_read;
-	Tango::DevShort	*attr_Fan1Speed_read;
-	Tango::DevShort	*attr_Fan2Speed_read;
-	Tango::DevLong	*attr_CpuUsage_read;
-	Tango::DevLong	*attr_FreeMemory_read;
 	Tango::DevBoolean	*attr_InterlockEnabled_read;
 	Tango::DevBoolean	*attr_InterlockGainDependentEnabled_read;
 	Tango::DevLong	*attr_InterlockOverflowThreshold_read;
@@ -1085,78 +1078,6 @@ public:
  */
 	virtual void read_PLLLock(Tango::Attribute &attr);
 	virtual bool is_PLLLock_allowed(Tango::AttReqType type);
-/**
- *	Attribute Temp1 related methods
- *	Description: Temperature of the hottest component on the BPM 
- *               module is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Temp1(Tango::Attribute &attr);
-	virtual bool is_Temp1_allowed(Tango::AttReqType type);
-/**
- *	Attribute Temp2 related methods
- *	Description: Temperature of the hottest component on the chassis 
- *               interconnection board is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Temp2(Tango::Attribute &attr);
-	virtual bool is_Temp2_allowed(Tango::AttReqType type);
-/**
- *	Attribute Temp3 related methods
- *	Description: Temperature of the hottest component on the timing 
- *               module is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Temp3(Tango::Attribute &attr);
-	virtual bool is_Temp3_allowed(Tango::AttReqType type);
-/**
- *	Attribute Fan1Speed related methods
- *	Description: Provides minimal fan speed reading of all three fans on 
- *               the left side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken returned value 
- *               0 means that at least one fan has stopped.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Fan1Speed(Tango::Attribute &attr);
-	virtual bool is_Fan1Speed_allowed(Tango::AttReqType type);
-/**
- *	Attribute Fan2Speed related methods
- *	Description: Provides minimal fan speed reading of all three fans on 
- *               the right side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken returned value 
- *               0 means that at least one fan has stopped.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Fan2Speed(Tango::Attribute &attr);
-	virtual bool is_Fan2Speed_allowed(Tango::AttReqType type);
-/**
- *	Attribute CpuUsage related methods
- *	Description: CPU usage on the host running this TANGO device
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_CpuUsage(Tango::Attribute &attr);
-	virtual bool is_CpuUsage_allowed(Tango::AttReqType type);
-/**
- *	Attribute FreeMemory related methods
- *	Description: Amount of free memory on the host running this TANGO device
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_FreeMemory(Tango::Attribute &attr);
-	virtual bool is_FreeMemory_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockEnabled related methods
  *	Description: Enables / disables the Interlock detection.

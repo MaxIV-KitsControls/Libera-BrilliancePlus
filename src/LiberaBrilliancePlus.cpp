@@ -148,13 +148,6 @@ static const char *RcsId = "$Id:  $";
 //  Gain                             |  Tango::DevDouble	Scalar
 //  TimePhase                        |  Tango::DevLong	Scalar
 //  PLLLock                          |  Tango::DevBoolean	Scalar
-//  Temp1                            |  Tango::DevShort	Scalar
-//  Temp2                            |  Tango::DevShort	Scalar
-//  Temp3                            |  Tango::DevShort	Scalar
-//  Fan1Speed                        |  Tango::DevShort	Scalar
-//  Fan2Speed                        |  Tango::DevShort	Scalar
-//  CpuUsage                         |  Tango::DevLong	Scalar
-//  FreeMemory                       |  Tango::DevLong	Scalar
 //  InterlockEnabled                 |  Tango::DevBoolean	Scalar
 //  InterlockGainDependentEnabled    |  Tango::DevBoolean	Scalar
 //  InterlockOverflowThreshold       |  Tango::DevLong	Scalar
@@ -480,32 +473,6 @@ void LiberaBrilliancePlus::init_device()
     m_libera->AddScalar(tim + "clk_mgr.mc.locked", attr_MCLock_read);
     m_libera->AddScalar(tim + "pll.clk_good", attr_PLLClockGood_read);
 
-    m_libera->AddScalarPM("boards." + liberaBoard + ".sensors.ID_2.value",
-        attr_Temp1_read, LiberaAttr::DBL2SHORT);
-    m_libera->AddScalarPM("boards.icb0.sensors.ID_1.value",
-        attr_Temp2_read, LiberaAttr::DBL2SHORT);
-    m_libera->AddScalarPM("boards." + c_timingBoard + ".sensors.ID_6.value",
-        attr_Temp3_read, LiberaAttr::DBL2SHORT);
-    m_libera->AddScalarPM("fans.left_", attr_Fan1Speed_read, LiberaAttr::FAN2SHORT);
-    m_libera->AddScalarPM("fans.right_", attr_Fan2Speed_read, LiberaAttr::FAN2SHORT);
-
-
-    /*
-    //n.a.
-    m_libera->AddScalar("", attr_Incoherence_read);
-    m_libera->AddScalar("", attr_RefIncoherence_read);
-    m_libera->AddScalar("", attr_MaxIncoherence_read);
-    m_libera->AddScalar("", attr_MaxIncoherenceDrift_read);
-
-    //n.a.
-    m_libera->AddScalarPM("", attr_UpTime_read);
-    m_libera->AddScalarPM("", attr_RamFsUsage_read);
-*/
-
-    m_libera->AddScalarPM("boards.os.sensors",
-        attr_CpuUsage_read, LiberaAttr::CPU2LONG);
-    m_libera->AddScalarPM("boards.os.sensors",
-        attr_FreeMemory_read, LiberaAttr::MEM2LONG);
     //n.a.
     //m_libera->AddScalar("", attr_UseLiberaSAData_read);
     //n.a.
@@ -3528,141 +3495,6 @@ void LiberaBrilliancePlus::read_PLLLock(Tango::Attribute &attr)
 	attr.set_value(attr_PLLLock_read);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_PLLLock
-}
-//--------------------------------------------------------
-/**
- *	Read attribute Temp1 related method
- *	Description: Temperature of the hottest component on the BPM 
- *               module is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_Temp1(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_Temp1(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_Temp1) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_Temp1_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Temp1
-}
-//--------------------------------------------------------
-/**
- *	Read attribute Temp2 related method
- *	Description: Temperature of the hottest component on the chassis 
- *               interconnection board is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_Temp2(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_Temp2(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_Temp2) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_Temp2_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Temp2
-}
-//--------------------------------------------------------
-/**
- *	Read attribute Temp3 related method
- *	Description: Temperature of the hottest component on the timing 
- *               module is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_Temp3) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_Temp3_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Temp3
-}
-//--------------------------------------------------------
-/**
- *	Read attribute Fan1Speed related method
- *	Description: Provides minimal fan speed reading of all three fans on 
- *               the left side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken returned value 
- *               0 means that at least one fan has stopped.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_Fan1Speed(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_Fan1Speed(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_Fan1Speed) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_Fan1Speed_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Fan1Speed
-}
-//--------------------------------------------------------
-/**
- *	Read attribute Fan2Speed related method
- *	Description: Provides minimal fan speed reading of all three fans on 
- *               the right side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken returned value 
- *               0 means that at least one fan has stopped.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_Fan2Speed(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_Fan2Speed(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_Fan2Speed) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_Fan2Speed_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_Fan2Speed
-}
-//--------------------------------------------------------
-/**
- *	Read attribute CpuUsage related method
- *	Description: CPU usage on the host running this TANGO device
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_CpuUsage(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_CpuUsage(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_CpuUsage) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_CpuUsage_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_CpuUsage
-}
-//--------------------------------------------------------
-/**
- *	Read attribute FreeMemory related method
- *	Description: Amount of free memory on the host running this TANGO device
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_FreeMemory(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_FreeMemory(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_FreeMemory) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_FreeMemory_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_FreeMemory
 }
 //--------------------------------------------------------
 /**
@@ -8614,6 +8446,134 @@ void LiberaBrilliancePlus::init_settings()
 // 	attr.get_write_value(w_val);
 // 	
 // 	m_libera->UpdateScalar(attr_T0State_read, w_val);
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute Temp1 related method
+//  *	Description: Temperature of the hottest component on the BPM 
+//  *               module is returned.
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_Temp1(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_Temp1(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_Temp1_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute Temp2 related method
+//  *	Description: Temperature of the hottest component on the chassis 
+//  *               interconnection board is returned.
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_Temp2(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_Temp2(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_Temp2_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute Temp3 related method
+//  *	Description: Temperature of the hottest component on the timing 
+//  *               module is returned.
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_Temp3(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_Temp3_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute Fan1Speed related method
+//  *	Description: Provides minimal fan speed reading of all three fans on 
+//  *               the left side of the chassis in order to identify if the fan 
+//  *               module (consisting of 3 fans) is broken returned value 
+//  *               0 means that at least one fan has stopped.
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_Fan1Speed(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_Fan1Speed(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_Fan1Speed_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute Fan2Speed related method
+//  *	Description: Provides minimal fan speed reading of all three fans on 
+//  *               the right side of the chassis in order to identify if the fan 
+//  *               module (consisting of 3 fans) is broken returned value 
+//  *               0 means that at least one fan has stopped.
+//  *
+//  *	Data type:	Tango::DevShort
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_Fan2Speed(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_Fan2Speed(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_Fan2Speed_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute CpuUsage related method
+//  *	Description: CPU usage on the host running this TANGO device
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_CpuUsage(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_CpuUsage(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_CpuUsage_read);
+// 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute FreeMemory related method
+//  *	Description: Amount of free memory on the host running this TANGO device
+//  *
+//  *	Data type:	Tango::DevLong
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_FreeMemory(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_FreeMemory(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_FreeMemory_read);
+// 	
 // }
 
 
