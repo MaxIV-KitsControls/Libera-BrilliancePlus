@@ -1,4 +1,10 @@
-tangods-liberabrillianceplus (1.4.3) unstable; urgency=low
+tangods-liberabrillianceplus (1.5.0) unstable; urgency=low
+
+  * Remove platform connection and attributes from device
+
+ -- Vasileios Martos <vasileios.martos> Fri, 3 Feb 2017 12:00:00 +0000
+ 
+ tangods-liberabrillianceplus (1.4.3) unstable; urgency=low
 
   * Added LMT_l adn LMT_l timestamp for the SA signal for testinga and validation of the signal values.
   * Remove Write functions for the X,Y Interlock limit attributes.
