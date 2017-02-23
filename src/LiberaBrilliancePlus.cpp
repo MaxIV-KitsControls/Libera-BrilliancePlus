@@ -712,13 +712,16 @@ void LiberaBrilliancePlus::init_device()
     set_change_event("XPosSP",  true, false);
     set_change_event("YPosSP",  true, false);
 
-    //Archive Events
     set_change_event("XPosFA",  true, false);
     set_change_event("YPosFA",  true, false);
     set_change_event("QuadFA",  true, false);
     set_change_event("SumFA",  true, false);
 
-    //set_change_event("State",  true, false);
+    //Archive Events
+    set_archive_event("XPosSA",  true, false);
+    set_archive_event("YPosSA",  true, false);
+    set_archive_event("QuadSA",  true, false);
+    set_archive_event("SumSA",  true, false);
 
     try
     {
@@ -1531,6 +1534,7 @@ void LiberaBrilliancePlus::always_executed_hook()
  {
     if (m_libera->IsConnected()) {
 
+    	m_signalTdp->GetData();
   	    m_signalSA->GetData();
   	    m_signalADC->GetData();
           if (*attr_DDBufferFreezingEnabled_read) {
@@ -5866,6 +5870,12 @@ void LiberaBrilliancePlus::SACallback()
         push_change_event("YPosSA", attr_YPosSA_read);
         push_change_event("QuadSA", attr_QuadSA_read);
         push_change_event("SumSA", attr_SumSA_read);
+
+        push_archive_event("XPosSA", attr_XPosSA_read);
+        push_archive_event("YPosSA", attr_YPosSA_read);
+        push_archive_event("QuadSA", attr_QuadSA_read);
+        push_archive_event("SumSA", attr_SumSA_read);
+
 }
 
 /*
