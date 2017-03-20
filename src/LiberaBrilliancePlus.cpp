@@ -718,10 +718,10 @@ void LiberaBrilliancePlus::init_device()
     set_change_event("SumFA",  true, false);
 
     //Archive Events
-    set_archive_event("XPosSA",  true, false);
-    set_archive_event("YPosSA",  true, false);
-    set_archive_event("QuadSA",  true, false);
-    set_archive_event("SumSA",  true, false);
+    set_archive_event("XPosSA",  true,  true);
+    set_archive_event("YPosSA",  true, true);
+    set_archive_event("QuadSA",  true, true);
+    set_archive_event("SumSA",  true, true);
 
     try
     {
