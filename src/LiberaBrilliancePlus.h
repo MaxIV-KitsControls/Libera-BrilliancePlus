@@ -73,6 +73,7 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
     Tango::DevLong   *attr_DDBufferSize_read_added;
 
     LiberaSignal *m_signalSA;
+    LiberaSignal *m_signalFA;
 
     LiberaSignal *m_signalPM;
     Tango::DevBoolean *attr_PMEnabled_read_added; //declared here for completeness
@@ -84,11 +85,13 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
     LiberaSignal *m_signalTdp;
 
     std::string m_raf;
-    
+
         void DDCallback();
         static void _DDCallback(void *data);
         void SACallback();
         static void _SACallback(void *data);
+        void FACallback();
+        static void _FACallback(void *data);
         void PMCallback();
         static void _PMCallback(void *data);
         void SPCallback();
@@ -99,8 +102,11 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
         bool initFlag;
         void init_settings();
 
+        void LogStatusGuard(std::string status);               // Give the status to Tango.
+
         Tango::DevState m_state;
         std::string m_status;
+        std::string current_status;
 
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Data Members
 
@@ -137,14 +143,14 @@ public:
 	//	DDDecimationFactor:	The DD decimation factor.
 	//  Allowed values : 1 (no decimation) or 64 (for the so called booster normal mode)
 	Tango::DevUShort	dDDecimationFactor;
-	//	EnableAutoSwitchingIfSAEnabled:	When set to TRUE, auto-switching is automattically enabled when the SA data source is itself enabled
-	Tango::DevBoolean	enableAutoSwitchingIfSAEnabled;
+	//	ConditionSwitchingEnabled:	When set to TRUE, auto-switching is automattically enabled when the SA data source is itself enabled
+	Tango::DevBoolean	conditionSwitchingEnabled;
 	//	EnableDSCIfAutoSwitchingEnabled:	When set to TRUE, the Digital Signal Conditioning is automattically enabled when the auto-switching is itself enabled
 	Tango::DevBoolean	enableDSCIfAutoSwitchingEnabled;
 	//	DefaultSAStatNumSamples:	Default number of SA history samples to use form RMS pos. computation.
 	//  Defaults to 10 (last second in the SA history).
 	Tango::DevULong	defaultSAStatNumSamples;
-	//	DefaultADCBufferSize:	Default [or initial] value for attribute ADCBufferSize [in samples]. Defaults to 1024.
+	//	DefaultADCBufferSize:	Default [or initial] value for attribute ADCBufferSize [in samples]. Defaults to 1000.
 	Tango::DevLong	defaultADCBufferSize;
 	//	ADCTaskActivityPeriod:	Specifies the data reading period in ms.
 	//  Must be in the range [500, 25000] ms. Defaults to 1000.
@@ -207,94 +213,74 @@ public:
 	//	MaxTDBufferSizeWhenDecimationEnabled:	Max. TD buffer size when decimation enabled on DD data source.
 	//  Defaults to 10000
 	Tango::DevLong	maxTDBufferSizeWhenDecimationEnabled;
-	//	MCDecoderSwitch:	MC-Config property - MC decoder switch: Enumeration (off,on,debug)
-	Tango::DevShort	mCDecoderSwitch;
-	//	MCSource:	Trigger line source selection - (Off,External,Internal,Pulse,LXI,RTC)
-	Tango::DevShort	mCSource;
-	//	T0Direction:	t0 port direction -  (Input,Output)
-	Tango::DevShort	t0Direction;
-	//	T0OutType:	t0 port type -  (Off,Trigger,T3,SFP)
-	Tango::DevShort	t0OutType;
-	//	T0State:	state of active signal: high (logical 1) or low (logical 0)
-	Tango::DevShort	t0State;
-	//	T1Source:	Enumeration Value (Off,External,Internal,Pulse,LXI,RTC)
-	Tango::DevShort	t1Source;
-	//	T2Source:	Enumeration Value (Off,External,Internal,Pulse,LXI,RTC)
-	Tango::DevShort	t2Source;
-	//	MgtOut:	Enumeration Value (off,sfp_in,debug,connectors)
-	Tango::DevShort	mgtOut;
-	//	MCinMask:	MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
-	Tango::DevLong	mCinMask;
-	//	MCinFunction:	MC Function array (in_function) contains 16-bit entries that define the value of masked bits.
-	Tango::DevLong	mCinFunction;
-	//	T0inMask:	T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
-	Tango::DevLong	t0inMask;
-	//	T1inMask:	T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
-	Tango::DevLong	t1inMask;
-	//	T2inMask:	T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
-	Tango::DevLong	t2inMask;
-	//	T0inFunction:	T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
-	Tango::DevLong	t0inFunction;
-	//	T1inFunction:	T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
-	Tango::DevLong	t1inFunction;
-	//	T2inFunction:	T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
-	Tango::DevLong	t2inFunction;
-	//	T0Duration:	Duration of signal active pulse
-	Tango::DevLong	t0Duration;
-	//	T0Delay:	Delay before transmission starts, set in cycles at fSFP
-	Tango::DevLong	t0Delay;
-	//	InterlockID:	oversaturation or X-Y orbit threshold
-	Tango::DevLong	interlockID;
 	//	EnableSP:	Specifies whether or not the Single Pass data source should be enabled at startup. Defaults to false.
 	Tango::DevBoolean	enableSP;
-	//	DefaultSPBufferSize:	Default [or initial] value for attribute Single Pass BufferSize [in samples]. Defaults to 1024.
-	Tango::DevLong	defaultSPBufferSize;
-	//	PMCapture:	PM functionality Enable/Disable
+	//	PMCapture:	PM functionality capture: Set True to Disable, False to Enable
 	Tango::DevBoolean	pMCapture;
 	//	PMOffset:	PM Offset
 	Tango::DevLong	pMOffset;
 	//	DefaultPMBufferSize:	PM buffer capacity
 	Tango::DevLong	defaultPMBufferSize;
-	//	T1EdgeFalling:	T1 Edge Falling
-	Tango::DevBoolean	t1EdgeFalling;
-	//	T2EdgeFalling:	T2 Edge Falling
-	Tango::DevBoolean	t2EdgeFalling;
-	//	T1EdgeRising:	T2 Edge Falling
-	Tango::DevBoolean	t1EdgeRising;
-	//	T2EdgeRising:	T2 Edge Falling
-	Tango::DevBoolean	t2EdgeRising;
-	//	PMSource:	source of the PM event (﻿external,interlock,limits)
+	//	PMSource:	source of the PM event External,Interlock,Limits
 	Tango::DevShort	pMSource;
-	//	T1Direction:	t1 port direction -  (Input,Output)
-	Tango::DevShort	t1Direction;
-	//	T2Direction:	t2 port direction -  (Input,Output)
-	Tango::DevShort	t2Direction;
-	//	XminLimit:	X interlock min limit
-	Tango::DevDouble	xminLimit;
-	//	YminLimit:	Y interlock min limit
-	Tango::DevDouble	yminLimit;
-	//	XmaxLimit:	X interlock max limit
-	Tango::DevDouble	xmaxLimit;
-	//	YmaxLimit:	Y interlock max limit
-	Tango::DevDouble	ymaxLimit;
+	//	InterlockLimitXMin:	X interlock min limit
+	Tango::DevDouble	interlockLimitXMin;
+	//	InterlockLimitYMin:	Y interlock min limit
+	Tango::DevDouble	interlockLimitYMin;
+	//	InterlockLimitXMax:	X interlock max limit
+	Tango::DevDouble	interlockLimitXMax;
+	//	InterlockLimitYMax:	Y interlock max limit
+	Tango::DevDouble	interlockLimitYMax;
 	//	InterlockEnable:	Specifies whether or not the Interlock should be enabled at startup.
 	Tango::DevBoolean	interlockEnable;
-	//	T1ID:	T1 Optical event ID
-	Tango::DevLong	t1ID;
-	//	T2ID:	T2 Optical event ID
-	Tango::DevLong	t2ID;
+	//	SPThreshold:	Specifies the threshold for start of calculation (in ADC counts)
+	Tango::DevLong	sPThreshold;
+	//	SPnBefore:	Specifies the number of samples to take before the threshold (in ADC samples)
+	Tango::DevLong	sPnBefore;
+	//	SPnAfter:	Specifies the number of samples to take after the threshold (in ADC samples)
+	Tango::DevLong	sPnAfter;
+	//	ExternalTriggerDelay:	Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples
+	Tango::DevLong	externalTriggerDelay;
+	//	DSCMode:	
+	Tango::DevShort	dSCMode;
+	//	InterlockFilterOverflow:	ADC filter overflow
+	Tango::DevLong	interlockFilterOverflow;
+	//	InterlockFilterPosition:	ADC filter position
+	Tango::DevLong	interlockFilterPosition;
+	//	KxCoefficient:	Position calculation Kx coefficient
+	Tango::DevDouble	kxCoefficient;
+	//	KyCoefficient:	Position calculation Ky coefficient
+	Tango::DevDouble	kyCoefficient;
+	//	Gain:	Power level Gain Control (Set it only when AGC is Disabled)
+	Tango::DevDouble	gain;
+	//	EnableAGC:	Enables/disables the Automatic Gain Control
+	Tango::DevBoolean	enableAGC;
+	//	InterlockGainDependent:	Enables / disables gain dependent mode of Interlock operation.
+	Tango::DevBoolean	interlockGainDependent;
+	//	ErrorTrace:	Trace Error functionality for the Libera, by default is Disabled:
+	//   * Value: OutPut ,  TraceLevel
+	//  	* Output[0] :  OutPut on Screen = 0
+	//  	                         OutPut on File = 0 (﻿/var/tmp/ds.log/LiberaMciTrace.log)
+	//  	* TraceLevel[1] : ﻿   Off     = 0,
+	//          		      Low     = 1,
+	//  		      Med     = 2,
+	//  		      High    = 3,
+	//  		      Detail  = 4
+	vector<Tango::DevShort>	errorTrace;
+	//	InterlockOverflowDuration:	Duration of allowed ADC saturation (in ADC samples)
+	Tango::DevLong	interlockOverflowDuration;
+	//	InterlockGainDependentThreshold:	Sets the threshold for gain dependent mode of Interlock 
+	//  operation.
+	Tango::DevLong	interlockGainDependentThreshold;
 
 //	Attribute data members
 public:
-	Tango::DevUShort	*attr_LiberaModel_read;
 	Tango::DevBoolean	*attr_DDEnabled_read;
 	Tango::DevLong	*attr_DDBufferSize_read;
 	Tango::DevUShort	*attr_DDDecimationFactor_read;
 	Tango::DevLong	*attr_DDTriggerOffset_read;
 	Tango::DevBoolean	*attr_DDBufferFreezingEnabled_read;
 	Tango::DevBoolean	*attr_DDBufferFrozen_read;
-	Tango::DevLong	*attr_DDTriggerCounter_read;
-	Tango::DevBoolean	*attr_ExternalTriggerEnabled_read;
 	Tango::DevLong	*attr_ExternalTriggerDelay_read;
 	Tango::DevBoolean	*attr_SAEnabled_read;
 	Tango::DevDouble	*attr_VaSA_read;
@@ -305,8 +291,6 @@ public:
 	Tango::DevDouble	*attr_YPosSA_read;
 	Tango::DevDouble	*attr_SumSA_read;
 	Tango::DevDouble	*attr_QuadSA_read;
-	Tango::DevLong	*attr_CxSA_read;
-	Tango::DevLong	*attr_CySA_read;
 	Tango::DevLong	*attr_SAStatNumSamples_read;
 	Tango::DevDouble	*attr_XMeanPosSA_read;
 	Tango::DevDouble	*attr_YMeanPosSA_read;
@@ -319,47 +303,22 @@ public:
 	Tango::DevLong	*attr_ADCBufferSize_read;
 	Tango::DevLong	*attr_PMOffset_read;
 	Tango::DevBoolean	*attr_PMNotified_read;
-	Tango::DevShort	*attr_PMNotificationCounter_read;
 	Tango::DevBoolean	*attr_InterlockXNotified_read;
 	Tango::DevBoolean	*attr_InterlockYNotified_read;
 	Tango::DevBoolean	*attr_InterlockAttnNotified_read;
 	Tango::DevBoolean	*attr_InterlockADCPreFilterNotified_read;
 	Tango::DevBoolean	*attr_InterlockADCPostFilterNotified_read;
-	Tango::DevDouble	*attr_XLow_read;
-	Tango::DevDouble	*attr_XHigh_read;
-	Tango::DevDouble	*attr_YLow_read;
-	Tango::DevDouble	*attr_YHigh_read;
-	Tango::DevBoolean	*attr_AutoSwitchingEnabled_read;
-	Tango::DevShort	*attr_Switches_read;
+	Tango::DevDouble	*attr_InterlockLimitXMin_read;
+	Tango::DevDouble	*attr_InterlockLimitXMax_read;
+	Tango::DevDouble	*attr_InterlockLimitYMin_read;
+	Tango::DevDouble	*attr_InterlockLimitYMax_read;
+	Tango::DevBoolean	*attr_ConditionSwitching_read;
 	Tango::DevBoolean	*attr_ExternalSwitching_read;
 	Tango::DevLong	*attr_SwitchingDelay_read;
-	Tango::DevLong	*attr_OffsetTune_read;
-	Tango::DevBoolean	*attr_CompensateTune_read;
 	Tango::DevShort	*attr_DSCMode_read;
 	Tango::DevBoolean	*attr_AGCEnabled_read;
 	Tango::DevDouble	*attr_Gain_read;
-	Tango::DevBoolean	*attr_HasMAFSupport_read;
-	Tango::DevLong	*attr_MAFLength_read;
-	Tango::DevLong	*attr_MAFDelay_read;
-	Tango::DevDouble	*attr_MachineTime_read;
 	Tango::DevLong	*attr_TimePhase_read;
-	Tango::DevDouble	*attr_SystemTime_read;
-	Tango::DevBoolean	*attr_SCPLLStatus_read;
-	Tango::DevBoolean	*attr_MCPLLStatus_read;
-	Tango::DevShort	*attr_Temp1_read;
-	Tango::DevShort	*attr_Temp2_read;
-	Tango::DevShort	*attr_Temp3_read;
-	Tango::DevShort	*attr_Fan1Speed_read;
-	Tango::DevShort	*attr_Fan2Speed_read;
-	Tango::DevDouble	*attr_Incoherence_read;
-	Tango::DevDouble	*attr_RefIncoherence_read;
-	Tango::DevDouble	*attr_MaxIncoherence_read;
-	Tango::DevDouble	*attr_MaxIncoherenceDrift_read;
-	Tango::DevLong	*attr_UpTime_read;
-	Tango::DevLong	*attr_CpuUsage_read;
-	Tango::DevLong	*attr_FreeMemory_read;
-	Tango::DevLong	*attr_RamFsUsage_read;
-	Tango::DevBoolean	*attr_UseLiberaSAData_read;
 	Tango::DevBoolean	*attr_InterlockEnabled_read;
 	Tango::DevBoolean	*attr_InterlockGainDependentEnabled_read;
 	Tango::DevLong	*attr_InterlockOverflowThreshold_read;
@@ -380,43 +339,27 @@ public:
 	Tango::DevDouble	*attr_QOffset_read;
 	Tango::DevDouble	*attr_SOffset_read;
 	Tango::DevShort	*attr_SynchronizationStatus_read;
-	Tango::DevLong	*attr_T0Delay_read;
 	Tango::DevLong	*attr_MaxADC_read;
-	Tango::DevShort	*attr_RtcDecoderSwitch_read;
-	Tango::DevShort	*attr_McSource_read;
-	Tango::DevShort	*attr_T0Direction_read;
-	Tango::DevShort	*attr_T0OutputType_read;
-	Tango::DevShort	*attr_T0State_read;
-	Tango::DevShort	*attr_T1Source_read;
-	Tango::DevShort	*attr_T2Source_read;
-	Tango::DevShort	*attr_MgtOut_read;
 	Tango::DevLong	*attr_SPThreshold_read;
 	Tango::DevLong	*attr_SPnBefore_read;
 	Tango::DevLong	*attr_SPnAfter_read;
-	Tango::DevLong	*attr_T0inMask_read;
-	Tango::DevLong	*attr_T1inMask_read;
-	Tango::DevLong	*attr_T2inMask_read;
-	Tango::DevLong	*attr_T0inFunction_read;
-	Tango::DevLong	*attr_T1inFunction_read;
-	Tango::DevLong	*attr_T2inFunction_read;
-	Tango::DevLong	*attr_MCinMask_read;
-	Tango::DevLong	*attr_MCinFunction_read;
-	Tango::DevLong	*attr_T0Duration_read;
-	Tango::DevLong	*attr_InterlockID_read;
 	Tango::DevBoolean	*attr_SPEnabled_read;
 	Tango::DevLong	*attr_SPBufferSize_read;
-	Tango::DevBoolean	*attr_T2EdgeFalling_read;
-	Tango::DevBoolean	*attr_T2EdgeRising_read;
-	Tango::DevBoolean	*attr_T1EdgeFalling_read;
-	Tango::DevBoolean	*attr_T1EdgeRising_read;
-	Tango::DevLong	*attr_T2ID_read;
-	Tango::DevLong	*attr_T1ID_read;
 	Tango::DevLong	*attr_PMBufferSize_read;
 	Tango::DevShort	*attr_PMSource_read;
-	Tango::DevShort	*attr_T1Direction_read;
-	Tango::DevShort	*attr_T2Direction_read;
 	Tango::DevLong	*attr_SynchronizeLMT_read;
-	Tango::DevLong	*attr_RTCTimestamp_read;
+	Tango::DevLong	*attr_InterlockFilterOverflow_read;
+	Tango::DevLong	*attr_InterlockFilterPosition_read;
+	Tango::DevDouble	*attr_SumSP_read;
+	Tango::DevDouble	*attr_VbSP_read;
+	Tango::DevDouble	*attr_VcSP_read;
+	Tango::DevDouble	*attr_VdSP_read;
+	Tango::DevDouble	*attr_XPosSP_read;
+	Tango::DevDouble	*attr_YPosSP_read;
+	Tango::DevDouble	*attr_ThdrId_read;
+	Tango::DevDouble	*attr_VaSP_read;
+	Tango::DevBoolean	*attr_FAEnabled_read;
+	Tango::DevLong	*attr_FAStatNumSamples_read;
 	Tango::DevDouble	*attr_XPosDD_read;
 	Tango::DevDouble	*attr_YPosDD_read;
 	Tango::DevDouble	*attr_QuadDD_read;
@@ -458,14 +401,16 @@ public:
 	Tango::DevDouble	*attr_VbTD_read;
 	Tango::DevDouble	*attr_VcTD_read;
 	Tango::DevDouble	*attr_VdTD_read;
-	Tango::DevDouble	*attr_VaSP_read;
-	Tango::DevDouble	*attr_VbSP_read;
-	Tango::DevDouble	*attr_VcSP_read;
-	Tango::DevDouble	*attr_VdSP_read;
-	Tango::DevDouble	*attr_SumSP_read;
-	Tango::DevDouble	*attr_XPosSP_read;
-	Tango::DevDouble	*attr_YPosSP_read;
-	Tango::DevDouble	*attr_ThdrId_read;
+	Tango::DevDouble	*attr_VaFA_read;
+	Tango::DevDouble	*attr_VbFA_read;
+	Tango::DevDouble	*attr_VcFA_read;
+	Tango::DevDouble	*attr_VdFA_read;
+	Tango::DevDouble	*attr_XPosFA_read;
+	Tango::DevDouble	*attr_SumFA_read;
+	Tango::DevDouble	*attr_QuadFA_read;
+	Tango::DevDouble	*attr_YPosFA_read;
+	Tango::DevDouble	*attr_lmt_hFA_read;
+	Tango::DevDouble	*attr_lmt_lFA_read;
 
 //	Constructors and destructors
 public:
@@ -493,7 +438,7 @@ public:
 	LiberaBrilliancePlus(Tango::DeviceClass *cl,const char *s,const char *d);
 	/**
 	 * The device object destructor.
-	 */	
+	 */
 	~LiberaBrilliancePlus() {delete_device();};
 
 
@@ -534,15 +479,6 @@ public:
 	//--------------------------------------------------------
 	virtual void write_attr_hardware(vector<long> &attr_list);
 
-/**
- *	Attribute LiberaModel related methods
- *	Description: The Libera Model: 0:Electron, 1:Brillance, 2:Photon
- *
- *	Data type:	Tango::DevUShort
- *	Attr type:	Scalar
- */
-	virtual void read_LiberaModel(Tango::Attribute &attr);
-	virtual bool is_LiberaModel_allowed(Tango::AttReqType type);
 /**
  *	Attribute DDEnabled related methods
  *	Description: DD data source activation flag
@@ -601,25 +537,6 @@ public:
  */
 	virtual void read_DDBufferFrozen(Tango::Attribute &attr);
 	virtual bool is_DDBufferFrozen_allowed(Tango::AttReqType type);
-/**
- *	Attribute DDTriggerCounter related methods
- *	Description: Number of trigger notifications received since last device <init> 
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_DDTriggerCounter(Tango::Attribute &attr);
-	virtual bool is_DDTriggerCounter_allowed(Tango::AttReqType type);
-/**
- *	Attribute ExternalTriggerEnabled related methods
- *	Description: External trigger activation flag
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_ExternalTriggerEnabled(Tango::Attribute &attr);
-	virtual void write_ExternalTriggerEnabled(Tango::WAttribute &attr);
-	virtual bool is_ExternalTriggerEnabled_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalTriggerDelay related methods
  *	Description: Sets the delay on the external trigger arrival. 
@@ -714,24 +631,6 @@ public:
 	virtual void read_QuadSA(Tango::Attribute &attr);
 	virtual bool is_QuadSA_allowed(Tango::AttReqType type);
 /**
- *	Attribute CxSA related methods
- *	Description: FOFB X correction sent to the power supply
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_CxSA(Tango::Attribute &attr);
-	virtual bool is_CxSA_allowed(Tango::AttReqType type);
-/**
- *	Attribute CySA related methods
- *	Description: FOFB Y correction sent to the power supply
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_CySA(Tango::Attribute &attr);
-	virtual bool is_CySA_allowed(Tango::AttReqType type);
-/**
  *	Attribute SAStatNumSamples related methods
  *	Description: The number of sample in SA history used to compute the SA statistics\n(Mean, RMS, Peak pos). The most recent samples will be used.\nThe valid range is [2, SAHistoryLength property value].\n
  *
@@ -816,7 +715,8 @@ public:
 	virtual bool is_ADCEnabled_allowed(Tango::AttReqType type);
 /**
  *	Attribute ADCBufferSize related methods
- *	Description: The number of samples to be read on ADC data source.\nInfluences the size of the associated attributes [such as ADCChannelA for instance].
+ *	Description: The number of samples to be read on ADC data source.
+ *               Influences the size of the associated attributes [such as ADCChannelA for instance].
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -847,15 +747,6 @@ public:
 	virtual void read_PMNotified(Tango::Attribute &attr);
 	virtual void write_PMNotified(Tango::WAttribute &attr);
 	virtual bool is_PMNotified_allowed(Tango::AttReqType type);
-/**
- *	Attribute PMNotificationCounter related methods
- *	Description: Number a PM event recieved since last Init
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_PMNotificationCounter(Tango::Attribute &attr);
-	virtual bool is_PMNotificationCounter_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockXNotified related methods
  *	Description: Sets to 1 if X position trip caused the Interlock event.
@@ -903,69 +794,55 @@ public:
 	virtual void read_InterlockADCPostFilterNotified(Tango::Attribute &attr);
 	virtual bool is_InterlockADCPostFilterNotified_allowed(Tango::AttReqType type);
 /**
- *	Attribute XLow related methods
- *	Description: Lower limit of the X position interlock threshold in mm
+ *	Attribute InterlockLimitXMin related methods
+ *	Description: Lower limit of the X position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
-	virtual void read_XLow(Tango::Attribute &attr);
-	virtual void write_XLow(Tango::WAttribute &attr);
-	virtual bool is_XLow_allowed(Tango::AttReqType type);
+	virtual void read_InterlockLimitXMin(Tango::Attribute &attr);
+	virtual bool is_InterlockLimitXMin_allowed(Tango::AttReqType type);
 /**
- *	Attribute XHigh related methods
- *	Description: Upper limit of the X position interlock threshold in mm
+ *	Attribute InterlockLimitXMax related methods
+ *	Description: Upper limit of the X position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
-	virtual void read_XHigh(Tango::Attribute &attr);
-	virtual void write_XHigh(Tango::WAttribute &attr);
-	virtual bool is_XHigh_allowed(Tango::AttReqType type);
+	virtual void read_InterlockLimitXMax(Tango::Attribute &attr);
+	virtual bool is_InterlockLimitXMax_allowed(Tango::AttReqType type);
 /**
- *	Attribute YLow related methods
- *	Description: Lower limit of the Y position interlock threshold in mm
+ *	Attribute InterlockLimitYMin related methods
+ *	Description: Lower limit of the Y position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
-	virtual void read_YLow(Tango::Attribute &attr);
-	virtual void write_YLow(Tango::WAttribute &attr);
-	virtual bool is_YLow_allowed(Tango::AttReqType type);
+	virtual void read_InterlockLimitYMin(Tango::Attribute &attr);
+	virtual bool is_InterlockLimitYMin_allowed(Tango::AttReqType type);
 /**
- *	Attribute YHigh related methods
- *	Description: Upper limit of the Y position interlock threshold in mm
+ *	Attribute InterlockLimitYMax related methods
+ *	Description: Upper limit of the Y position interlock threshold in mm (Writable only via Property)
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
  */
-	virtual void read_YHigh(Tango::Attribute &attr);
-	virtual void write_YHigh(Tango::WAttribute &attr);
-	virtual bool is_YHigh_allowed(Tango::AttReqType type);
+	virtual void read_InterlockLimitYMax(Tango::Attribute &attr);
+	virtual bool is_InterlockLimitYMax_allowed(Tango::AttReqType type);
 /**
- *	Attribute AutoSwitchingEnabled related methods
+ *	Attribute ConditionSwitching related methods
  *	Description: Enables / disables the switching mechanism.
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
  */
-	virtual void read_AutoSwitchingEnabled(Tango::Attribute &attr);
-	virtual void write_AutoSwitchingEnabled(Tango::WAttribute &attr);
-	virtual bool is_AutoSwitchingEnabled_allowed(Tango::AttReqType type);
-/**
- *	Attribute Switches related methods
- *	Description: Switches selection. Must be in [0, 15] or 255 for auto-switching.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Switches(Tango::Attribute &attr);
-	virtual void write_Switches(Tango::WAttribute &attr);
-	virtual bool is_Switches_allowed(Tango::AttReqType type);
+	virtual void read_ConditionSwitching(Tango::Attribute &attr);
+	virtual void write_ConditionSwitching(Tango::WAttribute &attr);
+	virtual bool is_ConditionSwitching_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalSwitching related methods
- *	Description: Sets the source of switching clock – MC (external) or from the 
- *               oscillator (internal). Default value is internal. 
+ *	Description: Sets the source of switching clock MC (external) or from the 
+ *               oscillator (internal). Default value is internal.
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -985,34 +862,8 @@ public:
 	virtual void write_SwitchingDelay(Tango::WAttribute &attr);
 	virtual bool is_SwitchingDelay_allowed(Tango::AttReqType type);
 /**
- *	Attribute OffsetTune related methods
- *	Description: Sets the offset tune value, 1 unit is approximately 40 Hz. 
- *               Default value is 0 (precisely tuned).
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_OffsetTune(Tango::Attribute &attr);
-	virtual void write_OffsetTune(Tango::WAttribute &attr);
-	virtual bool is_OffsetTune_allowed(Tango::AttReqType type);
-/**
- *	Attribute CompensateTune related methods
- *	Description: To enable double offset-tune, issue the following command 
- *               (to disable it, just use “false” instead of “true”).
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_CompensateTune(Tango::Attribute &attr);
-	virtual void write_CompensateTune(Tango::WAttribute &attr);
-	virtual bool is_CompensateTune_allowed(Tango::AttReqType type);
-/**
  *	Attribute DSCMode related methods
- *	Description: Sets the adjustment (learning) of the amplitude and 
- *               phase coefficients true or false. Set the 
- *               coefficients' type – adjusted or unity. Combination of 
- *               these two nodes is necessary to achieve backward 
- *               compatiblity.
+ *	Description: Sets the adjustment (learning) of the amplitude and phase coefficients true or false. Set the coefficients type, adjusted or unity. Combination of these two nodes is necessary to achieve backward compatiblity.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1043,45 +894,6 @@ public:
 	virtual void write_Gain(Tango::WAttribute &attr);
 	virtual bool is_Gain_allowed(Tango::AttReqType type);
 /**
- *	Attribute HasMAFSupport related methods
- *	Description: <true> if FGPA design with MAF support installed on Libera, <false> otherwise
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_HasMAFSupport(Tango::Attribute &attr);
-	virtual bool is_HasMAFSupport_allowed(Tango::AttReqType type);
-/**
- *	Attribute MAFLength related methods
- *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_MAFLength(Tango::Attribute &attr);
-	virtual void write_MAFLength(Tango::WAttribute &attr);
-	virtual bool is_MAFLength_allowed(Tango::AttReqType type);
-/**
- *	Attribute MAFDelay related methods
- *	Description: MAF Delay and MAF Length are two\nparameters, added to adjustable\nDDC design. They are used to\ndetermine the position and the length\nof the acquisition window according\nto the partial fill of the accelerator.\n
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_MAFDelay(Tango::Attribute &attr);
-	virtual void write_MAFDelay(Tango::WAttribute &attr);
-	virtual bool is_MAFDelay_allowed(Tango::AttReqType type);
-/**
- *	Attribute MachineTime related methods
- *	Description: Machine Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_MachineTime(Tango::Attribute &attr);
-	virtual void write_MachineTime(Tango::WAttribute &attr);
-	virtual bool is_MachineTime_allowed(Tango::AttReqType type);
-/**
  *	Attribute TimePhase related methods
  *	Description: The Machine Time Phase
  *
@@ -1091,172 +903,6 @@ public:
 	virtual void read_TimePhase(Tango::Attribute &attr);
 	virtual void write_TimePhase(Tango::WAttribute &attr);
 	virtual bool is_TimePhase_allowed(Tango::AttReqType type);
-/**
- *	Attribute SystemTime related methods
- *	Description: System Time value to be applied on the Libera when the SetTimeOnNextTrigger command is executed\nUnit is num of secs since 1/1/1970 (Unix system time reference)
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_SystemTime(Tango::Attribute &attr);
-	virtual void write_SystemTime(Tango::WAttribute &attr);
-	virtual bool is_SystemTime_allowed(Tango::AttReqType type);
-/**
- *	Attribute SCPLLStatus related methods
- *	Description: The SC PLL lock status
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_SCPLLStatus(Tango::Attribute &attr);
-	virtual bool is_SCPLLStatus_allowed(Tango::AttReqType type);
-/**
- *	Attribute MCPLLStatus related methods
- *	Description: Indicates the MC PLL status (1=locked, 0=unlocked)
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_MCPLLStatus(Tango::Attribute &attr);
-	virtual bool is_MCPLLStatus_allowed(Tango::AttReqType type);
-/**
- *	Attribute Temp1 related methods
- *	Description: Temperature of the hottest component on the BPM 
- *               module is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Temp1(Tango::Attribute &attr);
-	virtual bool is_Temp1_allowed(Tango::AttReqType type);
-/**
- *	Attribute Temp2 related methods
- *	Description: Temperature of the hottest component on the chassis 
- *               interconnection board is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Temp2(Tango::Attribute &attr);
-	virtual bool is_Temp2_allowed(Tango::AttReqType type);
-/**
- *	Attribute Temp3 related methods
- *	Description: Temperature of the hottest component on the timing 
- *               module is returned.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Temp3(Tango::Attribute &attr);
-	virtual bool is_Temp3_allowed(Tango::AttReqType type);
-/**
- *	Attribute Fan1Speed related methods
- *	Description: Provides minimal fan speed reading of all three  fans on 
- *               the left side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken – returned value 
- *               0 means that at least one fan has stopped.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Fan1Speed(Tango::Attribute &attr);
-	virtual bool is_Fan1Speed_allowed(Tango::AttReqType type);
-/**
- *	Attribute Fan2Speed related methods
- *	Description: Provides minimal fan speed reading of all three  fans on 
- *               the right side of the chassis in order to identify if the fan 
- *               module (consisting of 3 fans) is broken – returned value 
- *               0 means that at least one fan has stopped.
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_Fan2Speed(Tango::Attribute &attr);
-	virtual bool is_Fan2Speed_allowed(Tango::AttReqType type);
-/**
- *	Attribute Incoherence related methods
- *	Description: Result of the incoherence calculation. Am alarm will be set \non the attribute when an incoherence was detected.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_Incoherence(Tango::Attribute &attr);
-	virtual bool is_Incoherence_allowed(Tango::AttReqType type);
-/**
- *	Attribute RefIncoherence related methods
- *	Description: The reference incoherence value registered with the command \nSetReferenceIncoherence. The reference is used to calculate the\nalarm with the MaxIncoherenceDrift.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_RefIncoherence(Tango::Attribute &attr);
-	virtual bool is_RefIncoherence_allowed(Tango::AttReqType type);
-/**
- *	Attribute MaxIncoherence related methods
- *	Description: Maximum incoherence value. Used to create an alarm on\nthe Incoherence attribute.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_MaxIncoherence(Tango::Attribute &attr);
-	virtual void write_MaxIncoherence(Tango::WAttribute &attr);
-	virtual bool is_MaxIncoherence_allowed(Tango::AttReqType type);
-/**
- *	Attribute MaxIncoherenceDrift related methods
- *	Description: Maximum incoherence drift value. Used to create an alarm on\nthe Incoherence attribute.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_MaxIncoherenceDrift(Tango::Attribute &attr);
-	virtual void write_MaxIncoherenceDrift(Tango::WAttribute &attr);
-	virtual bool is_MaxIncoherenceDrift_allowed(Tango::AttReqType type);
-/**
- *	Attribute UpTime related methods
- *	Description: Number of seconds since system boot on the host running this TANGO device
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_UpTime(Tango::Attribute &attr);
-	virtual bool is_UpTime_allowed(Tango::AttReqType type);
-/**
- *	Attribute CpuUsage related methods
- *	Description: CPU usage on the host running this TANGO device
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_CpuUsage(Tango::Attribute &attr);
-	virtual bool is_CpuUsage_allowed(Tango::AttReqType type);
-/**
- *	Attribute FreeMemory related methods
- *	Description: Amount of free memory on the host running this TANGO device
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_FreeMemory(Tango::Attribute &attr);
-	virtual bool is_FreeMemory_allowed(Tango::AttReqType type);
-/**
- *	Attribute RamFsUsage related methods
- *	Description: Amount of ram-fs allocated bytes on the host running this TANGO device 
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_RamFsUsage(Tango::Attribute &attr);
-	virtual bool is_RamFsUsage_allowed(Tango::AttReqType type);
-/**
- *	Attribute UseLiberaSAData related methods
- *	Description: If set to true, the X & Z SA postions are retreived from the Libera FPGA.\nOtherwise, they are computed by the Tango device using the button values.\n 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_UseLiberaSAData(Tango::Attribute &attr);
-	virtual void write_UseLiberaSAData(Tango::WAttribute &attr);
-	virtual bool is_UseLiberaSAData_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockEnabled related methods
  *	Description: Enables / disables the Interlock detection.
@@ -1420,7 +1066,7 @@ public:
 	virtual bool is_TDTriggerCounter_allowed(Tango::AttReqType type);
 /**
  *	Attribute Ks related methods
- *	Description: Coefficient for SUM value. Default setting is 67108864. (2ˆ26)
+ *	Description: Coefficient for SUM value. Default setting is 67108864.
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1440,7 +1086,7 @@ public:
 	virtual bool is_QOffset_allowed(Tango::AttReqType type);
 /**
  *	Attribute SOffset related methods
- *	Description: Coefficient for SUM value. Default setting is 67108864. (2ˆ26)
+ *	Description: Coefficient for SUM value. Default setting is 67108864.
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Scalar
@@ -1450,23 +1096,13 @@ public:
 	virtual bool is_SOffset_allowed(Tango::AttReqType type);
 /**
  *	Attribute SynchronizationStatus related methods
- *	Description: ﻿The synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.
+ *	Description: Synchronization state machine enables the control application to easily monitor the synchronization state of all connected Libera Brilliance+.
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
  */
 	virtual void read_SynchronizationStatus(Tango::Attribute &attr);
 	virtual bool is_SynchronizationStatus_allowed(Tango::AttReqType type);
-/**
- *	Attribute T0Delay related methods
- *	Description: Delay before transmission starts, set in cycles at fSFP
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T0Delay(Tango::Attribute &attr);
-	virtual void write_T0Delay(Tango::WAttribute &attr);
-	virtual bool is_T0Delay_allowed(Tango::AttReqType type);
 /**
  *	Attribute MaxADC related methods
  *	Description: The MAX ADC is monitored to assess the level of the input signal (ADC saturation). It can be reset on read or on trigger. [OnTrigger, OnRead]
@@ -1476,86 +1112,6 @@ public:
  */
 	virtual void read_MaxADC(Tango::Attribute &attr);
 	virtual bool is_MaxADC_allowed(Tango::AttReqType type);
-/**
- *	Attribute RtcDecoderSwitch related methods
- *	Description: RTC decoding switch of optical stream
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_RtcDecoderSwitch(Tango::Attribute &attr);
-	virtual void write_RtcDecoderSwitch(Tango::WAttribute &attr);
-	virtual bool is_RtcDecoderSwitch_allowed(Tango::AttReqType type);
-/**
- *	Attribute McSource related methods
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_McSource(Tango::Attribute &attr);
-	virtual void write_McSource(Tango::WAttribute &attr);
-	virtual bool is_McSource_allowed(Tango::AttReqType type);
-/**
- *	Attribute T0Direction related methods
- *	Description: t0 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_T0Direction(Tango::Attribute &attr);
-	virtual void write_T0Direction(Tango::WAttribute &attr);
-	virtual bool is_T0Direction_allowed(Tango::AttReqType type);
-/**
- *	Attribute T0OutputType related methods
- *	Description: t0 output type
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_T0OutputType(Tango::Attribute &attr);
-	virtual void write_T0OutputType(Tango::WAttribute &attr);
-	virtual bool is_T0OutputType_allowed(Tango::AttReqType type);
-/**
- *	Attribute T0State related methods
- *	Description: state of active signal: high (logical 1) or low (logical 0)
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_T0State(Tango::Attribute &attr);
-	virtual void write_T0State(Tango::WAttribute &attr);
-	virtual bool is_T0State_allowed(Tango::AttReqType type);
-/**
- *	Attribute T1Source related methods
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_T1Source(Tango::Attribute &attr);
-	virtual void write_T1Source(Tango::WAttribute &attr);
-	virtual bool is_T1Source_allowed(Tango::AttReqType type);
-/**
- *	Attribute T2Source related methods
- *	Description: Trigger line source selection
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_T2Source(Tango::Attribute &attr);
-	virtual void write_T2Source(Tango::WAttribute &attr);
-	virtual bool is_T2Source_allowed(Tango::AttReqType type);
-/**
- *	Attribute MgtOut related methods
- *	Description: MGT OUT selection off,sfp_in,debug,connectors
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_MgtOut(Tango::Attribute &attr);
-	virtual void write_MgtOut(Tango::WAttribute &attr);
-	virtual bool is_MgtOut_allowed(Tango::AttReqType type);
 /**
  *	Attribute SPThreshold related methods
  *	Description: Specifies the threshold for start of calculation (in ADC counts) for the Single Pass functionality
@@ -1587,106 +1143,6 @@ public:
 	virtual void write_SPnAfter(Tango::WAttribute &attr);
 	virtual bool is_SPnAfter_allowed(Tango::AttReqType type);
 /**
- *	Attribute T0inMask related methods
- *	Description: T0 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T0inMask(Tango::Attribute &attr);
-	virtual void write_T0inMask(Tango::WAttribute &attr);
-	virtual bool is_T0inMask_allowed(Tango::AttReqType type);
-/**
- *	Attribute T1inMask related methods
- *	Description: T1 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T1inMask(Tango::Attribute &attr);
-	virtual void write_T1inMask(Tango::WAttribute &attr);
-	virtual bool is_T1inMask_allowed(Tango::AttReqType type);
-/**
- *	Attribute T2inMask related methods
- *	Description: T2 Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T2inMask(Tango::Attribute &attr);
-	virtual void write_T2inMask(Tango::WAttribute &attr);
-	virtual bool is_T2inMask_allowed(Tango::AttReqType type);
-/**
- *	Attribute T0inFunction related methods
- *	Description: T0 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T0inFunction(Tango::Attribute &attr);
-	virtual void write_T0inFunction(Tango::WAttribute &attr);
-	virtual bool is_T0inFunction_allowed(Tango::AttReqType type);
-/**
- *	Attribute T1inFunction related methods
- *	Description: T1 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T1inFunction(Tango::Attribute &attr);
-	virtual void write_T1inFunction(Tango::WAttribute &attr);
-	virtual bool is_T1inFunction_allowed(Tango::AttReqType type);
-/**
- *	Attribute T2inFunction related methods
- *	Description: T2 Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T2inFunction(Tango::Attribute &attr);
-	virtual void write_T2inFunction(Tango::WAttribute &attr);
-	virtual bool is_T2inFunction_allowed(Tango::AttReqType type);
-/**
- *	Attribute MCinMask related methods
- *	Description: MC Masking array (in_mask) contains 16-bit entries that select the relevant bits from the 16-bit accelerator’s timing system.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_MCinMask(Tango::Attribute &attr);
-	virtual void write_MCinMask(Tango::WAttribute &attr);
-	virtual bool is_MCinMask_allowed(Tango::AttReqType type);
-/**
- *	Attribute MCinFunction related methods
- *	Description: MC Function array (in_function) contains 16-bit entries that define the value of masked bits.
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_MCinFunction(Tango::Attribute &attr);
-	virtual void write_MCinFunction(Tango::WAttribute &attr);
-	virtual bool is_MCinFunction_allowed(Tango::AttReqType type);
-/**
- *	Attribute T0Duration related methods
- *	Description: Duration of signal active pulse
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T0Duration(Tango::Attribute &attr);
-	virtual void write_T0Duration(Tango::WAttribute &attr);
-	virtual bool is_T0Duration_allowed(Tango::AttReqType type);
-/**
- *	Attribute InterlockID related methods
- *	Description: Oversaturation or X-Y orbit threshold
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_InterlockID(Tango::Attribute &attr);
-	virtual void write_InterlockID(Tango::WAttribute &attr);
-	virtual bool is_InterlockID_allowed(Tango::AttReqType type);
-/**
  *	Attribute SPEnabled related methods
  *	Description: Single Pass data source activation flag
  *
@@ -1704,68 +1160,7 @@ public:
  *	Attr type:	Scalar
  */
 	virtual void read_SPBufferSize(Tango::Attribute &attr);
-	virtual void write_SPBufferSize(Tango::WAttribute &attr);
 	virtual bool is_SPBufferSize_allowed(Tango::AttReqType type);
-/**
- *	Attribute T2EdgeFalling related methods
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_T2EdgeFalling(Tango::Attribute &attr);
-	virtual void write_T2EdgeFalling(Tango::WAttribute &attr);
-	virtual bool is_T2EdgeFalling_allowed(Tango::AttReqType type);
-/**
- *	Attribute T2EdgeRising related methods
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_T2EdgeRising(Tango::Attribute &attr);
-	virtual void write_T2EdgeRising(Tango::WAttribute &attr);
-	virtual bool is_T2EdgeRising_allowed(Tango::AttReqType type);
-/**
- *	Attribute T1EdgeFalling related methods
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_T1EdgeFalling(Tango::Attribute &attr);
-	virtual void write_T1EdgeFalling(Tango::WAttribute &attr);
-	virtual bool is_T1EdgeFalling_allowed(Tango::AttReqType type);
-/**
- *	Attribute T1EdgeRising related methods
- *	Description: 
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_T1EdgeRising(Tango::Attribute &attr);
-	virtual void write_T1EdgeRising(Tango::WAttribute &attr);
-	virtual bool is_T1EdgeRising_allowed(Tango::AttReqType type);
-/**
- *	Attribute T2ID related methods
- *	Description: T2 Optical event ID
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T2ID(Tango::Attribute &attr);
-	virtual void write_T2ID(Tango::WAttribute &attr);
-	virtual bool is_T2ID_allowed(Tango::AttReqType type);
-/**
- *	Attribute T1ID related methods
- *	Description: T1 Optical event ID
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_T1ID(Tango::Attribute &attr);
-	virtual void write_T1ID(Tango::WAttribute &attr);
-	virtual bool is_T1ID_allowed(Tango::AttReqType type);
 /**
  *	Attribute PMBufferSize related methods
  *	Description: The number of samples to be read on PM data source.
@@ -1778,8 +1173,7 @@ public:
 	virtual bool is_PMBufferSize_allowed(Tango::AttReqType type);
 /**
  *	Attribute PMSource related methods
- *	Description: source of the PM event (﻿external,interlock,limits)
- *               
+ *	Description: source of the PM event external interlock limits
  *
  *	Data type:	Tango::DevShort
  *	Attr type:	Scalar
@@ -1787,26 +1181,6 @@ public:
 	virtual void read_PMSource(Tango::Attribute &attr);
 	virtual void write_PMSource(Tango::WAttribute &attr);
 	virtual bool is_PMSource_allowed(Tango::AttReqType type);
-/**
- *	Attribute T1Direction related methods
- *	Description: t2 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_T1Direction(Tango::Attribute &attr);
-	virtual void write_T1Direction(Tango::WAttribute &attr);
-	virtual bool is_T1Direction_allowed(Tango::AttReqType type);
-/**
- *	Attribute T2Direction related methods
- *	Description: t2 port direction
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Scalar
- */
-	virtual void read_T2Direction(Tango::Attribute &attr);
-	virtual void write_T2Direction(Tango::WAttribute &attr);
-	virtual bool is_T2Direction_allowed(Tango::AttReqType type);
 /**
  *	Attribute SynchronizeLMT related methods
  *	Description: The absolute time synchronization is done for all processor modules simultaneously.  [0, 18446744073709551614]
@@ -1818,14 +1192,119 @@ public:
 	virtual void write_SynchronizeLMT(Tango::WAttribute &attr);
 	virtual bool is_SynchronizeLMT_allowed(Tango::AttReqType type);
 /**
- *	Attribute RTCTimestamp related methods
- *	Description: Timestamp which is be taken by receiving optical events over SFP when reception is enabled
+ *	Attribute InterlockFilterOverflow related methods
+ *	Description: boards.rafX.interlock.filter.overflow
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
  */
-	virtual void read_RTCTimestamp(Tango::Attribute &attr);
-	virtual bool is_RTCTimestamp_allowed(Tango::AttReqType type);
+	virtual void read_InterlockFilterOverflow(Tango::Attribute &attr);
+	virtual void write_InterlockFilterOverflow(Tango::WAttribute &attr);
+	virtual bool is_InterlockFilterOverflow_allowed(Tango::AttReqType type);
+/**
+ *	Attribute InterlockFilterPosition related methods
+ *	Description: boards.rafX.interlock.filter.position
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_InterlockFilterPosition(Tango::Attribute &attr);
+	virtual void write_InterlockFilterPosition(Tango::WAttribute &attr);
+	virtual bool is_InterlockFilterPosition_allowed(Tango::AttReqType type);
+/**
+ *	Attribute SumSP related methods
+ *	Description: Single Pass data: Sum
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_SumSP(Tango::Attribute &attr);
+	virtual bool is_SumSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VbSP related methods
+ *	Description: Single Pass data: Vb
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VbSP(Tango::Attribute &attr);
+	virtual bool is_VbSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VcSP related methods
+ *	Description: Single Pass data: Vc
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VcSP(Tango::Attribute &attr);
+	virtual bool is_VcSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VdSP related methods
+ *	Description: Single Pass data: Vd
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VdSP(Tango::Attribute &attr);
+	virtual bool is_VdSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute XPosSP related methods
+ *	Description: Single Pass data: X Pos.
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_XPosSP(Tango::Attribute &attr);
+	virtual bool is_XPosSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute YPosSP related methods
+ *	Description: Single Pass data: Y Pos.
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_YPosSP(Tango::Attribute &attr);
+	virtual bool is_YPosSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute ThdrId related methods
+ *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_ThdrId(Tango::Attribute &attr);
+	virtual bool is_ThdrId_allowed(Tango::AttReqType type);
+/**
+ *	Attribute VaSP related methods
+ *	Description: Single Pass data: Va
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_VaSP(Tango::Attribute &attr);
+	virtual bool is_VaSP_allowed(Tango::AttReqType type);
+/**
+ *	Attribute FAEnabled related methods
+ *	Description: FA data source activation flag
+ *
+ *	Data type:	Tango::DevBoolean
+ *	Attr type:	Scalar
+ */
+	virtual void read_FAEnabled(Tango::Attribute &attr);
+	virtual void write_FAEnabled(Tango::WAttribute &attr);
+	virtual bool is_FAEnabled_allowed(Tango::AttReqType type);
+/**
+ *	Attribute FAStatNumSamples related methods
+ *	Description: The number of sample in FA history used to compute the FA statistics
+ *               (Mean, RMS, Peak pos). The most recent samples will be used.
+ *               The valid range is [2, FAHistoryLength property value].
+ *
+ *	Data type:	Tango::DevLong
+ *	Attr type:	Scalar
+ */
+	virtual void read_FAStatNumSamples(Tango::Attribute &attr);
+	virtual void write_FAStatNumSamples(Tango::WAttribute &attr);
+	virtual bool is_FAStatNumSamples_allowed(Tango::AttReqType type);
 /**
  *	Attribute XPosDD related methods
  *	Description: Turn by turn data: X Pos.
@@ -2199,77 +1678,95 @@ public:
 	virtual void read_VdTD(Tango::Attribute &attr);
 	virtual bool is_VdTD_allowed(Tango::AttReqType type);
 /**
- *	Attribute VaSP related methods
- *	Description: Single Pass data: Va
+ *	Attribute VaFA related methods
+ *	Description: Slow Acquisition: Fa
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 250000
  */
-	virtual void read_VaSP(Tango::Attribute &attr);
-	virtual bool is_VaSP_allowed(Tango::AttReqType type);
+	virtual void read_VaFA(Tango::Attribute &attr);
+	virtual bool is_VaFA_allowed(Tango::AttReqType type);
 /**
- *	Attribute VbSP related methods
- *	Description: Single Pass data: Vb
+ *	Attribute VbFA related methods
+ *	Description: Fast Acquisition: Vb
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 250000
  */
-	virtual void read_VbSP(Tango::Attribute &attr);
-	virtual bool is_VbSP_allowed(Tango::AttReqType type);
+	virtual void read_VbFA(Tango::Attribute &attr);
+	virtual bool is_VbFA_allowed(Tango::AttReqType type);
 /**
- *	Attribute VcSP related methods
- *	Description: Single Pass data: Vc
+ *	Attribute VcFA related methods
+ *	Description: Fast Acquisition: Vc
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 250000
  */
-	virtual void read_VcSP(Tango::Attribute &attr);
-	virtual bool is_VcSP_allowed(Tango::AttReqType type);
+	virtual void read_VcFA(Tango::Attribute &attr);
+	virtual bool is_VcFA_allowed(Tango::AttReqType type);
 /**
- *	Attribute VdSP related methods
- *	Description: Single Pass data: Vd
+ *	Attribute VdFA related methods
+ *	Description: Fast Acquisition: Vd
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 250000
  */
-	virtual void read_VdSP(Tango::Attribute &attr);
-	virtual bool is_VdSP_allowed(Tango::AttReqType type);
+	virtual void read_VdFA(Tango::Attribute &attr);
+	virtual bool is_VdFA_allowed(Tango::AttReqType type);
 /**
- *	Attribute SumSP related methods
- *	Description: Single Pass data: Sum
+ *	Attribute XPosFA related methods
+ *	Description: Fast Acquisition: X
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 250000
  */
-	virtual void read_SumSP(Tango::Attribute &attr);
-	virtual bool is_SumSP_allowed(Tango::AttReqType type);
+	virtual void read_XPosFA(Tango::Attribute &attr);
+	virtual bool is_XPosFA_allowed(Tango::AttReqType type);
 /**
- *	Attribute XPosSP related methods
- *	Description: Single Pass data: X Pos.
+ *	Attribute SumFA related methods
+ *	Description: Fast Acquisition: Sum
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 250000
  */
-	virtual void read_XPosSP(Tango::Attribute &attr);
-	virtual bool is_XPosSP_allowed(Tango::AttReqType type);
+	virtual void read_SumFA(Tango::Attribute &attr);
+	virtual bool is_SumFA_allowed(Tango::AttReqType type);
 /**
- *	Attribute YPosSP related methods
- *	Description: Single Pass data: Y Pos.
+ *	Attribute QuadFA related methods
+ *	Description: Fast Acquisition: Quad
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 250000
  */
-	virtual void read_YPosSP(Tango::Attribute &attr);
-	virtual bool is_YPosSP_allowed(Tango::AttReqType type);
+	virtual void read_QuadFA(Tango::Attribute &attr);
+	virtual bool is_QuadFA_allowed(Tango::AttReqType type);
 /**
- *	Attribute ThdrId related methods
- *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
+ *	Attribute YPosFA related methods
+ *	Description: Fast Acquisition: Y
  *
  *	Data type:	Tango::DevDouble
  *	Attr type:	Spectrum max = 250000
  */
-	virtual void read_ThdrId(Tango::Attribute &attr);
-	virtual bool is_ThdrId_allowed(Tango::AttReqType type);
+	virtual void read_YPosFA(Tango::Attribute &attr);
+	virtual bool is_YPosFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute lmt_hFA related methods
+ *	Description: Fast Acquisition: Y
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_lmt_hFA(Tango::Attribute &attr);
+	virtual bool is_lmt_hFA_allowed(Tango::AttReqType type);
+/**
+ *	Attribute lmt_lFA related methods
+ *	Description: Fast Acquisition: Y
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Spectrum max = 250000
+ */
+	virtual void read_lmt_lFA(Tango::Attribute &attr);
+	virtual bool is_lmt_lFA_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -2279,6 +1776,7 @@ public:
 	 */
 	//--------------------------------------------------------
 	void add_dynamic_attributes();
+
 
 
 
@@ -2496,32 +1994,45 @@ public:
 	virtual void disable_sp();
 	virtual bool is_DisableSP_allowed(const CORBA::Any &any);
 	/**
-	 *	Command StartSynchronization related method
-	 *	Description: Starts synchronization procedure:
-	 *               * Synchronization State Machine (MUST be Tracking)
-	 *               * Start the Trigger (t2source=Pulse and then t2source=RTC)
-	 *               * Synchronization State Machine (MUST be Synchronized)
-	 *
-	 */
-	virtual void start_synchronization();
-	virtual bool is_StartSynchronization_allowed(const CORBA::Any &any);
-	/**
-	 *	Command AnnounceSynchronization related method
-	 *	Description: Announce synchronization procedure:
-	 *               * Stop the Trigger (t2source=off)
-	 *               *  MC PLL (MUST be locked)
-	 *               * Synchronization State Machine (MUST be Tracking)
-	 *
-	 */
-	virtual void announce_synchronization();
-	virtual bool is_AnnounceSynchronization_allowed(const CORBA::Any &any);
-	/**
 	 *	Command ForceInitSettings related method
 	 *	Description: Initializing Libera Default Settings (Based to the properties) without performing init_device
 	 *
 	 */
 	virtual void force_init_settings();
 	virtual bool is_ForceInitSettings_allowed(const CORBA::Any &any);
+	/**
+	 *	Command SetTraceLevel related method
+	 *	Description: Sets the Trace Error Level:  	Off     = 0,
+	 *                       		Low     = 1,
+	 *               		Med     = 2,
+	 *               		High    = 3,
+	 *               		Detail  = 4
+	 *
+	 *	@param argin 
+	 */
+	virtual void set_trace_level(Tango::DevUShort argin);
+	virtual bool is_SetTraceLevel_allowed(const CORBA::Any &any);
+	/**
+	 *	Command EnableFA related method
+	 *	Description: Enables the so called ``fast acquisition`` data source
+	 *
+	 */
+	virtual void enable_fa();
+	virtual bool is_EnableFA_allowed(const CORBA::Any &any);
+	/**
+	 *	Command DisableFA related method
+	 *	Description: Disables the so called ``fast acquisition`` data source
+	 *
+	 */
+	virtual void disable_fa();
+	virtual bool is_DisableFA_allowed(const CORBA::Any &any);
+	/**
+	 *	Command DisableAllSignals related method
+	 *	Description: Disables All the Signals.
+	 *
+	 */
+	virtual void disable_all_signals();
+	virtual bool is_DisableAllSignals_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------
@@ -2538,6 +2049,8 @@ public:
 	void UpdatePM();
  
   void set_lib_error(std::string nodeinfo);
+
+  std::string set_interlock_status();
 
 /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::Additional Method prototypes
 };
