@@ -1,3 +1,9 @@
+tangods-liberabrillianceplus (3.2.1) unstable; urgency=low
+
+  * Support libera3.2 API and Ubuntu 14.04
+
+ -- Vasileios Martos <vasileios.martos> Wed, 29 Mar 2017 12:00:00 +0000
+
 tangods-liberabrillianceplus (2.2.1) unstable; urgency=low
 
   * Add archive events for SA signal values, add Tdp-GetData() function in always hoo
