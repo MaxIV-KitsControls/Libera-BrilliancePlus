@@ -8,20 +8,20 @@
 // project :     Libera BPM Device Server
 //
 // This file is part of Tango device class.
-// 
+//
 // Tango is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // Tango is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with Tango.  If not, see <http://www.gnu.org/licenses/>.
-// 
+//
 // $Author:  $
 //
 // $Revision:  $
@@ -98,6 +98,8 @@ class LiberaBrilliancePlus : public TANGO_BASE_CLASS
         static void _SPCallback(void *data);
         void TDCallback();
         static void _TDCallback(void *data);
+        void SynchronizationStatus_Callback();
+        static void _SynchronizationStatus_Callback(void *data);
         
         bool initFlag;
         void init_settings();
@@ -241,7 +243,7 @@ public:
 	Tango::DevLong	sPnAfter;
 	//	ExternalTriggerDelay:	Sets the delay on the external trigger arrival. The delay is set in steps of ADC samples
 	Tango::DevLong	externalTriggerDelay;
-	//	DSCMode:	
+	//	DSCMode:
 	Tango::DevShort	dSCMode;
 	//	InterlockFilterOverflow:	ADC filter overflow
 	Tango::DevLong	interlockFilterOverflow;
@@ -269,7 +271,7 @@ public:
 	vector<Tango::DevShort>	errorTrace;
 	//	InterlockOverflowDuration:	Duration of allowed ADC saturation (in ADC samples)
 	Tango::DevLong	interlockOverflowDuration;
-	//	InterlockGainDependentThreshold:	Sets the threshold for gain dependent mode of Interlock 
+	//	InterlockGainDependentThreshold:	Sets the threshold for gain dependent mode of Interlock
 	//  operation.
 	Tango::DevLong	interlockGainDependentThreshold;
 
@@ -539,7 +541,7 @@ public:
 	virtual bool is_DDBufferFrozen_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalTriggerDelay related methods
- *	Description: Sets the delay on the external trigger arrival. 
+ *	Description: Sets the delay on the external trigger arrival.
  *               The delay is set in steps of ADC samples (~ 9 ns).
  *
  *	Data type:	Tango::DevLong
@@ -726,9 +728,9 @@ public:
 	virtual bool is_ADCBufferSize_allowed(Tango::AttReqType type);
 /**
  *	Attribute PMOffset related methods
- *	Description: Offset relative to the post mortem event setting. 
- *               Set value is in turns, e.g. 1024 would mean that post mortem 
- *               acquisition is starting 1024 turns after the post mortem trigger 
+ *	Description: Offset relative to the post mortem event setting.
+ *               Set value is in turns, e.g. 1024 would mean that post mortem
+ *               acquisition is starting 1024 turns after the post mortem trigger
  *               was received.
  *
  *	Data type:	Tango::DevLong
@@ -767,7 +769,7 @@ public:
 	virtual bool is_InterlockYNotified_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockAttnNotified related methods
- *	Description: Sets to 1 if the attenuator's value is higher than gain 
+ *	Description: Sets to 1 if the attenuator's value is higher than gain
  *               dependence threshold
  *
  *	Data type:	Tango::DevBoolean
@@ -841,7 +843,7 @@ public:
 	virtual bool is_ConditionSwitching_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalSwitching related methods
- *	Description: Sets the source of switching clock MC (external) or from the 
+ *	Description: Sets the source of switching clock MC (external) or from the
  *               oscillator (internal). Default value is internal.
  *
  *	Data type:	Tango::DevBoolean
@@ -852,7 +854,7 @@ public:
 	virtual bool is_ExternalSwitching_allowed(Tango::AttReqType type);
 /**
  *	Attribute SwitchingDelay related methods
- *	Description: Sets the delay of the switch position change relative to the 
+ *	Description: Sets the delay of the switch position change relative to the
  *               switching source clock.
  *
  *	Data type:	Tango::DevLong
@@ -883,8 +885,8 @@ public:
 	virtual bool is_AGCEnabled_allowed(Tango::AttReqType type);
 /**
  *	Attribute Gain related methods
- *	Description: Sets the power_level. Attenuation at chosen level 
- *               depends on the gain scheme configuration. AGC 
+ *	Description: Sets the power_level. Attenuation at chosen level
+ *               depends on the gain scheme configuration. AGC
  *               must be disabled to use manual Gain setting.
  *
  *	Data type:	Tango::DevDouble
@@ -945,7 +947,7 @@ public:
 	virtual bool is_InterlockOverflowDuration_allowed(Tango::AttReqType type);
 /**
  *	Attribute InterlockGainDependentThreshold related methods
- *	Description: Sets the threshold for gain dependent mode of Interlock 
+ *	Description: Sets the threshold for gain dependent mode of Interlock
  *               operation.
  *
  *	Data type:	Tango::DevLong
@@ -956,7 +958,7 @@ public:
 	virtual bool is_InterlockGainDependentThreshold_allowed(Tango::AttReqType type);
 /**
  *	Attribute Kx related methods
- *	Description: Sets the Kx for X position calculation. Default setting is 10 mm 
+ *	Description: Sets the Kx for X position calculation. Default setting is 10 mm
  *               (=10000000 nm).
  *
  *	Data type:	Tango::DevDouble
@@ -967,7 +969,7 @@ public:
 	virtual bool is_Kx_allowed(Tango::AttReqType type);
 /**
  *	Attribute Ky related methods
- *	Description: Sets the Ky for Y position calculation. Default setting is 10 mm 
+ *	Description: Sets the Ky for Y position calculation. Default setting is 10 mm
  *               (=10000000 nm).
  *
  *	Data type:	Tango::DevDouble
@@ -1379,7 +1381,7 @@ public:
 	virtual bool is_VdDD_allowed(Tango::AttReqType type);
 /**
  *	Attribute XPosSAHistory related methods
- *	Description: Slow Acquisition: X scrolling window of last NumSamples 
+ *	Description: Slow Acquisition: X scrolling window of last NumSamples
  *               (512) sa samples
  *
  *	Data type:	Tango::DevDouble
@@ -1389,7 +1391,7 @@ public:
 	virtual bool is_XPosSAHistory_allowed(Tango::AttReqType type);
 /**
  *	Attribute YPosSAHistory related methods
- *	Description: Slow Acquisition: Y scrolling window of last NumSamples 
+ *	Description: Slow Acquisition: Y scrolling window of last NumSamples
  *               (512) sa samples
  *
  *	Data type:	Tango::DevDouble
@@ -1399,7 +1401,7 @@ public:
 	virtual bool is_YPosSAHistory_allowed(Tango::AttReqType type);
 /**
  *	Attribute SumSAHistory related methods
- *	Description: Slow Acquisition: Sum scrolling window of last 
+ *	Description: Slow Acquisition: Sum scrolling window of last
  *               NumSamples (512) sa samples
  *
  *	Data type:	Tango::DevDouble
@@ -1598,7 +1600,7 @@ public:
 	virtual bool is_UserData_allowed(Tango::AttReqType type);
 /**
  *	Attribute logs related methods
- *	Description: 
+ *	Description:
  *
  *	Data type:	Tango::DevString
  *	Attr type:	Spectrum max = 2048
@@ -1855,7 +1857,7 @@ public:
 	virtual bool is_DisableSA_allowed(const CORBA::Any &any);
 	/**
 	 *	Command ResetPMNotification related method
-	 *	Description: 
+	 *	Description:
 	 *
 	 */
 	virtual void reset_pmnotification();
@@ -1923,7 +1925,7 @@ public:
 	virtual bool is_SaveDSCParameters_allowed(const CORBA::Any &any);
 	/**
 	 *	Command ReloadSystemProperties related method
-	 *	Description: 
+	 *	Description:
 	 *
 	 */
 	virtual void reload_system_properties();
@@ -2008,7 +2010,7 @@ public:
 	 *               		High    = 3,
 	 *               		Detail  = 4
 	 *
-	 *	@param argin 
+	 *	@param argin
 	 */
 	virtual void set_trace_level(Tango::DevUShort argin);
 	virtual bool is_SetTraceLevel_allowed(const CORBA::Any &any);
@@ -2047,7 +2049,7 @@ public:
 
 	//	Additional Method prototypes
 	void UpdatePM();
- 
+
   void set_lib_error(std::string nodeinfo);
 
   std::string set_interlock_status();
