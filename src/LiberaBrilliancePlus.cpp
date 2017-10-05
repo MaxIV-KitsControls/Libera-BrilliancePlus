@@ -690,10 +690,6 @@ void LiberaBrilliancePlus::init_device()
         m_signalDdcRaw->SetMode(isig::eModeDodOnEvent);
     }
 
-
-    //List of Notification Callbacks in case of Attribute value change
-    m_libera->SetNotifier(attr_PMNotified_read, &LiberaBrilliancePlus::_SynchronizationStatus_Callback, reinterpret_cast<void*>(this));
-
     //Push Events
     set_change_event("XPosPM",  true, false);
     set_change_event("YPosPM",  true, false);
@@ -725,6 +721,11 @@ void LiberaBrilliancePlus::init_device()
     set_archive_event("YPosSA",  true, true);
     set_archive_event("QuadSA",  true, true);
     set_archive_event("SumSA",  true, true);
+
+    //Push Attribute Events
+    set_change_event("SynchronizationStatus",  true, false);
+    //List of Notification Callbacks in case of Attribute value change
+    m_libera->SetNotifier(attr_PMNotified_read, &LiberaBrilliancePlus::_SynchronizationStatus_Callback, reinterpret_cast<void*>(this));
 
     try
     {
