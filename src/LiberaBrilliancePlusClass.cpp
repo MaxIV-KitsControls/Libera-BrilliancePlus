@@ -740,6 +740,42 @@ CORBA::Any *DisableAllSignalsClass::execute(Tango::DeviceImpl *device, TANGO_UNU
 	return new CORBA::Any();
 }
 
+//--------------------------------------------------------
+/**
+ * method : 		EnablePMClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *EnablePMClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "EnablePMClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->enable_pm());
+	return new CORBA::Any();
+}
+
+//--------------------------------------------------------
+/**
+ * method : 		DisablePMClass::execute()
+ * description : 	method to trigger the execution of the command.
+ *
+ * @param	device	The device on which the command must be executed
+ * @param	in_any	The command input data
+ *
+ *	returns The command output data (packed in the Any object)
+ */
+//--------------------------------------------------------
+CORBA::Any *DisablePMClass::execute(Tango::DeviceImpl *device, TANGO_UNUSED(const CORBA::Any &in_any))
+{
+	cout2 << "DisablePMClass::execute(): arrived" << endl;
+	((static_cast<LiberaBrilliancePlus *>(device))->disable_pm());
+	return new CORBA::Any();
+}
+
 
 //===================================================================
 //	Properties management
@@ -1900,6 +1936,34 @@ void LiberaBrilliancePlusClass::set_default_property()
 	}
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "EnablePM";
+	prop_desc = "Enables/disables the Post Mortem signal";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "EnableFA";
+	prop_desc = "Specifies whether or not the FA data source should be enabled at startup. Defaults to false.";
+	prop_def  = "false";
+	vect_data.clear();
+	vect_data.push_back("false");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
 }
 
 //--------------------------------------------------------
@@ -2126,8 +2190,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	ddenabled->set_default_properties(ddenabled_prop);
 	//	Not Polled
 	ddenabled->set_disp_level(Tango::OPERATOR);
-	ddenabled->set_memorized();
-	ddenabled->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(ddenabled);
 
 	//	Attribute : DDBufferSize
@@ -2151,8 +2214,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	ddbuffersize->set_default_properties(ddbuffersize_prop);
 	//	Not Polled
 	ddbuffersize->set_disp_level(Tango::OPERATOR);
-	ddbuffersize->set_memorized();
-	ddbuffersize->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(ddbuffersize);
 
 	//	Attribute : DDDecimationFactor
@@ -2176,8 +2238,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	dddecimationfactor->set_default_properties(dddecimationfactor_prop);
 	//	Not Polled
 	dddecimationfactor->set_disp_level(Tango::OPERATOR);
-	dddecimationfactor->set_memorized();
-	dddecimationfactor->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(dddecimationfactor);
 
 	//	Attribute : DDTriggerOffset
@@ -2201,8 +2262,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	ddtriggeroffset->set_default_properties(ddtriggeroffset_prop);
 	//	Not Polled
 	ddtriggeroffset->set_disp_level(Tango::OPERATOR);
-	ddtriggeroffset->set_memorized();
-	ddtriggeroffset->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(ddtriggeroffset);
 
 	//	Attribute : DDBufferFreezingEnabled
@@ -2298,8 +2358,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	saenabled->set_default_properties(saenabled_prop);
 	//	Not Polled
 	saenabled->set_disp_level(Tango::OPERATOR);
-	saenabled->set_memorized();
-	saenabled->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(saenabled);
 
 	//	Attribute : VaSA
@@ -3043,8 +3102,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	externalswitching->set_default_properties(externalswitching_prop);
 	//	Not Polled
 	externalswitching->set_disp_level(Tango::OPERATOR);
-	externalswitching->set_memorized();
-	externalswitching->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(externalswitching);
 
 	//	Attribute : SwitchingDelay
@@ -3068,8 +3126,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	switchingdelay->set_default_properties(switchingdelay_prop);
 	//	Not Polled
 	switchingdelay->set_disp_level(Tango::OPERATOR);
-	switchingdelay->set_memorized();
-	switchingdelay->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(switchingdelay);
 
 	//	Attribute : DSCMode
@@ -3165,8 +3222,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	timephase->set_default_properties(timephase_prop);
 	//	Not Polled
 	timephase->set_disp_level(Tango::OPERATOR);
-	timephase->set_memorized();
-	timephase->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(timephase);
 
 	//	Attribute : InterlockEnabled
@@ -3238,8 +3294,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	interlockoverflowthreshold->set_default_properties(interlockoverflowthreshold_prop);
 	//	Not Polled
 	interlockoverflowthreshold->set_disp_level(Tango::OPERATOR);
-	interlockoverflowthreshold->set_memorized();
-	interlockoverflowthreshold->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(interlockoverflowthreshold);
 
 	//	Attribute : InterlockOverflowDuration
@@ -3409,8 +3464,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	tdenabled->set_default_properties(tdenabled_prop);
 	//	Not Polled
 	tdenabled->set_disp_level(Tango::OPERATOR);
-	tdenabled->set_memorized();
-	tdenabled->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(tdenabled);
 
 	//	Attribute : TDBufferSize
@@ -3434,8 +3488,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	tdbuffersize->set_default_properties(tdbuffersize_prop);
 	//	Not Polled
 	tdbuffersize->set_disp_level(Tango::OPERATOR);
-	tdbuffersize->set_memorized();
-	tdbuffersize->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(tdbuffersize);
 
 	//	Attribute : TDDecimationFactor
@@ -3459,8 +3512,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	tddecimationfactor->set_default_properties(tddecimationfactor_prop);
 	//	Not Polled
 	tddecimationfactor->set_disp_level(Tango::OPERATOR);
-	tddecimationfactor->set_memorized();
-	tddecimationfactor->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(tddecimationfactor);
 
 	//	Attribute : TDTriggerOffset
@@ -3484,8 +3536,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	tdtriggeroffset->set_default_properties(tdtriggeroffset_prop);
 	//	Not Polled
 	tdtriggeroffset->set_disp_level(Tango::OPERATOR);
-	tdtriggeroffset->set_memorized();
-	tdtriggeroffset->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(tdtriggeroffset);
 
 	//	Attribute : TDBufferFreezingEnabled
@@ -3581,8 +3632,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	ks->set_default_properties(ks_prop);
 	//	Not Polled
 	ks->set_disp_level(Tango::OPERATOR);
-	ks->set_memorized();
-	ks->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(ks);
 
 	//	Attribute : QOffset
@@ -3606,8 +3656,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	qoffset->set_default_properties(qoffset_prop);
 	//	Not Polled
 	qoffset->set_disp_level(Tango::OPERATOR);
-	qoffset->set_memorized();
-	qoffset->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(qoffset);
 
 	//	Attribute : SOffset
@@ -3631,8 +3680,7 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	soffset->set_default_properties(soffset_prop);
 	//	Not Polled
 	soffset->set_disp_level(Tango::OPERATOR);
-	soffset->set_memorized();
-	soffset->set_memorized_init(true);
+	//	Not Memorized
 	att_list.push_back(soffset);
 
 	//	Attribute : SynchronizationStatus
@@ -5719,6 +5767,24 @@ void LiberaBrilliancePlusClass::command_factory()
 			"n/a",
 			Tango::OPERATOR);
 	command_list.push_back(pDisableAllSignalsCmd);
+
+	//	Command EnablePM
+	EnablePMClass	*pEnablePMCmd =
+		new EnablePMClass("EnablePM",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"",
+			"",
+			Tango::OPERATOR);
+	command_list.push_back(pEnablePMCmd);
+
+	//	Command DisablePM
+	DisablePMClass	*pDisablePMCmd =
+		new DisablePMClass("DisablePM",
+			Tango::DEV_VOID, Tango::DEV_VOID,
+			"n/a",
+			"n/a",
+			Tango::OPERATOR);
+	command_list.push_back(pDisablePMCmd);
 
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlusClass::command_factory_after) ENABLED START -----*/
 	

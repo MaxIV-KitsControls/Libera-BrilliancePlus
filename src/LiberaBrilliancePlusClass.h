@@ -2657,6 +2657,52 @@ public:
 	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DisableAllSignals_allowed(any);}
 };
 
+//	Command EnablePM class definition
+class EnablePMClass : public Tango::Command
+{
+public:
+	EnablePMClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	EnablePMClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~EnablePMClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_EnablePM_allowed(any);}
+};
+
+//	Command DisablePM class definition
+class DisablePMClass : public Tango::Command
+{
+public:
+	DisablePMClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out,
+				   const char        *in_desc,
+				   const char        *out_desc,
+				   Tango::DispLevel  level)
+	:Command(name,in,out,in_desc,out_desc, level)	{};
+
+	DisablePMClass(const char   *name,
+	               Tango::CmdArgType in,
+				   Tango::CmdArgType out)
+	:Command(name,in,out)	{};
+	~DisablePMClass() {};
+	
+	virtual CORBA::Any *execute (Tango::DeviceImpl *dev, const CORBA::Any &any);
+	virtual bool is_allowed (Tango::DeviceImpl *dev, const CORBA::Any &any)
+	{return (static_cast<LiberaBrilliancePlus *>(dev))->is_DisablePM_allowed(any);}
+};
+
 
 /**
  *	The LiberaBrilliancePlusClass singleton definition

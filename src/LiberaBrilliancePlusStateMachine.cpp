@@ -3049,6 +3049,46 @@ bool LiberaBrilliancePlus::is_DisableAllSignals_allowed(TANGO_UNUSED(const CORBA
 	return true;
 }
 
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_EnablePM_allowed()
+ *	Description : Execution allowed for EnablePM attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_EnablePM_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::UNKNOWN ||
+		get_state()==Tango::FAULT)
+	{
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::EnablePMStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::EnablePMStateAllowed
+		return false;
+	}
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : LiberaBrilliancePlus::is_DisablePM_allowed()
+ *	Description : Execution allowed for DisablePM attribute
+ */
+//--------------------------------------------------------
+bool LiberaBrilliancePlus::is_DisablePM_allowed(TANGO_UNUSED(const CORBA::Any &any))
+{
+	//	Compare device state with not allowed states.
+	if (get_state()==Tango::UNKNOWN ||
+		get_state()==Tango::FAULT)
+	{
+	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::DisablePMStateAllowed) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::DisablePMStateAllowed
+		return false;
+	}
+	return true;
+}
+
 
 /*----- PROTECTED REGION ID(LiberaBrilliancePlus::LiberaBrilliancePlusStateAllowed.AdditionalMethods) ENABLED START -----*/
 

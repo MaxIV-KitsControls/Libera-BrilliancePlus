@@ -272,6 +272,10 @@ public:
 	//	InterlockGainDependentThreshold:	Sets the threshold for gain dependent mode of Interlock 
 	//  operation.
 	Tango::DevLong	interlockGainDependentThreshold;
+	//	EnablePM:	Enables/disables the Post Mortem signal
+	Tango::DevBoolean	enablePM;
+	//	EnableFA:	Specifies whether or not the FA data source should be enabled at startup. Defaults to false.
+	Tango::DevBoolean	enableFA;
 
 //	Attribute data members
 public:
@@ -491,7 +495,8 @@ public:
 	virtual bool is_DDEnabled_allowed(Tango::AttReqType type);
 /**
  *	Attribute DDBufferSize related methods
- *	Description: The number of samples to be read on DD data source.\nInfluences the size of the associated attributes [such as XPosDD for instance].
+ *	Description: The number of samples to be read on DD data source.
+ *               Influences the size of the associated attributes [such as XPosDD for instance].
  *
  *	Data type:	Tango::DevLong
  *	Attr type:	Scalar
@@ -2033,6 +2038,20 @@ public:
 	 */
 	virtual void disable_all_signals();
 	virtual bool is_DisableAllSignals_allowed(const CORBA::Any &any);
+	/**
+	 *	Command EnablePM related method
+	 *	Description: Enables the so called Post Mortem data source
+	 *
+	 */
+	virtual void enable_pm();
+	virtual bool is_EnablePM_allowed(const CORBA::Any &any);
+	/**
+	 *	Command DisablePM related method
+	 *	Description: Disables the so called Post Mortem data source
+	 *
+	 */
+	virtual void disable_pm();
+	virtual bool is_DisablePM_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------
