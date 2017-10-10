@@ -6060,10 +6060,10 @@ std::string LiberaBrilliancePlus::set_interlock_status()
 
 void LiberaBrilliancePlus::init_settings()
 {
-  
+
 	try
 	{
-    //Signals initialization
+    //Signals initialization  
     enableADC ? enable_adc() : disable_adc(); //m_signal
     enableSA ? enable_sa() : disable_sa(); //m_signalSA
     enableFA ? enable_fa() : disable_fa(); //m_signalFA
