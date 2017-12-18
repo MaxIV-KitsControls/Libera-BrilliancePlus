@@ -279,12 +279,6 @@ public:
 
 //	Attribute data members
 public:
-	Tango::DevBoolean	*attr_DDEnabled_read;
-	Tango::DevLong	*attr_DDBufferSize_read;
-	Tango::DevUShort	*attr_DDDecimationFactor_read;
-	Tango::DevLong	*attr_DDTriggerOffset_read;
-	Tango::DevBoolean	*attr_DDBufferFreezingEnabled_read;
-	Tango::DevBoolean	*attr_DDBufferFrozen_read;
 	Tango::DevLong	*attr_ExternalTriggerDelay_read;
 	Tango::DevBoolean	*attr_SAEnabled_read;
 	Tango::DevDouble	*attr_VaSA_read;
@@ -303,8 +297,6 @@ public:
 	Tango::DevDouble	*attr_XPeakPosSA_read;
 	Tango::DevDouble	*attr_YPeakPosSA_read;
 	Tango::DevDouble	*attr_SumMeanSA_read;
-	Tango::DevBoolean	*attr_ADCEnabled_read;
-	Tango::DevLong	*attr_ADCBufferSize_read;
 	Tango::DevLong	*attr_PMOffset_read;
 	Tango::DevBoolean	*attr_PMNotified_read;
 	Tango::DevBoolean	*attr_InterlockXNotified_read;
@@ -332,13 +324,6 @@ public:
 	Tango::DevDouble	*attr_Ky_read;
 	Tango::DevDouble	*attr_XOffset_read;
 	Tango::DevDouble	*attr_YOffset_read;
-	Tango::DevBoolean	*attr_TDEnabled_read;
-	Tango::DevLong	*attr_TDBufferSize_read;
-	Tango::DevUShort	*attr_TDDecimationFactor_read;
-	Tango::DevLong	*attr_TDTriggerOffset_read;
-	Tango::DevBoolean	*attr_TDBufferFreezingEnabled_read;
-	Tango::DevBoolean	*attr_TDBufferFrozen_read;
-	Tango::DevLong	*attr_TDTriggerCounter_read;
 	Tango::DevDouble	*attr_Ks_read;
 	Tango::DevDouble	*attr_QOffset_read;
 	Tango::DevDouble	*attr_SOffset_read;
@@ -347,74 +332,18 @@ public:
 	Tango::DevLong	*attr_SPThreshold_read;
 	Tango::DevLong	*attr_SPnBefore_read;
 	Tango::DevLong	*attr_SPnAfter_read;
-	Tango::DevBoolean	*attr_SPEnabled_read;
 	Tango::DevLong	*attr_SPBufferSize_read;
 	Tango::DevLong	*attr_PMBufferSize_read;
 	Tango::DevShort	*attr_PMSource_read;
 	Tango::DevLong	*attr_SynchronizeLMT_read;
 	Tango::DevLong	*attr_InterlockFilterOverflow_read;
 	Tango::DevLong	*attr_InterlockFilterPosition_read;
-	Tango::DevDouble	*attr_SumSP_read;
-	Tango::DevDouble	*attr_VbSP_read;
-	Tango::DevDouble	*attr_VcSP_read;
-	Tango::DevDouble	*attr_VdSP_read;
-	Tango::DevDouble	*attr_XPosSP_read;
-	Tango::DevDouble	*attr_YPosSP_read;
 	Tango::DevDouble	*attr_ThdrId_read;
-	Tango::DevDouble	*attr_VaSP_read;
-	Tango::DevBoolean	*attr_FAEnabled_read;
-	Tango::DevLong	*attr_FAStatNumSamples_read;
-	Tango::DevDouble	*attr_XPosDD_read;
-	Tango::DevDouble	*attr_YPosDD_read;
-	Tango::DevDouble	*attr_QuadDD_read;
-	Tango::DevDouble	*attr_SumDD_read;
-	Tango::DevDouble	*attr_VaDD_read;
-	Tango::DevDouble	*attr_VbDD_read;
-	Tango::DevDouble	*attr_VcDD_read;
-	Tango::DevDouble	*attr_VdDD_read;
 	Tango::DevDouble	*attr_XPosSAHistory_read;
 	Tango::DevDouble	*attr_YPosSAHistory_read;
 	Tango::DevDouble	*attr_SumSAHistory_read;
-	Tango::DevDouble	*attr_XPosPM_read;
-	Tango::DevDouble	*attr_YPosPM_read;
-	Tango::DevDouble	*attr_QuadPM_read;
-	Tango::DevDouble	*attr_SumPM_read;
-	Tango::DevDouble	*attr_VaPM_read;
-	Tango::DevDouble	*attr_VbPM_read;
-	Tango::DevDouble	*attr_VcPM_read;
-	Tango::DevDouble	*attr_VdPM_read;
-	Tango::DevShort	*attr_ADCChannelA_read;
-	Tango::DevShort	*attr_ADCChannelB_read;
-	Tango::DevShort	*attr_ADCChannelC_read;
-	Tango::DevShort	*attr_ADCChannelD_read;
-	Tango::DevDouble	*attr_IaDD_read;
-	Tango::DevDouble	*attr_IbDD_read;
-	Tango::DevDouble	*attr_IcDD_read;
-	Tango::DevDouble	*attr_IdDD_read;
-	Tango::DevDouble	*attr_QaDD_read;
-	Tango::DevDouble	*attr_QbDD_read;
-	Tango::DevDouble	*attr_QcDD_read;
-	Tango::DevDouble	*attr_QdDD_read;
 	Tango::DevShort	*attr_UserData_read;
 	Tango::DevString	*attr_logs_read;
-	Tango::DevDouble	*attr_XPosTD_read;
-	Tango::DevDouble	*attr_YPosTD_read;
-	Tango::DevDouble	*attr_QuadTD_read;
-	Tango::DevDouble	*attr_SumTD_read;
-	Tango::DevDouble	*attr_VaTD_read;
-	Tango::DevDouble	*attr_VbTD_read;
-	Tango::DevDouble	*attr_VcTD_read;
-	Tango::DevDouble	*attr_VdTD_read;
-	Tango::DevDouble	*attr_VaFA_read;
-	Tango::DevDouble	*attr_VbFA_read;
-	Tango::DevDouble	*attr_VcFA_read;
-	Tango::DevDouble	*attr_VdFA_read;
-	Tango::DevDouble	*attr_XPosFA_read;
-	Tango::DevDouble	*attr_SumFA_read;
-	Tango::DevDouble	*attr_QuadFA_read;
-	Tango::DevDouble	*attr_YPosFA_read;
-	Tango::DevDouble	*attr_lmt_hFA_read;
-	Tango::DevDouble	*attr_lmt_lFA_read;
 
 //	Constructors and destructors
 public:
@@ -483,65 +412,6 @@ public:
 	//--------------------------------------------------------
 	virtual void write_attr_hardware(vector<long> &attr_list);
 
-/**
- *	Attribute DDEnabled related methods
- *	Description: DD data source activation flag
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_DDEnabled(Tango::Attribute &attr);
-	virtual void write_DDEnabled(Tango::WAttribute &attr);
-	virtual bool is_DDEnabled_allowed(Tango::AttReqType type);
-/**
- *	Attribute DDBufferSize related methods
- *	Description: The number of samples to be read on DD data source.
- *               Influences the size of the associated attributes [such as XPosDD for instance].
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_DDBufferSize(Tango::Attribute &attr);
-	virtual void write_DDBufferSize(Tango::WAttribute &attr);
-	virtual bool is_DDBufferSize_allowed(Tango::AttReqType type);
-/**
- *	Attribute DDDecimationFactor related methods
- *	Description: The DD decimation factor
- *
- *	Data type:	Tango::DevUShort
- *	Attr type:	Scalar
- */
-	virtual void read_DDDecimationFactor(Tango::Attribute &attr);
-	virtual void write_DDDecimationFactor(Tango::WAttribute &attr);
-	virtual bool is_DDDecimationFactor_allowed(Tango::AttReqType type);
-/**
- *	Attribute DDTriggerOffset related methods
- *	Description: DD data offset in num. of turns
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_DDTriggerOffset(Tango::Attribute &attr);
-	virtual void write_DDTriggerOffset(Tango::WAttribute &attr);
-	virtual bool is_DDTriggerOffset_allowed(Tango::AttReqType type);
-/**
- *	Attribute DDBufferFreezingEnabled related methods
- *	Description: DD buffer freezing activation flag
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_DDBufferFreezingEnabled(Tango::Attribute &attr);
-	virtual bool is_DDBufferFreezingEnabled_allowed(Tango::AttReqType type);
-/**
- *	Attribute DDBufferFrozen related methods
- *	Description: DD buffer status
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_DDBufferFrozen(Tango::Attribute &attr);
-	virtual bool is_DDBufferFrozen_allowed(Tango::AttReqType type);
 /**
  *	Attribute ExternalTriggerDelay related methods
  *	Description: Sets the delay on the external trigger arrival. 
@@ -708,27 +578,6 @@ public:
  */
 	virtual void read_SumMeanSA(Tango::Attribute &attr);
 	virtual bool is_SumMeanSA_allowed(Tango::AttReqType type);
-/**
- *	Attribute ADCEnabled related methods
- *	Description: ADC data source activation flag
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_ADCEnabled(Tango::Attribute &attr);
-	virtual void write_ADCEnabled(Tango::WAttribute &attr);
-	virtual bool is_ADCEnabled_allowed(Tango::AttReqType type);
-/**
- *	Attribute ADCBufferSize related methods
- *	Description: The number of samples to be read on ADC data source.
- *               Influences the size of the associated attributes [such as ADCChannelA for instance].
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_ADCBufferSize(Tango::Attribute &attr);
-	virtual void write_ADCBufferSize(Tango::WAttribute &attr);
-	virtual bool is_ADCBufferSize_allowed(Tango::AttReqType type);
 /**
  *	Attribute PMOffset related methods
  *	Description: Offset relative to the post mortem event setting. 
@@ -1002,74 +851,6 @@ public:
 	virtual void write_YOffset(Tango::WAttribute &attr);
 	virtual bool is_YOffset_allowed(Tango::AttReqType type);
 /**
- *	Attribute TDEnabled related methods
- *	Description: TD data source activation flag
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_TDEnabled(Tango::Attribute &attr);
-	virtual void write_TDEnabled(Tango::WAttribute &attr);
-	virtual bool is_TDEnabled_allowed(Tango::AttReqType type);
-/**
- *	Attribute TDBufferSize related methods
- *	Description: The number of samples to be read on TD data source.
- *               Influences the size of the associated attributes [such as XPosTD for instance].
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_TDBufferSize(Tango::Attribute &attr);
-	virtual void write_TDBufferSize(Tango::WAttribute &attr);
-	virtual bool is_TDBufferSize_allowed(Tango::AttReqType type);
-/**
- *	Attribute TDDecimationFactor related methods
- *	Description: The TD decimation factor
- *
- *	Data type:	Tango::DevUShort
- *	Attr type:	Scalar
- */
-	virtual void read_TDDecimationFactor(Tango::Attribute &attr);
-	virtual void write_TDDecimationFactor(Tango::WAttribute &attr);
-	virtual bool is_TDDecimationFactor_allowed(Tango::AttReqType type);
-/**
- *	Attribute TDTriggerOffset related methods
- *	Description: TD data offset in num. of turns
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_TDTriggerOffset(Tango::Attribute &attr);
-	virtual void write_TDTriggerOffset(Tango::WAttribute &attr);
-	virtual bool is_TDTriggerOffset_allowed(Tango::AttReqType type);
-/**
- *	Attribute TDBufferFreezingEnabled related methods
- *	Description: TD buffer freezing activation flag
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_TDBufferFreezingEnabled(Tango::Attribute &attr);
-	virtual bool is_TDBufferFreezingEnabled_allowed(Tango::AttReqType type);
-/**
- *	Attribute TDBufferFrozen related methods
- *	Description: TD buffer status
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_TDBufferFrozen(Tango::Attribute &attr);
-	virtual bool is_TDBufferFrozen_allowed(Tango::AttReqType type);
-/**
- *	Attribute TDTriggerCounter related methods
- *	Description: Number of trigger notifications received since last device <init>
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_TDTriggerCounter(Tango::Attribute &attr);
-	virtual bool is_TDTriggerCounter_allowed(Tango::AttReqType type);
-/**
  *	Attribute Ks related methods
  *	Description: Coefficient for SUM value. Default setting is 67108864.
  *
@@ -1148,16 +929,6 @@ public:
 	virtual void write_SPnAfter(Tango::WAttribute &attr);
 	virtual bool is_SPnAfter_allowed(Tango::AttReqType type);
 /**
- *	Attribute SPEnabled related methods
- *	Description: Single Pass data source activation flag
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_SPEnabled(Tango::Attribute &attr);
-	virtual void write_SPEnabled(Tango::WAttribute &attr);
-	virtual bool is_SPEnabled_allowed(Tango::AttReqType type);
-/**
  *	Attribute SPBufferSize related methods
  *	Description: The number of samples to be read on Single Pass data source.
  *
@@ -1217,60 +988,6 @@ public:
 	virtual void write_InterlockFilterPosition(Tango::WAttribute &attr);
 	virtual bool is_InterlockFilterPosition_allowed(Tango::AttReqType type);
 /**
- *	Attribute SumSP related methods
- *	Description: Single Pass data: Sum
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_SumSP(Tango::Attribute &attr);
-	virtual bool is_SumSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VbSP related methods
- *	Description: Single Pass data: Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_VbSP(Tango::Attribute &attr);
-	virtual bool is_VbSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VcSP related methods
- *	Description: Single Pass data: Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_VcSP(Tango::Attribute &attr);
-	virtual bool is_VcSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute VdSP related methods
- *	Description: Single Pass data: Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_VdSP(Tango::Attribute &attr);
-	virtual bool is_VdSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute XPosSP related methods
- *	Description: Single Pass data: X Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_XPosSP(Tango::Attribute &attr);
-	virtual bool is_XPosSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute YPosSP related methods
- *	Description: Single Pass data: Y Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_YPosSP(Tango::Attribute &attr);
-	virtual bool is_YPosSP_allowed(Tango::AttReqType type);
-/**
  *	Attribute ThdrId related methods
  *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
  *
@@ -1279,109 +996,6 @@ public:
  */
 	virtual void read_ThdrId(Tango::Attribute &attr);
 	virtual bool is_ThdrId_allowed(Tango::AttReqType type);
-/**
- *	Attribute VaSP related methods
- *	Description: Single Pass data: Va
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_VaSP(Tango::Attribute &attr);
-	virtual bool is_VaSP_allowed(Tango::AttReqType type);
-/**
- *	Attribute FAEnabled related methods
- *	Description: FA data source activation flag
- *
- *	Data type:	Tango::DevBoolean
- *	Attr type:	Scalar
- */
-	virtual void read_FAEnabled(Tango::Attribute &attr);
-	virtual void write_FAEnabled(Tango::WAttribute &attr);
-	virtual bool is_FAEnabled_allowed(Tango::AttReqType type);
-/**
- *	Attribute FAStatNumSamples related methods
- *	Description: The number of sample in FA history used to compute the FA statistics
- *               (Mean, RMS, Peak pos). The most recent samples will be used.
- *               The valid range is [2, FAHistoryLength property value].
- *
- *	Data type:	Tango::DevLong
- *	Attr type:	Scalar
- */
-	virtual void read_FAStatNumSamples(Tango::Attribute &attr);
-	virtual void write_FAStatNumSamples(Tango::WAttribute &attr);
-	virtual bool is_FAStatNumSamples_allowed(Tango::AttReqType type);
-/**
- *	Attribute XPosDD related methods
- *	Description: Turn by turn data: X Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_XPosDD(Tango::Attribute &attr);
-	virtual bool is_XPosDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute YPosDD related methods
- *	Description: Turn by turn data: Y Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_YPosDD(Tango::Attribute &attr);
-	virtual bool is_YPosDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute QuadDD related methods
- *	Description: Turn by turn data: Quad
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_QuadDD(Tango::Attribute &attr);
-	virtual bool is_QuadDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute SumDD related methods
- *	Description: Turn by turn data: Sum
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_SumDD(Tango::Attribute &attr);
-	virtual bool is_SumDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VaDD related methods
- *	Description: Turn by turn data: Va
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VaDD(Tango::Attribute &attr);
-	virtual bool is_VaDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VbDD related methods
- *	Description: Turn by turn data: Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VbDD(Tango::Attribute &attr);
-	virtual bool is_VbDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VcDD related methods
- *	Description: Turn by turn data: Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VcDD(Tango::Attribute &attr);
-	virtual bool is_VcDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VdDD related methods
- *	Description: Turn by turn data: Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VdDD(Tango::Attribute &attr);
-	virtual bool is_VdDD_allowed(Tango::AttReqType type);
 /**
  *	Attribute XPosSAHistory related methods
  *	Description: Slow Acquisition: X scrolling window of last NumSamples 
@@ -1413,186 +1027,6 @@ public:
 	virtual void read_SumSAHistory(Tango::Attribute &attr);
 	virtual bool is_SumSAHistory_allowed(Tango::AttReqType type);
 /**
- *	Attribute XPosPM related methods
- *	Description: Post Mortem : X pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_XPosPM(Tango::Attribute &attr);
-	virtual bool is_XPosPM_allowed(Tango::AttReqType type);
-/**
- *	Attribute YPosPM related methods
- *	Description: Post Mortem : Y pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_YPosPM(Tango::Attribute &attr);
-	virtual bool is_YPosPM_allowed(Tango::AttReqType type);
-/**
- *	Attribute QuadPM related methods
- *	Description: Post Mortem : Quad
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_QuadPM(Tango::Attribute &attr);
-	virtual bool is_QuadPM_allowed(Tango::AttReqType type);
-/**
- *	Attribute SumPM related methods
- *	Description: Post Mortem : Sum
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_SumPM(Tango::Attribute &attr);
-	virtual bool is_SumPM_allowed(Tango::AttReqType type);
-/**
- *	Attribute VaPM related methods
- *	Description: Post Mortem : Va
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_VaPM(Tango::Attribute &attr);
-	virtual bool is_VaPM_allowed(Tango::AttReqType type);
-/**
- *	Attribute VbPM related methods
- *	Description: Post Mortem : Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_VbPM(Tango::Attribute &attr);
-	virtual bool is_VbPM_allowed(Tango::AttReqType type);
-/**
- *	Attribute VcPM related methods
- *	Description: Post Mortem : Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_VcPM(Tango::Attribute &attr);
-	virtual bool is_VcPM_allowed(Tango::AttReqType type);
-/**
- *	Attribute VdPM related methods
- *	Description: Post Mortem : Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 16384
- */
-	virtual void read_VdPM(Tango::Attribute &attr);
-	virtual bool is_VdPM_allowed(Tango::AttReqType type);
-/**
- *	Attribute ADCChannelA related methods
- *	Description: ADC values for pickup A
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_ADCChannelA(Tango::Attribute &attr);
-	virtual bool is_ADCChannelA_allowed(Tango::AttReqType type);
-/**
- *	Attribute ADCChannelB related methods
- *	Description: ADC values for pickup B
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_ADCChannelB(Tango::Attribute &attr);
-	virtual bool is_ADCChannelB_allowed(Tango::AttReqType type);
-/**
- *	Attribute ADCChannelC related methods
- *	Description: ADC values for pickup C
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_ADCChannelC(Tango::Attribute &attr);
-	virtual bool is_ADCChannelC_allowed(Tango::AttReqType type);
-/**
- *	Attribute ADCChannelD related methods
- *	Description: ADC values for pickup D
- *
- *	Data type:	Tango::DevShort
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_ADCChannelD(Tango::Attribute &attr);
-	virtual bool is_ADCChannelD_allowed(Tango::AttReqType type);
-/**
- *	Attribute IaDD related methods
- *	Description: Turn by turn data: Ia
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_IaDD(Tango::Attribute &attr);
-	virtual bool is_IaDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute IbDD related methods
- *	Description: Turn by turn data: Ib
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_IbDD(Tango::Attribute &attr);
-	virtual bool is_IbDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute IcDD related methods
- *	Description: Turn by turn data: Ic
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_IcDD(Tango::Attribute &attr);
-	virtual bool is_IcDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute IdDD related methods
- *	Description: Turn by turn data: Id
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_IdDD(Tango::Attribute &attr);
-	virtual bool is_IdDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute QaDD related methods
- *	Description: Turn by turn data: Qa
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_QaDD(Tango::Attribute &attr);
-	virtual bool is_QaDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute QbDD related methods
- *	Description: Turn by turn data: Qb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_QbDD(Tango::Attribute &attr);
-	virtual bool is_QbDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute QcDD related methods
- *	Description: Turn by turn data: Qc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_QcDD(Tango::Attribute &attr);
-	virtual bool is_QcDD_allowed(Tango::AttReqType type);
-/**
- *	Attribute QdDD related methods
- *	Description: Turn by turn data: Qd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_QdDD(Tango::Attribute &attr);
-	virtual bool is_QdDD_allowed(Tango::AttReqType type);
-/**
  *	Attribute UserData related methods
  *	Description: User defined data
  *
@@ -1610,168 +1044,6 @@ public:
  */
 	virtual void read_logs(Tango::Attribute &attr);
 	virtual bool is_logs_allowed(Tango::AttReqType type);
-/**
- *	Attribute XPosTD related methods
- *	Description: Turn by turn data: X Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_XPosTD(Tango::Attribute &attr);
-	virtual bool is_XPosTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute YPosTD related methods
- *	Description: Turn by turn data: Y Pos.
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_YPosTD(Tango::Attribute &attr);
-	virtual bool is_YPosTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute QuadTD related methods
- *	Description: Turn by turn data: Quad
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_QuadTD(Tango::Attribute &attr);
-	virtual bool is_QuadTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute SumTD related methods
- *	Description: Turn by turn data: Sum
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_SumTD(Tango::Attribute &attr);
-	virtual bool is_SumTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VaTD related methods
- *	Description: Turn by turn data: Va
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VaTD(Tango::Attribute &attr);
-	virtual bool is_VaTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VbTD related methods
- *	Description: Turn by turn data: Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VbTD(Tango::Attribute &attr);
-	virtual bool is_VbTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VcTD related methods
- *	Description: Turn by turn data: Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VcTD(Tango::Attribute &attr);
-	virtual bool is_VcTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VdTD related methods
- *	Description: Turn by turn data: Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VdTD(Tango::Attribute &attr);
-	virtual bool is_VdTD_allowed(Tango::AttReqType type);
-/**
- *	Attribute VaFA related methods
- *	Description: Slow Acquisition: Fa
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VaFA(Tango::Attribute &attr);
-	virtual bool is_VaFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute VbFA related methods
- *	Description: Fast Acquisition: Vb
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VbFA(Tango::Attribute &attr);
-	virtual bool is_VbFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute VcFA related methods
- *	Description: Fast Acquisition: Vc
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VcFA(Tango::Attribute &attr);
-	virtual bool is_VcFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute VdFA related methods
- *	Description: Fast Acquisition: Vd
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_VdFA(Tango::Attribute &attr);
-	virtual bool is_VdFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute XPosFA related methods
- *	Description: Fast Acquisition: X
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_XPosFA(Tango::Attribute &attr);
-	virtual bool is_XPosFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute SumFA related methods
- *	Description: Fast Acquisition: Sum
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_SumFA(Tango::Attribute &attr);
-	virtual bool is_SumFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute QuadFA related methods
- *	Description: Fast Acquisition: Quad
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_QuadFA(Tango::Attribute &attr);
-	virtual bool is_QuadFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute YPosFA related methods
- *	Description: Fast Acquisition: Y
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_YPosFA(Tango::Attribute &attr);
-	virtual bool is_YPosFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute lmt_hFA related methods
- *	Description: Fast Acquisition: Y
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_lmt_hFA(Tango::Attribute &attr);
-	virtual bool is_lmt_hFA_allowed(Tango::AttReqType type);
-/**
- *	Attribute lmt_lFA related methods
- *	Description: Fast Acquisition: Y
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Spectrum max = 250000
- */
-	virtual void read_lmt_lFA(Tango::Attribute &attr);
-	virtual bool is_lmt_lFA_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
@@ -1810,41 +1082,6 @@ public:
 	virtual Tango::DevVarDoubleStringArray *get_parameters();
 	virtual bool is_GetParameters_allowed(const CORBA::Any &any);
 	/**
-	 *	Command UnfreezeDDBuffer related method
-	 *	Description: Unfreezes the DD buffer
-	 *
-	 */
-	virtual void unfreeze_ddbuffer();
-	virtual bool is_UnfreezeDDBuffer_allowed(const CORBA::Any &any);
-	/**
-	 *	Command EnableDDBufferFreezing related method
-	 *	Description: Enables the DD buffer freezing mechanism
-	 *
-	 */
-	virtual void enable_ddbuffer_freezing();
-	virtual bool is_EnableDDBufferFreezing_allowed(const CORBA::Any &any);
-	/**
-	 *	Command DisableDDBufferFreezing related method
-	 *	Description: Disables the DD buffer freezing mechanism
-	 *
-	 */
-	virtual void disable_ddbuffer_freezing();
-	virtual bool is_DisableDDBufferFreezing_allowed(const CORBA::Any &any);
-	/**
-	 *	Command EnableDD related method
-	 *	Description: Enables the so called "data on demand" (i.e. first turns) data source
-	 *
-	 */
-	virtual void enable_dd();
-	virtual bool is_EnableDD_allowed(const CORBA::Any &any);
-	/**
-	 *	Command DisableDD related method
-	 *	Description: Disables the so called "data on demand" (i.e. first turns) data source
-	 *
-	 */
-	virtual void disable_dd();
-	virtual bool is_DisableDD_allowed(const CORBA::Any &any);
-	/**
 	 *	Command EnableSA related method
 	 *	Description: Enables the so called "slow acquisition" data source
 	 *
@@ -1881,44 +1118,12 @@ public:
 	virtual void set_interlock_configuration();
 	virtual bool is_SetInterlockConfiguration_allowed(const CORBA::Any &any);
 	/**
-	 *	Command EnableADC related method
-	 *	Description: Enables the so called ADC data source
-	 *
-	 */
-	virtual void enable_adc();
-	virtual bool is_EnableADC_allowed(const CORBA::Any &any);
-	/**
-	 *	Command DisableADC related method
-	 *	Description: Disables the so called ADC data source
-	 *
-	 */
-	virtual void disable_adc();
-	virtual bool is_DisableADC_allowed(const CORBA::Any &any);
-	/**
 	 *	Command SetTimeOnNextTrigger related method
 	 *	Description: Applies both machine et system time values on next trigger
 	 *
 	 */
 	virtual void set_time_on_next_trigger();
 	virtual bool is_SetTimeOnNextTrigger_allowed(const CORBA::Any &any);
-	/**
-	 *	Command ReadFAData related method
-	 *	Description: Statring from[offest] in FA data block, reads [size of elems] * [num of elems] bytes.
-	 *
-	 *	@param argin The reading parameters: [0]:offset in FA data block, [1]:size of elems, [2]:num of elems
-	 *	@returns The data [as an array of bytes]
-	 */
-	virtual Tango::DevVarLongArray *read_fadata(const Tango::DevVarLongArray *argin);
-	virtual bool is_ReadFAData_allowed(const CORBA::Any &any);
-	/**
-	 *	Command WriteFAData related method
-	 *	Description: Starting from [offset] in Fa data block, writes [size of elems * num of elems].
-	 *               The actual data to be written starts at index [4] in the input array.
-	 *
-	 *	@param argin The writting parameters: [0]:offset in FA data block, bytes[1]:size of elems, [2]:num of elems, [3, ...]: actual to data to be written
-	 */
-	virtual void write_fadata(const Tango::DevVarLongArray *argin);
-	virtual bool is_WriteFAData_allowed(const CORBA::Any &any);
 	/**
 	 *	Command SaveDSCParameters related method
 	 *	Description: Saves the current DSC parameters
@@ -1950,55 +1155,6 @@ public:
 	virtual Tango::DevVarStringArray *magic_command(Tango::DevString argin);
 	virtual bool is_MagicCommand_allowed(const CORBA::Any &any);
 	/**
-	 *	Command EnableTDBufferFreezing related method
-	 *	Description: Enables the TD buffer freezing mechanism
-	 *
-	 */
-	virtual void enable_tdbuffer_freezing();
-	virtual bool is_EnableTDBufferFreezing_allowed(const CORBA::Any &any);
-	/**
-	 *	Command DisableTDBufferFreezing related method
-	 *	Description: Disables the TD buffer freezing mechanism
-	 *
-	 */
-	virtual void disable_tdbuffer_freezing();
-	virtual bool is_DisableTDBufferFreezing_allowed(const CORBA::Any &any);
-	/**
-	 *	Command EnableTD related method
-	 *	Description: Enables the so called ``data on demand`` (i.e. first turns) data source
-	 *
-	 */
-	virtual void enable_td();
-	virtual bool is_EnableTD_allowed(const CORBA::Any &any);
-	/**
-	 *	Command DisableTD related method
-	 *	Description: Disables the so called ``data on demand`` (i.e. first turns) data source
-	 *
-	 */
-	virtual void disable_td();
-	virtual bool is_DisableTD_allowed(const CORBA::Any &any);
-	/**
-	 *	Command UnfreezeTDBuffer related method
-	 *	Description: Unfreezes the TD buffer
-	 *
-	 */
-	virtual void unfreeze_tdbuffer();
-	virtual bool is_UnfreezeTDBuffer_allowed(const CORBA::Any &any);
-	/**
-	 *	Command EnableSP related method
-	 *	Description: Enables the Single Pass data source
-	 *
-	 */
-	virtual void enable_sp();
-	virtual bool is_EnableSP_allowed(const CORBA::Any &any);
-	/**
-	 *	Command DisableSP related method
-	 *	Description: Disables the Single Pass data source
-	 *
-	 */
-	virtual void disable_sp();
-	virtual bool is_DisableSP_allowed(const CORBA::Any &any);
-	/**
 	 *	Command ForceInitSettings related method
 	 *	Description: Initializing Libera Default Settings (Based to the properties) without performing init_device
 	 *
@@ -2018,40 +1174,12 @@ public:
 	virtual void set_trace_level(Tango::DevUShort argin);
 	virtual bool is_SetTraceLevel_allowed(const CORBA::Any &any);
 	/**
-	 *	Command EnableFA related method
-	 *	Description: Enables the so called ``fast acquisition`` data source
-	 *
-	 */
-	virtual void enable_fa();
-	virtual bool is_EnableFA_allowed(const CORBA::Any &any);
-	/**
-	 *	Command DisableFA related method
-	 *	Description: Disables the so called ``fast acquisition`` data source
-	 *
-	 */
-	virtual void disable_fa();
-	virtual bool is_DisableFA_allowed(const CORBA::Any &any);
-	/**
 	 *	Command DisableAllSignals related method
 	 *	Description: Disables All the Signals.
 	 *
 	 */
 	virtual void disable_all_signals();
 	virtual bool is_DisableAllSignals_allowed(const CORBA::Any &any);
-	/**
-	 *	Command EnablePM related method
-	 *	Description: Enables the so called Post Mortem data source
-	 *
-	 */
-	virtual void enable_pm();
-	virtual bool is_EnablePM_allowed(const CORBA::Any &any);
-	/**
-	 *	Command DisablePM related method
-	 *	Description: Disables the so called Post Mortem data source
-	 *
-	 */
-	virtual void disable_pm();
-	virtual bool is_DisablePM_allowed(const CORBA::Any &any);
 
 
 	//--------------------------------------------------------
