@@ -21,7 +21,7 @@
 #=============================================================================
 # MAKE_ENV is the path to find common environment to buil project
 #
-MAKE_ENV = /usr/share/pogo/preferences
+MAKE_ENV = $(TANGO_HOME)/share/pogo/preferences
 
 #=============================================================================
 # PACKAGE_NAME is the name of the library/device/exe you want to build
@@ -30,7 +30,7 @@ PACKAGE_NAME = LiberaBrilliancePlus
 MAJOR_VERS   = 1
 MINOR_VERS   = 3
 RELEASE      = Release_$(MAJOR_VERS)_$(MINOR_VERS)
-LIBERA_VERSION = 2.9
+LIBERA_VERSION = 3.2
 
 # #=============================================================================
 # # RELEASE_TYPE
@@ -86,7 +86,7 @@ LIB_DIR_USER= -L /opt/libera/lib
 # 'undefined reference' errors
 #
 #LFLAGS_USR+=
-LFLAGS_USR+= -lliberacommon -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VERSION) -lliberaistd$(LIBERA_VERSION)
+LFLAGS_USR+= -lliberacommon -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VERSION) -lliberaistd$(LIBERA_VERSION) -lliberaisig$(LIBERA_VERSION)
 
 #=============================================================================
 # CXXFLAGS_USR lists the compilation flags specific for your library/device/exe
@@ -154,5 +154,4 @@ ifeq ($(PROJECT_TYPE),DEVICE)
 	mv $(OUTPUT_DIR)/$(PROJECT_NAME) $(INSTALL_DIR)
 	ls -l $(INSTALL_DIR)/$(PROJECT_NAME)
 endif
-
 
