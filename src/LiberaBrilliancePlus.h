@@ -323,7 +323,6 @@ public:
 	Tango::DevLong	*attr_SynchronizeLMT_read;
 	Tango::DevLong	*attr_InterlockFilterOverflow_read;
 	Tango::DevLong	*attr_InterlockFilterPosition_read;
-	Tango::DevDouble	*attr_ThdrId_read;
 	Tango::DevShort	*attr_UserData_read;
 	Tango::DevString	*attr_logs_read;
 	Tango::DevDouble	*attr_XPosTD_read;
@@ -881,15 +880,6 @@ public:
 	virtual void read_InterlockFilterPosition(Tango::Attribute &attr);
 	virtual void write_InterlockFilterPosition(Tango::WAttribute &attr);
 	virtual bool is_InterlockFilterPosition_allowed(Tango::AttReqType type);
-/**
- *	Attribute ThdrId related methods
- *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_ThdrId(Tango::Attribute &attr);
-	virtual bool is_ThdrId_allowed(Tango::AttReqType type);
 /**
  *	Attribute UserData related methods
  *	Description: User defined data

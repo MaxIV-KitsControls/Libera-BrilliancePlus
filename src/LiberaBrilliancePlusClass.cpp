@@ -2997,30 +2997,6 @@ void LiberaBrilliancePlusClass::attribute_factory(vector<Tango::Attr *> &att_lis
 	//	Not Memorized
 	att_list.push_back(interlockfilterposition);
 
-	//	Attribute : ThdrId
-	ThdrIdAttrib	*thdrid = new ThdrIdAttrib();
-	Tango::UserDefaultAttrProp	thdrid_prop;
-	thdrid_prop.set_description("Indicates the ADC sample in the ADC buffer where the threshold was exceeded");
-	thdrid_prop.set_label("SP Thr_Idx");
-	thdrid_prop.set_unit("a.u.");
-	thdrid_prop.set_standard_unit("a.u.");
-	thdrid_prop.set_display_unit("a.u.");
-	thdrid_prop.set_format("%10.0f");
-	//	max_value	not set for ThdrId
-	//	min_value	not set for ThdrId
-	//	max_alarm	not set for ThdrId
-	//	min_alarm	not set for ThdrId
-	//	max_warning	not set for ThdrId
-	//	min_warning	not set for ThdrId
-	//	delta_t	not set for ThdrId
-	//	delta_val	not set for ThdrId
-	
-	thdrid->set_default_properties(thdrid_prop);
-	//	Not Polled
-	thdrid->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(thdrid);
-
 	//	Attribute : UserData
 	UserDataAttrib	*userdata = new UserDataAttrib();
 	Tango::UserDefaultAttrProp	userdata_prop;

@@ -751,19 +751,6 @@ public:
 		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_InterlockFilterPosition_allowed(ty);}
 };
 
-//	Attribute ThdrId class definition
-class ThdrIdAttrib: public Tango::Attr
-{
-public:
-	ThdrIdAttrib():Attr("ThdrId",
-			Tango::DEV_DOUBLE, Tango::READ) {};
-	~ThdrIdAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<LiberaBrilliancePlus *>(dev))->read_ThdrId(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<LiberaBrilliancePlus *>(dev))->is_ThdrId_allowed(ty);}
-};
-
 //	Attribute UserData class definition
 class UserDataAttrib: public Tango::SpectrumAttr
 {

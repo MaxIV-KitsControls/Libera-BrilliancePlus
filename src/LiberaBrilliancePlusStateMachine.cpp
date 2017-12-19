@@ -959,22 +959,6 @@ bool LiberaBrilliancePlus::is_InterlockFilterPosition_allowed(TANGO_UNUSED(Tango
 
 //--------------------------------------------------------
 /**
- *	Method      : LiberaBrilliancePlus::is_ThdrId_allowed()
- *	Description : Execution allowed for ThdrId attribute
- */
-//--------------------------------------------------------
-bool LiberaBrilliancePlus::is_ThdrId_allowed(TANGO_UNUSED(Tango::AttReqType type))
-{
-
-	//	Not any excluded states for ThdrId attribute in read access.
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::ThdrIdStateAllowed_READ) ENABLED START -----*/
-		
-		/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::ThdrIdStateAllowed_READ
-	return true;
-}
-
-//--------------------------------------------------------
-/**
  *	Method      : LiberaBrilliancePlus::is_UserData_allowed()
  *	Description : Execution allowed for UserData attribute
  */

@@ -131,7 +131,6 @@ static const char *RcsId = "$Id:  $";
 //  SynchronizeLMT                   |  Tango::DevLong	Scalar
 //  InterlockFilterOverflow          |  Tango::DevLong	Scalar
 //  InterlockFilterPosition          |  Tango::DevLong	Scalar
-//  ThdrId                           |  Tango::DevDouble	Scalar
 //  UserData                         |  Tango::DevShort	Spectrum  ( max = 256)
 //  logs                             |  Tango::DevString	Spectrum  ( max = 2048)
 //  XPosTD                           |  Tango::DevDouble	Spectrum  ( max = 250000)
@@ -2895,25 +2894,6 @@ void LiberaBrilliancePlus::write_InterlockFilterPosition(Tango::WAttribute &attr
 	m_libera->UpdateScalar(attr_InterlockFilterPosition_read, w_val);
 	
 	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::write_InterlockFilterPosition
-}
-//--------------------------------------------------------
-/**
- *	Read attribute ThdrId related method
- *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::read_ThdrId) ENABLED START -----*/
-	//	Set the attribute value
-
-	attr.set_value(attr_ThdrId_read);
-
-	/*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::read_ThdrId
 }
 //--------------------------------------------------------
 /**
@@ -7261,6 +7241,22 @@ void LiberaBrilliancePlus::init_settings()
 // 	//	Set the attribute value
 // 	attr.set_value(attr_SPBufferSize_read);
 // 	
+// }
+
+// //--------------------------------------------------------
+// /**
+//  *	Read attribute ThdrId related method
+//  *	Description: Indicates the ADC sample in the ADC buffer where the threshold was exceeded
+//  *
+//  *	Data type:	Tango::DevDouble
+//  *	Attr type:	Scalar
+//  */
+// //--------------------------------------------------------
+// void LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr)
+// {
+// 	DEBUG_STREAM << "LiberaBrilliancePlus::read_ThdrId(Tango::Attribute &attr) entering... " << endl;
+// 	//	Set the attribute value
+// 	attr.set_value(attr_ThdrId_read);
 // }
 
 
