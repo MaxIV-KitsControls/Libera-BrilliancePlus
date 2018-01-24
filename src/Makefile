@@ -65,7 +65,7 @@ OUTPUT_DIR = ./bin/$(BIN_DIR)
 #   - '-I ../include' and '-I .' are automatically appended in all cases
 #
 #
-INC_DIR_USER= -I . -I /usr/include/libera-$(LIBERA_VERSION)
+INC_DIR_USER= -I . -I /usr/include/libera-$(LIBERA_VERSION) -I /usr/include/liberacommon
 
 #=============================================================================
 # LIB_DIR_USER is the list of user library directories
@@ -86,7 +86,7 @@ LIB_DIR_USER= -L /opt/libera/lib
 # 'undefined reference' errors
 #
 #LFLAGS_USR+=
-LFLAGS_USR+= -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VERSION) -lliberaistd$(LIBERA_VERSION)
+LFLAGS_USR+= -lliberacommon -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VERSION) -lliberaistd$(LIBERA_VERSION)
 
 #=============================================================================
 # CXXFLAGS_USR lists the compilation flags specific for your library/device/exe
@@ -129,18 +129,9 @@ SVC_OBJS =      \
         $(OBJDIR)/$(PACKAGE_NAME).o \
         $(OBJDIR)/$(PACKAGE_NAME)Class.o \
         $(OBJDIR)/$(PACKAGE_NAME)StateMachine.o \
-        $(OBJDIR)/ClassFactory.o  \
-        $(OBJDIR)/main.o \
-        $(ADDITIONAL_OBJS) 
-
-
-#------------  Object files for additional files  ------------
-ADDITIONAL_OBJS = \
-            $(OBJDIR)/LiberaClient.o \
-            $(OBJDIR)/LiberaAttr.o   \
-            $(OBJDIR)/LiberaLogsAttr.o   \
-            $(OBJDIR)/LiberaSignal.o     \
-            $(OBJDIR)/LiberaSignalSAHistory.o
+        $(OBJDIR)/ClassFactory.o \
+        $(OBJDIR)/LiberaSignalSAHistory.o \
+        $(OBJDIR)/main.o 
 
 #=============================================================================
 #	include common targets
