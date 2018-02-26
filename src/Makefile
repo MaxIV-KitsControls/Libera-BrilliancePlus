@@ -27,7 +27,7 @@ MAKE_ENV = /usr/share/pogo/preferences
 # PACKAGE_NAME is the name of the library/device/exe you want to build
 #
 PACKAGE_NAME = LiberaBrilliancePlus
-MAJOR_VERS   = 1
+MAJOR_VERS   = 2
 MINOR_VERS   = 3
 RELEASE      = Release_$(MAJOR_VERS)_$(MINOR_VERS)
 LIBERA_VERSION = 2.9
@@ -154,5 +154,3 @@ ifeq ($(PROJECT_TYPE),DEVICE)
 	mv $(OUTPUT_DIR)/$(PROJECT_NAME) $(INSTALL_DIR)
 	ls -l $(INSTALL_DIR)/$(PROJECT_NAME)
 endif
-
-

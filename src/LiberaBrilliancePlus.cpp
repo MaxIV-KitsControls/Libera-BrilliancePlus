@@ -322,27 +322,6 @@ void LiberaBrilliancePlus::init_device()
 	
 	/*----- PROTECTED REGION ID(LiberaBrilliancePlus::init_device) ENABLED START -----*/
 
-	//Set Trace Level Options //TODO refactor.
-
-	//Stop before Set the new values.
-	istd::TraceStop();
-	//Set Level
-	if (errorTrace.empty()) {
-    	istd::TraceInit();
-    	//Set Trace to Off
-    	istd::TraceSetLevel(istd::eTrcOff);
-    }
-    else {
-    	if(errorTrace[0] == 1) {
-        	istd::TraceInit();
-        	istd::TraceSetLevel(static_cast<istd::TraceLevel_e>(errorTrace[1]));
-    	}
-    	else {
-    		istd::TraceInit("LiberaMciTrace.log", "/var/tmp/ds.log");
-        	istd::TraceSetLevel(static_cast<istd::TraceLevel_e>(errorTrace[1]));
-    	}
-    }
-
     if (liberaBoard.empty())
     {
         m_state = Tango::FAULT;
@@ -634,7 +613,7 @@ void LiberaBrilliancePlus::init_device()
 		attr_lmt_lFA_read,
 		attr_lmt_hFA_read);
     m_signalFA->SetPeriod(0); // stream waits in read
-    m_signalDdc->SetMode(isig::eModeStream);
+
     m_signalFA->Enable();
     m_signalFA->SetNotifier(&LiberaBrilliancePlus::_FACallback,
             reinterpret_cast<void*>(this));
@@ -725,8 +704,7 @@ void LiberaBrilliancePlus::init_device()
 
     try
     {
-
-      m_libera->Connect();
+      m_libera->Connect(true);
       m_state = Tango::ON;
       m_status = "Connected to Libera";
 
