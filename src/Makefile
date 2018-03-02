@@ -30,7 +30,7 @@ PACKAGE_NAME = LiberaBrilliancePlus
 MAJOR_VERS   = 1
 MINOR_VERS   = 6
 RELEASE      = Release_$(MAJOR_VERS)_$(MINOR_VERS)
-LIBERA_VERSION = 2.9
+LIBERA_VERSION = $(LIBERA_API)
 
 # #=============================================================================
 # # RELEASE_TYPE
@@ -86,8 +86,11 @@ LIB_DIR_USER= -L /opt/libera/lib
 # 'undefined reference' errors
 #
 #LFLAGS_USR+=
-LFLAGS_USR+= -lliberacommon -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VERSION) -lliberaistd$(LIBERA_VERSION)
-
+ifeq ($(LIBERA_VERSION),2.9)
+	LFLAGS_USR+= -lliberacommon -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VERSION) -lliberaistd$(LIBERA_VERSION)
+else
+	LFLAGS_USR+= -lliberacommon -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VERSION) -lliberaistd$(LIBERA_VERSION) -lliberaisig$(LIBERA_VERSION)
+endif
 #=============================================================================
 # CXXFLAGS_USR lists the compilation flags specific for your library/device/exe
 # This is the place where to put your compile-time macros using '-Dmy_macro'
@@ -95,8 +98,6 @@ LFLAGS_USR+= -lliberacommon -lliberamci$(LIBERA_VERSION) -lliberainet$(LIBERA_VE
 # -DACE_HAS_EXCEPTIONS -D__ACE_INLINE__ for ACE
 #
 CXXFLAGS_USR+= -Wall -std=c++0x -D_GLIBCXX_USE_NANOSLEEP
-
-
 #=============================================================================
 # TANGO_REQUIRED
 # - TRUE  : your project depends on TANGO
@@ -105,8 +106,6 @@ CXXFLAGS_USR+= -Wall -std=c++0x -D_GLIBCXX_USE_NANOSLEEP
 # - NOTE : if PROJECT_TYPE is set to DEVICE, TANGO will be auto. added
 #-----------------------------------------------------------------------------
 TANGO_REQUIRED = TRUE
-
-
 
 #=============================================================================
 #	include Standard TANGO compilation options
@@ -129,8 +128,9 @@ SVC_OBJS =      \
         $(OBJDIR)/$(PACKAGE_NAME).o \
         $(OBJDIR)/$(PACKAGE_NAME)Class.o \
         $(OBJDIR)/$(PACKAGE_NAME)StateMachine.o \
-        $(OBJDIR)/ClassFactory.o  \
-        $(OBJDIR)/main.o \
+        $(OBJDIR)/ClassFactory.o \
+        $(OBJDIR)/LiberaSignalSAHistory.o \
+        $(OBJDIR)/main.o
 
 #=============================================================================
 #	include common targets
