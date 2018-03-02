@@ -50,6 +50,8 @@ int main(int argc,char *argv[])
     mci::Init(argc, argv);*/
 
 
+    try {
+
 	// Initialize MCI layer
 	try {
 		mci::Init();
@@ -60,47 +62,51 @@ int main(int argc,char *argv[])
 		cout << "Exiting" << endl;
 	}
 
-    Tango::Util *tg = NULL;
-	try
-	{
-		// Initialise the device server
-		//----------------------------------------
-		tg = Tango::Util::init(argc,argv);
+        Tango::Util *tg = NULL;
+        try
+        {
+            // Initialise the device server
+            //----------------------------------------
+            tg = Tango::Util::init(argc,argv);
 
-		// Create the device server singleton
-		//	which will create everything
-		//----------------------------------------
-		tg->server_init(false);
+            // Create the device server singleton
+            //	which will create everything
+            //----------------------------------------
+            tg->server_init(false);
 
-		// Run the endless loop
-		//----------------------------------------
-		cout << "Ready to accept request" << endl;
-		tg->server_run();
-	}
-	catch (bad_alloc &)
-	{
-		cout << "Can't allocate memory to store device object !!!" << endl;
-		cout << "Exiting" << endl;
-	}
-	catch (CORBA::Exception &e)
-	{
-		Tango::Except::print_exception(e);
+            // Run the endless loop
+            //----------------------------------------
+            cout << "Ready to accept request" << endl;
+            tg->server_run();
+        }
+        catch (bad_alloc &)
+        {
+            cout << "Can't allocate memory to store device object !!!" << endl;
+            cout << "Exiting" << endl;
+        }
+        catch (CORBA::Exception &e)
+        {
+            Tango::Except::print_exception(e);
 
-		cout << "Received a CORBA_Exception" << endl;
-		cout << "Exiting" << endl;
-	}
-	Tango::Util::instance()->server_cleanup();
+            cout << "Received a CORBA_Exception" << endl;
+            cout << "Exiting" << endl;
+        }
+        Tango::Util::instance()->server_cleanup();
 
 
-	// Destroy MCI layer
-	try {
-		istd::TraceStop();
-		mci::Shutdown();
-	} catch (istd::Exception &e) {
-		cout << "Received a MCI Exception" << endl;
-		cout << "Exiting" << endl;
-	}
-	return(0);
+        // Destroy MCI layer
+        try {
+            istd::TraceStop();
+            mci::Shutdown();
+        } catch (istd::Exception &e) {
+            cout << "Received a MCI Exception" << endl;
+            cout << "Exiting" << endl;
+        }
+    }
+    catch (...) {
+      istd_TRC(istd::eTrcLow, "Received unknown exception")
+    }
+    return(0);
 }
 
 /*----- PROTECTED REGION END -----*/	//	LiberaBrilliancePlus::main.cpp
